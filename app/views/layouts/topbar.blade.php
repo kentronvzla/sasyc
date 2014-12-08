@@ -6,8 +6,48 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{url('')}}"><span>Sasyc</span></a>
+        <a class="navbar-brand" href="{{url('')}}"><span>SASYC</span></a>
 
+        <ul class="collapse navbar-collapse nav navbar-nav top-menu">
+            <li><a href="{{url('usuario/registro')}}"><i class="glyphicon glyphicon-home"></i> Registrarme</a></li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Aten. social y ciudadana <span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Nueva Solicitud</a></li> 
+                    <li><a href="#">Anular Solicitud</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Asig. Dptto</a></li> 
+                    <li class="divider"></li>
+                    <li><a href="#">Modificar Caso</a></li>
+                    <li><a href="#">Cerar Caso</a></li>
+                    <li class="divider"></li>
+                      <li><a href="#">Alarmas Pendientes</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Consulta <span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">General</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Por Beneficio</a></li>
+                    <li><a href="#">Por Solicitud</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Control de Casos</a></li> 
+                    <li><a href="#">Casos por proceso</a></li>
+                </ul>
+            </li>
+             <li class="dropdown">
+                <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-warning-sign"></i> Ayuda <span
+                        ></span></a>
+            </li>
+             <li class="dropdown">
+                <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i> Cerrar Sesión <span
+                        ></span></a>
+            </li>
+        </ul>
+        
         <!-- user dropdown starts -->
         <div class="btn-group pull-right">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -15,30 +55,14 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li>{{HTML::link('usuario/perfil','Mi Perfil')}}</li>
-                <li class="divider"></li>
+                <li>{{HTML::link('usuario/logout','Cambiar Clave')}}</li>
+                <li>{{HTML::link('usuario/logout','Ayuda')}}</li>
                 <li>{{HTML::link('usuario/logout','Cerrar Sesión')}}</li>
+                <li class="divider"></li>
+                <li>{{HTML::link('usuario/perfil','Administracion')}}</li>
             </ul>
         </div>
         <!-- user dropdown ends -->
-
-        <ul class="collapse navbar-collapse nav navbar-nav top-menu">
-            <li><a href="{{url('usuario/registro')}}"><i class="glyphicon glyphicon-globe"></i> Registrarme</a></li>
-            <li><a href="{{url('usuario/login')}}"><i class="glyphicon glyphicon-log-in"></i> Iniciar Sesión</a></li>
-            <li class="dropdown">
-                <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i> Acerca de nosotros <span
-                        class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">One more separated link</a></li>
-                </ul>
-            </li>
-        </ul>
 
     </div>
 </div>

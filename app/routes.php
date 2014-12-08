@@ -20,3 +20,5 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
         
     });
 });
+
+Route::controller('pantallas','PantallasController');
