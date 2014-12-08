@@ -8,7 +8,7 @@
         "doctrine/dbal": "2.3.*",
         "barryvdh/laravel-debugbar": "1.*",
         "barryvdh/laravel-ide-helper": "*",
-        "cartalyst/sentry": "2.1.*",
+        "cartalyst/sentry": "*",
         "yajra/laravel-oci8": "*"
     },
     "autoload": {
