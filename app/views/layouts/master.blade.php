@@ -30,12 +30,21 @@
         </div>
         </noscript>
         @include('layouts.topbar')
-        <div class="container">
+        <div class="ch-container">
             <div class="row">
-                <div>
-                    <div id="content" class="col-lg-12 col-sm-12">
-                        @yield('contenido')
+                <div class="col-sm-2 col-lg-2">
+                    <div class="sidebar-nav">
+                        <div class="nav-canvas">
+                            <div class="nav-sm nav nav-stacked">
+
+                            </div>
+                            <ul class="nav nav-pills nav-stacked main-menu">
+                            </ul>
+                        </div>
                     </div>
+                </div>
+                <div id="content" class="col-lg-12 col-sm-12">
+                    @yield('contenido')
                 </div>
             </div>
             <footer class="row">
