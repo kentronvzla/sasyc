@@ -13,18 +13,22 @@
  */
 class PantallasController extends BaseController{
     
-    public function getConsultasolicitudes(){
-        return View::make('manejosolicitudes.consultasolicanteriores');
+    public function getNuevasolicitud(){
+        return View::make('manejosolicitudes.nuevasolicitud');
     }
     
     public function getBeneficiario(){
-        return View::make('manejosolicitudes.datosbeneficiario');
+        return View::make('manejosolicitudes.beneficiario');
     }
     
-    public function getTabla(){
-        return View::make('manejosolicitudes.tabsolcitudesant');
+    public function getSolicitudesanteriores(){
+        return View::make('manejosolicitudes.solcitudesanteriores');
     }
-    public function getGestionarsolicitud(){
-        return View::make('manejosolicitudes.datosbeneficiario');
+    public function getSolicitud(){
+        return View::make('manejosolicitudes.solicitud');
+    }
+    
+    public function getPlantilla(){
+        return View::make('manejosolicitudes.plantilla');
     }
 }
