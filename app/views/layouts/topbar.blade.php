@@ -42,10 +42,6 @@
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-warning-sign"></i> Ayuda <span
                         ></span></a>
             </li>
-             <li class="dropdown">
-                <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i> Cerrar Sesión <span
-                        ></span></a>
-            </li>
         </ul>
         
         <!-- user dropdown starts -->
