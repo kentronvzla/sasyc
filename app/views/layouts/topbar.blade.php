@@ -59,7 +59,7 @@
                 <li>{{HTML::link('usuario/logout','Ayuda')}}</li>
                 <li>{{HTML::link('usuario/logout','Cerrar Sesión')}}</li>
                 <li class="divider"></li>
-                <li>{{HTML::link('usuario/perfil','Administracion')}}</li>
+                <li>{{HTML::link('administracion/actualizaciones','Administracion')}}</li>
             </ul>
         </div>
         <!-- user dropdown ends -->
