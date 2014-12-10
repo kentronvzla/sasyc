@@ -21,4 +21,7 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
     });
 });
 
+//se coloca afuera porque no se maneja por namespace
+Route::controller('administracion/actualizaciones', 'ActualizacionesController');
+
 Route::controller('pantallas','PantallasController');
