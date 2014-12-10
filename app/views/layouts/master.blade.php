@@ -32,7 +32,7 @@
         @include('layouts.topbar')
         <div class="container">
             <div class="row">
-                <div class="well">
+                <div>
                     <div id="content" class="col-lg-12 col-sm-12">
                         @yield('contenido')
                     </div>
