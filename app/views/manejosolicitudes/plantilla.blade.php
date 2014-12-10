@@ -26,7 +26,7 @@
             </div>
             <div id="PanelDos" class="panel-collapse collapse">                
                 <div class="panel-body">
-
+                    @include('manejosolicitudes.beneficiario')
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 </h4>
             </div>
             <div id="PanelTres" class="panel-collapse collapse">
-
+                @include('manejosolicitudes.solicitante')
             </div>
         </div>
         <div class="panel panel-danger">
@@ -92,7 +92,21 @@
 
                 </div>
             </div>
-        </div>       
+        </div>   
+        <div class="panel panel-danger">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelOcho">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#PanelOcho">
+                        Galeria Fotos
+                    </a>
+                </h4>
+            </div>
+            <div id="PanelOcho" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>         
     </div>
 </div>
 <div class="col-xs-12 col-sm-4 col-md-4 hidden-xs">

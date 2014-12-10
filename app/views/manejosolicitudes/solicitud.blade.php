@@ -1,22 +1,16 @@
 <div class="panel-body">
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <strong>Numero de Solicitud:12575</strong> 
+        <strong>Numero de Solicitud: 12575</strong> 
     </div>
     <br><br>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Descripción del caso">
+            <input type="text" class="form-control" placeholder="Descripci&oacute;n del caso">
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-5">
+    <div class="col-xs-12 col-sm-12 col-md-6">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Referido por">
-        </div>
-    </div> 
-
-    <div class="col-xs-12 col-sm-12 col-md-3">
-        <div class="form-group">
-            <strong> Accion Inmediata</strong>
+            <strong> Acci&oacute;n Inmediata? </strong>
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-primary">
                     Si
@@ -27,6 +21,16 @@
             </div>
         </div>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="form-group">
+            <select class="form-control" placeholder="Referido por">
+                <option value="" selected="selected">Referido por</option>
+                <option value="">Presidente de la republica</option>
+                <option value="">Primera Combatiente</option>
+                <option value="">General</option>
+            </select> 
+        </div>
+    </div> 
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
@@ -41,14 +45,14 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Accion tomada">
+            <input type="text" class="form-control" placeholder="Acci&oacute;n tomada">
         </div>
     </div> 
 
     <div class="col-xs-12 col-sm-12 col-md-6">
         <div class="form-group">
-            <select class="form-control" placeholder="Recepcion">
-                <option value="" selected="selected">Recepcion</option>
+            <select class="form-control" placeholder="Recepci&oacute;n">
+                <option value="" selected="selected">Recepci&oacute;n</option>
                 <option value="">Presidencia</option>
                 <option value="">Correspondencia</option>
                 <option value="">Ayudantia</option>
@@ -95,7 +99,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Nececidad">
+            <input type="text" class="form-control" placeholder="Necesidad">
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">

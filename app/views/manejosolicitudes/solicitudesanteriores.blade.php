@@ -49,5 +49,7 @@
             </tr>
         </table>
     </div>
-
+<a href="{{url('pantallas/plantilla')}}" class="btn btn-primary"><i class="glyphicon glyphicon-forward"></i> 
+    Siguiente
+</a>
     @stop

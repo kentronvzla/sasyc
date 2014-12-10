@@ -22,7 +22,7 @@ class PantallasController extends BaseController{
     }
     
     public function getSolicitudesanteriores(){
-        return View::make('manejosolicitudes.solcitudesanteriores');
+        return View::make('manejosolicitudes.solicitudesanteriores');
     }
     public function getSolicitud(){
         return View::make('manejosolicitudes.solicitud');
