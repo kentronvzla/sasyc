@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReferenciasTable extends Migration {
+class CreateBitacorasTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateReferenciasTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('referencias', function(Blueprint $table)
+		Schema::create('bitacoras', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -26,7 +26,7 @@ class CreateReferenciasTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('referencias');
+		Schema::drop('bitacoras');
 	}
 
 }

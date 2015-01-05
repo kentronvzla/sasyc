@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateControlSasycTable extends Migration {
+class CreateMunicipiosTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateControlSasycTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('control_sasyc', function(Blueprint $table)
+		Schema::create('municipios', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -26,7 +26,7 @@ class CreateControlSasycTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('control_sasyc');
+		Schema::drop('municipios');
 	}
 
 }

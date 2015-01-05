@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSolicitudSasycTable extends Migration {
+class CreateReferentesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateSolicitudSasycTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('solicitud_sasyc', function(Blueprint $table)
+		Schema::create('referentes', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -26,7 +26,7 @@ class CreateSolicitudSasycTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('solicitud_sasyc');
+		Schema::drop('referentes');
 	}
 
 }

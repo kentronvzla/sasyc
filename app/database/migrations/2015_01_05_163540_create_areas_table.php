@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBitacoraSolicitudTable extends Migration {
+class CreateAreasTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateBitacoraSolicitudTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('bitacora_solicitud', function(Blueprint $table)
+		Schema::create('areas', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -26,7 +26,7 @@ class CreateBitacoraSolicitudTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('bitacora_solicitud');
+		Schema::drop('areas');
 	}
 
 }

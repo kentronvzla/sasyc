@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePptoSolicitudTable extends Migration {
+class CreateRecaudoSolicitudTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreatePptoSolicitudTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('ppto_solicitud', function(Blueprint $table)
+		Schema::create('recaudo_solicitud', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -26,7 +26,7 @@ class CreatePptoSolicitudTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('ppto_solicitud');
+		Schema::drop('recaudo_solicitud');
 	}
 
 }

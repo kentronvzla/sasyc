@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecaudosSasycTable extends Migration {
+class CreateTipoAyudasTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateRecaudosSasycTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('recaudos_sasyc', function(Blueprint $table)
+		Schema::create('tipo_ayudas', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -26,7 +26,7 @@ class CreateRecaudosSasycTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('recaudos_sasyc');
+		Schema::drop('tipo_ayudas');
 	}
 
 }
