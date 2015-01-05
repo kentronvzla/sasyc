@@ -31,4 +31,33 @@ class PantallasController extends BaseController{
     public function getPlantilla(){
         return View::make('manejosolicitudes.plantilla');
     }
+
+    public function getInforme(){
+        return View::make('manejosolicitudes.informesocioeconomico');
+    }
+    
+    public function getGrupofamiliar(){
+        return View::make('manejosolicitudes.grupofamiliar');
+    }    
+
+    public function getBitacora(){
+        return View::make('manejosolicitudes.bitacora');
+    } 
+
+    public function getRecaudos(){
+        return View::make('manejosolicitudes.recaudos');
+    } 
+
+    public function getPresupuesto(){
+        return View::make('manejosolicitudes.presupuesto');
+    }     
+    
+    public function getSubirdoc(){
+        return View::make('manejosolicitudes.subirdoc');
+    }     
+    
+    public function getSubirfotos(){
+        return View::make('manejosolicitudes.subirfotos');
+    } 
+    
 }

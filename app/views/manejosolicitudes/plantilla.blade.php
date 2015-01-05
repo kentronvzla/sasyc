@@ -51,7 +51,7 @@
                 </h4>
             </div>
             <div id="PanelCuatro" class="panel-collapse collapse">
-
+                @include('manejosolicitudes.grupofamiliar')
             </div>
         </div>
         <div class="panel panel-danger">
@@ -63,7 +63,7 @@
                 </h4>
             </div>
             <div id="PanelCinco" class="panel-collapse collapse">
-
+                @include('manejosolicitudes.informesocioeconomico')
             </div>
         </div>
 
@@ -76,7 +76,7 @@
                 </h4>
             </div>
             <div id="PanelSeis" class="panel-collapse collapse">
-
+                @include('manejosolicitudes.recaudos')
             </div>
         </div>
         <div class="panel panel-danger">
@@ -89,7 +89,7 @@
             </div>
             <div id="PanelSiete" class="panel-collapse collapse">
                 <div class="panel-body">
-
+                    @include('manejosolicitudes.presupuesto')
                 </div>
             </div>
         </div>   
@@ -103,7 +103,7 @@
             </div>
             <div id="PanelOcho" class="panel-collapse collapse">
                 <div class="panel-body">
-
+                    @include('manejosolicitudes.subirfotos')
                 </div>
             </div>
         </div>         
@@ -119,7 +119,7 @@
         </div>
     </div>
     <div class="panel panel-default">
-        <div class="panel-heading">Curriculum</div>
+        <div class="panel-heading">Solicitud</div>
         <div class="panel-body">
             <div id="contenedorBarraCarga">
             </div>
