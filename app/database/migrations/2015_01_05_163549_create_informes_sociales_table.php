@@ -15,6 +15,12 @@ class CreateInformesSocialesTable extends Migration {
 		Schema::create('informes_sociales', function(Blueprint $table)
 		{
 			$table->increments('id');
+                        $table->integer('solicitud_id',false,true);
+                        $table->integer('persona_id',false,true);
+                        $table->char('tipo_casa');
+                        $table->char('tipo_tendencia');
+                        $table->string('observaciones',4000);
+                        $table->decimal('total_ingresos',14,2);
 			$table->timestamps();
 		});
 	}
