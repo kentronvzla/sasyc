@@ -9,8 +9,12 @@
  *
  * @author nadinarturo
  */
-interface SelectInterface {
+interface DefaultValuesInterface {
 
-    public static function getCampoCombo();
+    /**
+     * Valores que tomara el objeto por defecto al momento de insertar..
+     * @return array Default Values.. 
+     */
+    public function getDefaultValues();
 
 }

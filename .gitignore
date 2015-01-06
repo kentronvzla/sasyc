@@ -4,4 +4,5 @@
 /vendor
 /nbproject
 /app/storage
+/app/modelos_generados
 /_ide_helper.php

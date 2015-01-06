@@ -13,3 +13,4 @@
 
 Artisan::add(new EmpaquetarApp());
 Artisan::add(new CambiarAmbiente());
+Artisan::add(new GenerarModelos());
