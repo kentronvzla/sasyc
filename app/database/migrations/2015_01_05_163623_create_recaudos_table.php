@@ -15,6 +15,11 @@ class CreateRecaudosTable extends Migration {
 		Schema::create('recaudos', function(Blueprint $table)
 		{
 			$table->increments('id');
+                        $table->string('nombre',500);
+                        $table->string('descripcion',500);
+                        $table->boolean('ind_obligatorio')->default(0);
+                        $table->boolean('ind_vence')->default(0);
+                        $table->boolean('ind_activo')->default(0);
 			$table->timestamps();
 		});
 	}

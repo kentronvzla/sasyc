@@ -15,6 +15,7 @@ class CreateTipoViviendasTable extends Migration {
 		Schema::create('tipo_viviendas', function(Blueprint $table)
 		{
 			$table->increments('id');
+                        $table->string('nombre', 200);
 			$table->timestamps();
 		});
 	}

@@ -13,8 +13,12 @@ class CreateRecaudoSolicitudTable extends Migration {
 	public function up()
 	{
 		Schema::create('recaudo_solicitud', function(Blueprint $table)
-		{
-			$table->increments('id');
+		{                        
+                        $table->integer('solicitud_id', false, true);
+                        $table->integer('recaudo_id', false, true);
+                        $table->boolean('ind_recibido');
+                        $table->date('fecha_vencimiento');
+                        $table->binary('documento');
 			$table->timestamps();
 		});
 	}

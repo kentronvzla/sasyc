@@ -12,9 +12,11 @@ class CreateFamiliaresTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('familiares', function(Blueprint $table)
+		Schema::create('familia_persona', function(Blueprint $table)
 		{
-			$table->increments('id');
+                        $table->integer('persona_beneficiario_id', false, true);
+                        $table->integer('persona_familia_id', false, true);
+			$table->string('parentesco', 200);                        
 			$table->timestamps();
 		});
 	}
@@ -26,7 +28,7 @@ class CreateFamiliaresTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('familiares');
+		Schema::drop('familia_persona');
 	}
 
 }

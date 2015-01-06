@@ -15,10 +15,10 @@ class CreateDocumentosTable extends Migration {
 		Schema::create('documentos', function(Blueprint $table)
 		{
 			$table->increments('id');
-                        $table->string('tipo_doc',5);
-                        $table->string('desc_doc',60);
-                        $table->date('fec_doc');
-                        $table->string('sts_doc',3);
+                        $table->string('tipo',5);
+                        $table->string('descripcion',60);
+                        $table->date('fecha');
+                        $table->string('estatus',3);
                         $table->boolean('ind_reverso')->default(0);
                         $table->integer('solicitud_id',false,true);
                         $table->string('mensaje',1000);

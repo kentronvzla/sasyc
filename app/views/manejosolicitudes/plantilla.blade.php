@@ -58,7 +58,7 @@
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelCinco">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#PanelCinco">
-                        Informe Socioeconómino
+                        Informe Socioeconómico
                     </a>
                 </h4>
             </div>

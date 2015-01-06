@@ -15,6 +15,8 @@ class CreateTipoAyudasTable extends Migration {
 		Schema::create('tipo_ayudas', function(Blueprint $table)
 		{
 			$table->increments('id');
+                        $table->string('nombre', 500);
+                        $table->string('cod_acc_int', 7);
 			$table->timestamps();
 		});
 	}

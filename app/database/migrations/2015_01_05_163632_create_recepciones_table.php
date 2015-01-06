@@ -15,6 +15,7 @@ class CreateRecepcionesTable extends Migration {
 		Schema::create('recepciones', function(Blueprint $table)
 		{
 			$table->increments('id');
+                        $table->string('nombre', 200);
 			$table->timestamps();
 		});
 	}
