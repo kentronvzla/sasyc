@@ -1,0 +1,7 @@
+/**
+* Define una relación pertenece a @model_name@
+* @return @model_name@
+*/
+public function @function_name@(){
+    return $this->belongsTo('@model_name@');
+}
