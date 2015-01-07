@@ -52,44 +52,77 @@ class GenerarModelos extends Command {
             $baseString = str_replace('@table_name@', $tabla->table_name, $baseString);
             //replace pretty name..
             $baseString = str_replace('@pretty_name@', $tabla->table_name, $baseString);
-            //generate columns array string..
-            $columnsString = "";
+            //find columns.
             $columns = $tabla->columns()->whereNotIn('column_name', static::$common_hidden)->get();
-            foreach ($columns as $column) {
-                $columnsString.="'{$column->column_name}', ";
-            }
-            $baseString = str_replace('@columns@', $columnsString, $baseString);
-
+            //generate fillable
+            $baseString = str_replace('@fillable@', $this->generarFillable($columns), $baseString);
             //generate pretty fields string.
-            $prettyString = "";
-            foreach ($columns as $column) {
-                $prettyString.="'{$column->column_name}'=>'{$column->column_name}', " . PHP_EOL;
-            }
-            $baseString = str_replace('@pretty_fields@', $prettyString, $baseString);
-
+            $baseString = str_replace('@pretty_fields@', $this->generarPrettyFields($columns), $baseString);
             //generate rules..
-            $rules = "";
-            foreach ($columns as $column) {
-                $rules.="'{$column->column_name}'=>'";
-                //if not null?.
-                if ($column->is_nullable == "NO") {
-                    $rules .="required|";
-                }
-                //datatype..
-                switch ($column->data_type) {
-                    case "integer":
-                    case "smallint":
-                    case "bigint":
-                        $rules .="integer|";
-                        break;
-                }
-                $rules = rtrim($rules, '|');
-                $rules.="', " . PHP_EOL;
-            }
-            $baseString = str_replace('@rules@', $rules, $baseString);
+            $baseString = str_replace('@rules@', $this->genenarRules($columns), $baseString);
+            //generate belongs to..
+            $baseString = str_replace('@belongs_to@', $this->generarBelongsTo($columns), $baseString);
             File::put(app_path('modelos_generados/' . $class_name . '.php'), $baseString);
         }
         $this->info("Generación terminada.");
+    }
+
+    private function generarFillable($columns) {
+        $columnsString = "";
+        foreach ($columns as $column) {
+            $columnsString.="'{$column->column_name}', ";
+        }
+        return $columnsString;
+    }
+
+    private function generarPrettyFields($columns) {
+        $prettyString = "";
+        foreach ($columns as $column) {
+            $prettyString.="'{$column->column_name}'=>'{$column->column_name}', " . PHP_EOL;
+        }
+        return $prettyString;
+    }
+
+    private function genenarRules($columns) {
+        $rules = "";
+        foreach ($columns as $column) {
+            $rules.="'{$column->column_name}'=>'";
+            //if not null?.
+            if ($column->is_nullable == "NO") {
+                $rules .="required|";
+            }
+            //datatype..
+            switch ($column->data_type) {
+                case "integer":
+                case "smallint":
+                case "bigint":
+                    $rules .="integer|";
+                    break;
+            }
+            $rules = rtrim($rules, '|');
+            $rules.="', " . PHP_EOL;
+        }
+    }
+
+    private function generarBelongsTo($columns) {
+        $belongs = "";
+        foreach ($columns as $column) {
+            //siguiendo los estandares de laravel..
+            if (ends_with($column->column_name, '_id')) {
+                $func = File::get(app_path('models/Schema/BelongsTo.txt'));
+                $model_name = ucfirst(camel_case(str_replace('_id', '', $column->column_name)));
+                //replace model name
+                $func = str_replace('@model_name@', $model_name, $func);
+                //replace func name
+                $func = str_replace('@function_name@', lcfirst($model_name), $func);
+                $belongs.=$func;
+            }
+        }
+        return $belongs;
+    }
+
+    private function generarHasMany($tables) {
+        
     }
 
 }

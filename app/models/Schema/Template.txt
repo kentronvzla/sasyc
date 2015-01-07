@@ -21,7 +21,7 @@ class @class_name@ extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        @columns@
+        @fillable@
     ];
 
     /**
@@ -43,5 +43,7 @@ class @class_name@ extends BaseModel {
     protected function getPrettyName() {
         return "@pretty_name@";
     }
+
+    @belongs_to@
 
 }
