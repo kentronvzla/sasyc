@@ -12,7 +12,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         return \Form::hidden('VERSION', Input::old('VERSION', $obj->VERSION));
     }
 
-    function btInput($obj, $attrName, $numCols, $required = true, $type = 'text'
+    function btInput($obj, $attrName, $numCols=12, $required = true, $type = 'text'
     , $options = array()) {
         $data['params']['class'] = '';
         if ($obj->isRelatedField($attrName) && $type == "text") {
@@ -25,8 +25,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
                 $data['attrValue'] = $data['attrValue']->format('d/m/Y');
             }
         } else if ($obj->isBooleanField($attrName) && $type == "text") {
-            $type = 'select';
-            $options = \BaseModel::$cmbsino;
+            $type = 'boolean';
         }
         $data['numCols'] = $numCols;
         $data['attrName'] = $attrName;

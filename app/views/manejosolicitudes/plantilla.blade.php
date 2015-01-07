@@ -12,7 +12,10 @@
             </div>
             <div id="PanelUno" class="panel-collapse collapse in">
                 <div class="panel-body">
+                    @include('templates.errores')
+                    {{Form::open(['url'=>'solicitud/modificar'])}}
                     @include('manejosolicitudes.solicitud')
+                    {{Form::close()}}
                 </div>
             </div>
         </div>

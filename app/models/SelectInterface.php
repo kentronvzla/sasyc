@@ -11,6 +11,6 @@
  */
 interface SelectInterface {
 
-    public static function getCampoCombo();
+    static function getCampoCombo();
 
 }

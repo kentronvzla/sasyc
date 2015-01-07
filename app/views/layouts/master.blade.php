@@ -103,5 +103,12 @@
                 </div>
             </div>
         </div>
+        @if(Session::has('mensaje'))
+        <script>
+            $(document).ready(function() {
+                mostrarMensaje("{{Session::pull('mensaje')}}");
+            });
+        </script>
+        @endif
     </body>
 </html>

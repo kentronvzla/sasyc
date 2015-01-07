@@ -11,7 +11,7 @@
  *
  * @author Nadin Yamaui
  */
-abstract class BaseModel extends Eloquent {
+abstract class BaseModel extends Eloquent implements DefaultValuesInterface, SelectInterface {
 
     /**
      * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save, 
@@ -25,7 +25,6 @@ abstract class BaseModel extends Eloquent {
     protected $dates = [];
     protected $manejaConcurrencia;
     protected $displayTable = [];
-    protected $booleanFields = [];
 
     /**
      * Error message bag
@@ -38,11 +37,6 @@ abstract class BaseModel extends Eloquent {
      * @var Illuminate\Validation\Validators
      */
     protected $validator;
-    public static $cmbsino = array(
-        '' => '-',
-        '1' => 'Si',
-        '0' => 'No'
-    );
     public static $cmbsexo = array(
         'M' => 'Masculino',
         'F' => 'Femenino'
@@ -143,6 +137,10 @@ abstract class BaseModel extends Eloquent {
      * @return boolean
      */
     public function savingModel($model) {
+        if (!isset($model->id)) {
+            $default = $model->getDefaultValues();
+            $model->attributes = array_merge($default, $this->attributes);
+        }
         return $this->validate($model);
     }
 
@@ -227,7 +225,11 @@ abstract class BaseModel extends Eloquent {
         return false;
     }
 
-    public static function getCombo($campo = "", array $condiciones = null) {
+    public static function getCampoCombo() {
+        return "nombre";
+    }
+
+    public static function getCombo($campo = "Seleccione", array $condiciones = null) {
         $campoCombo = static::getCampoCombo();
         if (static::getCampoOrder() == "") {
             $campoOrder = $campoCombo;
@@ -249,7 +251,7 @@ abstract class BaseModel extends Eloquent {
 
         $retorno = array('' => $campo);
         foreach ($registros as $registro) {
-            $retorno[$registro->{static::getPrimaryKey()}] = $registro->{$campoCombo};
+            $retorno[$registro->id] = $registro->{$campoCombo};
         }
         if ($campo == "" && count($retorno) > 1) {
             unset($retorno['']);
@@ -388,11 +390,14 @@ abstract class BaseModel extends Eloquent {
     }
 
     public function isBooleanField($field) {
-        return in_array($field, $this->booleanFields);
+        return Str::startsWith($field, 'ind_');
+    }
+
+    public function getDefaultValues() {
+        return [];
     }
 
     protected abstract function getPrettyName();
 
     protected abstract function getPrettyFields();
-
 }
