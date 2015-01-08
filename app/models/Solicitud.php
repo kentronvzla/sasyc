@@ -129,6 +129,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         return $this->belongsTo('Organismo', 'organismo_id');
     }
 
+    public function beneficiario() {
+        return $this->belongsTo('Persona', 'persona_beneficiario_id');
+    }
+
+    
     public function getDefaultValues() {
         return [
             'ano' => Carbon::now()->format('Y'),

@@ -1,13 +1,7 @@
 <div class="panel-body">
-    <div class="col-xs-12 col-sm-12 col-md-6">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Nombres">
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Apellidos">
-        </div>
+    <div class="row">
+        {{Form::btInput($beneficiario,'nombre',6)}}
+        {{Form::btInput($beneficiario,'apellido',6)}}
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4">
         <div class="form-group">

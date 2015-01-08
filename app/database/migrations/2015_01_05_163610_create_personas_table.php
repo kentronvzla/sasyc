@@ -15,14 +15,14 @@ class CreatePersonasTable extends Migration {
             $table->increments('id');
             $table->string('nombre', 50);
             $table->string('apellido', 30);
-            $table->string('nacionalidad', 1)->default('v');
+            $table->integer('tipo_nacionalidad_id', false, true);
             $table->integer('ci');
             $table->string('sexo', 1);
-            $table->string('estado_civil', 1);
+            $table->integer('estado_civil_id', false, true);
             $table->string('lugar_nacimiento', 500);
             $table->date('fecha_nacimiento');
             $table->string('nivel_instruccion', 50);
-            $table->string('parentesco', 20)->nullable();
+            $table->integer('parentesco_id', false, true)->nullable();
             $table->integer('estado_id', false, true)->nullable();
             $table->integer('municipio_id', false, true)->nullable();
             $table->integer('parroquia_id', false, true)->nullable();
