@@ -21,7 +21,7 @@ class CreatePersonasTable extends Migration {
             $table->integer('estado_civil_id', false, true);
             $table->string('lugar_nacimiento', 500);
             $table->date('fecha_nacimiento');
-            $table->string('nivel_instruccion', 50);
+            $table->integer('nivel_academico_id', false, true);
             $table->integer('parentesco_id', false, true)->nullable();
             $table->integer('estado_id', false, true)->nullable();
             $table->integer('municipio_id', false, true)->nullable();

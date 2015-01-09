@@ -18,7 +18,6 @@ class CreateParroquiasTable extends Migration {
                         $table->integer('estado_id', false, true);
                         $table->integer('municipio_id', false, true);
                         $table->string('nombre', 200);
-			$table->timestamps();
 		});
 	}
 

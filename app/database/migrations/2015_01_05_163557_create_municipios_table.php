@@ -17,7 +17,6 @@ class CreateMunicipiosTable extends Migration {
 			$table->increments('id');
                         $table->integer('estado_id', false, true);
                         $table->string('nombre', 200);
-			$table->timestamps();
 		});
 	}
 

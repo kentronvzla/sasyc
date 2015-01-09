@@ -17,7 +17,6 @@ class CreateOrganismosTable extends Migration {
 			$table->increments('id');
                         $table->string('nombre', 200);
                         $table->boolean('ind_externo')->default(0);
-			$table->timestamps();
 		});
 	}
 

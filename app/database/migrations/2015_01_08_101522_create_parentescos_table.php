@@ -16,7 +16,6 @@ class CreateParentescosTable extends Migration {
 		{
 			$table->increments('id');
                         $table->string('nombre', 200);
-			$table->timestamps();
 		});
 	}
 

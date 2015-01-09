@@ -17,7 +17,6 @@ class CreateTipoAyudasTable extends Migration {
 			$table->increments('id');
                         $table->string('nombre', 500);
                         $table->string('cod_acc_int', 7);
-			$table->timestamps();
 		});
 	}
 
