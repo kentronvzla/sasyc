@@ -397,6 +397,14 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         return [];
     }
 
+    public function isRequired($field) {
+        $rules = $this->rules;
+        if(isset($rules[$field])){
+            return strpos($rules[$field],'required') !== false;
+        }
+        return false;
+    }
+
     protected abstract function getPrettyName();
 
     protected abstract function getPrettyFields();
