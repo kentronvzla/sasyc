@@ -12,7 +12,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         return \Form::hidden('VERSION', Input::old('VERSION', $obj->VERSION));
     }
 
-    function btInput($obj, $attrName, $numCols=12, $required = true, $type = 'text'
+    function btInput($obj, $attrName, $numCols=12, $type = 'text'
     , $options = array()) {
         $data['params']['class'] = '';
         if ($obj->isRelatedField($attrName) && $type == "text") {
@@ -36,7 +36,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
 
         $data['params']['class'] .= 'form-control';
         $data['params']['placeholder'] = $obj->getDescription($attrName);
-        if ($required) {
+        if ($obj->isRequired($attrName)) {
             $data['params']['required'] = 'true';
         }
         $data['inputType'] = $type;
