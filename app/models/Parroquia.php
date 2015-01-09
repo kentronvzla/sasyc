@@ -10,6 +10,20 @@
  * Description of Parroquia
  *
  * @author Nadin Yamani
+ * @property integer $id
+ * @property integer $estado_id
+ * @property integer $municipio_id
+ * @property string $nombre
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Estado $estado
+ * @property-read \Municipio $municipio
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereEstadoId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereMunicipioId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereUpdatedAt($value) 
  */
 class Parroquia extends BaseModel {
 
@@ -47,6 +61,22 @@ class Parroquia extends BaseModel {
 
     protected function getPrettyName() {
         return "parroquias";
+    }
+
+    /**
+     * Define una relación pertenece a Estado
+     * @return Estado
+     */
+    public function estado() {
+        return $this->belongsTo('Estado');
+    }
+
+    /**
+     * Define una relación pertenece a Municipio
+     * @return Municipio
+     */
+    public function municipio() {
+        return $this->belongsTo('Municipio');
     }
 
 }

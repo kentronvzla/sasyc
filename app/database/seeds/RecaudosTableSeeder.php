@@ -1,6 +1,6 @@
 <?php
 
-class OrganismoTableSeeder extends Seeder {
+class RecaudosTableSeeder extends Seeder {
 
     public function run() {
         Organismo::create(array('nombre' => 'Fundación (FPS)', 'ind_externo' => '0'));

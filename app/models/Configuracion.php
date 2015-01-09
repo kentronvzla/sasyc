@@ -8,11 +8,11 @@
  * @property string $valor
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Configuracion whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Configuracion whereVariable($value) 
- * @method static \Illuminate\Database\Query\Builder|\Configuracion whereValor($value) 
- * @method static \Illuminate\Database\Query\Builder|\Configuracion whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Configuracion whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Configuracion whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Configuracion whereVariable($value)
+ * @method static \Illuminate\Database\Query\Builder|\Configuracion whereValor($value)
+ * @method static \Illuminate\Database\Query\Builder|\Configuracion whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Configuracion whereUpdatedAt($value)
  */
 class Configuracion extends BaseModel {
 

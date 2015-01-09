@@ -10,6 +10,17 @@
  * Description of Municipio
  *
  * @author Nadin Yamani
+ * @property integer $id
+ * @property integer $estado_id
+ * @property string $nombre
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Estado $estado
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereEstadoId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereUpdatedAt($value) 
  */
 class Municipio extends BaseModel {
 
@@ -45,6 +56,14 @@ class Municipio extends BaseModel {
 
     protected function getPrettyName() {
         return "municipios";
+    }
+
+    /**
+     * Define una relación pertenece a Estado
+     * @return Estado
+     */
+    public function estado() {
+        return $this->belongsTo('Estado');
     }
 
 }

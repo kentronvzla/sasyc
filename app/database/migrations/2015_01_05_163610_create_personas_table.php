@@ -44,6 +44,7 @@ class CreatePersonasTable extends Migration {
             $table->string('cobertura', 14, 2)->nullable();
             $table->string('otro_apoyo', 200)->nullable();
             $table->string('como_conocio_fps', 200)->nullable();
+            $table->integer('version')->default(0);
             $table->timestamps();
         });
     }

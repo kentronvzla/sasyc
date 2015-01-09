@@ -9,11 +9,14 @@ namespace Ayudantes\Macros;
 class FormBuilder extends \Illuminate\Html\FormBuilder {
 
     function concurrencia($obj) {
-        return \Form::hidden('VERSION', Input::old('VERSION', $obj->VERSION));
+        return \Form::hidden('version', Input::old('version', $obj->version));
     }
 
     function btInput($obj, $attrName, $numCols=12, $required = true, $type = 'text'
     , $options = array()) {
+        if(is_null($obj)){
+            die($attrName);
+        }
         $data['params']['class'] = '';
         if ($obj->isRelatedField($attrName) && $type == "text") {
             $type = 'select';

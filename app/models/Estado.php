@@ -10,6 +10,14 @@
  * Description of Estado
  *
  * @author Nadin Yamani
+ * @property integer $id
+ * @property string $nombre
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\Estado whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Estado whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Estado whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Estado whereUpdatedAt($value) 
  */
 class Estado extends BaseModel {
 

@@ -42,7 +42,9 @@
                 </h4>
             </div>
             <div id="PanelTres" class="panel-collapse collapse">
+                <div class="panel-body">
                 @include('manejosolicitudes.solicitante')
+                </div>
             </div>
         </div>
         <div class="panel panel-danger">

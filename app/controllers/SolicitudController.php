@@ -27,8 +27,8 @@ class SolicitudController extends BaseController {
             $data['nuevo'] = false;
         }
         $data['solicitud'] = Solicitud::findOrNew($id);
-        $data['beneficiario'] = $data['solicitud']->solicitante;
-        $data['solicitante'] = $data['solicitud']->solicitante;
+        $data['beneficiario'] = Persona::findOrNew($data['solicitud']->persona_beneficiario_id);
+        $data['solicitante'] = Persona::findOrNew($data['solicitud']->persona_solicitante_id);
         return View::make("manejosolicitudes.plantilla", $data);
     }
 

@@ -102,6 +102,7 @@ class GenerarModelos extends Command {
             $rules = rtrim($rules, '|');
             $rules.="', " . PHP_EOL;
         }
+        return $rules;
     }
 
     private function generarBelongsTo($columns) {

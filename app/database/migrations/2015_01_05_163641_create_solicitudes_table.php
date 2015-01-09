@@ -42,6 +42,7 @@ class CreateSolicitudesTable extends Migration {
             $table->date('fecha_aceptacion')->nullable();
             $table->date('fecha_aprobacion')->nullable();
             $table->date('fecha_cierre')->nullable();
+            $table->integer('version')->default(0);
             $table->timestamps();
         });
     }

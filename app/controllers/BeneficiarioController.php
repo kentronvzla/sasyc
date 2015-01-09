@@ -1,6 +1,6 @@
 <?php
 
-class SolicitudController extends BaseController {
+class BeneficiarioController extends BaseController {
 
     public function __construct() {
         parent::__construct();
@@ -28,7 +28,6 @@ class SolicitudController extends BaseController {
         }
         $data['solicitud'] = Solicitud::findOrNew($id);
         $data['beneficiario'] = $data['solicitud']->beneficiario;
-        $data['solicitante'] = $data['solicitud']->solicitante;
         return View::make("manejosolicitudes.plantilla", $data);
     }
 

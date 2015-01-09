@@ -7,23 +7,21 @@
  */
 
 /**
- * Description of Organismo
+ * Description of Parentesco
  *
  * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
- * @property boolean $ind_externo
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereIndExterno($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parentesco whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parentesco whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parentesco whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parentesco whereUpdatedAt($value) 
  */
-class Organismo extends BaseModel implements SelectInterface{
+class Parentesco extends BaseModel {
 
-    protected $table = "organismos";
+    protected $table = "parentesco";
 
     /**
      * Campos que se pueden llenar mediante el uso de mass-assignment
@@ -31,7 +29,7 @@ class Organismo extends BaseModel implements SelectInterface{
      * @var array
      */
     protected $fillable = [
-        'nombre', 'ind_externo',
+        'nombre',
     ];
 
     /**
@@ -42,23 +40,16 @@ class Organismo extends BaseModel implements SelectInterface{
      * @var array
      */
     protected $rules = [
-        'nombre' => 'required',
-        'ind_externo' => 'required',
     ];
 
     protected function getPrettyFields() {
         return [
             'nombre' => 'Nombre',
-            'ind_externo' => 'Externo?',
         ];
     }
 
     protected function getPrettyName() {
-        return "organismos";
-    }
-    
-    public static function getCampoCombo() {
-        return "nombre";
+        return "parentesco";
     }
 
 }

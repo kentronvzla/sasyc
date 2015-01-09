@@ -6,7 +6,7 @@ class TipoAyudaTableSeeder extends Seeder {
         $tipoayudas = array('Salud',
             'Económica');
         foreach ($tipoayudas as $tipoayuda) {
-            TipoAyuda::create(array('nombre' => $tipoayuda));
+            TipoAyuda::create(array('nombre' => $tipoayuda, 'cod_acc_int' => '010101'));
         }
     }
 

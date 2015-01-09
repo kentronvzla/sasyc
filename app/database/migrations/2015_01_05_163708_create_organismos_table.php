@@ -5,29 +5,28 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateOrganismosTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('organismos', function(Blueprint $table)
-		{
-			$table->increments('id');
-                        $table->string('nombre', 200);
-                        $table->boolean('ind_externo')->default(0);
-		});
-	}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up() {
+        Schema::create('organismos', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre', 200);
+            $table->boolean('ind_externo')->default(0);
+            $table->integer('version')->default(0);
+            $table->timestamps();
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('organismos');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down() {
+        Schema::drop('organismos');
+    }
 
 }

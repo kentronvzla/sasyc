@@ -7,23 +7,21 @@
  */
 
 /**
- * Description of Organismo
+ * Description of EstadosCivil
  *
  * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
- * @property boolean $ind_externo
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereIndExterno($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadosCivil whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadosCivil whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadosCivil whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadosCivil whereUpdatedAt($value) 
  */
-class Organismo extends BaseModel implements SelectInterface{
+class EstadoCivil extends BaseModel {
 
-    protected $table = "organismos";
+    protected $table = "estados_civiles";
 
     /**
      * Campos que se pueden llenar mediante el uso de mass-assignment
@@ -31,7 +29,7 @@ class Organismo extends BaseModel implements SelectInterface{
      * @var array
      */
     protected $fillable = [
-        'nombre', 'ind_externo',
+        'nombre', 
     ];
 
     /**
@@ -42,23 +40,20 @@ class Organismo extends BaseModel implements SelectInterface{
      * @var array
      */
     protected $rules = [
-        'nombre' => 'required',
-        'ind_externo' => 'required',
+        
     ];
-
+    
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
-            'ind_externo' => 'Externo?',
+            'nombre'=>'Nombre', 
+
         ];
     }
 
     protected function getPrettyName() {
-        return "organismos";
+        return "estados_civiles";
     }
+
     
-    public static function getCampoCombo() {
-        return "nombre";
-    }
 
 }

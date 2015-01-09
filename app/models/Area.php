@@ -10,6 +10,19 @@
  * Description of Area
  *
  * @author Nadin Yamani
+ * @property integer $id
+ * @property string $nombre
+ * @property string $descripcion
+ * @property integer $tipo_ayuda_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \TipoAyuda $tipoAyuda
+ * @method static \Illuminate\Database\Query\Builder|\Area whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Area whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Area whereDescripcion($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Area whereTipoAyudaId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Area whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Area whereUpdatedAt($value) 
  */
 class Area extends BaseModel {
 
@@ -47,6 +60,14 @@ class Area extends BaseModel {
 
     protected function getPrettyName() {
         return "areas";
+    }
+
+    /**
+     * Define una relación pertenece a TipoAyuda
+     * @return TipoAyuda
+     */
+    public function tipoAyuda() {
+        return $this->belongsTo('TipoAyuda');
     }
 
 }

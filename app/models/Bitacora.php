@@ -10,6 +10,30 @@
  * Description of Bitacora
  *
  * @author Nadin Yamani
+ * @property integer $id
+ * @property integer $solicitud_id
+ * @property string $fecha
+ * @property string $nota
+ * @property integer $usuario_id
+ * @property string $memo
+ * @property string $tipo
+ * @property boolean $ind_activo
+ * @property boolean $ind_alarma
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Solicitud $solicitud
+ * @property-read \Usuario $usuario
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereSolicitudId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereFecha($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereNota($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUsuarioId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereMemo($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereTipo($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereIndActivo($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereIndAlarma($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUpdatedAt($value) 
  */
 class Bitacora extends BaseModel {
 
@@ -58,6 +82,22 @@ class Bitacora extends BaseModel {
 
     protected function getPrettyName() {
         return "bitacoras";
+    }
+
+    /**
+     * Define una relación pertenece a Solicitud
+     * @return Solicitud
+     */
+    public function solicitud() {
+        return $this->belongsTo('Solicitud');
+    }
+
+    /**
+     * Define una relación pertenece a Usuario
+     * @return Usuario
+     */
+    public function usuario() {
+        return $this->belongsTo('Usuario');
     }
 
 }

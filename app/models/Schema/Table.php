@@ -2,6 +2,11 @@
 
 namespace SchemaHelper;
 
+/**
+ * SchemaHelper\Table
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\SchemaHelper\\Column[] $columns
+ */
 class Table extends \Eloquent {
     
     protected $table = "information_schema.tables";

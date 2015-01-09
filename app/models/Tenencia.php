@@ -7,23 +7,21 @@
  */
 
 /**
- * Description of TipoAyuda
+ * Description of Tenencia
  *
  * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
- * @property string $cod_acc_int
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereCodAccInt($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Tenencia whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Tenencia whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Tenencia whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Tenencia whereUpdatedAt($value) 
  */
-class TipoAyuda extends BaseModel {
+class Tenencia extends BaseModel {
 
-    protected $table = "tipo_ayudas";
+    protected $table = "tenencias";
 
     /**
      * Campos que se pueden llenar mediante el uso de mass-assignment
@@ -31,31 +29,30 @@ class TipoAyuda extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre', 'cod_acc_int',
+        'nombre', 
     ];
 
     /**
      * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save, 
-     * si el modelo no cumple con estas reglas el metodo save retornará false, 
-     * y los cambios realizados no haran persistencia.
+     * si el modelo no cumple con estas reglas el metodo save retornará false, y los cambios realizados no haran persistencia.
      * @link http://laravel.com/docs/validation#available-validation-rules
      * @var array
      */
     protected $rules = [
-        'nombre' => 'required',
-        'cod_acc_int' => 'required',
+        
     ];
-
+    
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
-            'cod_acc_int' => 'Acción interna',
+            'nombre'=>'nombre', 
+
         ];
     }
 
     protected function getPrettyName() {
-        return "tipo_ayudas";
+        return "tenencias";
     }
+
     
 
 }

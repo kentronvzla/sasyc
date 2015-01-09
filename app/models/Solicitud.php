@@ -10,6 +10,79 @@
  * Description of Solicitud
  *
  * @author Nadin Yamani
+ * @property integer $id
+ * @property integer $ano
+ * @property string $descripcion
+ * @property integer $persona_beneficiario_id
+ * @property integer $persona_solicitante_id
+ * @property integer $tipo_ayuda_id
+ * @property integer $area_id
+ * @property integer $referente_id
+ * @property integer $recepcion_id
+ * @property integer $organismo_id
+ * @property boolean $ind_mismo_benef
+ * @property boolean $ind_inmediata
+ * @property string $actividad
+ * @property string $referencia
+ * @property string $accion_tomada
+ * @property string $necesidad
+ * @property string $tipo_proc
+ * @property integer $num_proc
+ * @property string $facturas
+ * @property string $observaciones
+ * @property string $moneda
+ * @property integer $prioridad
+ * @property string $estatus
+ * @property integer $usuario_asignacion_id
+ * @property integer $usuario_autorizacion_id
+ * @property \Carbon\Carbon $fecha_solicitud
+ * @property \Carbon\Carbon $fecha_asignacion
+ * @property \Carbon\Carbon $fecha_aceptacion
+ * @property \Carbon\Carbon $fecha_aprobacion
+ * @property \Carbon\Carbon $fecha_cierre
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Persona $personaBeneficiario
+ * @property-read \Persona $personaSolicitante
+ * @property-read \TipoAyuda $tipoAyuda
+ * @property-read \Area $area
+ * @property-read \Referente $referente
+ * @property-read \Recepcion $recepcion
+ * @property-read \Organismo $organismo
+ * @property-read \UsuarioAsignacion $usuarioAsignacion
+ * @property-read \UsuarioAutorizacion $usuarioAutorizacion
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAno($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereDescripcion($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePersonaBeneficiarioId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePersonaSolicitanteId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoAyudaId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAreaId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferenteId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereRecepcionId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereOrganismoId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndMismoBenef($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndInmediata($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereActividad($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferencia($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAccionTomada($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereNecesidad($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoProc($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereNumProc($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFacturas($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereObservaciones($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereMoneda($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePrioridad($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereEstatus($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUsuarioAsignacionId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUsuarioAutorizacionId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaSolicitud($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAsignacion($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAceptacion($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAprobacion($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaCierre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUpdatedAt($value) 
  */
 class Solicitud extends BaseModel implements DefaultValuesInterface {
 
@@ -68,8 +141,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         'fecha_aprobacion' => '',
         'fecha_cierre' => '',
     ];
-    
-    protected $dates = ['fecha_solicitud','fecha_asignacion','fecha_aceptacion','fecha_aprobacion','fecha_cierre'];
+    protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion', 'fecha_aprobacion', 'fecha_cierre'];
 
     protected function getPrettyFields() {
         return [
@@ -109,40 +181,87 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         return "solicitudes";
     }
 
-    public function referente() {
-        return $this->belongsTo('Referente', 'referente_id');
+    /**
+     * Define una relación pertenece a PersonaBeneficiario
+     * @return PersonaBeneficiario
+     */
+    public function personaBeneficiario() {
+        return $this->belongsTo('Persona');
     }
 
-    public function recepcion() {
-        return $this->belongsTo('Recepcion', 'recepcion_id');
+    /**
+     * Define una relación pertenece a PersonaSolicitante
+     * @return PersonaSolicitante
+     */
+    public function personaSolicitante() {
+        return $this->belongsTo('Persona');
     }
 
+    /**
+     * Define una relación pertenece a TipoAyuda
+     * @return TipoAyuda
+     */
     public function tipoAyuda() {
-        return $this->belongsTo('TipoAyuda', 'tipo_ayuda_id');
+        return $this->belongsTo('TipoAyuda');
     }
 
+    /**
+     * Define una relación pertenece a Area
+     * @return Area
+     */
     public function area() {
-        return $this->belongsTo('Area', 'area_id');
+        return $this->belongsTo('Area');
     }
 
+    /**
+     * Define una relación pertenece a Referente
+     * @return Referente
+     */
+    public function referente() {
+        return $this->belongsTo('Referente');
+    }
+
+    /**
+     * Define una relación pertenece a Recepcion
+     * @return Recepcion
+     */
+    public function recepcion() {
+        return $this->belongsTo('Recepcion');
+    }
+
+    /**
+     * Define una relación pertenece a Organismo
+     * @return Organismo
+     */
     public function organismo() {
-        return $this->belongsTo('Organismo', 'organismo_id');
+        return $this->belongsTo('Organismo');
     }
 
-    public function beneficiario() {
-        return $this->belongsTo('Persona', 'persona_beneficiario_id');
+    /**
+     * Define una relación pertenece a UsuarioAsignacion
+     * @return UsuarioAsignacion
+     */
+    public function usuarioAsignacion() {
+        return $this->belongsTo('UsuarioAsignacion');
     }
 
-    
+    /**
+     * Define una relación pertenece a UsuarioAutorizacion
+     * @return UsuarioAutorizacion
+     */
+    public function usuarioAutorizacion() {
+        return $this->belongsTo('UsuarioAutorizacion');
+    }
+
     public function getDefaultValues() {
         return [
             'ano' => Carbon::now()->format('Y'),
-            'fecha_solicitud'=>Carbon::now(),
-            'estatus'=>'ELA',
-            'ind_mismo_benef'=>false,
-            'moneda'=>'VEF',
-            'persona_beneficiario_id'=>1,
-            'prioridad'=>1,
+            'fecha_solicitud' => Carbon::now(),
+            'estatus' => 'ELA',
+            'ind_mismo_benef' => false,
+            'moneda' => 'VEF',
+            'persona_beneficiario_id' => 1,
+            'prioridad' => 1,
         ];
     }
 

@@ -15,6 +15,8 @@ class CreateReferentesTable extends Migration {
             $table->increments('id');
             $table->string('nombre', 200);
             $table->string('cargo', 200);
+            $table->integer('version')->default(0);
+            $table->timestamps();
         });
     }
 

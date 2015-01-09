@@ -7,23 +7,27 @@
  */
 
 /**
- * Description of Organismo
+ * Description of Memo
  *
  * @author Nadin Yamani
  * @property integer $id
- * @property string $nombre
- * @property boolean $ind_externo
+ * @property string $fecha
+ * @property string $numero
+ * @property string $origen
+ * @property string $destino
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereIndExterno($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Organismo whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereFecha($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereNumero($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereOrigen($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereDestino($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereUpdatedAt($value) 
  */
-class Organismo extends BaseModel implements SelectInterface{
+class Memo extends BaseModel {
 
-    protected $table = "organismos";
+    protected $table = "memos";
 
     /**
      * Campos que se pueden llenar mediante el uso de mass-assignment
@@ -31,7 +35,7 @@ class Organismo extends BaseModel implements SelectInterface{
      * @var array
      */
     protected $fillable = [
-        'nombre', 'ind_externo',
+        'fecha', 'numero', 'origen', 'destino',
     ];
 
     /**
@@ -42,23 +46,19 @@ class Organismo extends BaseModel implements SelectInterface{
      * @var array
      */
     protected $rules = [
-        'nombre' => 'required',
-        'ind_externo' => 'required',
     ];
 
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
-            'ind_externo' => 'Externo?',
+            'fecha' => 'Fecha',
+            'numero' => 'Número',
+            'origen' => 'Origen',
+            'destino' => 'Destino',
         ];
     }
 
     protected function getPrettyName() {
-        return "organismos";
-    }
-    
-    public static function getCampoCombo() {
-        return "nombre";
+        return "memos";
     }
 
 }
