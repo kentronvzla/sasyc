@@ -1,6 +1,6 @@
 <?php
 
-class SolicitudController extends BaseController {
+class SolicitudesController extends BaseController {
 
     public function __construct() {
         parent::__construct();
@@ -12,10 +12,11 @@ class SolicitudController extends BaseController {
     }
 
     public function postModificar() {
+        $data['nuevo'] = false;
         $solicitud = Solicitud::findOrNew(Input::get('id'));
         $solicitud->fill(Input::all());
         if ($solicitud->save()) {
-            return Redirect::to('solicitud/modificar/' . $solicitud->id)
+            return Redirect::to('solicitud/modificar/' . $solicitud->id, $data)
                     ->with("mensaje", "Se guardó la solicitud correctamente.");
         } else {
             return Redirect::back()->withInput()->withErrors($solicitud->getErrors());
@@ -32,4 +33,22 @@ class SolicitudController extends BaseController {
         return View::make("manejosolicitudes.plantilla", $data);
     }
 
+    public function getNueva() {
+        $data['nuevo'] = true;
+        $data['solicitud'] = new Solicitud();
+        $data['personaSolicitante'] = new Persona();
+        $data['personaBeneficiario'] = new Persona();
+        return View::make("manejosolicitudes.plantilla", $data);
+    }
+
+    public function postNueva() {
+        $data['nuevo'] = false;
+        $solicitud = Solicitud::crear(Input::all());
+        if (!$solicitud->hasErrors()) {
+            Session::set('solicitud_nueva', $solicitud->toArray());
+            return Redirect::to('solicitud/modificar', $data);
+        } else {
+            return Redirect::back()->withInput()->withErrors($solicitud->getErrors());
+        }
+    }
 }

@@ -50,7 +50,13 @@ class Requerimiento extends BaseModel {
      * @var array
      */
     protected $rules = [
-        
+        'nombre'=>'required', 
+'descripcion'=>'required', 
+'cod_item'=>'required', 
+'cod_cta'=>'required', 
+'tipo'=>'required', 
+'tipo_ayuda_id'=>'required|integer', 
+
     ];
     
     protected function getPrettyFields() {

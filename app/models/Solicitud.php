@@ -113,7 +113,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
     protected $rules = [
         'ano' => 'required|integer',
         'descripcion' => 'required',
-        'persona_beneficiario_id' => 'required|integer',
+        'persona_beneficiario_id' => 'integer',
         'persona_solicitante_id' => 'integer',
         'tipo_ayuda_id' => 'required|integer',
         'area_id' => 'required|integer',
@@ -154,7 +154,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
             'referente_id' => 'Referido por',
             'recepcion_id' => 'Recepción',
             'organismo_id' => 'Procesado por',
-            'ind_mismo_benef' => 'Mismo beneficiario?',
+            'ind_mismo_benef' => 'Solicitante es el mismo Beneficiario?',
             'ind_inmediata' => 'Atención inmediata?',
             'actividad' => 'Actividad',
             'referencia' => 'Referencia',
@@ -260,9 +260,25 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
             'estatus' => 'ELA',
             'ind_mismo_benef' => false,
             'moneda' => 'VEF',
-            'persona_beneficiario_id' => 1,
             'prioridad' => 1,
         ];
+    }
+
+    public function reglasCreacion() {
+        $this->rules = [
+            'ind_mismo_benef' => 'required',
+            'persona_solicitante_id' => 'required_if:ind_mismo_benef,1',
+            'persona_beneficiario_id' => 'required',
+            'ind_menor' => 'required',
+        ];
+    }
+
+    public static function crear(array $values) {
+        $solicitud = new Solicitud();
+        $solicitud->fill($values);
+        $solicitud->reglasCreacion();
+        $solicitud->validate();
+        return $solicitud;
     }
 
 }

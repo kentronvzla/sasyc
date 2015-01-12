@@ -17,11 +17,11 @@ class CreatePersonasTable extends Migration {
             $table->string('apellido', 30);
             $table->integer('tipo_nacionalidad_id', false, true);
             $table->integer('ci');
-            $table->string('sexo', 1);
-            $table->integer('estado_civil_id', false, true);
-            $table->string('lugar_nacimiento', 500);
-            $table->date('fecha_nacimiento');
-            $table->integer('nivel_academico_id', false, true);
+            $table->string('sexo', 1)->nullable();
+            $table->integer('estado_civil_id', false, true)->nullable();
+            $table->string('lugar_nacimiento', 500)->nullable();
+            $table->date('fecha_nacimiento')->nullable();
+            $table->integer('nivel_academico_id', false, true)->nullable();
             $table->integer('parentesco_id', false, true)->nullable();
             $table->integer('estado_id', false, true)->nullable();
             $table->integer('municipio_id', false, true)->nullable();
@@ -37,7 +37,7 @@ class CreatePersonasTable extends Migration {
             $table->string('twitter', 100)->nullable();
             $table->boolean('ind_trabaja')->default(0);
             $table->string('ocupacion', 100)->nullable();
-            $table->decimal('ingreso_mensual', 14, 2);
+            $table->decimal('ingreso_mensual', 14, 2)->nullable();
             $table->string('observaciones', 1500)->nullable();
             $table->string('ind_asegurado')->default(0);
             $table->string('empresa_seguro', 100)->nullable();

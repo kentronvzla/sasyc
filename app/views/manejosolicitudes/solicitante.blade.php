@@ -1,10 +1,11 @@
+{{Form::hidden('solicitud_id',$solicitud->id)}}
 <div class="row">
     {{Form::btInput($solicitante,'nombre',6)}}
     {{Form::btInput($solicitante,'apellido',6)}}
 </div>
 <div class="row">
     {{Form::btInput($solicitante,'tipo_nacionalidad_id',4)}}
-    {{Form::btInput($solicitante,'cedula',4)}}
+    {{Form::btInput($solicitante,'ci',4)}}
     {{Form::btInput($solicitante,'sexo',4)}}
 </div>
 <div class="row">
@@ -24,7 +25,7 @@
 <h4>Datos Empleo</h4> 
 <div class="row">
     {{Form::btInput($solicitante,'ocupacion',6)}}
-    {{Form::btInput($solicitante,'ingresos',4)}}
+    {{Form::btInput($solicitante,'ingreso_mensual',4)}}
 
     <div class="col-xs-12 col-sm-12 col-md-2">
         <div class="form-group">
@@ -71,3 +72,11 @@
 <div class="row">
     {{Form::btInput($solicitante,'observaciones')}}
 </div>  
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+            <button type="button" class="btn btn-default botonCancelar"><span class="glyphicon glyphicon-trash"></span> Cancelar</button>
+        </div>
+    </div>
+</div>

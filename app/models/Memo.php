@@ -46,6 +46,11 @@ class Memo extends BaseModel {
      * @var array
      */
     protected $rules = [
+        'fecha'=>'required', 
+'numero'=>'required', 
+'origen'=>'required', 
+'destino'=>'required', 
+
     ];
 
     protected function getPrettyFields() {

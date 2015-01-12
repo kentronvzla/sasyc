@@ -62,7 +62,18 @@ class Presupuesto extends BaseModel {
      * @var array
      */
     protected $rules = [
-        
+        'solicitud_id'=>'required|integer', 
+'requerimiento_id'=>'required|integer', 
+'tipo_requerimiento_id'=>'required|integer', 
+'cod_item'=>'required', 
+'cod_cta'=>'required', 
+'num_benef'=>'required|integer', 
+'cantidad'=>'required|integer', 
+'monto'=>'required', 
+'estatus'=>'required', 
+'id_doc_proc'=>'required|integer', 
+'id_sol_sum'=>'required|integer', 
+
     ];
     
     protected function getPrettyFields() {

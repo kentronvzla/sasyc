@@ -47,7 +47,12 @@ class RecaudoSolicitud extends BaseModel {
      * @var array
      */
     protected $rules = [
-        
+        'solicitud_id'=>'required|integer', 
+'recaudo_id'=>'required|integer', 
+'ind_recibido'=>'required', 
+'fecha_vencimiento'=>'required', 
+'documento'=>'required', 
+
     ];
     
     protected function getPrettyFields() {

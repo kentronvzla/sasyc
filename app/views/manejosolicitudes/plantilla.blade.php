@@ -2,6 +2,26 @@
 @section('contenido')
 <div class="col-xs-12 col-sm-8 col-md-8">			
     <div class="panel-group" id="accordion">
+        @if($nuevo)
+        <div class="panel panel-danger">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#Panel">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Panel">
+                        Nueva Solicitud
+                    </a>
+                </h4>
+            </div>
+            <div id="Panel" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    @include('templates.errores')
+                    {{Form::open(['url'=>'solicitud/nueva'])}}
+                    @include('manejosolicitudes.nuevasolicitud')
+                    {{Form::close()}}
+                </div>
+            </div>
+        </div>
+        @endif
+        @if(!$nuevo)
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelUno">
                 <h4 class="panel-title">
@@ -29,7 +49,10 @@
             </div>
             <div id="PanelDos" class="panel-collapse collapse">                
                 <div class="panel-body">
+                    @include('templates.errores')
+                    {{Form::open(['url'=>'personasolicitud/modificar'])}}
                     @include('manejosolicitudes.beneficiario')
+                    {{Form::close()}}
                 </div>
             </div>
         </div>
@@ -43,7 +66,7 @@
             </div>
             <div id="PanelTres" class="panel-collapse collapse">
                 <div class="panel-body">
-                @include('manejosolicitudes.solicitante')
+                    @include('manejosolicitudes.solicitante')
                 </div>
             </div>
         </div>
@@ -71,7 +94,6 @@
                 @include('manejosolicitudes.informesocioeconomico')
             </div>
         </div>
-
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelSeis">
                 <h4 class="panel-title">
@@ -111,7 +133,8 @@
                     @include('manejosolicitudes.subirfotos')
                 </div>
             </div>
-        </div>         
+        </div>  
+        @endif
     </div>
 </div>
 <div class="col-xs-12 col-sm-4 col-md-4 hidden-xs">

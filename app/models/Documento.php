@@ -54,6 +54,14 @@ class Documento extends BaseModel {
      * @var array
      */
     protected $rules = [
+        'tipo'=>'required', 
+'descripcion'=>'required', 
+'fecha'=>'required', 
+'estatus'=>'required', 
+'ind_reverso'=>'required', 
+'solicitud_id'=>'required|integer', 
+'mensaje'=>'required', 
+
     ];
 
     protected function getPrettyFields() {

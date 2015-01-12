@@ -41,6 +41,9 @@ class NivelAcademico extends BaseModel {
      * @var array
      */
     protected $rules = [
+        'nombre'=>'required', 
+'orden'=>'required|integer', 
+
     ];
 
     protected function getPrettyFields() {

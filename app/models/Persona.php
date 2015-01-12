@@ -89,6 +89,8 @@
 class Persona extends BaseModel {
 
     protected $table = "personas";
+    
+    protected $dates = ['fecha_nacimiento'];
 
     /**
      * Campos que se pueden llenar mediante el uso de mass-assignment
@@ -96,13 +98,13 @@ class Persona extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre', 'apellido', 'tipo_nacionalidad_id', 'ci', 'sexo', 
-        'estado_civil_id', 'lugar_nacimiento', 'fecha_nacimiento', 
-        'nivel_academico_id', 'parentesco_id', 'estado_id', 'municipio_id', 
-        'parroquia_id', 'ciudad', 'zona_sector', 'calle_avenida', 'apto_casa', 
-        'telefono_fijo', 'telefono_celular', 'telefono_otro', 'email', 
-        'twitter', 'ind_trabaja', 'ocupacion', 'ingreso_mensual', 
-        'observaciones', 'ind_asegurado', 'empresa_seguro', 'cobertura', 
+        'nombre', 'apellido', 'tipo_nacionalidad_id', 'ci', 'sexo',
+        'estado_civil_id', 'lugar_nacimiento', 'fecha_nacimiento',
+        'nivel_academico_id', 'parentesco_id', 'estado_id', 'municipio_id',
+        'parroquia_id', 'ciudad', 'zona_sector', 'calle_avenida', 'apto_casa',
+        'telefono_fijo', 'telefono_celular', 'telefono_otro', 'email',
+        'twitter', 'ind_trabaja', 'ocupacion', 'ingreso_mensual',
+        'observaciones', 'ind_asegurado', 'empresa_seguro', 'cobertura',
         'otro_apoyo', 'como_conocio_fps',
     ];
 
@@ -116,14 +118,14 @@ class Persona extends BaseModel {
     protected $rules = [
         'nombre' => 'required',
         'apellido' => 'required',
-        'tipo_nacionalidad_id' => 'required',
+        'tipo_nacionalidad_id' => 'required|integer',
         'ci' => 'required|integer',
-        'sexo' => 'required',
-        'estado_civil_id' => 'required',
-        'lugar_nacimiento' => 'required',
-        'fecha_nacimiento' => 'required',
-        'nivel_academico_id' => 'required',
-        'parentesco_id' => '',
+        'sexo' => '',
+        'estado_civil_id' => 'integer',
+        'lugar_nacimiento' => '',
+        'fecha_nacimiento' => '',
+        'nivel_academico_id' => 'integer',
+        'parentesco_id' => 'integer',
         'estado_id' => 'integer',
         'municipio_id' => 'integer',
         'parroquia_id' => 'integer',
@@ -136,11 +138,11 @@ class Persona extends BaseModel {
         'telefono_otro' => '',
         'email' => '',
         'twitter' => '',
-        'ind_trabaja' => 'required',
+        'ind_trabaja' => '',
         'ocupacion' => '',
-        'ingreso_mensual' => 'required',
+        'ingreso_mensual' => '',
         'observaciones' => '',
-        'ind_asegurado' => 'required',
+        'ind_asegurado' => '',
         'empresa_seguro' => '',
         'cobertura' => '',
         'otro_apoyo' => '',
@@ -154,11 +156,11 @@ class Persona extends BaseModel {
             'tipo_nacionalidad_id' => 'Nacionalidad',
             'ci' => 'C.I.',
             'sexo' => 'Sexo',
-            'estado_civil' => 'Estado civil',
+            'estado_civil_id' => 'Estado civil',
             'lugar_nacimiento' => 'Lugar de nacimiento',
             'fecha_nacimiento' => 'Fecha de nacimiento',
             'nivel_academico_id' => 'Nivel de instrucción',
-            'parentesco' => 'Parentesco',
+            'parentesco_id' => 'Parentesco',
             'estado_id' => 'Estado',
             'municipio_id' => 'Municipio',
             'parroquia_id' => 'Parroquia',
@@ -241,6 +243,14 @@ class Persona extends BaseModel {
      */
     public function parroquia() {
         return $this->belongsTo('Parroquia');
+    }
+    
+    public static function findOrNewByCedula($nacionalidad, $cedula){
+        $var =  static::whereTipoNacionalidadId((int)$nacionalidad)->whereCi((int)$cedula)->first();
+        if($var==null){
+            return new Persona();
+        }
+        return $var;
     }
 
 }

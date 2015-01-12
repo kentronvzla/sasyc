@@ -25,4 +25,5 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
 Route::controller('administracion/actualizaciones', 'ActualizacionesController');
 
 Route::controller('pantallas','PantallasController');
-Route::controller('solicitud','SolicitudController');
+Route::controller('solicitudes','SolicitudesController');
+Route::controller('personas','PersonasController');

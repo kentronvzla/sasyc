@@ -52,6 +52,12 @@ class InformesSocial extends BaseModel {
      * @var array
      */
     protected $rules = [
+        'solicitud_id'=>'required|integer', 
+'tipo_vivienda_id'=>'required|integer', 
+'tendencia_id'=>'required|integer', 
+'observaciones'=>'required', 
+'total_ingresos'=>'required', 
+
     ];
 
     protected function getPrettyFields() {

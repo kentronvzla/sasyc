@@ -130,7 +130,7 @@ $(document).ready(function () {
 
 function docReady() {
     $('input, select, textarea').each(function () {
-        if ($(this).attr("data-tienetooltip") == undefined) {
+        if ($(this).attr("data-tienetooltip") == undefined && $(this).attr('type')!="radio") {
             $(this).attr("data-tienetooltip", 1);
             $(this).tooltip({'trigger': 'focus hover', 'title': $(this).attr("placeholder")});
         }

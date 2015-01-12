@@ -14,9 +14,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
 
     function btInput($obj, $attrName, $numCols=12, $type = 'text'
     , $options = array()) {
-        if(is_null($obj)){
-            die($attrName);
-        }
         $data['params']['class'] = '';
         if ($obj->isRelatedField($attrName) && $type == "text") {
             $type = 'select';

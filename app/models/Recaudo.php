@@ -37,7 +37,7 @@ class Recaudo extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre', 'descripcion', 'ind_obligatorio', 'ind_vence', 'ind_activo', 
+        'nombre', 'descripcion', 'ind_obligatorio', 'ind_vence', 'ind_activo',
     ];
 
     /**
@@ -47,24 +47,26 @@ class Recaudo extends BaseModel {
      * @var array
      */
     protected $rules = [
-        
+        'nombre'=>'required', 
+'descripcion'=>'required', 
+'ind_obligatorio'=>'required', 
+'ind_vence'=>'required', 
+'ind_activo'=>'required', 
+
     ];
-    
+
     protected function getPrettyFields() {
         return [
-            'nombre'=>'nombre', 
-'descripcion'=>'descripcion', 
-'ind_obligatorio'=>'ind_obligatorio', 
-'ind_vence'=>'ind_vence', 
-'ind_activo'=>'ind_activo', 
-
+            'nombre' => 'nombre',
+            'descripcion' => 'descripcion',
+            'ind_obligatorio' => 'ind_obligatorio',
+            'ind_vence' => 'ind_vence',
+            'ind_activo' => 'ind_activo',
         ];
     }
 
     protected function getPrettyName() {
         return "recaudos";
     }
-
-    
 
 }

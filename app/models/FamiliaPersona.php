@@ -44,6 +44,10 @@ class FamiliaPersona extends BaseModel {
      * @var array
      */
     protected $rules = [
+        'persona_beneficiario_id'=>'required|integer', 
+'persona_familia_id'=>'required|integer', 
+'parentesco'=>'required', 
+
     ];
 
     protected function getPrettyFields() {
@@ -63,7 +67,7 @@ class FamiliaPersona extends BaseModel {
      * @return PersonaBeneficiario
      */
     public function personaBeneficiario() {
-        return $this->belongsTo('PersonaBeneficiario', 'persona_beneficiario_id');
+        return $this->belongsTo('Persona');
     }
 
     /**
@@ -71,7 +75,7 @@ class FamiliaPersona extends BaseModel {
      * @return PersonaFamilia
      */
     public function personaFamilia() {
-        return $this->belongsTo('PersonaFamilia', 'persona_familia_id');
+        return $this->belongsTo('Persona');
     }
 
 }

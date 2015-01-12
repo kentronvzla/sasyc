@@ -40,6 +40,8 @@ class Parentesco extends BaseModel {
      * @var array
      */
     protected $rules = [
+        'nombre'=>'required', 
+
     ];
 
     protected function getPrettyFields() {
