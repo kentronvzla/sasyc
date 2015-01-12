@@ -100,7 +100,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         'accion_tomada', 'necesidad', 'tipo_proc', 'num_proc', 'facturas',
         'observaciones', 'moneda', 'prioridad', 'estatus', 'usuario_asignacion_id',
         'usuario_autorizacion_id', 'fecha_solicitud', 'fecha_asignacion',
-        'fecha_aceptacion', 'fecha_aprobacion', 'fecha_cierre',
+        'fecha_aceptacion', 'fecha_aprobacion', 'fecha_cierre','ind_beneficiario_menor'
     ];
 
     /**
@@ -120,8 +120,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         'referente_id' => 'required|integer',
         'recepcion_id' => 'required|integer',
         'organismo_id' => 'required|integer',
-        'ind_mismo_benef' => 'required',
+        'ind_mismo_benef' => '',
         'ind_inmediata' => 'required',
+        'ind_beneficiario_menor'=>'',
         'actividad' => '',
         'referencia' => '',
         'accion_tomada' => '',
@@ -156,6 +157,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
             'organismo_id' => 'Procesado por',
             'ind_mismo_benef' => 'Solicitante es el mismo Beneficiario?',
             'ind_inmediata' => 'Atención inmediata?',
+            'ind_beneficiario_menor'=>'El beneficiario es menor de edad?',
             'actividad' => 'Actividad',
             'referencia' => 'Referencia',
             'accion_tomada' => 'Acción Tomada',
@@ -269,7 +271,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
             'ind_mismo_benef' => 'required',
             'persona_solicitante_id' => 'required_if:ind_mismo_benef,1',
             'persona_beneficiario_id' => 'required',
-            'ind_menor' => 'required',
+            'ind_beneficiario_menor' => 'required',
         ];
     }
 

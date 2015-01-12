@@ -32,8 +32,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Diagnostico Social">
+            <textarea class="ckeditor"></textarea>
         </div>
     </div>
-</div> 
+</div>
+{{HTML::script('js/ckeditor/ckeditor.js')}}
 

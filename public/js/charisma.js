@@ -130,7 +130,7 @@ $(document).ready(function () {
 
 function docReady() {
     $('input, select, textarea').each(function () {
-        if ($(this).attr("data-tienetooltip") == undefined && $(this).attr('type')!="radio") {
+        if ($(this).attr("data-tienetooltip") == undefined && $(this).attr('type') != "radio") {
             $(this).attr("data-tienetooltip", 1);
             $(this).tooltip({'trigger': 'focus hover', 'title': $(this).attr("placeholder")});
         }
@@ -352,6 +352,8 @@ function docReady() {
     });
     $("form.saveajax").unbind('submit');
     $("form.saveajax").submit(function (e) {
+        $(this).find('input, textarea, select, checkbox, radio').parent().removeClass("has-error");
+        $(this).find('.help-block').remove();
         $.ajax({
             url: $(this).attr('action'),
             data: $(this).serialize(),

@@ -89,7 +89,6 @@
 class Persona extends BaseModel {
 
     protected $table = "personas";
-    
     protected $dates = ['fecha_nacimiento'];
 
     /**
@@ -133,10 +132,10 @@ class Persona extends BaseModel {
         'zona_sector' => '',
         'calle_avenida' => '',
         'apto_casa' => '',
-        'telefono_fijo' => '',
-        'telefono_celular' => '',
-        'telefono_otro' => '',
-        'email' => '',
+        'telefono_fijo' => 'max:20|min:10|regex:/^[0-9.-]*$/',
+        'telefono_celular' => 'max:20|min:10|regex:/^[0-9.-]*$/',
+        'telefono_otro' => 'max:20|min:10|regex:/^[0-9.-]*$/',
+        'email' => 'email',
         'twitter' => '',
         'ind_trabaja' => '',
         'ocupacion' => '',
@@ -244,13 +243,17 @@ class Persona extends BaseModel {
     public function parroquia() {
         return $this->belongsTo('Parroquia');
     }
-    
-    public static function findOrNewByCedula($nacionalidad, $cedula){
-        $var =  static::whereTipoNacionalidadId((int)$nacionalidad)->whereCi((int)$cedula)->first();
-        if($var==null){
+
+    public static function findOrNewByCedula($nacionalidad, $cedula) {
+        $var = static::whereTipoNacionalidadId((int) $nacionalidad)->whereCi((int) $cedula)->first();
+        if ($var == null) {
             return new Persona();
         }
         return $var;
+    }
+
+    public function setFechaNacimientoAttribute($value) {
+        $this->attributes['fecha_nacimiento'] = Carbon::createFromFormat('d/m/Y',$value);
     }
 
 }

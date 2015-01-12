@@ -14,14 +14,13 @@
             <div id="Panel" class="panel-collapse collapse in">
                 <div class="panel-body">
                     @include('templates.errores')
-                    {{Form::open(['url'=>'solicitud/nueva'])}}
+                    {{Form::open(['url'=>'solicitudes/nueva'])}}
                     @include('manejosolicitudes.nuevasolicitud')
                     {{Form::close()}}
                 </div>
             </div>
         </div>
-        @endif
-        @if(!$nuevo)
+        @else
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelUno">
                 <h4 class="panel-title">
@@ -33,7 +32,7 @@
             <div id="PanelUno" class="panel-collapse collapse in">
                 <div class="panel-body">
                     @include('templates.errores')
-                    {{Form::open(['url'=>'solicitud/modificar'])}}
+                    {{Form::open(['url'=>'solicitudes/modificar','class'=>'saveajax', 'data-callback'=>'solicitudCreada','id'=>'form-solicitud'])}}
                     @include('manejosolicitudes.solicitud')
                     {{Form::close()}}
                 </div>
@@ -50,7 +49,7 @@
             <div id="PanelDos" class="panel-collapse collapse">                
                 <div class="panel-body">
                     @include('templates.errores')
-                    {{Form::open(['url'=>'personasolicitud/modificar'])}}
+                    {{Form::open(['url'=>'personas/modificar','id'=>'form-persona','class'=>'saveajax'])}}
                     @include('manejosolicitudes.beneficiario')
                     {{Form::close()}}
                 </div>
@@ -66,7 +65,9 @@
             </div>
             <div id="PanelTres" class="panel-collapse collapse">
                 <div class="panel-body">
+                    {{Form::open(['url'=>'personas/modificar','id'=>'form-persona','class'=>'saveajax'])}}
                     @include('manejosolicitudes.solicitante')
+                    {{Form::close()}}
                 </div>
             </div>
         </div>
@@ -165,7 +166,4 @@
         </div>
     </div>
 </div>
-@stop
-@section('js-include')
-{{HTML::script('js/views/candidato/plantilla.js')}}
 @stop

@@ -54,7 +54,7 @@
 <hr>
 <h4>Datos del Beneficiario</h4>
 <div class="row">
-    {{Form::btInput($personaBeneficiario,'ind_menor')}}
+    {{Form::btInput($solicitud,'ind_beneficiario_menor')}}
 </div>
 <div id='div-beneficiario'>
     {{Form::hidden('persona_beneficiario_id', Input::old('persona_beneficiario_id'), ['id'=>'persona_beneficiario_id'])}}

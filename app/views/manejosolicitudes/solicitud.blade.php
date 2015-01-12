@@ -1,9 +1,13 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <h4>Número de Solicitud: {{$solicitud->id}}</h4> 
+        <h4>Número de Solicitud: <span id='span-solicitud-id'>{{$solicitud->id}}</span></h4> 
     </div>
 </div>
-{{Form::hidden('id',$solicitud->id)}}
+{{Form::hidden('id',$solicitud->id, ['id'=>'id'])}}
+{{Form::hidden('persona_beneficiario_id',$solicitud->persona_beneficiario_id, ['id'=>'persona_beneficiario_id'])}}
+{{Form::hidden('persona_solicitante_id',$solicitud->persona_solicitante_id, ['id'=>'persona_solicitante_id'])}}
+{{Form::hidden('ind_beneficiario_menor',$solicitud->ind_beneficiario_menor, ['id'=>'ind_beneficiario_menor'])}}
+{{Form::hidden('ind_mismo_benef',$solicitud->ind_mismo_benef, ['id'=>'ind_mismo_benef'])}}
 <div class="row">
     {{Form::btInput($solicitud,'descripcion')}}
 </div>
@@ -34,11 +38,7 @@
 <div class="row">
     {{Form::btInput($solicitud,'observaciones')}}
 </div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
-            <button type="button" class="btn btn-default botonCancelar"><span class="glyphicon glyphicon-trash"></span> Cancelar</button>
-        </div>
-    </div>
-</div>
+@include('templates.bootstrap.submit')
+@section('javascript')
+{{HTML::script('js/views/manejosolicitudes/solicitud.js')}}
+@stop

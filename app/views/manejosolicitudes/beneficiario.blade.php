@@ -1,5 +1,4 @@
-{{Form::hidden('solicitud_id',$solicitud->id)}}
-{{Form::hidden('id',$beneficiario->id)}}
+{{Form::hidden('id',$solicitud->persona_beneficiario_id)}}
 <div class="row">
     {{Form::btInput($beneficiario,'nombre',6)}}
     {{Form::btInput($beneficiario,'apellido',6)}}
@@ -68,11 +67,4 @@
     {{Form::btInput($beneficiario,'email',6)}}
     {{Form::btInput($beneficiario,'twitter',6)}}
 </div> 
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
-            <button type="button" class="btn btn-default botonCancelar"><span class="glyphicon glyphicon-trash"></span> Cancelar</button>
-        </div>
-    </div>
-</div>
+@include('templates.bootstrap.submit')

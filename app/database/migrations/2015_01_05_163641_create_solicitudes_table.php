@@ -24,6 +24,7 @@ class CreateSolicitudesTable extends Migration {
             $table->integer('organismo_id', false, true);
             $table->boolean('ind_mismo_benef')->default(0);
             $table->boolean('ind_inmediata')->default(0);
+            $table->boolean('ind_beneficiario_menor')->default(0);
             $table->string('actividad', 2000)->nullable();
             $table->string('referencia', 2000)->nullable();
             $table->string('accion_tomada', 2000)->nullable();

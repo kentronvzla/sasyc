@@ -1,4 +1,4 @@
-{{Form::hidden('solicitud_id',$solicitud->id)}}
+{{Form::hidden('id',$solicitud->persona_solicitante_id)}}
 <div class="row">
     {{Form::btInput($solicitante,'nombre',6)}}
     {{Form::btInput($solicitante,'apellido',6)}}
