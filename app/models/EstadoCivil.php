@@ -47,7 +47,7 @@ class EstadoCivil extends BaseModel {
     
     protected function getPrettyFields() {
         return [
-            'nombre'=>'Nombre', 
+            'nombre'=>'Estado Civil', 
 
         ];
     }
@@ -56,6 +56,8 @@ class EstadoCivil extends BaseModel {
         return "estados_civiles";
     }
 
-    
+    public function personas(){
+        return $this->hasMany('Persona');
+    }
 
 }

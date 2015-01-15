@@ -11,7 +11,7 @@
  *
  * @author Nadin Yamaui
  */
-abstract class BaseModel extends Eloquent implements DefaultValuesInterface, SelectInterface {
+abstract class BaseModel extends Eloquent implements DefaultValuesInterface, SelectInterface, SimpleTableInterface {
 
     /**
      * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save, 
@@ -20,7 +20,6 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
      * @var array
      */
     protected $rules = [];
-    protected $primaryKey = "id";
     protected $appends = [];
     protected $dates = [];
     protected $manejaConcurrencia;
@@ -301,26 +300,20 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
             $arr = explode('->', $key);
             $relation = $arr[0];
             $attr = $arr[1];
-            if (isset($this->{$relation}->{$attr})) {
+            if (is_object($this->{$relation})) {
                 return $this->{$relation}->{$attr};
             }
-            return "";
+            return $this->estadoCivil->nombre;
         }
     }
 
     public function getPublicFields() {
-        if (count($this->displayTable) > 0) {
-            $arrDisplay = $this->displayTable;
-            $arrReturn = [];
-            foreach ($arrDisplay as $display) {
-                if (isset($prettyFields[$display])) {
-                    $arrReturn[$display] = $prettyFields[$display];
-                } else {
-                    $arrReturn[$display] = $this->getRelatedDescription($display);
-                }
-            }
-            return $arrReturn;
+        $arrDisplay = $this->getTableFields();
+        $arrReturn = [];
+        foreach ($arrDisplay as $display) {
+            $arrReturn[$display] = $this->getDescription($display);
         }
+        return $arrReturn;
     }
 
     protected function addError($var, $description) {
@@ -389,11 +382,15 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     public function getDefaultValues() {
         return [];
     }
-
+    
+    public function getTableFields() {
+        return [];
+    }
+    
     public function isRequired($field) {
         $rules = $this->rules;
-        if(isset($rules[$field])){
-            return strpos($rules[$field],'required') !== false;
+        if (isset($rules[$field])) {
+            return strpos($rules[$field], 'required') !== false;
         }
         return false;
     }

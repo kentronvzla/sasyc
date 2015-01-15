@@ -181,6 +181,7 @@ class Persona extends BaseModel implements SimpleTableInterface{
             'cobertura' => 'Cobertura',
             'otro_apoyo' => 'Otro apoyo otorgado',
             'como_conocio_fps' => 'Como conoció FPS',
+            'documento'=>'Documento',
         ];
     }
 

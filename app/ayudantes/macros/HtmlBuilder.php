@@ -8,10 +8,11 @@ namespace Ayudantes\Macros;
 
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
-    function simpleTable($collection, $modelName) {
+    function simpleTable($collection, $modelName, $botones = []) {
         $model = new $modelName();
         $data['prettyFields'] = $model->getPublicFields();
         $data['collection'] = $collection;
+        $data['botones'] = $botones;
         return \View::make('templates.bootstrap.simpleTable', $data);
     }
 

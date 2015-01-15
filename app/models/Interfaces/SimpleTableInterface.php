@@ -12,7 +12,7 @@
 interface SimpleTableInterface {
 
     /**
-     * Valores que tomara el objeto por defecto al momento de insertar..
+     * Columnas a mostrar en la tabla
      * @return array Default Values.. 
      */
     function getTableFields();

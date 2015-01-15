@@ -5,11 +5,16 @@ class PersonasController extends BaseController {
     public function __construct() {
         parent::__construct();
     }
+    
+    public function getBuscarid($id){
+        $data['persona'] = Persona::findOrFail($id);
+        return Response::json($data);
+    }
 
     public function getBuscar() {
         $persona = Persona::findOrNewByCedula(Input::get('tipo_nacionalidad_id'), Input::get('ci'));
         $data['persona'] = $persona;
-        $data['vista'] = $this->getFamiliaresSolicitante($persona->id)->render();
+        $data['vista'] = $this->getFamiliaressolicitante($persona->id)->render();
         return Response::json($data);
     }
 
