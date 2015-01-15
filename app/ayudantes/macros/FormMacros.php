@@ -11,10 +11,26 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
     function concurrencia($obj) {
         return \Form::hidden('version', Input::old('version', $obj->version));
     }
+    
+    public function btSelect($attrName, $values, $value, $numCols=12, $required = true) {
+        $data['numCols'] = $numCols;
+        $data['attrName'] = $attrName;
+        $data['params']['class'] = 'form-control';
+        $data['attrValue'] = $value;
+        $data['params']['id'] = $attrName;
+        $data['options'] = $values;
+        if ($required) {
+            $data['params']['required'] = 'true';
+        }
+        $data['inputType'] = "select";
+        return \View::make('templates.bootstrap.input', $data);
+    }
 
     function btInput($obj, $attrName, $numCols=12, $type = 'text'
-    , $options = array()) {
+    , $html = []) {
+        $data['params'] = $html;
         $data['params']['class'] = '';
+        $options = [];
         if ($obj->isRelatedField($attrName) && $type == "text") {
             $type = 'select';
             $options = $obj->getRelatedOptions($attrName);

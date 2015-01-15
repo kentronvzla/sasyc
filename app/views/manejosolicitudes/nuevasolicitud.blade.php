@@ -1,9 +1,10 @@
+{{Form::open(['url'=>'solicitudes/nueva'])}}
 <div class="row">
     {{Form::btInput($solicitud,'ind_mismo_benef')}}
 </div>  
-<hr>
-<h4>Datos del Solicitante</h4>
 <div id='div-solicitante'>
+    <hr>
+    <h4>Datos del Solicitante</h4>
     {{Form::hidden('persona_solicitante_id', Input::old('persona_solicitante_id'), ['id'=>'persona_solicitante_id'])}}
     <div class="row">
         {{Form::btInput($personaSolicitante,'tipo_nacionalidad_id',5)}}
@@ -25,32 +26,12 @@
             <button type="button" class="btn btn-primary salvar-persona" style="display: none;"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
         </div>
     </div>
+    <hr>
+    <h4>Personas relacionadas al Solicitante (beneficiarios y/o familiares)</h4>
+    <div id="lista-relacionados">
+        @include('manejosolicitudes.relacionados-lista')
+    </div>  
 </div>
-<hr>
-<h4>Personas relacionadas al Solicitante (beneficiarios y/o familiares)</h4>
-<div class="panel-body">
-    <table class="table">
-        <tr>
-            <th> Menor</th>
-            <th> Cedula</th> 
-            <th> Nombres</th> 
-            <th> Apellidos</th>
-        <tr>
-            <td>
-                No   
-            </td>
-            <td>
-                18.934.893   
-            </td>
-            <td>
-                Antonio Jose
-            </td>
-            <td>
-                Ladera  Ortega
-            </td>
-        </tr>
-    </table>
-</div>       
 <hr>
 <h4>Datos del Beneficiario</h4>
 <div class="row">
@@ -83,3 +64,4 @@
 @section('javascript')
 {{HTML::script('js/views/manejosolicitudes/nuevasolicitud.js')}}
 @stop
+{{Form::close()}}

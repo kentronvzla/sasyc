@@ -7,9 +7,8 @@
  */
 
 /**
- * Description of Persona
+ * Persona
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
  * @property string $apellido
@@ -18,9 +17,9 @@
  * @property string $sexo
  * @property integer $estado_civil_id
  * @property string $lugar_nacimiento
- * @property string $fecha_nacimiento
+ * @property \Carbon\Carbon $fecha_nacimiento
  * @property integer $nivel_academico_id
- * @property integer $parentesco_id
+ * @property integer $co_id
  * @property integer $estado_id
  * @property integer $municipio_id
  * @property integer $parroquia_id
@@ -42,12 +41,13 @@
  * @property string $cobertura
  * @property string $otro_apoyo
  * @property string $como_conocio_fps
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \TipoNacionalidad $tipoNacionalidad
  * @property-read \EstadoCivil $estadoCivil
  * @property-read \NivelAcademico $nivelAcademico
- * @property-read \Parentesco $parentesco
+ * @property-read \Parentesco $co
  * @property-read \Estado $estado
  * @property-read \Municipio $municipio
  * @property-read \Parroquia $parroquia
@@ -83,10 +83,11 @@
  * @method static \Illuminate\Database\Query\Builder|\Persona whereCobertura($value) 
  * @method static \Illuminate\Database\Query\Builder|\Persona whereOtroApoyo($value) 
  * @method static \Illuminate\Database\Query\Builder|\Persona whereComoConocioFps($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Persona whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Persona whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Persona whereUpdatedAt($value) 
  */
-class Persona extends BaseModel {
+class Persona extends BaseModel implements SimpleTableInterface{
 
     protected $table = "personas";
     protected $dates = ['fecha_nacimiento'];
@@ -99,7 +100,7 @@ class Persona extends BaseModel {
     protected $fillable = [
         'nombre', 'apellido', 'tipo_nacionalidad_id', 'ci', 'sexo',
         'estado_civil_id', 'lugar_nacimiento', 'fecha_nacimiento',
-        'nivel_academico_id', 'parentesco_id', 'estado_id', 'municipio_id',
+        'nivel_academico_id', 'co_id', 'estado_id', 'municipio_id',
         'parroquia_id', 'ciudad', 'zona_sector', 'calle_avenida', 'apto_casa',
         'telefono_fijo', 'telefono_celular', 'telefono_otro', 'email',
         'twitter', 'ind_trabaja', 'ocupacion', 'ingreso_mensual',
@@ -124,7 +125,6 @@ class Persona extends BaseModel {
         'lugar_nacimiento' => '',
         'fecha_nacimiento' => '',
         'nivel_academico_id' => 'integer',
-        'parentesco_id' => 'integer',
         'estado_id' => 'integer',
         'municipio_id' => 'integer',
         'parroquia_id' => 'integer',
@@ -159,8 +159,8 @@ class Persona extends BaseModel {
             'lugar_nacimiento' => 'Lugar de nacimiento',
             'fecha_nacimiento' => 'Fecha de nacimiento',
             'nivel_academico_id' => 'Nivel de instrucción',
-            'parentesco_id' => 'Parentesco',
             'estado_id' => 'Estado',
+            'edad'=>'Edad',
             'municipio_id' => 'Municipio',
             'parroquia_id' => 'Parroquia',
             'ciudad' => 'Ciudad',
@@ -213,14 +213,6 @@ class Persona extends BaseModel {
     }
 
     /**
-     * Define una relación pertenece a Parentesco
-     * @return Parentesco
-     */
-    public function parentesco() {
-        return $this->belongsTo('Parentesco');
-    }
-
-    /**
      * Define una relación pertenece a Estado
      * @return Estado
      */
@@ -244,6 +236,24 @@ class Persona extends BaseModel {
         return $this->belongsTo('Parroquia');
     }
 
+    /**
+     * 
+     */
+    public function familiaresBeneficiario() {
+        return $this->belongsToMany('Persona', 'familia_persona', 'persona_beneficiario_id', 'persona_familia_id')
+                        ->withPivot('parentesco_id')
+                        ->withTimestamps();
+    }
+    
+        /**
+     * 
+     */
+    public function familiaresSolicitante() {
+        return $this->belongsToMany('Persona', 'familia_persona', 'persona_familia_id', 'persona_beneficiario_id')
+                        ->withPivot('parentesco_id')
+                        ->withTimestamps();
+    }
+
     public static function findOrNewByCedula($nacionalidad, $cedula) {
         $var = static::whereTipoNacionalidadId((int) $nacionalidad)->whereCi((int) $cedula)->first();
         if ($var == null) {
@@ -253,7 +263,29 @@ class Persona extends BaseModel {
     }
 
     public function setFechaNacimientoAttribute($value) {
-        $this->attributes['fecha_nacimiento'] = Carbon::createFromFormat('d/m/Y',$value);
+        if ($value != "") {
+            $this->attributes['fecha_nacimiento'] = Carbon::createFromFormat('d/m/Y', $value);
+        }
+    }
+    
+    public function getEdadAttribute(){
+        if($this->fecha_nacimiento != null){
+            return $this->fecha_nacimiento->age;
+        }
+        return "";
+    }
+    
+    public function getDocumentoAttribute(){
+        if($this->tipoNacionalidad!=null){
+            return $this->tipoNacionalidad->nombre.'-'.$this->ci;
+        }
+        return $this->ci;
+    }
+
+    public function getTableFields() {
+        return [
+            'documento','nombre','apellido','sexo','estadoCivil->nombre'
+        ];
     }
 
 }

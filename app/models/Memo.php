@@ -7,14 +7,14 @@
  */
 
 /**
- * Description of Memo
+ * Memo
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $fecha
  * @property string $numero
  * @property string $origen
  * @property string $destino
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\Memo whereId($value) 
@@ -22,6 +22,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Memo whereNumero($value) 
  * @method static \Illuminate\Database\Query\Builder|\Memo whereOrigen($value) 
  * @method static \Illuminate\Database\Query\Builder|\Memo whereDestino($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Memo whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Memo whereUpdatedAt($value) 
  */

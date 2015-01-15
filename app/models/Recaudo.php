@@ -7,15 +7,15 @@
  */
 
 /**
- * Description of Recaudo
+ * Recaudo
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
  * @property string $descripcion
  * @property boolean $ind_obligatorio
  * @property boolean $ind_vence
  * @property boolean $ind_activo
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereId($value) 
@@ -24,6 +24,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereIndObligatorio($value) 
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereIndVence($value) 
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereIndActivo($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Recaudo whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereUpdatedAt($value) 
  */

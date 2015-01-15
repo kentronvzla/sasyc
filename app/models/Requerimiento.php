@@ -7,9 +7,8 @@
  */
 
 /**
- * Description of Requerimiento
+ * Requerimiento
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
  * @property string $descripcion
@@ -17,6 +16,7 @@
  * @property string $cod_cta
  * @property string $tipo
  * @property integer $tipo_ayuda_id
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \TipoAyuda $tipoAyuda
@@ -27,6 +27,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCodCta($value) 
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereTipo($value) 
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereTipoAyudaId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereUpdatedAt($value) 
  */
@@ -40,7 +41,7 @@ class Requerimiento extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre', 'descripcion', 'cod_item', 'cod_cta', 'tipo', 'tipo_ayuda_id', 
+        'nombre', 'descripcion', 'cod_item', 'cod_cta', 'tipo', 'tipo_ayuda_id',
     ];
 
     /**
@@ -50,24 +51,22 @@ class Requerimiento extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'nombre'=>'required', 
-'descripcion'=>'required', 
-'cod_item'=>'required', 
-'cod_cta'=>'required', 
-'tipo'=>'required', 
-'tipo_ayuda_id'=>'required|integer', 
-
+        'nombre' => 'required',
+        'descripcion' => 'required',
+        'cod_item' => '',
+        'cod_cta' => 'required',
+        'tipo' => 'required',
+        'tipo_ayuda_id' => 'required|integer',
     ];
-    
+
     protected function getPrettyFields() {
         return [
-            'nombre'=>'nombre', 
-'descripcion'=>'descripcion', 
-'cod_item'=>'cod_item', 
-'cod_cta'=>'cod_cta', 
-'tipo'=>'tipo', 
-'tipo_ayuda_id'=>'tipo_ayuda_id', 
-
+            'nombre' => 'Nombre',
+            'descripcion' => 'Descripción',
+            'cod_item' => 'Ítem',
+            'cod_cta' => 'Cuenta',
+            'tipo' => 'Tipo',
+            'tipo_ayuda_id' => 'Tipo de ayuda',
         ];
     }
 
@@ -76,12 +75,11 @@ class Requerimiento extends BaseModel {
     }
 
     /**
-* Define una relación pertenece a TipoAyuda
-* @return TipoAyuda
-*/
-public function tipoAyuda(){
-    return $this->belongsTo('TipoAyuda');
-}
-
+     * Define una relación pertenece a TipoAyuda
+     * @return TipoAyuda
+     */
+    public function tipoAyuda() {
+        return $this->belongsTo('TipoAyuda');
+    }
 
 }

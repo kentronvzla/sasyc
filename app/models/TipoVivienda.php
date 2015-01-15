@@ -7,15 +7,16 @@
  */
 
 /**
- * Description of TipoVivienda
+ * TipoVivienda
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereUpdatedAt($value) 
  */

@@ -30,8 +30,11 @@ class SolicitudesController extends BaseController {
         } else {
             $data['solicitud'] = Solicitud::findOrNew($id);
         }
-        $data['beneficiario'] = Persona::findOrNew($data['solicitud']->persona_beneficiario_id);
+        $data['beneficiario'] = Persona::findOrFail($data['solicitud']->persona_beneficiario_id);
         $data['solicitante'] = Persona::findOrNew($data['solicitud']->persona_solicitante_id);
+        $data['familiares'] = $data['beneficiario']->familiaresBeneficiario;
+        $data['familiar'] = new Persona();
+        $data['presupuesto'] = new Presupuesto();
         return View::make("manejosolicitudes.plantilla", $data);
     }
 
@@ -41,6 +44,7 @@ class SolicitudesController extends BaseController {
         $data['solicitud'] = new Solicitud();
         $data['personaSolicitante'] = new Persona();
         $data['personaBeneficiario'] = new Persona();
+        $data['familiares'] = $data['personaSolicitante']->familiaresBeneficiario;
         return View::make("manejosolicitudes.plantilla", $data);
     }
 
@@ -53,5 +57,4 @@ class SolicitudesController extends BaseController {
             return Redirect::back()->withInput()->withErrors($solicitud->getErrors());
         }
     }
-
 }

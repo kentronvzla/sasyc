@@ -7,19 +7,20 @@
  */
 
 /**
- * Description of NivelesAcademico
+ * NivelAcademico
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
  * @property integer $orden
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\NivelesAcademico whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\NivelesAcademico whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\NivelesAcademico whereOrden($value) 
- * @method static \Illuminate\Database\Query\Builder|\NivelesAcademico whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\NivelesAcademico whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereOrden($value) 
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereVersion($value) 
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereUpdatedAt($value) 
  */
 class NivelAcademico extends BaseModel {
 

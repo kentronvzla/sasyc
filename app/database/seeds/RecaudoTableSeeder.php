@@ -1,6 +1,6 @@
 <?php
 
-class RecaudosTableSeeder extends Seeder {
+class RecaudoTableSeeder extends Seeder {
 
     public function run() {
         Recaudo::create(array('nombre' => 'Fotocopias de la cédula de identidad - Solicitante',

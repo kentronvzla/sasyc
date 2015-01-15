@@ -3,16 +3,17 @@ $(document).ready(function () {
     $("#tipo_nacionalidad_id, #ci").change(buscarPersona);
     $('.salvar-persona').click(crearPersona);
     $('#ind_mismo_benef').change(mostrarOcultarSolicitante);
-    function mostrarOcultarSolicitante(evt)
+
+    function mostrarOcultarSolicitante()
     {
-        alert($(evt.target).val());
+
     }
-    
+
     function buscarPersona(evt)
     {
         var parent = $(evt.target).closest('.row').parent();
         var variables = parent.find('input, select').serialize();
-        if(parent.find('#tipo_nacionalidad_id').val()=="" || parent.find('#ci').val()==""){
+        if (parent.find('#tipo_nacionalidad_id').val() == "" || parent.find('#ci').val() == "") {
             return;
         }
         $.ajax({
@@ -22,7 +23,7 @@ $(document).ready(function () {
             method: "GET",
             success: function (data)
             {
-                if (data.persona.id != undefined){
+                if (data.persona.id != undefined) {
                     parent.find('#persona_solicitante_id, #persona_beneficiario_id').val(data.persona.id);
                     parent.find('#nombre').first().val(data.persona.nombre);
                     parent.find('#apellido').val(data.persona.apellido);
@@ -32,6 +33,9 @@ $(document).ready(function () {
                     parent.find('#nombre, #apellido').prop("disabled", false);
                     parent.find('#nombre, #apellido').val("");
                     parent.find('.salvar-persona').show();
+                }
+                if (parent.attr('id') == 'div-solicitante') {
+                    $('#lista-relacionados').html(data.vista);
                 }
             }
         });
@@ -43,7 +47,7 @@ $(document).ready(function () {
         var variables = parent.find('input, select').serialize();
         parent.find('input, textarea, select, checkbox, radio').parent().removeClass("has-error");
         parent.find('.help-block').remove();
-        
+
         $.ajax({
             url: baseUrl + "personas/crear",
             data: variables,
@@ -54,6 +58,11 @@ $(document).ready(function () {
             {
                 mostrarMensaje(data.mensaje);
                 parent.find('#persona_solicitante_id, #persona_beneficiario_id').val(data.persona.id);
+                if (parent.attr('id') == 'div-solicitante') {
+                    $.get(baseUrl + "personas/familiaressolicitante/" + data.persona.id, function (data) {
+                        $('#lista-relacionados').html(data);
+                    });
+                }
             },
             error: function (data)
             {

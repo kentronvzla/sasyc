@@ -1,0 +1,31 @@
+.lista{
+    padding-top: 5px;
+}
+
+.tituloLista{
+    background-color: #EAEBE7;
+}
+
+.filaLista:hover{
+    background-color: #EAEBE7;
+}
+.filaLista{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.paddingFila{
+    padding-top: 5px; 
+}
+
+.tituloTabla{
+    background-color: #f1f1f1;
+}
+
+.headTabla{
+    background: #f1f1f1;
+}
+.tituloValor{
+    width: 240px;
+    background-color: #f1f1f1;
+}

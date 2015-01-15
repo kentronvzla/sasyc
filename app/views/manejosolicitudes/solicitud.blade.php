@@ -39,6 +39,3 @@
     {{Form::btInput($solicitud,'observaciones')}}
 </div>
 @include('templates.bootstrap.submit')
-@section('javascript')
-{{HTML::script('js/views/manejosolicitudes/solicitud.js')}}
-@stop

@@ -7,17 +7,18 @@
  */
 
 /**
- * Description of EstadosCivil
+ * EstadoCivil
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\EstadosCivil whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\EstadosCivil whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\EstadosCivil whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\EstadosCivil whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereVersion($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereUpdatedAt($value) 
  */
 class EstadoCivil extends BaseModel {
 

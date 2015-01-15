@@ -7,23 +7,26 @@
  */
 
 /**
- * Description of RecaudoSolicitud
+ * RecaudoSolicitud
  *
- * @author Nadin Yamani
+ * @property integer $id
  * @property integer $solicitud_id
  * @property integer $recaudo_id
  * @property boolean $ind_recibido
  * @property string $fecha_vencimiento
  * @property mixed $documento
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Solicitud $solicitud
  * @property-read \Recaudo $recaudo
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereSolicitudId($value) 
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereRecaudoId($value) 
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereIndRecibido($value) 
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereFechaVencimiento($value) 
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereDocumento($value) 
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereUpdatedAt($value) 
  */

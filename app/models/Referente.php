@@ -7,17 +7,18 @@
  */
 
 /**
- * Description of Referente
+ * Referente
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
  * @property string $cargo
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\Referente whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Referente whereNombre($value) 
  * @method static \Illuminate\Database\Query\Builder|\Referente whereCargo($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Referente whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Referente whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Referente whereUpdatedAt($value) 
  */

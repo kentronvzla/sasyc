@@ -7,9 +7,8 @@
  */
 
 /**
- * Description of Solicitud
+ * Solicitud
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property integer $ano
  * @property string $descripcion
@@ -22,6 +21,7 @@
  * @property integer $organismo_id
  * @property boolean $ind_mismo_benef
  * @property boolean $ind_inmediata
+ * @property boolean $ind_beneficiario_menor
  * @property string $actividad
  * @property string $referencia
  * @property string $accion_tomada
@@ -40,6 +40,11 @@
  * @property \Carbon\Carbon $fecha_aceptacion
  * @property \Carbon\Carbon $fecha_aprobacion
  * @property \Carbon\Carbon $fecha_cierre
+ * @property integer $tipo_vivienda_id
+ * @property integer $tenencia_id
+ * @property string $informe_social
+ * @property float $total_ingresos
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Persona $personaBeneficiario
@@ -51,6 +56,10 @@
  * @property-read \Organismo $organismo
  * @property-read \UsuarioAsignacion $usuarioAsignacion
  * @property-read \UsuarioAutorizacion $usuarioAutorizacion
+ * @property-read \TipoVivienda $tipoVivienda
+ * @property-read \Tenencia $tenencia
+ * @property-read \Illuminate\Database\Eloquent\Collection|\FamiliaPersona[] $familiaPersonas
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Presupuesto[] $presupuestos
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAno($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereDescripcion($value) 
@@ -63,6 +72,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereOrganismoId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndMismoBenef($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndInmediata($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndBeneficiarioMenor($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereActividad($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferencia($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAccionTomada($value) 
@@ -81,6 +91,11 @@
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAceptacion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAprobacion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaCierre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoViviendaId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTenenciaId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereInformeSocial($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTotalIngresos($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUpdatedAt($value) 
  */
@@ -100,7 +115,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         'accion_tomada', 'necesidad', 'tipo_proc', 'num_proc', 'facturas',
         'observaciones', 'moneda', 'prioridad', 'estatus', 'usuario_asignacion_id',
         'usuario_autorizacion_id', 'fecha_solicitud', 'fecha_asignacion',
-        'fecha_aceptacion', 'fecha_aprobacion', 'fecha_cierre','ind_beneficiario_menor'
+        'fecha_aceptacion', 'fecha_aprobacion', 'fecha_cierre', 'ind_beneficiario_menor',
+        'tipo_vivienda_id', 'tenencia_id', 'informe_social', 'total_ingresos',
     ];
 
     /**
@@ -122,7 +138,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         'organismo_id' => 'required|integer',
         'ind_mismo_benef' => '',
         'ind_inmediata' => 'required',
-        'ind_beneficiario_menor'=>'',
+        'ind_beneficiario_menor' => '',
         'actividad' => '',
         'referencia' => '',
         'accion_tomada' => '',
@@ -141,8 +157,13 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         'fecha_aceptacion' => '',
         'fecha_aprobacion' => '',
         'fecha_cierre' => '',
+        'tipo_vivienda_id' => 'integer',
+        'tenencia_id' => 'integer',
+        'informe_social' => '',
+        'total_ingresos' => '',
     ];
-    protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion', 'fecha_aprobacion', 'fecha_cierre'];
+    protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion',
+        'fecha_aprobacion', 'fecha_cierre'];
 
     protected function getPrettyFields() {
         return [
@@ -157,7 +178,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
             'organismo_id' => 'Procesado por',
             'ind_mismo_benef' => 'Solicitante es el mismo Beneficiario?',
             'ind_inmediata' => 'Atención inmediata?',
-            'ind_beneficiario_menor'=>'El beneficiario es menor de edad?',
+            'ind_beneficiario_menor' => 'El beneficiario es menor de edad?',
             'actividad' => 'Actividad',
             'referencia' => 'Referencia',
             'accion_tomada' => 'Acción Tomada',
@@ -176,6 +197,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
             'fecha_aceptacion' => 'Fecha de aceptación',
             'fecha_aprobacion' => 'Fecha de aprobación',
             'fecha_cierre' => 'Fecha cierre',
+            'tipo_vivienda_id' => 'Tipo de vivienda',
+            'tenencia_id' => 'Tenencia',
+            'informe_social' => 'Informe social',
+            'total_ingresos' => 'Total de ingresos',
         ];
     }
 
@@ -255,6 +280,30 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         return $this->belongsTo('UsuarioAutorizacion');
     }
 
+    /**
+     * Define una relación pertenece a TipoVivienda
+     * @return TipoVivienda
+     */
+    public function tipoVivienda() {
+        return $this->belongsTo('TipoVivienda');
+    }
+
+    /**
+     * Define una relación pertenece a Tenencia
+     * @return Tenencia
+     */
+    public function tenencia() {
+        return $this->belongsTo('Tenencia');
+    }
+
+    public function familiaPersonas() {
+        return $this->hasMany('FamiliaPersona');
+    }
+
+    public function presupuestos() {
+        return $this->hasMany('Presupuesto');
+    }
+    
     public function getDefaultValues() {
         return [
             'ano' => Carbon::now()->format('Y'),

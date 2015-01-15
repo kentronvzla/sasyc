@@ -14,9 +14,7 @@
             <div id="Panel" class="panel-collapse collapse in">
                 <div class="panel-body">
                     @include('templates.errores')
-                    {{Form::open(['url'=>'solicitudes/nueva'])}}
                     @include('manejosolicitudes.nuevasolicitud')
-                    {{Form::close()}}
                 </div>
             </div>
         </div>
@@ -65,7 +63,8 @@
             </div>
             <div id="PanelTres" class="panel-collapse collapse">
                 <div class="panel-body">
-                    {{Form::open(['url'=>'personas/modificar','id'=>'form-persona','class'=>'saveajax'])}}
+                    @include('templates.errores')
+                    {{Form::open(['url'=>'personas/crear/'.$beneficiario->id.'/false','id'=>'form-persona','class'=>'saveajax'])}}
                     @include('manejosolicitudes.solicitante')
                     {{Form::close()}}
                 </div>
@@ -80,7 +79,10 @@
                 </h4>
             </div>
             <div id="PanelCuatro" class="panel-collapse collapse">
-                @include('manejosolicitudes.grupofamiliar')
+                <div class="panel-body">
+                    @include('templates.errores')
+                    @include('manejosolicitudes.grupofamiliar')
+                </div>
             </div>
         </div>
         <div class="panel panel-danger">
@@ -92,7 +94,12 @@
                 </h4>
             </div>
             <div id="PanelCinco" class="panel-collapse collapse">
-                @include('manejosolicitudes.informesocioeconomico')
+                <div class="panel-body">
+                    @include('templates.errores')
+                    {{Form::open(['url'=>'solicitudes/modificar','id'=>'form-informe','class'=>'saveajax'])}}
+                    @include('manejosolicitudes.informesocioeconomico')
+                    {{Form::close()}}
+                </div>
             </div>
         </div>
         <div class="panel panel-danger">
@@ -104,6 +111,7 @@
                 </h4>
             </div>
             <div id="PanelSeis" class="panel-collapse collapse">
+                @include('templates.errores')
                 @include('manejosolicitudes.recaudos')
             </div>
         </div>
@@ -117,7 +125,10 @@
             </div>
             <div id="PanelSiete" class="panel-collapse collapse">
                 <div class="panel-body">
+                    @include('templates.errores')
+                    {{Form::open(['url'=>'solicitudes/presupuesto','id'=>'form-presupuesto','class'=>'saveajax'])}}
                     @include('manejosolicitudes.presupuesto')
+                    {{Form::close()}}
                 </div>
             </div>
         </div>   
@@ -131,6 +142,7 @@
             </div>
             <div id="PanelOcho" class="panel-collapse collapse">
                 <div class="panel-body">
+                    @include('templates.errores')
                     @include('manejosolicitudes.subirfotos')
                 </div>
             </div>
@@ -147,6 +159,7 @@
             </div>
         </div>
     </div>
+    @if(!$nuevo)
     <div class="panel panel-default">
         <div class="panel-heading">Solicitud</div>
         <div class="panel-body">
@@ -165,5 +178,9 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
+@stop
+@section('javascript')
+{{HTML::script('js/views/manejosolicitudes/solicitud.js')}}
 @stop

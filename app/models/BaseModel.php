@@ -309,7 +309,6 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     }
 
     public function getPublicFields() {
-        $prettyFields = $this->getPrettyFields();
         if (count($this->displayTable) > 0) {
             $arrDisplay = $this->displayTable;
             $arrReturn = [];
@@ -321,12 +320,6 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
                 }
             }
             return $arrReturn;
-        } else {
-            $hiddenFields = $this->hidden;
-            foreach ($hiddenFields as $hidden) {
-                unset($prettyFields[$hidden]);
-            }
-            return $prettyFields;
         }
     }
 

@@ -7,15 +7,16 @@
  */
 
 /**
- * Description of TipoRequerimiento
+ * TipoRequerimiento
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereUpdatedAt($value) 
  */

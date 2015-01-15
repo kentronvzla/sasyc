@@ -19,9 +19,11 @@ class DatabaseSeeder extends Seeder {
         $this->call('TipoAyudaTableSeeder');
         $this->call('AreaTableSeeder');
         $this->call('TipoViviendaTableSeeder');
-        $this->call('RecaudosTableSeeder');
+        $this->call('RecaudoTableSeeder');
         $this->call('TipoNacionalidadTableSeeder');
         $this->call('EstadoCivilTableSeeder');
+        $this->call('TipoRequerimientoTableSeeder');
+        $this->call('RequerimientoTableSeeder');
     }
 
 }

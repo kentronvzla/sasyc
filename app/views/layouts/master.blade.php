@@ -17,6 +17,8 @@
         {{HTML::style('css/elfinder.min.css')}}
         {{HTML::style('css/elfinder.theme.min.css')}}
         {{HTML::style('css/uploadify.min.css')}}
+        {{HTML::style('css/estilo_sasyc.css')}}
+        
         <!--JS-->
         {{HTML::script('bower_components/jquery/jquery.min.js')}}
     </head>

@@ -7,9 +7,8 @@
  */
 
 /**
- * Description of Documento
+ * Documento
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $tipo
  * @property string $descripcion
@@ -18,6 +17,7 @@
  * @property boolean $ind_reverso
  * @property integer $solicitud_id
  * @property string $mensaje
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Solicitud $solicitud
@@ -29,6 +29,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Documento whereIndReverso($value) 
  * @method static \Illuminate\Database\Query\Builder|\Documento whereSolicitudId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Documento whereMensaje($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Documento whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Documento whereUpdatedAt($value) 
  */
@@ -42,7 +43,7 @@ class Documento extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'tipo', 'descripcion', 'fecha', 'estatus', 'ind_reverso', 'solicitud_id', 
+        'tipo', 'descripcion', 'fecha', 'estatus', 'ind_reverso', 'solicitud_id',
         'mensaje',
     ];
 
@@ -54,14 +55,13 @@ class Documento extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'tipo'=>'required', 
-'descripcion'=>'required', 
-'fecha'=>'required', 
-'estatus'=>'required', 
-'ind_reverso'=>'required', 
-'solicitud_id'=>'required|integer', 
-'mensaje'=>'required', 
-
+        'tipo' => 'required',
+        'descripcion' => 'required',
+        'fecha' => 'required',
+        'estatus' => 'required',
+        'ind_reverso' => 'required',
+        'solicitud_id' => 'required|integer',
+        'mensaje' => 'required',
     ];
 
     protected function getPrettyFields() {

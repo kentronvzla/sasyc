@@ -7,17 +7,18 @@
  */
 
 /**
- * Description of TipoAyuda
+ * TipoAyuda
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
  * @property string $cod_acc_int
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereNombre($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereCodAccInt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereUpdatedAt($value) 
  */

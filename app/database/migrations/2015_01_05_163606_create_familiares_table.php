@@ -12,11 +12,12 @@ class CreateFamiliaresTable extends Migration {
      */
     public function up() {
         Schema::create('familia_persona', function(Blueprint $table) {
-            $table->integer('persona_beneficiario_id', false, true);
             $table->integer('persona_familia_id', false, true);
-            $table->string('parentesco', 200);
-            $table->integer('version')->default(0);
+            $table->integer('persona_beneficiario_id', false, true);
+            $table->integer('parentesco_id', false, true);
             $table->timestamps();
+            
+            $table->primary(['persona_familia_id', 'persona_beneficiario_id']);
         });
     }
 

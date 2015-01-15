@@ -7,13 +7,13 @@
  */
 
 /**
- * Description of Parroquia
+ * Parroquia
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property integer $estado_id
  * @property integer $municipio_id
  * @property string $nombre
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Estado $estado
@@ -22,6 +22,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereEstadoId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereMunicipioId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereUpdatedAt($value) 
  */

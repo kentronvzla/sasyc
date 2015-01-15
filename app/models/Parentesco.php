@@ -7,15 +7,16 @@
  */
 
 /**
- * Description of Parentesco
+ * Parentesco
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parentesco whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereUpdatedAt($value) 
  */

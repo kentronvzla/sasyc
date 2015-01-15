@@ -1,4 +1,5 @@
 {{Form::hidden('id',$solicitud->persona_solicitante_id)}}
+{{Form::hidden('tipo','S')}}
 <div class="row">
     {{Form::btInput($solicitante,'nombre',6)}}
     {{Form::btInput($solicitante,'apellido',6)}}
@@ -13,9 +14,9 @@
     {{Form::btInput($solicitante,'fecha_nacimiento',4)}}
 </div>
 <div class="row">
-    {{Form::btInput($solicitante,'edad',4)}}
+    {{Form::btInput($solicitante,'edad',4,'text',['disabled'=>'disabled'])}}
     {{Form::btInput($solicitante,'estado_civil_id',4)}}
-    {{Form::btInput($solicitante,'parentesco_id',4)}}
+    {{Form::btSelect('parentesco_id', Parentesco::getCombo("Parentesco"), 0, 4)}}
 </div>
 <div class="row">
     {{Form::btInput($solicitante,'nivel_academico_id',8)}}
@@ -72,11 +73,4 @@
 <div class="row">
     {{Form::btInput($solicitante,'observaciones')}}
 </div>  
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
-            <button type="button" class="btn btn-default botonCancelar"><span class="glyphicon glyphicon-trash"></span> Cancelar</button>
-        </div>
-    </div>
-</div>
+@include('templates.bootstrap.submit')

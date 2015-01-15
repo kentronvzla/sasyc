@@ -7,9 +7,8 @@
  */
 
 /**
- * Description of Bitacora
+ * Bitacora
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property integer $solicitud_id
  * @property string $fecha
@@ -19,6 +18,7 @@
  * @property string $tipo
  * @property boolean $ind_activo
  * @property boolean $ind_alarma
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Solicitud $solicitud
@@ -32,6 +32,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereTipo($value) 
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereIndActivo($value) 
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereIndAlarma($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUpdatedAt($value) 
  */

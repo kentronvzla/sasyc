@@ -7,15 +7,16 @@
  */
 
 /**
- * Description of TipoNacionalidad
+ * TipoNacionalidad
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereNombre($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereUpdatedAt($value) 
  */

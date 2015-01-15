@@ -8,20 +8,10 @@ namespace Ayudantes\Macros;
 
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
-    function tableModelSimple($collection, $modelName, $url = "", $parentId = 0) {
+    function simpleTable($collection, $modelName) {
         $model = new $modelName();
         $data['prettyFields'] = $model->getPublicFields();
         $data['collection'] = $collection;
-        if ($url != "") {
-            $data['url'] = $url;
-        } else {
-            $ruta = \Route::getCurrentRoute();
-            $data['url'] = url($ruta->getPath());
-        }
-
-        if ($parentId != 0) {
-            $data['parentId'] = $parentId;
-        }
         return \View::make('templates.bootstrap.simpleTable', $data);
     }
 

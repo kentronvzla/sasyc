@@ -1,4 +1,5 @@
 {{Form::hidden('id',$solicitud->persona_beneficiario_id)}}
+{{Form::hidden('tipo','B')}}
 <div class="row">
     {{Form::btInput($beneficiario,'nombre',6)}}
     {{Form::btInput($beneficiario,'apellido',6)}}
@@ -13,7 +14,7 @@
     {{Form::btInput($beneficiario,'fecha_nacimiento',4)}}
 </div>
 <div class="row">
-    {{Form::btInput($beneficiario,'edad',4)}}
+    {{Form::btInput($beneficiario,'edad',4,'text',['disabled'=>'disabled'])}}
     {{Form::btInput($beneficiario,'estado_civil_id',4)}}
     {{Form::btInput($beneficiario,'ind_asegurado',4)}}
 </div>

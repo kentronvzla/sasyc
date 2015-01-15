@@ -7,17 +7,18 @@
  */
 
 /**
- * Description of Organismo
+ * Organismo
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
  * @property boolean $ind_externo
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereNombre($value) 
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereIndExterno($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Organismo whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereUpdatedAt($value) 
  */

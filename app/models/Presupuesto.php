@@ -7,9 +7,8 @@
  */
 
 /**
- * Description of Presupuesto
+ * Presupuesto
  *
- * @author Nadin Yamani
  * @property integer $id
  * @property integer $solicitud_id
  * @property integer $requerimiento_id
@@ -22,6 +21,7 @@
  * @property string $estatus
  * @property integer $id_doc_proc
  * @property integer $id_sol_sum
+ * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Solicitud $solicitud
@@ -39,6 +39,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereEstatus($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereIdDocProc($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereIdSolSum($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereUpdatedAt($value) 
  */
@@ -52,7 +53,7 @@ class Presupuesto extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'solicitud_id', 'requerimiento_id', 'tipo_requerimiento_id', 'cod_item', 'cod_cta', 'num_benef', 'cantidad', 'monto', 'estatus', 'id_doc_proc', 'id_sol_sum', 
+        'solicitud_id', 'requerimiento_id', 'tipo_requerimiento_id', 'cod_item', 'cod_cta', 'num_benef', 'cantidad', 'monto', 'estatus', 'id_doc_proc', 'id_sol_sum',
     ];
 
     /**
@@ -62,34 +63,32 @@ class Presupuesto extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'solicitud_id'=>'required|integer', 
-'requerimiento_id'=>'required|integer', 
-'tipo_requerimiento_id'=>'required|integer', 
-'cod_item'=>'required', 
-'cod_cta'=>'required', 
-'num_benef'=>'required|integer', 
-'cantidad'=>'required|integer', 
-'monto'=>'required', 
-'estatus'=>'required', 
-'id_doc_proc'=>'required|integer', 
-'id_sol_sum'=>'required|integer', 
-
+        'solicitud_id' => 'required|integer',
+        'requerimiento_id' => 'required|integer',
+        'tipo_requerimiento_id' => 'required|integer',
+        'cod_item' => 'required',
+        'cod_cta' => 'required',
+        'num_benef' => 'required|integer',
+        'cantidad' => 'required|integer',
+        'monto' => 'required',
+        'estatus' => 'required',
+        'id_doc_proc' => 'required|integer',
+        'id_sol_sum' => 'required|integer',
     ];
-    
+
     protected function getPrettyFields() {
         return [
-            'solicitud_id'=>'solicitud_id', 
-'requerimiento_id'=>'requerimiento_id', 
-'tipo_requerimiento_id'=>'tipo_requerimiento_id', 
-'cod_item'=>'cod_item', 
-'cod_cta'=>'cod_cta', 
-'num_benef'=>'num_benef', 
-'cantidad'=>'cantidad', 
-'monto'=>'monto', 
-'estatus'=>'estatus', 
-'id_doc_proc'=>'id_doc_proc', 
-'id_sol_sum'=>'id_sol_sum', 
-
+            'solicitud_id' => 'Solicitud',
+            'requerimiento_id' => 'Requerimiento',
+            'tipo_requerimiento_id' => 'Tipo de requerimiento',
+            'cod_item' => 'Ítem',
+            'cod_cta' => 'Cuenta',
+            'num_benef' => 'Beneficiario',
+            'cantidad' => 'Cantidad',
+            'monto' => 'Monto',
+            'estatus' => 'Estatus',
+            'id_doc_proc' => 'IdDoc proc',
+            'id_sol_sum' => 'IdSol sum',
         ];
     }
 
@@ -98,26 +97,27 @@ class Presupuesto extends BaseModel {
     }
 
     /**
-* Define una relación pertenece a Solicitud
-* @return Solicitud
-*/
-public function solicitud(){
-    return $this->belongsTo('Solicitud');
-}
-/**
-* Define una relación pertenece a Requerimiento
-* @return Requerimiento
-*/
-public function requerimiento(){
-    return $this->belongsTo('Requerimiento');
-}
-/**
-* Define una relación pertenece a TipoRequerimiento
-* @return TipoRequerimiento
-*/
-public function tipoRequerimiento(){
-    return $this->belongsTo('TipoRequerimiento');
-}
+     * Define una relación pertenece a Solicitud
+     * @return Solicitud
+     */
+    public function solicitud() {
+        return $this->belongsTo('Solicitud');
+    }
 
+    /**
+     * Define una relación pertenece a Requerimiento
+     * @return Requerimiento
+     */
+    public function requerimiento() {
+        return $this->belongsTo('Requerimiento');
+    }
+
+    /**
+     * Define una relación pertenece a TipoRequerimiento
+     * @return TipoRequerimiento
+     */
+    public function tipoRequerimiento() {
+        return $this->belongsTo('TipoRequerimiento');
+    }
 
 }
