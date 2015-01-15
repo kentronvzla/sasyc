@@ -27,7 +27,6 @@
         </div>
     </div>
     <hr>
-    <h4>Personas relacionadas al Solicitante (beneficiarios y/o familiares)</h4>
     <div id="lista-relacionados">
         @include('manejosolicitudes.relacionados-lista')
     </div>  
@@ -59,6 +58,9 @@
             <button type="button" class="btn btn-primary salvar-persona" style="display: none;"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
         </div>
     </div>
+    <div id="lista-solicitudesanteriores">
+        @include('manejosolicitudes.solicitudesanteriores-lista')
+    </div>     
 </div>
 @include('templates.bootstrap.submit',['nombreSubmit'=>'Siguiente','nomostrar'=>true,'icon'=>'forward'])
 @section('javascript')

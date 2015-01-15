@@ -5,8 +5,8 @@ class PersonasController extends BaseController {
     public function __construct() {
         parent::__construct();
     }
-    
-    public function getBuscarid($id){
+
+    public function getBuscarid($id) {
         $data['persona'] = Persona::findOrFail($id);
         return Response::json($data);
     }
@@ -14,26 +14,23 @@ class PersonasController extends BaseController {
     public function getBuscar() {
         $persona = Persona::findOrNewByCedula(Input::get('tipo_nacionalidad_id'), Input::get('ci'));
         $data['persona'] = $persona;
-        $data['vista'] = $this->getFamiliaressolicitante($persona->id)->render();
+        $data['vistaFamiliares'] = $this->getFamiliaressolicitante($persona->id)->render();
+        $data['vistaSolicitudes'] = $this->getSolictudesAnteriores($persona->id)->render();
         return Response::json($data);
     }
 
-    public function getBuscarAsociados() {
-        $familiaPersonas = FamiliaPersona::wherePersonaBeneficiarioId(Input::get('tipo_nacionalidad_id'), Input::get('ci'));
-        return Response::json(['familiaPersonas' => $familiaPersonas]);
-    }
-
-    public function postCrear($beneficiario_asoc = null, $render=true) {
+    public function postCrear($beneficiario_asoc = null, $render = true) {
         $persona = Persona::findOrNewByCedula(Input::get('tipo_nacionalidad_id'), Input::get('ci'));
         $persona->fill(Input::all());
         if ($persona->save()) {
             $data['persona'] = $persona;
             $data['mensaje'] = 'Datos guardados correctamente';
             if (!is_null($beneficiario_asoc)) {
-                $benef = Persona::findOrFail($beneficiario_asoc);
-                $benef->familiares()->attach($persona->id, array('parentesco_id' => Input::get('parentesco_id')));
-                if($render===true){
-                    $data['vista'] = $this->getFamiliaresBeneficiario($beneficiario_asoc)->render();
+                $validator = Persona::asociar($beneficiario_asoc, $persona->id, Input::get('parentesco_id'));
+                if ($validator->passes() && $render === true) {
+                    $data['vista'] = $this->getFamiliar($beneficiario_asoc)->render();
+                } else if ($render === true) {
+                    return Response::json(['errores' => $validator->messages()], 400);
                 }
             }
             return Response::json($data);
@@ -50,15 +47,29 @@ class PersonasController extends BaseController {
         return Response::json(['errores' => $persona->getErrors()], 400);
     }
 
-    public function getFamiliaresBeneficiario($id, $familiar_id = null) {
+    public function getFamiliar($id, $familiar_id = null) {
         $data['beneficiario'] = Persona::findOrFail($id);
         $data['familiar'] = Persona::findOrNew($familiar_id);
         $data['familiares'] = $data['beneficiario']->familiaresBeneficiario;
+        $data['parentesco_id'] = $data['beneficiario']->getParentesco($data['familiar']->id);
         return View::make('manejosolicitudes.grupofamiliar', $data);
     }
-    
+
+    public function deleteFamiliar($beneficiario_id) {
+        $beneficiario = Persona::find($beneficiario_id);
+        $beneficiario->familiaresBeneficiario()->detach(Input::get('id'));
+        $data['mensaje'] = "Se eliminó el familiar correctamente";
+        $data['vista'] = $this->getFamiliar($beneficiario_id)->render();
+        return Response::json($data);
+    }
+
     public function getFamiliaressolicitante($id) {
         $data['familiares'] = Persona::findOrNew($id)->familiaresSolicitante;
         return View::make('manejosolicitudes.relacionados-lista', $data);
+    }
+
+    public function getSolictudesAnteriores($id) {
+        $data['solicitudes'] = Persona::findOrNew($id)->solicitudes;
+        return View::make('manejosolicitudes.solicitudesanteriores-lista', $data);
     }
 }

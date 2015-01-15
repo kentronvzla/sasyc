@@ -45,6 +45,7 @@ class SolicitudesController extends BaseController {
         $data['personaSolicitante'] = new Persona();
         $data['personaBeneficiario'] = new Persona();
         $data['familiares'] = $data['personaSolicitante']->familiaresBeneficiario;
+        $data['solicitudes'] = $data['personaSolicitante']->solicitudes;
         return View::make("manejosolicitudes.plantilla", $data);
     }
 

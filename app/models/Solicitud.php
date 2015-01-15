@@ -99,7 +99,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUpdatedAt($value) 
  */
-class Solicitud extends BaseModel implements DefaultValuesInterface {
+class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 
     protected $table = "solicitudes";
 
@@ -303,7 +303,37 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
     public function presupuestos() {
         return $this->hasMany('Presupuesto');
     }
-    
+
+    public function setFechaSolicitudAttribute($value) {
+        if ($value != "") {
+            $this->attributes['fecha_solicitud'] = Carbon::createFromFormat('d/m/Y', $value);
+        }
+    }
+
+    public function setFechaAsignacionAttribute($value) {
+        if ($value != "") {
+            $this->attributes['fecha_asignacion'] = Carbon::createFromFormat('d/m/Y', $value);
+        }
+    }
+
+    public function setFechaAceptacionAttribute($value) {
+        if ($value != "") {
+            $this->attributes['fecha_aceptacion'] = Carbon::createFromFormat('d/m/Y', $value);
+        }
+    }
+
+    public function setFechaAprobacionAttribute($value) {
+        if ($value != "") {
+            $this->attributes['fecha_aprobacion'] = Carbon::createFromFormat('d/m/Y', $value);
+        }
+    }
+
+    public function setFechaCierreAttribute($value) {
+        if ($value != "") {
+            $this->attributes['fecha_cierre'] = Carbon::createFromFormat('d/m/Y', $value);
+        }
+    }
+
     public function getDefaultValues() {
         return [
             'ano' => Carbon::now()->format('Y'),
@@ -330,6 +360,15 @@ class Solicitud extends BaseModel implements DefaultValuesInterface {
         $solicitud->reglasCreacion();
         $solicitud->validate();
         return $solicitud;
+    }
+
+    public function getTableFields() {
+        return [
+            'ano',
+            'descripcion',
+            'fecha_solicitud',
+            'estatus'
+        ];
     }
 
 }

@@ -390,8 +390,8 @@ function docReady() {
         e.preventDefault();
     });
 
-    $('.btn-edit').unbind('click');
-    $('.btn-edit').click(function () {
+    $('a.glyphicon-pencil').unbind('click');
+    $('a.glyphicon-pencil').click(function () {
         var id = $(this).attr('data-id');
         var url = $(this).attr('data-url');
         var div = $(this).closest('.panel-body');
@@ -403,8 +403,8 @@ function docReady() {
         });
     });
 
-    $('.btn-delete').unbind('click');
-    $('.btn-delete').click(function () {
+    $('a.glyphicon-trash').unbind('click');
+    $('a.glyphicon-trash').click(function () {
         var btn = this;
         confirmarIntencion("¿Esta seguro que desea eliminar el elemento seleccionado?", function () {
             var id = $(btn).attr('data-id');

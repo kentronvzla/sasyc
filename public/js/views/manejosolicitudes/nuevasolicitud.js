@@ -50,8 +50,11 @@ function buscarPersona(evt)
                 parent.find('.salvar-persona').show();
             }
             if (parent.attr('id') == 'div-solicitante') {
-                $('#lista-relacionados').html(data.vista);
+                $('#lista-relacionados').html(data.vistaFamiliares);
             }
+            if (parent.attr('id') == 'div-beneficiario') {
+                $('#lista-solicitudesanteriores').html(data.vistaSolicitudes);
+            }            
         }
     });
 }

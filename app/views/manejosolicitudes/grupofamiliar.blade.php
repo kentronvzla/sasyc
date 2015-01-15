@@ -2,31 +2,7 @@
 <div id="lista_familia">
     <div class="lista">
         @if($familiares->count()>0)
-        @foreach($familiares as $fam)
-        <div class="row filaLista">
-            <div class="col-xs-12 col-sm-4 col-md-2">
-                <b>{{$fam->ci}}</b>
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-2">
-                {{$fam->nombre}}
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-2">
-                {{$fam->apellido}}
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-1">
-                {{$fam->sexo}}
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-2">
-                {{$fam->estadoCivil->nombre or ''}}
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-2">
-                {{Parentesco::find($fam->pivot->parentesco_id)->nombre}}
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-1">
-                {{$fam->ingreso_mensual}}
-            </div>
-        </div>
-        @endforeach
+        {{HTML::simpleTable($familiares, 'Persona', ['pencil'=>'Editar', 'trash'=>'Eliminar'], 'personas/familiar/'.$beneficiario->id)}}
         @else
         <div class="row tituloLista">
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -47,7 +23,7 @@
 </div>
 <div class="row">
     {{Form::btInput($familiar,'estado_civil_id',6)}}
-    {{Form::btSelect('parentesco_id', Parentesco::getCombo("Parentesco"), 0, 6)}}
+    {{Form::btSelect('parentesco_id', Parentesco::getCombo("Parentesco"), @$parentesco_id, 6)}}
 </div>
 <div class="row">
     {{Form::btInput($familiar,'ocupacion',6)}}

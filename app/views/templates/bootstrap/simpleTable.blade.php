@@ -17,7 +17,7 @@
             @endforeach
             <td>
                 @foreach($botones as $icon => $boton)
-                <a class="btn btn-primary btn-xs glyphicon glyphicon-{{$icon}}" title="{{$boton}}" data-id='{{$object->id}}'></a>
+                <a class="btn btn-primary btn-xs glyphicon glyphicon-{{$icon}}" title="{{$boton}}" data-id='{{$object->id}}' data-url='{{$urlDelete}}'></a>
                 @endforeach
             </td>
         </tr>

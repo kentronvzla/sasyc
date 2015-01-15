@@ -87,7 +87,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Persona whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Persona whereUpdatedAt($value) 
  */
-class Persona extends BaseModel implements SimpleTableInterface{
+class Persona extends BaseModel implements SimpleTableInterface {
 
     protected $table = "personas";
     protected $dates = ['fecha_nacimiento'];
@@ -160,7 +160,7 @@ class Persona extends BaseModel implements SimpleTableInterface{
             'fecha_nacimiento' => 'Fecha de nacimiento',
             'nivel_academico_id' => 'Nivel de instrucción',
             'estado_id' => 'Estado',
-            'edad'=>'Edad',
+            'edad' => 'Edad',
             'municipio_id' => 'Municipio',
             'parroquia_id' => 'Parroquia',
             'ciudad' => 'Ciudad',
@@ -181,7 +181,7 @@ class Persona extends BaseModel implements SimpleTableInterface{
             'cobertura' => 'Cobertura',
             'otro_apoyo' => 'Otro apoyo otorgado',
             'como_conocio_fps' => 'Como conoció FPS',
-            'documento'=>'Documento',
+            'documento' => 'Documento',
         ];
     }
 
@@ -245,8 +245,8 @@ class Persona extends BaseModel implements SimpleTableInterface{
                         ->withPivot('parentesco_id')
                         ->withTimestamps();
     }
-    
-        /**
+
+    /**
      * 
      */
     public function familiaresSolicitante() {
@@ -263,30 +263,62 @@ class Persona extends BaseModel implements SimpleTableInterface{
         return $var;
     }
 
+    public function solicitudes(){
+        return $this->hasMany('Solicitud', 'persona_beneficiario_id');
+    }
+
+
     public function setFechaNacimientoAttribute($value) {
         if ($value != "") {
             $this->attributes['fecha_nacimiento'] = Carbon::createFromFormat('d/m/Y', $value);
         }
     }
-    
-    public function getEdadAttribute(){
-        if($this->fecha_nacimiento != null){
+
+    public function getEdadAttribute() {
+        if ($this->fecha_nacimiento != null) {
             return $this->fecha_nacimiento->age;
         }
         return "";
     }
-    
-    public function getDocumentoAttribute(){
-        if($this->tipoNacionalidad!=null){
-            return $this->tipoNacionalidad->nombre.'-'.$this->ci;
+
+    public function getDocumentoAttribute() {
+        if ($this->tipoNacionalidad != null) {
+            return $this->tipoNacionalidad->nombre . '-' . $this->ci;
         }
         return $this->ci;
     }
 
     public function getTableFields() {
         return [
-            'documento','nombre','apellido','sexo','estadoCivil->nombre'
+            'documento', 'nombre', 'apellido', 'sexo', 'estadoCivil->nombre'
         ];
+    }
+
+    public static function asociar($beneficiario_id, $solicitante_id, $parentesco_id) {
+        $data['beneficiario_id'] = $beneficiario_id;
+        $data['solicitante_id'] = $solicitante_id;
+        $data['parentesco_id'] = $parentesco_id;
+        $validator = Validator::make($data, [
+                    'beneficiario_id' => 'required|integer',
+                    'solicitante_id' => 'required|integer',
+                    'parentesco_id' => 'required|integer'
+                        ]
+        );
+        if($validator->passes()){
+            $persona = Persona::findOrFail($beneficiario_id);
+            $belongsMany = $persona->familiaresBeneficiario();
+            if ($belongsMany->wherePivot('persona_familia_id', '=', $solicitante_id)->count() == 0) {
+                $belongsMany->attach($solicitante_id, array('parentesco_id' => Input::get('parentesco_id')));
+            }
+        }
+        return $validator;
+    }
+    
+    public function getParentesco($familiar_id) {
+        $parentesco_id = $this->familiaresBeneficiario()
+                ->wherePivot('persona_familia_id', '=', $familiar_id)
+                ->first()->parentesco_id;
+        return Parentesco::find($parentesco_id);
     }
 
 }
