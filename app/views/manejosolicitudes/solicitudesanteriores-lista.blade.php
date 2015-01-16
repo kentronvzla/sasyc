@@ -1,3 +1,4 @@
+<hr>
 @if($solicitudes->count()>0)
 <h4>Solicitudes Anteriores</h4>
 {{HTML::simpleTable($solicitudes, 'Solicitud', ['pencil'=>'Editar'])}}

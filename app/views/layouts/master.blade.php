@@ -84,6 +84,7 @@
 
         {{HTML::style('css/datepicker.min.css')}}
         {{HTML::script('js/datepicker.min.js')}}
+        {{HTML::script('js/ckeditor/ckeditor.js')}}
 
         {{HTML::style('bower_components/chosen/chosen.min.css')}}
 

@@ -26,10 +26,7 @@
             <button type="button" class="btn btn-primary salvar-persona" style="display: none;"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
         </div>
     </div>
-    <hr>
-    <div id="lista-relacionados">
-        @include('manejosolicitudes.relacionados-lista')
-    </div>  
+    <div id="lista-relacionados"></div>  
 </div>
 <hr>
 <h4>Datos del Beneficiario</h4>
@@ -58,10 +55,9 @@
             <button type="button" class="btn btn-primary salvar-persona" style="display: none;"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
         </div>
     </div>
-    <div id="lista-solicitudesanteriores">
-        @include('manejosolicitudes.solicitudesanteriores-lista')
-    </div>     
+    <div id="lista-solicitudesanteriores"></div>     
 </div>
+<hr>
 @include('templates.bootstrap.submit',['nombreSubmit'=>'Siguiente','nomostrar'=>true,'icon'=>'forward'])
 @section('javascript')
 {{HTML::script('js/views/manejosolicitudes/nuevasolicitud.js')}}

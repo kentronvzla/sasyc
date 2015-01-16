@@ -1,3 +1,4 @@
+<hr>
 @if($familiares->count()>0)
 <h4>Personas relacionadas al Solicitante (beneficiarios y/o familiares)</h4>
 {{HTML::simpleTable($familiares, 'Persona', ['arrow-down'=>'Usar Persona'])}}
