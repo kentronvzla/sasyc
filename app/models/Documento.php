@@ -21,17 +21,17 @@
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Solicitud $solicitud
- * @method static \Illuminate\Database\Query\Builder|\Documento whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereTipo($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereDescripcion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereFecha($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereEstatus($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereIndReverso($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereSolicitudId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereMensaje($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Documento whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereTipo($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereDescripcion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereFecha($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereEstatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereIndReverso($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereSolicitudId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereMensaje($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documento whereUpdatedAt($value)
  */
 class Documento extends BaseModel {
 

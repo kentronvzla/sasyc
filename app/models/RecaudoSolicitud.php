@@ -20,15 +20,15 @@
  * @property \Carbon\Carbon $updated_at
  * @property-read \Solicitud $solicitud
  * @property-read \Recaudo $recaudo
- * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereSolicitudId($value) 
- * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereRecaudoId($value) 
- * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereIndRecibido($value) 
- * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereFechaVencimiento($value) 
- * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereDocumento($value) 
- * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereSolicitudId($value)
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereRecaudoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereIndRecibido($value)
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereFechaVencimiento($value)
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereDocumento($value)
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereUpdatedAt($value)
  */
 class RecaudoSolicitud extends BaseModel {
 
@@ -40,7 +40,7 @@ class RecaudoSolicitud extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'solicitud_id', 'recaudo_id', 'ind_recibido', 'fecha_vencimiento', 'documento', 
+        'solicitud_id', 'recaudo_id', 'ind_recibido', 'fecha_vencimiento', 'documento',
     ];
 
     /**
@@ -50,22 +50,20 @@ class RecaudoSolicitud extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'solicitud_id'=>'required|integer', 
-'recaudo_id'=>'required|integer', 
-'ind_recibido'=>'required', 
-'fecha_vencimiento'=>'required', 
-'documento'=>'required', 
-
+        'solicitud_id' => 'required|integer',
+        'recaudo_id' => 'required|integer',
+        'ind_recibido' => '',
+        'fecha_vencimiento' => '',
+        'documento' => '',
     ];
-    
+
     protected function getPrettyFields() {
         return [
-            'solicitud_id'=>'solicitud_id', 
-'recaudo_id'=>'recaudo_id', 
-'ind_recibido'=>'ind_recibido', 
-'fecha_vencimiento'=>'fecha_vencimiento', 
-'documento'=>'documento', 
-
+            'solicitud_id' => 'Solicitud',
+            'recaudo_id' => 'Recaudo',
+            'ind_recibido' => 'Recibido?',
+            'fecha_vencimiento' => 'Fecha de vencimiento',
+            'documento' => 'Documento',
         ];
     }
 
@@ -74,19 +72,27 @@ class RecaudoSolicitud extends BaseModel {
     }
 
     /**
-* Define una relación pertenece a Solicitud
-* @return Solicitud
-*/
-public function solicitud(){
-    return $this->belongsTo('Solicitud');
-}
-/**
-* Define una relación pertenece a Recaudo
-* @return Recaudo
-*/
-public function recaudo(){
-    return $this->belongsTo('Recaudo');
-}
+     * Define una relación pertenece a Solicitud
+     * @return Solicitud
+     */
+    public function solicitud() {
+        return $this->belongsTo('Solicitud');
+    }
 
+    /**
+     * Define una relación pertenece a Recaudo
+     * @return Recaudo
+     */
+    public function recaudo() {
+        return $this->belongsTo('Recaudo');
+    }
 
+    public static function findOrNewBySolicitudRecaudo($solicitud, $recaudo) {
+        $var = static::whereSolicitudId((int) $solicitud)->whereRecaudoId((int) $recaudo)->first();
+        if ($var == null) {
+            return new RecaudoSolicitud();
+        }
+        return $var;
+    }
+    
 }

@@ -125,10 +125,8 @@
             </div>
             <div id="PanelSiete" class="panel-collapse collapse">
                 <div class="panel-body">
-                    @include('templates.errores')
-                    {{Form::open(['url'=>'solicitudes/presupuesto','id'=>'form-presupuesto','class'=>'saveajax'])}}
-                    @include('manejosolicitudes.presupuesto')
-                    {{Form::close()}}
+                    @include('templates.errores')                    
+                    @include('manejosolicitudes.presupuesto')                    
                 </div>
             </div>
         </div>   

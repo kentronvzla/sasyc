@@ -17,14 +17,14 @@
  * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Memo whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Memo whereFecha($value) 
- * @method static \Illuminate\Database\Query\Builder|\Memo whereNumero($value) 
- * @method static \Illuminate\Database\Query\Builder|\Memo whereOrigen($value) 
- * @method static \Illuminate\Database\Query\Builder|\Memo whereDestino($value) 
- * @method static \Illuminate\Database\Query\Builder|\Memo whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Memo whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Memo whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereFecha($value)
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereNumero($value)
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereOrigen($value)
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereDestino($value)
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereUpdatedAt($value)
  */
 class Memo extends BaseModel {
 

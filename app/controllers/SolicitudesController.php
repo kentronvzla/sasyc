@@ -11,6 +11,7 @@ class SolicitudesController extends BaseController {
         $solicitud = Solicitud::findOrNew(Input::get('id'));
         $solicitud->fill(Input::all());
         if ($solicitud->save()) {
+            #$solicitud::asociarRecaudos();
             $data['solicitud'] = $solicitud;
             $data['mensaje'] = "Datos guardados correctamente";
             return Response::json($data);
@@ -35,6 +36,7 @@ class SolicitudesController extends BaseController {
         $data['familiares'] = $data['beneficiario']->familiaresBeneficiario;
         $data['familiar'] = new Persona();
         $data['presupuesto'] = new Presupuesto();
+        $data['presupuestos'] = $data['solicitud']->presupuestos;
         return View::make("manejosolicitudes.plantilla", $data);
     }
 

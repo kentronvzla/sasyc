@@ -12,9 +12,6 @@
  * @property integer $id
  * @property integer $solicitud_id
  * @property integer $requerimiento_id
- * @property integer $tipo_requerimiento_id
- * @property string $cod_item
- * @property string $cod_cta
  * @property integer $num_benef
  * @property integer $cantidad
  * @property float $monto
@@ -30,9 +27,6 @@
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereSolicitudId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereRequerimientoId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereTipoRequerimientoId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCodItem($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCodCta($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereNumBenef($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCantidad($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereMonto($value) 
@@ -43,7 +37,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCreatedAt($value) 
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereUpdatedAt($value) 
  */
-class Presupuesto extends BaseModel {
+class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 
     protected $table = "presupuestos";
 
@@ -53,7 +47,7 @@ class Presupuesto extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'solicitud_id', 'requerimiento_id', 'tipo_requerimiento_id', 'cod_item', 'cod_cta', 'num_benef', 'cantidad', 'monto', 'estatus', 'id_doc_proc', 'id_sol_sum',
+        'solicitud_id', 'requerimiento_id', 'num_benef', 'cantidad', 'monto', 'estatus', 'id_doc_proc', 'id_sol_sum',
     ];
 
     /**
@@ -65,24 +59,18 @@ class Presupuesto extends BaseModel {
     protected $rules = [
         'solicitud_id' => 'required|integer',
         'requerimiento_id' => 'required|integer',
-        'tipo_requerimiento_id' => 'required|integer',
-        'cod_item' => 'required',
-        'cod_cta' => 'required',
         'num_benef' => 'required|integer',
         'cantidad' => 'required|integer',
         'monto' => 'required',
         'estatus' => 'required',
-        'id_doc_proc' => 'required|integer',
-        'id_sol_sum' => 'required|integer',
+        'id_doc_proc' => 'integer',
+        'id_sol_sum' => 'integer',
     ];
 
     protected function getPrettyFields() {
         return [
             'solicitud_id' => 'Solicitud',
             'requerimiento_id' => 'Requerimiento',
-            'tipo_requerimiento_id' => 'Tipo de requerimiento',
-            'cod_item' => 'Ítem',
-            'cod_cta' => 'Cuenta',
             'num_benef' => 'Beneficiario',
             'cantidad' => 'Cantidad',
             'monto' => 'Monto',
@@ -111,13 +99,21 @@ class Presupuesto extends BaseModel {
     public function requerimiento() {
         return $this->belongsTo('Requerimiento');
     }
+    
+    public function tipo_requerimiento_id(){
+        return $this->requerimiento->id;
+    }
 
-    /**
-     * Define una relación pertenece a TipoRequerimiento
-     * @return TipoRequerimiento
-     */
-    public function tipoRequerimiento() {
-        return $this->belongsTo('TipoRequerimiento');
+    public function getTableFields() {
+        return [
+            'requerimiento->nombre', 'cantidad', 'monto', 'estatus'
+        ];
+    }
+    
+    public function getDefaultValues() {
+        return [
+            'estatus' => 'ELA'
+        ];
     }
 
 }

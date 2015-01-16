@@ -16,12 +16,12 @@
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Estado $estado
- * @method static \Illuminate\Database\Query\Builder|\Municipio whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Municipio whereEstadoId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Municipio whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\Municipio whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Municipio whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Municipio whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereEstadoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Municipio whereUpdatedAt($value)
  */
 class Municipio extends BaseModel {
 

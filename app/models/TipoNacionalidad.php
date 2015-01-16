@@ -14,11 +14,11 @@
  * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereUpdatedAt($value)
  */
 class TipoNacionalidad extends BaseModel {
 

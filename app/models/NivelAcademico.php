@@ -15,12 +15,12 @@
  * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereOrden($value) 
- * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereOrden($value)
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereUpdatedAt($value)
  */
 class NivelAcademico extends BaseModel {
 

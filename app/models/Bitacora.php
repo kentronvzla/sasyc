@@ -23,18 +23,18 @@
  * @property \Carbon\Carbon $updated_at
  * @property-read \Solicitud $solicitud
  * @property-read \Usuario $usuario
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereSolicitudId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereFecha($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereNota($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUsuarioId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereMemo($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereTipo($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereIndActivo($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereIndAlarma($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereSolicitudId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereFecha($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereNota($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUsuarioId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereMemo($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereTipo($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereIndActivo($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereIndAlarma($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUpdatedAt($value)
  */
 class Bitacora extends BaseModel {
 

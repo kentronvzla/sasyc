@@ -1,37 +1,17 @@
-<table class="table">
-    <tr>
-        <th>Tipo</th>
-        <th>Requerimiento</th>
-        <th>Cantidad</th>
-        <th>Beneficiario/Proveedor</th>
-        <th>Monto</th>
-        <th>Status</th>
-        <th>Doc.</th>
-    </tr>
-    <tr>
-        <td>
-            OP   
-        </td>
-        <td>
-            Citugia
-        </td>
-        <td>
-            1
-        </td> 
-        <td>
-            Clinicas Caracas
-        </td>
-        <td>
-            1.500.000,00
-        </td>
-        <td>
-            PEN
-        </td>
-        <td>
-            287445
-        </td>            
-    </tr>
-</table>
+<hr>
+{{Form::open(['url'=>'presupuestos/modificar','id'=>'form-presupuesto','class'=>'saveajax'])}}
+@if($presupuestos->count()>0)
+{{HTML::simpleTable($presupuestos, 'Presupuesto',['pencil'=>'Editar', 'trash'=>'Eliminar'], 'presupuestos/presupuesto/'.$solicitud->id)}}
+<h4>Presupuestos de la solicitud</h4>
+@else
+<div class="row tituloLista">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <h4>No posee presupuestos asociados</h4>
+    </div>
+</div>
+@endif
+{{Form::hidden('id',$presupuesto->id)}}
+{{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">
     {{Form::btInput($presupuesto,'tipo_requerimiento_id',4)}}
     {{Form::btInput($presupuesto,'requerimiento_id',4)}}
@@ -41,22 +21,5 @@
     {{Form::btInput($presupuesto,'num_benef',6)}}
     {{Form::btInput($presupuesto,'monto',6)}}
 </div>
-
-<div class="col-xs-12 col-sm-12 col-md-6">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Fecha">
-    </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6">        
-    <div class="form-group">
-        <select class="form-control" placeholder="Autorizador">
-            <option value="" >Autorizador</option>
-            <option value="" ></option>
-            <option value="" ></option>
-            <option value="" ></option>
-            <option value="" ></option>
-            <option value="" ></option>
-            <option value="" ></option>
-        </select> 
-    </div> 
-</div>  
+@include('templates.bootstrap.submit')
+{{Form::close()}}

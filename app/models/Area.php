@@ -17,13 +17,13 @@
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \TipoAyuda $tipoAyuda
- * @method static \Illuminate\Database\Query\Builder|\Area whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Area whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\Area whereDescripcion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Area whereTipoAyudaId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Area whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Area whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Area whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Area whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Area whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\Area whereDescripcion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Area whereTipoAyudaId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Area whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Area whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Area whereUpdatedAt($value)
  */
 class Area extends BaseModel {
 

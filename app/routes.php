@@ -27,4 +27,6 @@ Route::controller('administracion/actualizaciones', 'ActualizacionesController')
 Route::controller('pantallas','PantallasController');
 Route::controller('solicitudes','SolicitudesController');
 Route::controller('personas','PersonasController');
+Route::controller('presupuestos','PresupuestosController');
+Route::controller('recaudossolicitud','RecaudosSolicitudesController');
 Route::controller('helpers','HelpersController');

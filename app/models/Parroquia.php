@@ -18,13 +18,13 @@
  * @property \Carbon\Carbon $updated_at
  * @property-read \Estado $estado
  * @property-read \Municipio $municipio
- * @method static \Illuminate\Database\Query\Builder|\Parroquia whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Parroquia whereEstadoId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Parroquia whereMunicipioId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Parroquia whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\Parroquia whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Parroquia whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Parroquia whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereEstadoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereMunicipioId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Parroquia whereUpdatedAt($value)
  */
 class Parroquia extends BaseModel {
 

@@ -60,44 +60,44 @@
  * @property-read \Tenencia $tenencia
  * @property-read \Illuminate\Database\Eloquent\Collection|\FamiliaPersona[] $familiaPersonas
  * @property-read \Illuminate\Database\Eloquent\Collection|\Presupuesto[] $presupuestos
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAno($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereDescripcion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePersonaBeneficiarioId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePersonaSolicitanteId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoAyudaId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAreaId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferenteId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereRecepcionId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereOrganismoId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndMismoBenef($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndInmediata($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndBeneficiarioMenor($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereActividad($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferencia($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAccionTomada($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereNecesidad($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoProc($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereNumProc($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFacturas($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereObservaciones($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereMoneda($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePrioridad($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereEstatus($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUsuarioAsignacionId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUsuarioAutorizacionId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaSolicitud($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAsignacion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAceptacion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAprobacion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaCierre($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoViviendaId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTenenciaId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereInformeSocial($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTotalIngresos($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAno($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereDescripcion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePersonaBeneficiarioId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePersonaSolicitanteId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoAyudaId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAreaId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferenteId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereRecepcionId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereOrganismoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndMismoBenef($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndInmediata($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereIndBeneficiarioMenor($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereActividad($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferencia($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAccionTomada($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereNecesidad($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoProc($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereNumProc($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFacturas($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereObservaciones($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereMoneda($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePrioridad($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereEstatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUsuarioAsignacionId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUsuarioAutorizacionId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaSolicitud($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAsignacion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAceptacion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaAprobacion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFechaCierre($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoViviendaId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTenenciaId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereInformeSocial($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTotalIngresos($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUpdatedAt($value)
  */
 class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 
@@ -136,9 +136,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'referente_id' => 'required|integer',
         'recepcion_id' => 'required|integer',
         'organismo_id' => 'required|integer',
-        'ind_mismo_benef' => '',
+        'ind_mismo_benef' => 'required',
         'ind_inmediata' => 'required',
-        'ind_beneficiario_menor' => '',
+        'ind_beneficiario_menor' => 'required',
         'actividad' => '',
         'referencia' => '',
         'accion_tomada' => '',
@@ -304,6 +304,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return $this->hasMany('Presupuesto');
     }
 
+    public function recaudosSolicitud() {
+        return $this->hasMany('RecaudoSolicitud');
+    }
+
+    
     public function setFechaSolicitudAttribute($value) {
         if ($value != "") {
             $this->attributes['fecha_solicitud'] = Carbon::createFromFormat('d/m/Y', $value);
@@ -360,6 +365,15 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $solicitud->reglasCreacion();
         $solicitud->validate();
         return $solicitud;
+    }
+    
+    public static function asociarRecaudos(){
+        foreach (Recaudo::all() as $recaudo){
+            $recaudossolicitud = RecaudoSolicitud::findOrNewBySolicitudRecaudo($this->id, $recaudo->id);
+            if(is_null($recaudossolicitud)){
+                $this->recaudosSolicitud->attach($recaudo);
+            }
+        }   
     }
 
     public function getTableFields() {

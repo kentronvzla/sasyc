@@ -14,7 +14,7 @@
  * @property string $descripcion
  * @property string $cod_item
  * @property string $cod_cta
- * @property string $tipo
+ * @property string $tipo_requerimiento_id
  * @property integer $tipo_ayuda_id
  * @property integer $version
  * @property \Carbon\Carbon $created_at
@@ -25,7 +25,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereDescripcion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCodItem($value) 
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCodCta($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereTipo($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereTipoRequerimientoId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereTipoAyudaId($value) 
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereVersion($value) 
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCreatedAt($value) 
@@ -41,7 +41,7 @@ class Requerimiento extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre', 'descripcion', 'cod_item', 'cod_cta', 'tipo', 'tipo_ayuda_id',
+        'nombre', 'descripcion', 'cod_item', 'cod_cta', 'tipo_requerimiento_id', 'tipo_ayuda_id',
     ];
 
     /**
@@ -55,23 +55,31 @@ class Requerimiento extends BaseModel {
         'descripcion' => 'required',
         'cod_item' => '',
         'cod_cta' => 'required',
-        'tipo' => 'required',
+        'tipo_requerimiento_id' => 'required',
         'tipo_ayuda_id' => 'required|integer',
     ];
 
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
+            'nombre' => 'Requerimiento',
             'descripcion' => 'Descripción',
             'cod_item' => 'Ítem',
             'cod_cta' => 'Cuenta',
-            'tipo' => 'Tipo',
+            'tipo_requerimiento_id' => 'Tipo de requerimiento',
             'tipo_ayuda_id' => 'Tipo de ayuda',
         ];
     }
 
     protected function getPrettyName() {
         return "requerimientos";
+    }
+
+    /**
+     * Define una relación pertenece a TipoRequerimiento
+     * @return TipoRequerimiento
+     */
+    public function tipoRequerimiento() {
+        return $this->belongsTo('TipoRequerimiento');
     }
 
     /**

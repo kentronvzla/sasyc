@@ -15,9 +15,9 @@ class CreateRecaudoSolicitudTable extends Migration {
             $table->increments('id');
             $table->integer('solicitud_id', false, true);
             $table->integer('recaudo_id', false, true);
-            $table->boolean('ind_recibido');
-            $table->date('fecha_vencimiento');
-            $table->binary('documento');
+            $table->boolean('ind_recibido')->nullable();
+            $table->date('fecha_vencimiento')->nullable();
+            $table->binary('documento')->nullable();
             $table->integer('version')->default(0);
             $table->timestamps();
         });

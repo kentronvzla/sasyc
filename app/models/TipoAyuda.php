@@ -15,12 +15,12 @@
  * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereCodAccInt($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereCodAccInt($value)
+ * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereUpdatedAt($value)
  */
 class TipoAyuda extends BaseModel {
 

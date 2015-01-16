@@ -14,11 +14,12 @@
  * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Persona[] $personas
  */
 class EstadoCivil extends BaseModel {
 
