@@ -5,7 +5,7 @@
     {{Form::btInput($solicitud,'total_ingresos',4)}}
 </div>
 <div class="row">
-    {{Form::textarea('informe_social',$solicitud->informe_social, array('class' => 'form-control ckeditor','placeholder'=>'Informe social','required'=>'','id'=>'editor_informe')) }}
+    {{Form::btInput($solicitud,'informe_social',12,'textarea',['class'=>'ckeditor '])}}
 </div>
 <hr>
 @include('templates.bootstrap.submit')

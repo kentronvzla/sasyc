@@ -25,7 +25,6 @@
         <!-- user dropdown ends -->
 
         <ul class="collapse navbar-collapse nav navbar-nav top-menu">
-            <li><a href="{{url('usuario/registro')}}"><i class="glyphicon glyphicon-home"></i> Registrarme</a></li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Aten. social y ciudadana <span
                         class="caret"></span></a>
@@ -53,10 +52,6 @@
                     <li><a href="#">Control de Casos</a></li> 
                     <li><a href="#">Casos por proceso</a></li>
                 </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-warning-sign"></i> Ayuda <span
-                        ></span></a>
             </li>
         </ul>
 

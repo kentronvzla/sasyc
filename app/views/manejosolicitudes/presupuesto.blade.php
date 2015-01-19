@@ -1,4 +1,3 @@
-<hr>
 {{Form::open(['url'=>'presupuestos/modificar','id'=>'form-presupuesto','class'=>'saveajax'])}}
 @if($presupuestos->count()>0)
 {{HTML::simpleTable($presupuestos, 'Presupuesto',['pencil'=>'Editar', 'trash'=>'Eliminar'], 'presupuestos/presupuesto/'.$solicitud->id)}}
@@ -13,13 +12,12 @@
 {{Form::hidden('id',$presupuesto->id)}}
 {{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">
-    {{Form::btInput($presupuesto,'tipo_requerimiento_id',4)}}
-    {{Form::btInput($presupuesto,'requerimiento_id',4)}}
+    {{Form::btInput($presupuesto,'requerimiento_id',8)}}
     {{Form::btInput($presupuesto,'cantidad',4)}}
 </div>
 <div class="row">
-    {{Form::btInput($presupuesto,'num_benef',6)}}
-    {{Form::btInput($presupuesto,'monto',6)}}
+    {{Form::btInput($presupuesto,'num_benef',8)}}
+    {{Form::btInput($presupuesto,'monto',4)}}
 </div>
 @include('templates.bootstrap.submit')
 {{Form::close()}}

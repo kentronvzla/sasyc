@@ -58,11 +58,17 @@ class PersonasController extends BaseController {
     public function deleteFamiliar($beneficiario_id) {
         $beneficiario = Persona::find($beneficiario_id);
         $beneficiario->familiaresBeneficiario()->detach(Input::get('id'));
-        $data['mensaje'] = "Se eliminó el familiar correctamente";
         $data['vista'] = $this->getFamiliar($beneficiario_id)->render();
+        $data['mensaje'] = "Se eliminó el familiar correctamente";
         return Response::json($data);
     }
 
+    public function getCopiar($beneficiario_id) {
+        $data['vista'] = $this->getCopiarDireccion($beneficiario_id)->render();
+        $data['mensaje'] = "Dirección copiada correctamente";
+        return Response::json($data);
+    }
+    
     public function getFamiliaressolicitante($id) {
         $data['familiares'] = Persona::findOrNew($id)->familiaresSolicitante;
         return View::make('manejosolicitudes.relacionados-lista', $data);
@@ -71,5 +77,12 @@ class PersonasController extends BaseController {
     public function getSolictudesAnteriores($id) {
         $data['solicitudes'] = Persona::findOrNew($id)->solicitudes;
         return View::make('manejosolicitudes.solicitudesanteriores-lista', $data);
+    }
+    
+    public function getCopiarDireccion($id) {
+        $beneficiario = Persona::findOrFail($id);
+        $data['beneficiario'] = $beneficiario;
+        $data['solicitante'] = $beneficiario;
+        return View::make('manejosolicitudes.direccion-solicitante', $data);
     }
 }

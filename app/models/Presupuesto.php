@@ -24,18 +24,18 @@
  * @property-read \Solicitud $solicitud
  * @property-read \Requerimiento $requerimiento
  * @property-read \TipoRequerimiento $tipoRequerimiento
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereSolicitudId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereRequerimientoId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereNumBenef($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCantidad($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereMonto($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereEstatus($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereIdDocProc($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereIdSolSum($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereSolicitudId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereRequerimientoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereNumBenef($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCantidad($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereMonto($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereEstatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereIdDocProc($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereIdSolSum($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereUpdatedAt($value)
  */
 class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 

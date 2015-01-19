@@ -30,7 +30,7 @@
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereUpdatedAt($value)
  */
-class RecaudoSolicitud extends BaseModel {
+class RecaudoSolicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 
     protected $table = "recaudo_solicitud";
 
@@ -53,9 +53,10 @@ class RecaudoSolicitud extends BaseModel {
         'solicitud_id' => 'required|integer',
         'recaudo_id' => 'required|integer',
         'ind_recibido' => '',
-        'fecha_vencimiento' => '',
+        'fecha_vencimiento' => 'required_if:ind_recibido,1',
         'documento' => '',
     ];
+    protected $dates = ['fecha_vencimiento'];
 
     protected function getPrettyFields() {
         return [
@@ -64,6 +65,7 @@ class RecaudoSolicitud extends BaseModel {
             'ind_recibido' => 'Recibido?',
             'fecha_vencimiento' => 'Fecha de vencimiento',
             'documento' => 'Documento',
+            'documento_link' => 'Ver'
         ];
     }
 
@@ -94,5 +96,50 @@ class RecaudoSolicitud extends BaseModel {
         }
         return $var;
     }
-    
+
+    public function setFechaVencimientoAttribute($value) {
+        if ($value != "") {
+            $this->attributes['fecha_vencimiento'] = Carbon::createFromFormat('d/m/Y', $value);
+        }
+    }
+
+    public function setDocumentoAttribute() {
+        if (Input::hasFile('documento')) {
+            $file = Input::file('documento');
+            $fileName = $file->getClientOriginalName();
+            $base_path = storage_path('adjuntos');
+            $base_path = $base_path . '/' . $this->solicitud_id;
+            if ($this->documento != "") {
+                File::delete($base_path . '/' . $this->documento);
+            }
+            while (File::exists($base_path . '/' . $fileName)) {
+                $fileName.=rand(0, 9) . $fileName;
+            }
+            $file->move($base_path, $fileName);
+            $this->attributes['documento'] = $fileName;
+        }
+    }
+
+    public function getDocumentoLinkAttribute() {
+        if ($this->documento == "") {
+            return "No tiene";
+        }
+        return HTML::link('recaudossolicitud/descargar/' . $this->id, 'Descargar');
+    }
+
+    public function getDefaultValues() {
+        return [
+            'ind_recibido' => false,
+        ];
+    }
+
+    public function getTableFields() {
+        return [
+            'recaudo->descripcion',
+            'ind_recibido',
+            'fecha_vencimiento',
+            'documento_link',
+        ];
+    }
+
 }

@@ -12,5 +12,4 @@ class EstadoCivilTableSeeder extends Seeder {
             EstadoCivil::create(array('nombre' => $estadocivil));
         }
     }
-
 }

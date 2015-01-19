@@ -48,21 +48,20 @@ class Recaudo extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'nombre'=>'required', 
-'descripcion'=>'required', 
-'ind_obligatorio'=>'required', 
-'ind_vence'=>'required', 
-'ind_activo'=>'required', 
-
+        'nombre' => 'required',
+        'descripcion' => 'required',
+        'ind_obligatorio' => 'required',
+        'ind_vence' => 'required',
+        'ind_activo' => 'required',
     ];
 
     protected function getPrettyFields() {
         return [
-            'nombre' => 'nombre',
-            'descripcion' => 'descripcion',
-            'ind_obligatorio' => 'ind_obligatorio',
-            'ind_vence' => 'ind_vence',
-            'ind_activo' => 'ind_activo',
+            'nombre' => 'Nombre',
+            'descripcion' => 'Descripción',
+            'ind_obligatorio' => 'Obligatorio',
+            'ind_vence' => 'Vence',
+            'ind_activo' => 'Activo',
         ];
     }
 

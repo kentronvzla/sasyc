@@ -352,12 +352,22 @@ function docReady() {
     });
     $("form.saveajax").unbind('submit');
     $("form.saveajax").submit(function (e) {
+        var data, contenido;
+        if ($(this).attr('enctype') == "multipart/form-data") {
+            data = new FormData(this);
+            contenido = false;
+        } else {
+            data = $(this).serialize();
+            contenido = 'application/x-www-form-urlencoded; charset=UTF-8';
+        }
         $(this).find('input, textarea, select, checkbox, radio').parent().removeClass("has-error");
         $(this).find('.help-block').remove();
         $.ajax({
             url: $(this).attr('action'),
-            data: $(this).serialize(),
+            data: data,
             cache: false,
+            processData: false,
+            contentType: contenido,
             formulario: this,
             dataType: 'json',
             method: $(this).attr("method") == undefined ? "POST" : $(this).attr("method"),
@@ -412,7 +422,7 @@ function docReady() {
             var div = $(btn).closest('.panel-body');
             $.ajax({
                 url: baseUrl + url + "?id=" + id,
-                method: 'DELETE',
+                method: 'delete',
                 success: function (data) {
                     div.html(data.vista);
                     mostrarMensaje(data.mensaje);

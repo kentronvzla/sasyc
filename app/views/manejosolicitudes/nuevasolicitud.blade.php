@@ -1,4 +1,4 @@
-{{Form::open(['url'=>'solicitudes/nueva'])}}
+{{Form::open(['url'=>'solicitudes/nueva', 'id'=>'nuevaSolicitud'])}}
 <div class="row">
     {{Form::btInput($solicitud,'ind_mismo_benef')}}
 </div>  

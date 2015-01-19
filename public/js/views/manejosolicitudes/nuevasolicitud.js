@@ -4,11 +4,17 @@ $(document).ajaxComplete(function () {
 });
 
 $(document).ready(function () {
+    $('#div-solicitante').find('input,select').removeAttr('required');
     $('#nombre, #apellido').prop("disabled", true);
     $("#tipo_nacionalidad_id, #ci").change(buscarPersona);
     $('.salvar-persona').click(crearPersona);
-    $('#ind_mismo_benef').change(mostrarOcultarSolicitante);
+    $('#div-solicitante').hide();
+
+    $('[id=ind_mismo_benef]').each(function () {
+        $(this).change(mostrarOcultarSolicitante);
+    });
 });
+
 
 function usarPersona(evt)
 {
@@ -19,9 +25,16 @@ function usarPersona(evt)
     });
 }
 
-function mostrarOcultarSolicitante()
+function mostrarOcultarSolicitante(evt)
 {
-
+    var parent = $(evt.target).closest('.form-group').parent();
+    if(parent.find('input[name=ind_mismo_benef]:checked').val()==1){
+        $('#div-solicitante').find('input,select').removeAttr('required');
+        $('#div-solicitante').hide();        
+    }else{
+        $('#div-solicitante').find('input,select').attr('required','required');
+        $('#div-solicitante').show();    
+    }
 }
 
 function buscarPersona(evt)
@@ -54,7 +67,7 @@ function buscarPersona(evt)
             }
             if (parent.attr('id') == 'div-beneficiario') {
                 $('#lista-solicitudesanteriores').html(data.vistaSolicitudes);
-            }            
+            }
         }
     });
 }

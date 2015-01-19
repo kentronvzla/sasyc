@@ -5,7 +5,7 @@ class SolicitudesController extends BaseController {
     public function __construct() {
         parent::__construct();
     }
-    
+
     public function postModificar() {
         Session::forget('solicitud');
         $solicitud = Solicitud::findOrNew(Input::get('id'));
@@ -23,20 +23,23 @@ class SolicitudesController extends BaseController {
     public function getModificar($id = null) {
         if (is_null($id) && !Session::has('solicitud')) {
             $data['nuevo'] = true;
-        }else{
+        } else {
             $data['nuevo'] = false;
         }
         if (Session::has('solicitud')) {
             $data['solicitud'] = new Solicitud(Session::get('solicitud'));
         } else {
-            $data['solicitud'] = Solicitud::findOrNew($id);
+            $data['solicitud'] = Solicitud::findOrFail($id);
         }
         $data['beneficiario'] = Persona::findOrFail($data['solicitud']->persona_beneficiario_id);
         $data['solicitante'] = Persona::findOrNew($data['solicitud']->persona_solicitante_id);
         $data['familiares'] = $data['beneficiario']->familiaresBeneficiario;
         $data['familiar'] = new Persona();
+        $data['recaudo'] = new RecaudoSolicitud();
+        $data['recaudos'] = $data['solicitud']->recaudosSolicitud;
         $data['presupuesto'] = new Presupuesto();
         $data['presupuestos'] = $data['solicitud']->presupuestos;
+
         return View::make("manejosolicitudes.plantilla", $data);
     }
 
@@ -60,4 +63,13 @@ class SolicitudesController extends BaseController {
             return Redirect::back()->withInput()->withErrors($solicitud->getErrors());
         }
     }
+
+    public static function asociarRecaudos() {
+        foreach (Recaudo::all() as $recaudo) {
+            $recaudossolicitud = new RecaudoSolicitud();
+            $recaudossolicitud->fill($recaudo);
+        }
+        return $recaudossolicitud;
+    }
+
 }

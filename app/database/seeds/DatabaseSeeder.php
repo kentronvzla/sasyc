@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder {
         $this->call('EstadoCivilTableSeeder');
         $this->call('TipoRequerimientoTableSeeder');
         $this->call('RequerimientoTableSeeder');
+        $this->call('EstadoTableSeeder');
+        $this->call('MunicipioTableSeeder');
+        $this->call('ParroquiaTableSeeder');
     }
 
 }

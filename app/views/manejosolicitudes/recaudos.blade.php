@@ -1,68 +1,25 @@
-<div class="panel-body">
-    <table class="table">
-        <tr>
-            <th> Documento</th>
-            <th>Recibido</th>
-            <th>Fecha de Vencimiento</th>
-            <th>Requerido</th>
-            <th>Archivo</th>
-        </tr>
-        <tr>
-            <td>
-                Fotocopia Cedula -Beneficiario 
-            </td>
-            <td>
+{{Form::open(['url'=>'recaudossolicitud/modificar','id'=>'form-recaudos','class'=>'saveajax','files'=>true])}}
 
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-primary">
-                        Si
-                    </label>
-                    <label class="btn btn-default">
-                        No
-                    </label>
-                </div>
-                </div>
-            </td>
-            <td>
-                21/11/2014    
-            </td> 
-            <td>
-                *    
-            </td>
-            <td>
-                <div class="form-group">
-                    <input type="file">
-                </div> 
-            </td>
-
-        </tr>
-        <tr>
-            <td>
-                Carta al Presidente de la republica 
-            </td>
-            <td>
-
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-primary">
-                        Si
-                    </label>
-                    <label class="btn btn-default">
-                        No
-                    </label>
-                </div>
-
-            </td>
-            <td>
-
-            </td> 
-            <td>
-                *    
-            </td>
-            <td>
-                <div class="form-group">
-                    <input type="file">
-                </div> 
-            </td>
-        </tr>
-    </table>
+@if($recaudos->count()>0)
+<h4>Recaudos consignados</h4>
+{{HTML::simpleTable($recaudos, 'RecaudoSolicitud', ['pencil'=>'Recibido'],'recaudossolicitud/modificar')}}
+@else
+<div class="row tituloLista">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <h4>No posee recaudos relacionados</h4>
+    </div>
 </div>
+@endif
+@if($recaudo->id!=0)
+{{Form::hidden('id', $recaudo->id)}}     
+<hr>
+<div class="row">
+    {{Form::display($recaudo,'recaudo->descripcion')}}
+</div>
+<div class="row">
+    {{Form::btInput($recaudo,'fecha_vencimiento',6)}}
+    {{Form::btInput($recaudo,'documento', 6,'file')}}
+</div>
+@include('templates.bootstrap.submit')
+@endif
+{{Form::close()}}

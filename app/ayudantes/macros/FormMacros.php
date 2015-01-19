@@ -8,6 +8,15 @@ namespace Ayudantes\Macros;
 
 class FormBuilder extends \Illuminate\Html\FormBuilder {
 
+    public function display($obj, $attrName, $numCols=12){
+        $data['numCols'] = $numCols;
+        $data['attrName'] = $attrName;
+        $data['params']['id'] = str_replace('[]', '', $attrName);
+        $data['attrValue'] = $obj->getValueAt($data['params']['id'], false);
+        $data['params']['placeholder'] = $obj->getDescription($attrName);
+        return \View::make('templates.bootstrap.display', $data);
+    }
+    
     function concurrencia($obj) {
         return \Form::hidden('version', Input::old('version', $obj->version));
     }
@@ -29,7 +38,9 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
     function btInput($obj, $attrName, $numCols=12, $type = 'text'
     , $html = []) {
         $data['params'] = $html;
-        $data['params']['class'] = '';
+        if(!isset($data['params']['class'])){
+            $data['params']['class'] = '';
+        }
         $options = [];
         if ($obj->isRelatedField($attrName) && $type == "text") {
             $type = 'select';

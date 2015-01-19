@@ -20,16 +20,17 @@
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \TipoAyuda $tipoAyuda
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereNombre($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereDescripcion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCodItem($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCodCta($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereTipoRequerimientoId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereTipoAyudaId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereVersion($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereDescripcion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCodItem($value)
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCodCta($value)
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereTipoRequerimientoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereTipoAyudaId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereUpdatedAt($value)
+ * @property-read \TipoRequerimiento $tipoRequerimiento
  */
 class Requerimiento extends BaseModel {
 

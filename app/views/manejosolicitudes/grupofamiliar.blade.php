@@ -1,17 +1,14 @@
-{{Form::open(['url'=>'personas/crear/'.$beneficiario->id,'id'=>'form-familiares','class'=>'saveajax'])}}                                         
-<div id="lista_familia">
-    <div class="lista">
-        @if($familiares->count()>0)
-        {{HTML::simpleTable($familiares, 'Persona', ['pencil'=>'Editar', 'trash'=>'Eliminar'], 'personas/familiar/'.$beneficiario->id)}}
-        @else
-        <div class="row tituloLista">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <h4>Aun no ha agregado un familiar</h4>
-            </div>
-        </div>
-        @endif
+{{Form::open(['url'=>'personas/crear/'.$beneficiario->id,'id'=>'form-familiares','class'=>'saveajax'])}}
+@if($familiares->count()>0)
+{{HTML::simpleTable($familiares, 'Persona', ['pencil'=>'Editar', 'trash'=>'Eliminar'], 'personas/familiar/'.$beneficiario->id)}}
+@else
+<div class="row tituloLista">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <h4>Aun no ha agregado un familiar</h4>
     </div>
 </div>
+@endif
+<hr>
 <div class="row">
     {{Form::btInput($familiar,'tipo_nacionalidad_id',4)}}
     {{Form::btInput($familiar,'ci',4)}}

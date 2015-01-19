@@ -35,37 +35,8 @@
             </a>                
         </div>
     </div>         
-</div>
-<hr>
-<h4>Dirección de habitación</h4> 
-<div class="col-xs-12 col-sm-12 col-md-12">
-    <div class="form-group">
-        <h4> Usar dirección del beneficiario?</h4>
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary">
-                Si
-            </label>
-            <label class="btn btn-default">
-                No
-            </label>
-        </div>
-    </div>
-</div>    
-<div class="row">
-    {{Form::btInput($solicitante,'estado_id',4)}}
-    {{Form::btInput($solicitante,'municipio_id',4)}}
-    {{Form::btInput($solicitante,'parroquia_id',4)}}
-</div>
-<div class="row">
-    {{Form::btInput($solicitante,'zona_sector',4)}}
-    {{Form::btInput($solicitante,'calle_avenida',4)}}
-    {{Form::btInput($solicitante,'apto_casa',4)}}
-</div>
-<div class="row">
-    {{Form::btInput($solicitante,'telefono_fijo',4)}}
-    {{Form::btInput($solicitante,'telefono_celular',4)}}
-    {{Form::btInput($solicitante,'telefono_otro',4)}}
-</div>
+</div> 
+@include('manejosolicitudes/direccion-solicitante')
 <div class="row">
     {{Form::btInput($solicitante,'email',6)}}
     {{Form::btInput($solicitante,'twitter',6)}}

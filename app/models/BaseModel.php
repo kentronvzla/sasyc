@@ -40,6 +40,11 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         'M' => 'Masculino',
         'F' => 'Femenino'
     );
+    
+    protected static $cmbsino = [
+        '0'=>'No',
+        '1'=>'Si'
+    ];
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
@@ -294,6 +299,9 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
             if ($format && $this->isBooleanField($key) &&
                     isset(static::$cmbsino[$this->{$key}])) {
                 return static::$cmbsino[$this->{$key}];
+            }
+            if($format && $this->isDateField($key) && is_object($this->{$key})){
+                return $this->{$key}->format('d/m/Y');
             }
             return $this->{$key};
         } else {

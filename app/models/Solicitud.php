@@ -204,6 +204,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         ];
     }
 
+    public function __construct(array $values = []) {
+        parent::__construct($values);
+        $this->ind_mismo_benef = true;
+    }
+
     protected function getPrettyName() {
         return "solicitudes";
     }
@@ -308,7 +313,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return $this->hasMany('RecaudoSolicitud');
     }
 
-    
     public function setFechaSolicitudAttribute($value) {
         if ($value != "") {
             $this->attributes['fecha_solicitud'] = Carbon::createFromFormat('d/m/Y', $value);
@@ -353,7 +357,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     public function reglasCreacion() {
         $this->rules = [
             'ind_mismo_benef' => 'required',
-            'persona_solicitante_id' => 'required_if:ind_mismo_benef,1',
+            'persona_solicitante_id' => 'required_if:ind_mismo_benef,0',
             'persona_beneficiario_id' => 'required',
             'ind_beneficiario_menor' => 'required',
         ];
@@ -363,17 +367,23 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $solicitud = new Solicitud();
         $solicitud->fill($values);
         $solicitud->reglasCreacion();
+        if ($solicitud->ind_mismo_benef == "1") {
+            $solicitud->persona_solicitante_id = $solicitud->persona_beneficiario_id;
+        }
         $solicitud->validate();
         return $solicitud;
     }
-    
-    public static function asociarRecaudos(){
-        foreach (Recaudo::all() as $recaudo){
-            $recaudossolicitud = RecaudoSolicitud::findOrNewBySolicitudRecaudo($this->id, $recaudo->id);
-            if(is_null($recaudossolicitud)){
-                $this->recaudosSolicitud->attach($recaudo);
-            }
-        }   
+
+    public function createdModel($model) {
+        $recaudos = Recaudo::whereIndActivo(true)->get();
+        $recaudos->each(function ($recaudo) use ($model) {
+            $recSolicitud = new RecaudoSolicitud();
+            $recSolicitud->solicitud()->associate($model);
+            $recSolicitud->recaudo()->associate($recaudo);
+            $recSolicitud->save();
+        });
+        $base_path = storage_path('adjuntos');
+        File::makeDirectory($base_path . '/' . $this->id);
     }
 
     public function getTableFields() {
