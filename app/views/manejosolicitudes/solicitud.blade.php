@@ -15,14 +15,16 @@
     {{Form::btInput($solicitud,'ind_inmediata',6)}}
     {{Form::btInput($solicitud,'referente_id',6)}}
 </div>
-<div class="row">
-    {{Form::btInput($solicitud,'actividad')}}
-</div>
-<div class="row">
-    {{Form::btInput($solicitud,'referencia')}}
-</div>
-<div class="row">
-    {{Form::btInput($solicitud,'accion_tomada')}}
+<div id='div-inmediata'>
+    <div class="row">
+        {{Form::btInput($solicitud,'actividad')}}
+    </div>
+    <div class="row">
+        {{Form::btInput($solicitud,'referencia')}}
+    </div>
+    <div class="row">
+        {{Form::btInput($solicitud,'accion_tomada')}}
+    </div>
 </div>
 <div class="row">
     {{Form::btInput($solicitud,'recepcion_id',6)}}

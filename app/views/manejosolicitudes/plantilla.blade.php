@@ -51,7 +51,6 @@
                 </div>
             </div>
         </div>
-        @if($solicitud->ind_mismo_benef==false)
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelTres">
                 <h4 class="panel-title">
@@ -68,7 +67,6 @@
                 </div>
             </div>
         </div>
-        @endif
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelCuatro">
                 <h4 class="panel-title">
@@ -127,6 +125,7 @@
                 </div>
             </div>
         </div>   
+        @if(false)
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelOcho">
                 <h4 class="panel-title">
@@ -141,6 +140,7 @@
                 </div>
             </div>
         </div>  
+        @endif
         @endif
     </div>
 </div>

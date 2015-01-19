@@ -8,6 +8,12 @@ $(document).ready(function () {
 
     $('a.glyphicon-transfer').unbind('click');
     $('a.glyphicon-transfer').click(copiarDireccion);
+
+    $('#div-inmediata').find('input,select').removeAttr('required');
+    $('#div-inmediata').hide();
+    $('[id=ind_inmediata]').each(function () {
+        $(this).change(atencionInmediata);
+    });
 });
 
 function copiarDireccion() {
@@ -35,7 +41,7 @@ function solicitudCreada(data)
     $('#form-solicitud').find('#id').val(sol.id);
     $('#span-solicitud-id').text(sol.id);
     $('#form-presupuesto').find('#solicitud_id').val(sol.id);
-    $("#PanelSeis").children().load(baseUrl+"recaudossolicitud/modificar?solicitud_id="+sol.id);
+    $("#PanelSeis").children().load(baseUrl + "recaudossolicitud/modificar?solicitud_id=" + sol.id);
     history.pushState(null, null, baseUrl + 'solicitudes/modificar/' + sol.id);
 }
 
@@ -74,4 +80,16 @@ function buscarPersona(evt)
             }
         }
     });
+}
+
+function atencionInmediata(evt)
+{
+    var parent = $(evt.target).closest('.form-group').parent();
+    if (parent.find('input[name=ind_inmediata]:checked').val() == 0) {
+        $('#div-inmediata').find('input,select').removeAttr('required');
+        $('#div-inmediata').hide();
+    } else {
+        $('#div-inmediata').find('input,select').attr('required', 'required');
+        $('#div-inmediata').show();
+    }
 }

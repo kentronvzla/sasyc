@@ -22,30 +22,34 @@
     {{Form::btInput($beneficiario,'nivel_academico_id',8)}}
     {{Form::btInput($beneficiario,'ind_trabaja',4)}}
 </div>
-<hr>
-<h4>Datos Empleo</h4> 
-<div class="row">
-    {{Form::btInput($beneficiario,'ocupacion',6)}}
-    {{Form::btInput($beneficiario,'ingreso_mensual',4)}}
-    <div class="col-xs-12 col-sm-12 col-md-2">
-        <div class="form-group">
-            <a href="http://www.ivss.gov.ve/" class="btn btn-primary" target="_black"><i class="glyphicon glyphicon-search"></i> 
-                IVSS
-            </a>                
-        </div>
-    </div>         
+<div id='div-trabaja'>
+    <hr>
+    <h4>Datos Empleo</h4> 
+    <div class="row">
+        {{Form::btInput($beneficiario,'ocupacion',6)}}
+        {{Form::btInput($beneficiario,'ingreso_mensual',4)}}
+        <div class="col-xs-12 col-sm-12 col-md-2">
+            <div class="form-group">
+                <a href="http://www.ivss.gov.ve/" class="btn btn-primary" target="_black"><i class="glyphicon glyphicon-search"></i> 
+                    IVSS
+                </a>                
+            </div>
+        </div>         
+    </div>
 </div>
-<hr>
-<h4>Datos de p&oacute;liza</h4> 
-<div class="row">
-    {{Form::btInput($beneficiario,'empresa_seguro',6)}}
-    {{Form::btInput($beneficiario,'cobertura',6)}}
-</div>
-<div class="row">
-    {{Form::btInput($beneficiario,'otro_apoyo')}}
-</div>
-<div class="row">     
-    {{Form::btInput($beneficiario,'como_conocio_fps')}}
+<div id='div-asegurado'>
+    <hr>
+    <h4>Datos de p&oacute;liza</h4> 
+    <div class="row">
+        {{Form::btInput($beneficiario,'empresa_seguro',6)}}
+        {{Form::btInput($beneficiario,'cobertura',6)}}
+    </div>
+    <div class="row">
+        {{Form::btInput($beneficiario,'otro_apoyo')}}
+    </div>
+    <div class="row">     
+        {{Form::btInput($beneficiario,'como_conocio_fps')}}
+    </div>
 </div>
 <hr>
 <h4>Direcci&oacute;n de habitaci&oacute;n</h4> 
