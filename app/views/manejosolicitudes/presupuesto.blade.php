@@ -16,7 +16,7 @@
     {{Form::btInput($presupuesto,'cantidad',4)}}
 </div>
 <div class="row">
-    {{Form::btInput($presupuesto,'num_benef',8)}}
+    {{Form::btInput($presupuesto,'beneficiario_id',8)}}
     {{Form::btInput($presupuesto,'monto',4)}}
 </div>
 @include('templates.bootstrap.submit')

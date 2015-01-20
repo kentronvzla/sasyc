@@ -12,7 +12,7 @@
  * @property integer $id
  * @property integer $solicitud_id
  * @property integer $requerimiento_id
- * @property integer $num_benef
+ * @property integer $beneficiario_id
  * @property integer $cantidad
  * @property float $monto
  * @property string $estatus
@@ -47,7 +47,7 @@ class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTab
      * @var array
      */
     protected $fillable = [
-        'solicitud_id', 'requerimiento_id', 'num_benef', 'cantidad', 'monto', 'estatus', 'id_doc_proc', 'id_sol_sum',
+        'solicitud_id', 'requerimiento_id', 'beneficiario_id', 'cantidad', 'monto', 'estatus', 'id_doc_proc', 'id_sol_sum',
     ];
 
     /**
@@ -59,7 +59,7 @@ class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTab
     protected $rules = [
         'solicitud_id' => 'required|integer',
         'requerimiento_id' => 'required|integer',
-        'num_benef' => 'required|integer',
+        'beneficiario_id' => 'required|integer',
         'cantidad' => 'required|integer',
         'monto' => 'required',
         'estatus' => 'required',
@@ -71,7 +71,7 @@ class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTab
         return [
             'solicitud_id' => 'Solicitud',
             'requerimiento_id' => 'Requerimiento',
-            'num_benef' => 'Beneficiario',
+            'beneficiario_id' => 'Beneficiario',
             'cantidad' => 'Cantidad',
             'monto' => 'Monto',
             'estatus' => 'Estatus',
@@ -98,6 +98,10 @@ class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTab
      */
     public function requerimiento() {
         return $this->belongsTo('Requerimiento');
+    }
+   
+    public function beneficiario() {
+        return $this->belongsTo('Oracle\Beneficiario');
     }
     
     public function tipo_requerimiento_id(){
