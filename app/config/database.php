@@ -1,4 +1,5 @@
 <?php
+
 return array(
     /*
       |--------------------------------------------------------------------------
@@ -50,13 +51,13 @@ return array(
             'schema' => 'public',
         ),
         'oracle' => array(
-            'driver' => 'pdo-via-oci8',
+            'driver' => 'oracle',
             'host' => 'olimpo',
             'port' => '1521',
             'database' => 'keruxalt',
             'username' => 'sasyc',
             'password' => 'sasyc',
-            'charset' => '',
+            'charset' => 'AL32UTF8',
             'prefix' => '',
         ),
     ),

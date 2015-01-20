@@ -109,6 +109,7 @@ return array(
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
         'Ayudantes\Macros\HtmlServiceProvider',
+        'yajra\Oci8\Oci8ServiceProvider',
     ),
     /*
       |--------------------------------------------------------------------------
