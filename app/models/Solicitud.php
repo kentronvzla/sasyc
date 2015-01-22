@@ -99,7 +99,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUpdatedAt($value)
  */
-class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
+class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface, DecimalInterface {
 
     protected $table = "solicitudes";
 
@@ -399,6 +399,20 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'fecha_solicitud',
             'estatus'
         ];
+    }
+
+    public static function getDecimalFields() {
+        return [
+            'total_ingresos'
+        ];
+    }
+
+    public function setTotalIngresosAttribute($value) {
+        $this->attributes['total_ingresos'] = tf($value);
+    }
+    
+    public function getTotalIngresosForAttribute($value) {
+        return tm($value);
     }
 
 }

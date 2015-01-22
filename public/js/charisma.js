@@ -129,6 +129,11 @@ $(document).ready(function () {
 
 
 function docReady() {
+    $(".decimal-format").autoNumeric('init', {
+        aSep: ".",
+        aDec: ",",
+    });
+    $(".decimal-format").css('text-align', 'right');
     $('input, select, textarea').each(function () {
         if ($(this).attr("data-tienetooltip") == undefined && $(this).attr('type') != "radio") {
             $(this).attr("data-tienetooltip", 1);

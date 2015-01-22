@@ -11,7 +11,7 @@
  *
  * @author Nadin Yamaui
  */
-abstract class BaseModel extends Eloquent implements DefaultValuesInterface, SelectInterface, SimpleTableInterface {
+abstract class BaseModel extends Eloquent implements DefaultValuesInterface, SelectInterface, SimpleTableInterface, DecimalInterface {
 
     /**
      * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save, 
@@ -40,10 +40,9 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         'M' => 'Masculino',
         'F' => 'Femenino'
     );
-    
     protected static $cmbsino = [
-        '0'=>'No',
-        '1'=>'Si'
+        '0' => 'No',
+        '1' => 'Si'
     ];
 
     public function __construct(array $attributes = []) {
@@ -300,7 +299,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
                     isset(static::$cmbsino[$this->{$key}])) {
                 return static::$cmbsino[$this->{$key}];
             }
-            if($format && $this->isDateField($key) && is_object($this->{$key})){
+            if ($format && $this->isDateField($key) && is_object($this->{$key})) {
                 return $this->{$key}->format('d/m/Y');
             }
             return $this->{$key};
@@ -390,11 +389,15 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     public function getDefaultValues() {
         return [];
     }
-    
+
     public function getTableFields() {
         return [];
     }
-    
+
+    public static function getDecimalFields() {
+        return [];
+    }
+
     public function isRequired($field) {
         $rules = $this->rules;
         if (isset($rules[$field])) {
@@ -402,11 +405,11 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         }
         return false;
     }
-    
-    public function hasParentTable($field){
-        $related = $this->getRelatedField($field)->getRelated();
-    }
 
+    public function isDecimalField($field) {
+        return in_array($field, static::getDecimalFields());
+    }
+    
     protected abstract function getPrettyName();
 
     protected abstract function getPrettyFields();

@@ -1,14 +1,16 @@
 <?php
+
 /**
  * Description of FormMacros
  *
  * @author nadinarturo
  */
+
 namespace Ayudantes\Macros;
 
 class FormBuilder extends \Illuminate\Html\FormBuilder {
 
-    public function display($obj, $attrName, $numCols=12){
+    public function display($obj, $attrName, $numCols = 12) {
         $data['numCols'] = $numCols;
         $data['attrName'] = $attrName;
         $data['params']['id'] = str_replace('[]', '', $attrName);
@@ -16,12 +18,12 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         $data['params']['placeholder'] = $obj->getDescription($attrName);
         return \View::make('templates.bootstrap.display', $data);
     }
-    
+
     function concurrencia($obj) {
         return \Form::hidden('version', Input::old('version', $obj->version));
     }
-    
-    public function btSelect($attrName, $values, $value, $numCols=12, $required = true) {
+
+    public function btSelect($attrName, $values, $value, $numCols = 12, $required = true) {
         $data['numCols'] = $numCols;
         $data['attrName'] = $attrName;
         $data['params']['class'] = 'form-control';
@@ -35,19 +37,18 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         return \View::make('templates.bootstrap.input', $data);
     }
 
-    function btInput($obj, $attrName, $numCols=12, $type = 'text'
+    function btInput($obj, $attrName, $numCols = 12, $type = 'text'
     , $html = []) {
         $data['params'] = $html;
-        if(!isset($data['params']['class'])){
+        if (!isset($data['params']['class'])) {
             $data['params']['class'] = '';
         }
         $options = [];
-        if ($obj->isRelatedField($attrName) && $type == "text") {
+        if ($obj->isDecimalField($attrName)) {
+            $data['params']['class'] = 'decimal-format ';
+        } else if ($obj->isRelatedField($attrName) && $type == "text") {
             $type = 'select';
             $options = $obj->getRelatedOptions($attrName);
-            if($obj->hasParentTable($attrName)){
-                
-            }
         } else if ($obj->isDateField($attrName) && $type == "text") {
             $data['params']['class'] = 'jqueryDatePicker ';
             $data['attrValue'] = $obj->getValueAt($attrName);
