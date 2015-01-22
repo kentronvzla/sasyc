@@ -342,7 +342,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->attributes['fecha_cierre'] = Carbon::createFromFormat('d/m/Y', $value);
         }
     }
-    
+
     public function ingresoFamiliar() {
         return $this->personaBeneficiario->familiaresBeneficiario()->sum('ingreso_mensual');
     }
@@ -351,7 +351,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return $this->personaBeneficiario->ingreso_mensual + $this->ingresoFamiliar();
     }
 
-    
     public function getDefaultValues() {
         return [
             'ano' => Carbon::now()->format('Y'),
@@ -391,8 +390,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $recSolicitud->recaudo()->associate($recaudo);
             $recSolicitud->save();
         });
-        $base_path = storage_path('adjuntos');
-        File::makeDirectory($base_path . '/' . $this->id);
     }
 
     public function getTableFields() {

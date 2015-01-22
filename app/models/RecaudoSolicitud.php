@@ -105,14 +105,18 @@ class RecaudoSolicitud extends BaseModel implements DefaultValuesInterface, Simp
 
     public function setDocumentoAttribute() {
         if (Input::hasFile('documento')) {
+            $base_path = storage_path('adjuntos');
+            $base_path = $base_path.DIRECTORY_SEPARATOR.$this->solicitud_id;
+           
+            if(!File::exists($base_path)) {
+                File::makeDirectory($base_path);
+            }
             $file = Input::file('documento');
             $fileName = $file->getClientOriginalName();
-            $base_path = storage_path('adjuntos');
-            $base_path = $base_path . '/' . $this->solicitud_id;
             if ($this->documento != "") {
-                File::delete($base_path . '/' . $this->documento);
+                File::delete($base_path.DIRECTORY_SEPARATOR.$this->documento);
             }
-            while (File::exists($base_path . '/' . $fileName)) {
+            while (File::exists($base_path.DIRECTORY_SEPARATOR.$fileName)) {
                 $fileName.=rand(0, 9) . $fileName;
             }
             $file->move($base_path, $fileName);

@@ -7,11 +7,10 @@ class SolicitudesController extends BaseController {
     }
 
     public function postModificar() {
-        //Session::forget('solicitud');
+        Session::forget('solicitud');
         $solicitud = Solicitud::findOrNew(Input::get('id'));
         $solicitud->fill(Input::all());
         if ($solicitud->save()) {
-            Session::set('solicitud', $solicitud->toArray());
             $data['solicitud'] = $solicitud;
             $data['mensaje'] = "Datos guardados correctamente";
             return Response::json($data);

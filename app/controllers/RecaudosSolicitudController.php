@@ -31,7 +31,7 @@ class RecaudosSolicitudController extends BaseController {
 
     public function getDescargar($recaudoSolicitudId) {
         $recaudo = RecaudoSolicitud::findOrFail($recaudoSolicitudId);
-        $path = storage_path('adjuntos/' . $recaudo->solicitud_id . '/' . $recaudo->documento);
+        $path = storage_path('adjuntos'.DIRECTORY_SEPARATOR. $recaudo->solicitud_id .DIRECTORY_SEPARATOR. $recaudo->documento);
         return Response::download($path);
     }
 
