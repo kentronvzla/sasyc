@@ -57,4 +57,8 @@ class Referente extends BaseModel{
     protected function getPrettyName() {
         return "referentes";
     }
+    
+    public function test() {
+        return $this->belongsTo('Recaudo');
+    }
 }

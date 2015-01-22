@@ -91,7 +91,7 @@
             </div>
             <div id="PanelCinco" class="panel-collapse collapse">
                 <div class="panel-body">
-                    {{Form::open(['url'=>'solicitudes/modificar','id'=>'form-informe','class'=>'saveajax'])}}
+                    {{Form::open(['url'=>'solicitudes/modificar/'.$solicitud->id,'id'=>'form-informe','class'=>'saveajax'])}}
                     @include('manejosolicitudes.informesocioeconomico')
                     {{Form::close()}}
                 </div>
@@ -150,6 +150,14 @@
         <div class="panel-body text-center">
             <p>Sitúe el cursor en un campo para ver mas información.</p>
             <div class="row alert-warning text-justify" id="contenedorAyuda" data-id="" style="padding: 5px;">
+            </div>
+        </div>
+    </div>
+    <div id="div-cne" class="panel panel-default" style="display:none;">
+        <div class="panel-heading">CNE</div>
+        <div class="panel-body text-center">
+            <div class="row alert-warning text-justify" data-id="" style="padding: 5px;">
+                <iframe id="icne" src="" width="370px" height="510px" ></iframe>
             </div>
         </div>
     </div>

@@ -123,8 +123,8 @@ class Persona extends BaseModel implements SimpleTableInterface {
     protected $rules = [
         'nombre' => 'required',
         'apellido' => 'required',
-        'tipo_nacionalidad_id' => 'required|integer',
-        'ci' => 'required|integer',
+        'tipo_nacionalidad_id' => 'integer',
+        'ci' => 'integer',
         'sexo' => '',
         'estado_civil_id' => 'integer',
         'lugar_nacimiento' => '',
@@ -288,7 +288,7 @@ class Persona extends BaseModel implements SimpleTableInterface {
 
     public function getDocumentoAttribute() {
         if ($this->tipoNacionalidad != null) {
-            return $this->tipoNacionalidad->nombre . '-' . $this->ci;
+            return $this->tipoNacionalidad->nombre . ' - ' . $this->ci;
         }
         return $this->ci;
     }

@@ -7,11 +7,11 @@ class SolicitudesController extends BaseController {
     }
 
     public function postModificar() {
-        Session::forget('solicitud');
+        //Session::forget('solicitud');
         $solicitud = Solicitud::findOrNew(Input::get('id'));
         $solicitud->fill(Input::all());
         if ($solicitud->save()) {
-            #$solicitud::asociarRecaudos();
+            Session::set('solicitud', $solicitud->toArray());
             $data['solicitud'] = $solicitud;
             $data['mensaje'] = "Datos guardados correctamente";
             return Response::json($data);
@@ -63,13 +63,4 @@ class SolicitudesController extends BaseController {
             return Redirect::back()->withInput()->withErrors($solicitud->getErrors());
         }
     }
-
-    public static function asociarRecaudos() {
-        foreach (Recaudo::all() as $recaudo) {
-            $recaudossolicitud = new RecaudoSolicitud();
-            $recaudossolicitud->fill($recaudo);
-        }
-        return $recaudossolicitud;
-    }
-
 }

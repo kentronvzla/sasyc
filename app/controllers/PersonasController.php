@@ -6,6 +6,18 @@ class PersonasController extends BaseController {
         parent::__construct();
     }
 
+    public function getBuscarcne($cedula){
+        $curl = new AyudanteCurl();
+        $curl->enviarGet('http://www.cne.gob.ve/web/registro_electoral/ce.php?nacionalidad=V&cedula='.$cedula);
+        $test = strip_tags($curl->respuesta);
+        $posNombre = strpos($test, "Nombre:");
+        $test = substr($test, $posNombre);
+        $posCentro = strpos($test, "Centro:");
+        $test = substr($test, 0, $posCentro);
+        $posEstado = strpos($test, "Estado:")-9;        
+        $nombre = substr($test, 9, $posEstado);
+    }
+    
     public function getBuscarid($id) {
         $data['persona'] = Persona::findOrFail($id);
         return Response::json($data);

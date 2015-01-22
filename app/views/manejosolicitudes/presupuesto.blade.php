@@ -9,6 +9,7 @@
     </div>
 </div>
 @endif
+<hr>
 {{Form::hidden('id',$presupuesto->id)}}
 {{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">

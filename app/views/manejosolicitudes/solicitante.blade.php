@@ -1,13 +1,14 @@
 {{Form::hidden('id',$solicitud->persona_solicitante_id)}}
-{{Form::hidden('tipo','S')}}
+
 <div class="row">
-    {{Form::btInput($solicitante,'nombre',6)}}
-    {{Form::btInput($solicitante,'apellido',6)}}
+    <div class="col-xs-12 col-sm-12 col-md-8">
+        <h4><span id='span-solicitante-documento'>{{$solicitante->documento}}</span></h4>
+    </div>
 </div>
 <div class="row">
-    {{Form::btInput($solicitante,'tipo_nacionalidad_id',4)}}
-    {{Form::btInput($solicitante,'ci',4)}}
-    {{Form::btInput($solicitante,'sexo',4)}}
+    {{Form::btInput($solicitante,'nombre',4)}}
+    {{Form::btInput($solicitante,'apellido',4)}}
+    {{Form::btInput($solicitante,'sexo',4)}}    
 </div>
 <div class="row">
     {{Form::btInput($solicitante,'lugar_nacimiento',8)}}

@@ -313,11 +313,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return $this->hasMany('RecaudoSolicitud');
     }
 
-    public function setFechaSolicitudAttribute($value) {
-        if ($value != "") {
-            $this->attributes['fecha_solicitud'] = Carbon::createFromFormat('d/m/Y', $value);
-        }
-    }
+//    public function setFechaSolicitudAttribute($value) {
+//        if ($value != "") {
+//            $this->attributes['fecha_solicitud'] = Carbon::createFromFormat('d/m/Y', $value);
+//        }
+//    }
 
     public function setFechaAsignacionAttribute($value) {
         if ($value != "") {
@@ -342,7 +342,16 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->attributes['fecha_cierre'] = Carbon::createFromFormat('d/m/Y', $value);
         }
     }
+    
+    public function ingresoFamiliar() {
+        return $this->personaBeneficiario->familiaresBeneficiario()->sum('ingreso_mensual');
+    }
 
+    public function getTotalIngresosAttribute() {
+        return $this->personaBeneficiario->ingreso_mensual + $this->ingresoFamiliar();
+    }
+
+    
     public function getDefaultValues() {
         return [
             'ano' => Carbon::now()->format('Y'),

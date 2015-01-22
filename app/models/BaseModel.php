@@ -402,6 +402,10 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         }
         return false;
     }
+    
+    public function hasParentTable($field){
+        $related = $this->getRelatedField($field)->getRelated();
+    }
 
     protected abstract function getPrettyName();
 

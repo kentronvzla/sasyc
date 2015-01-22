@@ -45,6 +45,9 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         if ($obj->isRelatedField($attrName) && $type == "text") {
             $type = 'select';
             $options = $obj->getRelatedOptions($attrName);
+            if($obj->hasParentTable($attrName)){
+                
+            }
         } else if ($obj->isDateField($attrName) && $type == "text") {
             $data['params']['class'] = 'jqueryDatePicker ';
             $data['attrValue'] = $obj->getValueAt($attrName);

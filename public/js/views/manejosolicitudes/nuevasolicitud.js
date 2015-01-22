@@ -8,10 +8,16 @@ $(document).ready(function () {
     $('#nombre, #apellido').prop("disabled", true);
     $("#tipo_nacionalidad_id, #ci").change(buscarPersona);
     $('.salvar-persona').click(crearPersona);
+    $('.buscar-cne').on('click', buscarCNE);
+    $('.siguiente').click(validarPersonas);
     $('#div-solicitante').hide();
 
     $('[id=ind_mismo_benef]').each(function () {
-        $(this).change(mostrarOcultarSolicitante);
+        $(this).on('change', mostrarOcultarSolicitante);
+    });
+
+    $('[id=ind_beneficiario_menor]').each(function () {
+        $(this).change(mostrarOcultarMenor);
     });
 });
 
@@ -25,15 +31,49 @@ function usarPersona(evt)
     });
 }
 
+function validarPersonas(evt)
+{
+    if ($("#div-mismo-benef").find('input[name=ind_mismo_benef]:checked').val() == 0 &&
+            $('#div-solicitante').find('#persona_solicitante_id').val() == "") {
+        alert("Debe guardar los datos del solicitante");
+        return false;
+    }
+    if ($('#div-beneficiario').find('#persona_beneficiario_id').val() == "") {
+        alert("Debe guardar los datos del beneficiario");
+        return false;
+    }
+}
+
 function mostrarOcultarSolicitante(evt)
 {
     var parent = $(evt.target).closest('.form-group').parent();
-    if(parent.find('input[name=ind_mismo_benef]:checked').val()==1){
+    if (parent.find('input[name=ind_mismo_benef]:checked').val() == 1) {
         $('#div-solicitante').find('input,select').removeAttr('required');
-        $('#div-solicitante').hide();        
-    }else{
-        $('#div-solicitante').find('input,select').attr('required','required');
-        $('#div-solicitante').show();    
+        $('#div-solicitante').hide();
+    } else {
+        $('#div-solicitante').find('input,select').attr('required', 'required');
+        $('#div-solicitante').show();
+    }
+}
+
+function mostrarOcultarMenor(evt)
+{
+    var parent = $(evt.target).closest('.form-group').parent();
+    var seleccion = parent.find('input[name=ind_beneficiario_menor]:checked').val();
+    if (seleccion == 1) {
+        $('#div-beneficiario').find('#nombre, #apellido').prop("disabled", false);
+        $('#div-menor').find('input,select').attr('required');
+        $('#div-menor').hide();
+        $('#div-mismo-benef').hide();
+        $('[id=ind_mismo_benef]:checked').val("0");
+        $('[id=ind_mismo_benef]:checked').trigger("change");
+        $('#div-beneficiario').find('.salvar-persona').show();
+    } else {
+        $('#div-menor').find('input,select').removeAttr('required', 'required');
+        $('#div-menor').show();
+        $('#div-mismo-benef').show();
+        $('#div-beneficiario').find('.salvar-persona').hide();
+        $('#div-beneficiario').find('#nombre, #apellido').prop("disabled", true);
     }
 }
 
@@ -58,6 +98,7 @@ function buscarPersona(evt)
                 parent.find('#nombre, #apellido').prop("disabled", true);
                 parent.find('.salvar-persona').hide();
             } else {
+                parent.find('#persona_solicitante_id, #persona_beneficiario_id').val("");
                 parent.find('#nombre, #apellido').prop("disabled", false);
                 parent.find('#nombre, #apellido').val("");
                 parent.find('.salvar-persona').show();
@@ -70,6 +111,20 @@ function buscarPersona(evt)
             }
         }
     });
+}
+
+function buscarCNE(evt)
+{
+    var parent = $(evt.target).closest('.row').parent();
+    if (parent.find('#ci').val() == "") {
+        return;
+    }
+    //var mDivDestino = $('#cne');
+    var pUrl = "http://www.cne.gob.ve/web/registro_electoral/ce.php?nacionalidad=V&cedula=" + parent.find('#ci').val();
+    var icne = $('#icne');
+    icne.attr('src', pUrl);
+    $('#div-cne').show();
+    icne.contents().find('head').append('<meta charset="utf-8">');
 }
 
 function crearPersona(evt)
