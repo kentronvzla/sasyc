@@ -75,6 +75,7 @@
         {{HTML::script('js/jquery.raty.min.js')}}
         {{HTML::script('js/jquery.uploadify-3.1.min.js')}}
         {{HTML::script('js/jquery.history.min.js')}}
+        {{HTML::script('js/jquery.autoNumeric.min.js')}}
 
         {{HTML::script('js/datatables.min.js')}}
         {{HTML::script('js/datatables.bootstrap.min.js')}}
