@@ -13,10 +13,16 @@ class SolicitudesController extends BaseController {
         if ($solicitud->save()) {
             $data['solicitud'] = $solicitud;
             $data['mensaje'] = "Datos guardados correctamente";
-            return Response::json($data);
+
+            return Redirect::to('solicitudes/modificar/'.$solicitud->id);
         } else {
-            return Response::json(['errores' => $solicitud->getErrors()], 400);
+            return Redirect::back()->withInput()->withErrors($solicitud->getErrors());
         }
+
+//            return Response::json($data);
+//        } else {
+//            return Response::json(['errores' => $solicitud->getErrors()], 400);
+//        }
     }
 
     public function getModificar($id = null) {
@@ -62,4 +68,5 @@ class SolicitudesController extends BaseController {
             return Redirect::back()->withInput()->withErrors($solicitud->getErrors());
         }
     }
+
 }

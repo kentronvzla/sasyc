@@ -28,6 +28,9 @@ function usarPersona(evt)
         $('#div-beneficiario').find('#tipo_nacionalidad_id').val(data.persona.tipo_nacionalidad_id);
         $('#div-beneficiario').find('#ci').val(data.persona.ci);
         $('#div-beneficiario').find('#ci').trigger('change');
+        $('#div-beneficiario').find('#persona_beneficiario_id').val(data.persona.id);
+        $('#div-beneficiario').find('#nombre').val(data.persona.nombre);
+        $('#div-beneficiario').find('#apellido').val(data.persona.apellido);
     });
 }
 
@@ -35,11 +38,11 @@ function validarPersonas(evt)
 {
     if ($("#div-mismo-benef").find('input[name=ind_mismo_benef]:checked').val() == 0 &&
             $('#div-solicitante').find('#persona_solicitante_id').val() == "") {
-        alert("Debe guardar los datos del solicitante");
+        mostrarError("Debe guardar los datos del solicitante");
         return false;
     }
     if ($('#div-beneficiario').find('#persona_beneficiario_id').val() == "") {
-        alert("Debe guardar los datos del beneficiario");
+        mostrarError("Debe guardar los datos del beneficiario");
         return false;
     }
 }

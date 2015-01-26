@@ -92,7 +92,7 @@
  * @property-read mixed $edad
  * @property-read mixed $documento
  */
-class Persona extends BaseModel implements SimpleTableInterface {
+class Persona extends BaseModel implements SimpleTableInterface, DecimalInterface {
 
     protected $table = "personas";
     protected $dates = ['fecha_nacimiento'];
@@ -287,7 +287,7 @@ class Persona extends BaseModel implements SimpleTableInterface {
     }
 
     public function getDocumentoAttribute() {
-        if ($this->tipoNacionalidad != null) {
+        if ($this->tipoNacionalidad != null && $this->ci != null) {
             return $this->tipoNacionalidad->nombre . ' - ' . $this->ci;
         }
         return $this->ci;
@@ -324,6 +324,20 @@ class Persona extends BaseModel implements SimpleTableInterface {
                 ->wherePivot('persona_familia_id', '=', $familiar_id)
                 ->first()->parentesco_id;
         return Parentesco::find($parentesco_id);
+    }
+    
+    public static function getDecimalFields() {
+        return [
+            'ingreso_mensual'
+        ];
+    }
+    
+    public function setIngresoMensualAttribute($value) {
+        $this->attributes['ingreso_mensual'] = tf($value);
+    }
+    
+    public function getIngresoMensualForAttribute($value) {
+        return tm($value);
     }
 
 }

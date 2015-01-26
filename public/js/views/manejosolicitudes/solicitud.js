@@ -3,25 +3,25 @@ $(document).ready(function () {
         $(this).change(calcularEdad);
     });
 
-    $('#form-familiares').find('#nombre, #apellido').prop("disabled", true);
-    $('#form-familiares').find("#tipo_nacionalidad_id, #ci").change(buscarPersona);
+    //$('#form-familiares').find('#nombre, #apellido').prop("disabled", true);
+    $('#form-familiares').find("#tipo_nacionalidad_id, #ci").on('change', buscarPersona);
+
+    $('#form-informe').find('#total_ingresos').prop("disabled", true);
 
     $('a.glyphicon-transfer').unbind('click');
     $('a.glyphicon-transfer').click(copiarDireccion);
 
-//    $('#div-inmediata').find('input,select').removeAttr('required');
-//    $('#div-inmediata').hide();
     $('[id=ind_inmediata]').each(function () {
-        $(this).on('change',atencionInmediata);
+        $(this).on('change', atencionInmediata);
     });
-    
+
     $('[id=ind_asegurado]').each(function () {
         $(this).on('change', beneficiarioAsegurado);
     });
-    
+
     $('[id=ind_trabaja]').each(function () {
         $(this).on('change', personaTrabaja);
-    });    
+    });
 });
 
 function copiarDireccion() {
@@ -42,18 +42,6 @@ function copiarDireccion() {
     });
 }
 ;
-
-function solicitudCreada(data)
-{
-    var sol = data.solicitud;
-    $('#form-solicitud').find('#id').val(sol.id);
-    $('#span-solicitud-id').text(sol.id);
-    $('#form-presupuesto').find('#solicitud_id').val(sol.id);
-    $('#form-informe').find('#id').val(sol.id);
-    $("#PanelSeis").children().load(baseUrl + "recaudossolicitud/modificar/" + sol.id);
-    
-    history.pushState(null, null, baseUrl + 'solicitudes/modificar/' + sol.id);
-}
 
 function calcularEdad(evt)
 {
@@ -91,39 +79,30 @@ function buscarPersona(evt)
         }
     });
 }
+function mostrarOcultar(mostrar, div) {
+    if (mostrar) {
+        $('#'+div).find('input,select').removeAttr('required');
+        $('#'+div).hide();
+    } else {
+        $('#'+div).show();
+        $('#'+div).find('input,select').attr('required', 'required');
+    }
+}
 
 function atencionInmediata(evt)
 {
     var parent = $(evt.target).closest('.form-group').parent();
-    if (parent.find('input[name=ind_inmediata]:checked').val() == 0) {
-        $('#div-inmediata').find('input,select').removeAttr('required');
-        $('#div-inmediata').hide();
-    } else {
-        $('#div-inmediata').show();
-        $('#div-inmediata').find('input,select').attr('required', 'required');
-    }
+    mostrarOcultar(parent.find('input[name=ind_inmediata]:checked').val() == 0, 'div-inmediata');
 }
 
 function beneficiarioAsegurado(evt)
 {
     var parent = $(evt.target).closest('.form-group').parent();
-    if (parent.find('input[name=ind_asegurado]:checked').val() == 0) {
-        $('#div-asegurado').find('input,select').removeAttr('required');
-        $('#div-asegurado').hide();
-    } else {
-        $('#div-asegurado').show();
-        $('#div-asegurado').find('input,select').attr('required', 'required');
-    }
+    mostrarOcultar(parent.find('input[name=ind_asegurado]:checked').val() == 0,'div-asegurado');
 }
 
 function personaTrabaja(evt)
 {
     var parent = $(evt.target).closest('.form-group').parent();
-    if (parent.find('input[name=ind_trabaja]:checked').val() == 0) {
-        $('#div-trabaja').find('input,select').removeAttr('required');
-        $('#div-trabaja').hide();
-    } else {
-        $('#div-trabaja').show();
-        $('#div-trabaja').find('input,select').attr('required', 'required');
-    }
+    mostrarOcultar(parent.find('input[name=ind_trabaja]:checked').val() == 0, 'div-trabaja');
 }

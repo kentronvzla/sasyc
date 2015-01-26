@@ -31,21 +31,21 @@ class PersonasController extends BaseController {
         return Response::json($data);
     }
 
-    public function postCrear($beneficiario_asoc = null, $render = true) {
-        $persona = Persona::findOrNewByCedula(Input::get('tipo_nacionalidad_id'), Input::get('ci'));
+    public function postCrear($beneficiario_asoc = null) {
+        $persona = Persona::findOrNew(Input::get('id'));
         $persona->fill(Input::all());
         if ($persona->save()) {
             $data['persona'] = $persona;
             $data['mensaje'] = 'Datos guardados correctamente';
             if (!is_null($beneficiario_asoc)) {
                 $validator = Persona::asociar($beneficiario_asoc, $persona->id, Input::get('parentesco_id'));
-                if ($validator->passes() && $render === true) {
+                if ($validator->passes()) {
                     $data['vista'] = $this->getFamiliar($beneficiario_asoc)->render();
-                } else if ($render === true) {
+                    return Response::json($data);
+                }else{
                     return Response::json(['errores' => $validator->messages()], 400);
                 }
             }
-            return Response::json($data);
         }
         return Response::json(['errores' => $persona->getErrors()], 400);
     }

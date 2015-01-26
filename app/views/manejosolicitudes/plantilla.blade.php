@@ -29,12 +29,13 @@
             </div>
             <div id="PanelUno" class="panel-collapse collapse in">
                 <div class="panel-body">
-                    {{Form::open(['url'=>'solicitudes/modificar','class'=>'saveajax', 'data-callback'=>'solicitudCreada','id'=>'form-solicitud'])}}
+                    {{Form::open(['url'=>'solicitudes/modificar','id'=>'form-solicitud'])}}
                     @include('manejosolicitudes.solicitud')
                     {{Form::close()}}
                 </div>
             </div>
         </div>
+        @unless(is_null($solicitud->id))
         <div class="panel panel-danger">
             <div class="panel-heading"  data-toggle="collapse" data-parent="#accordion" href="#PanelDos">
                 <h4 class="panel-title">
@@ -61,7 +62,7 @@
             </div>
             <div id="PanelTres" class="panel-collapse collapse">
                 <div class="panel-body">
-                    {{Form::open(['url'=>'personas/crear/'.$beneficiario->id.'/false','id'=>'form-persona','class'=>'saveajax'])}}
+                    {{Form::open(['url'=>'personas/crear/'.$beneficiario->id,'id'=>'form-persona','class'=>'saveajax'])}}
                     @include('manejosolicitudes.solicitante')
                     {{Form::close()}}
                 </div>
@@ -141,6 +142,7 @@
             </div>
         </div>  
         @endif
+        @endunless
         @endif
     </div>
 </div>
