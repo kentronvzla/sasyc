@@ -3,7 +3,6 @@
     <div class="col-xs-12 col-sm-12 col-md-8">
         <h4><span id='span-beneficiario-documento'>{{$beneficiario->documento}}</span></h4>
     </div>
-    <span id='span-beneficiario-ci'>{{$beneficiario->ci}}</span>
 </div>
 <div class="row">
     {{Form::btInput($beneficiario,'nombre',4)}}
@@ -23,7 +22,7 @@
     {{Form::btInput($beneficiario,'nivel_academico_id',8)}}
     {{Form::btInput($beneficiario,'ind_trabaja',4)}}
 </div>
-<div id='div-trabaja'>
+<div class="div-trabaja">
     <hr>
     <h4>Datos Empleo</h4> 
     <div class="row">
@@ -38,19 +37,19 @@
         </div>         
     </div>
 </div>
-<div id='div-asegurado'>
+<div id="div-asegurado">
     <hr>
     <h4>Datos de p&oacute;liza</h4> 
     <div class="row">
         {{Form::btInput($beneficiario,'empresa_seguro',6)}}
         {{Form::btInput($beneficiario,'cobertura',6)}}
     </div>
-    <div class="row">
-        {{Form::btInput($beneficiario,'otro_apoyo')}}
-    </div>
-    <div class="row">     
-        {{Form::btInput($beneficiario,'como_conocio_fps')}}
-    </div>
+</div>
+<div class="row">
+    {{Form::btInput($beneficiario,'otro_apoyo')}}
+</div>
+<div class="row">     
+    {{Form::btInput($beneficiario,'como_conocio_fps')}}
 </div>
 <hr>
 <h4>Direcci&oacute;n de habitaci&oacute;n</h4> 
