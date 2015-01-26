@@ -14,6 +14,14 @@ $(document).ready(function () {
     $('[id=ind_inmediata]').each(function () {
         $(this).on('change',atencionInmediata);
     });
+    
+    $('[id=ind_asegurado]').each(function () {
+        $(this).on('change', beneficiarioAsegurado);
+    });
+    
+    $('[id=ind_trabaja]').each(function () {
+        $(this).on('change', personaTrabaja);
+    });    
 });
 
 function copiarDireccion() {
@@ -92,5 +100,29 @@ function atencionInmediata(evt)
     } else {
         $('#div-inmediata').show();
         $('#div-inmediata').find('input,select').attr('required', 'required');
+    }
+}
+
+function beneficiarioAsegurado(evt)
+{
+    var parent = $(evt.target).closest('.form-group').parent();
+    if (parent.find('input[name=ind_asegurado]:checked').val() == 0) {
+        $('#div-asegurado').find('input,select').removeAttr('required');
+        $('#div-asegurado').hide();
+    } else {
+        $('#div-asegurado').show();
+        $('#div-asegurado').find('input,select').attr('required', 'required');
+    }
+}
+
+function personaTrabaja(evt)
+{
+    var parent = $(evt.target).closest('.form-group').parent();
+    if (parent.find('input[name=ind_trabaja]:checked').val() == 0) {
+        $('#div-trabaja').find('input,select').removeAttr('required');
+        $('#div-trabaja').hide();
+    } else {
+        $('#div-trabaja').show();
+        $('#div-trabaja').find('input,select').attr('required', 'required');
     }
 }

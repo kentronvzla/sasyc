@@ -32,9 +32,6 @@
         </div>
         </noscript>
         @include('layouts.topbar')
-        @if(Request::is('/'))
-        {{HTML::image('img/logo_fps.jpg', 'Logo FPS', ['class'=>'img-responsive'])}}
-        @endif
         <div class="ch-container">
             <div class="row">
                 <div class="col-sm-2 col-lg-2">
@@ -58,6 +55,9 @@
                 </div>
             </div>
         </div>
+        @if(Request::is('/'))
+        {{HTML::image('img/logo_fps.jpg', 'Logo FPS', ['class'=>'img-responsive'])}}
+        @endif        
         <footer class="footer">
             <div class="container">
                 <div class="row">
