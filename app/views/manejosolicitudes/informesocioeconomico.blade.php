@@ -1,4 +1,4 @@
-{{Form::hidden('id',$solicitud->id)}}
+{{Form::hidden('id',$solicitud->id, ['id'=>'id'])}}
 <div class="row">
     {{Form::btInput($solicitud,'tipo_vivienda_id',4)}}
     {{Form::btInput($solicitud,'tenencia_id',4)}}
