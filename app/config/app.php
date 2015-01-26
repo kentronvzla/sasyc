@@ -1,4 +1,5 @@
 <?php
+
 return array(
     /*
       |--------------------------------------------------------------------------
@@ -173,5 +174,6 @@ return array(
         'View' => 'Illuminate\Support\Facades\View',
         'Carbon' => 'Carbon\Carbon',
         'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+        'Debugbar' => 'Barryvdh\Debugbar\Facade',
     ),
 );
