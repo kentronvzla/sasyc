@@ -36,7 +36,7 @@ class Parroquia extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'estado_id', 'municipio_id', 'nombre',
+        'municipio_id', 'nombre',
     ];
 
     /**
@@ -47,14 +47,12 @@ class Parroquia extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'estado_id' => 'required|integer',
         'municipio_id' => 'required|integer',
         'nombre' => 'required',
     ];
 
     protected function getPrettyFields() {
         return [
-            'estado_id' => 'Estado',
             'municipio_id' => 'Municipio',
             'nombre' => 'Nombre',
         ];
@@ -62,14 +60,6 @@ class Parroquia extends BaseModel {
 
     protected function getPrettyName() {
         return "parroquias";
-    }
-
-    /**
-     * Define una relación pertenece a Estado
-     * @return Estado
-     */
-    public function estado() {
-        return $this->belongsTo('Estado');
     }
 
     /**

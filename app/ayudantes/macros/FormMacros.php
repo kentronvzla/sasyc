@@ -46,7 +46,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         $options = [];
         if ($obj->isDecimalField($attrName)) {
             $data['params']['class'] = 'decimal-format ';
-        } else if ($obj->isRelatedField($attrName) && $type == "text") {
+        } else if ($obj->isRelatedField($attrName) && $type == 'text') {
             $type = 'select';
             $options = $obj->getRelatedOptions($attrName);
         } else if ($obj->isDateField($attrName) && $type == "text") {

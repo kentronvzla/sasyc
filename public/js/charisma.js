@@ -165,6 +165,40 @@ function docReady() {
         e.preventDefault();
         $(this).tab('show');
     });
+    //select list
+    $('.has-child').unbind('change');
+    $('.has-child').change(function () {
+        var child = $(this).data('child');
+        var url = 'administracion/tablas/' + $(this).data('url');
+        var formParent = $(this).closest('form');
+        $.ajax({
+            type: "GET",
+            url: baseUrl + url + "/" + $(this).val(),
+            cache: false,
+            dataType: 'json',
+            success: function (data) //Si se ejecuta correctamente
+            {
+                var selectChild = $(formParent).find('#' + child);
+                selectChild.empty();
+                var ultimo, cantidad = 0;
+                if (data != null) {
+                    $.each(data, function (i, value) {
+                        if (i != "") {
+                            ultimo = i;
+                        }
+                        cantidad++;
+                        selectChild.append("<option value='" + i + "'>" + value + "</option>");
+                    });
+                    if (cantidad == 2) {
+                        selectChild.val(ultimo);
+                        selectChild.change();
+                    } else {
+                        selectChild.val("");
+                    }
+                }
+            }
+        });
+    });
     //popover
     $('[data-toggle="popover"]').popover();
     //star rating
@@ -337,7 +371,6 @@ function docReady() {
             $(form).submit();
         });
     });
-
     $('.btn-volver').unbind('click');
     $('.btn-volver').click(function () {
         var urlAtras = location.href;
@@ -404,7 +437,6 @@ function docReady() {
         });
         e.preventDefault();
     });
-
     $('a.glyphicon-pencil').unbind('click');
     $('a.glyphicon-pencil').click(function () {
         var id = $(this).attr('data-id');
@@ -417,7 +449,6 @@ function docReady() {
             }
         });
     });
-
     $('a.glyphicon-trash').unbind('click');
     $('a.glyphicon-trash').click(function () {
         var btn = this;
