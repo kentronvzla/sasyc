@@ -18,7 +18,7 @@
         {{HTML::style('css/elfinder.theme.min.css')}}
         {{HTML::style('css/uploadify.min.css')}}
         {{HTML::style('css/estilo_sasyc.css')}}
-        
+
         <!--JS-->
         {{HTML::script('bower_components/jquery/jquery.min.js')}}
     </head>
@@ -32,6 +32,9 @@
         </div>
         </noscript>
         @include('layouts.topbar')
+        @if(Request::is('/'))
+        {{HTML::image('img/logo_fps.jpg', 'Logo FPS', ['class'=>'img-responsive'])}}
+        @endif
         <div class="ch-container">
             <div class="row">
                 <div class="col-sm-2 col-lg-2">
@@ -46,17 +49,24 @@
                     </div>
                 </div>
                 <div id="content" class="col-lg-12 col-sm-12">
+                    <div class="col-lg-12">
+                        @unless(Request::is('/'))
+                        {{HTML::image('img/logo_despacho.png', 'Logo FPS', ['class'=>'img-responsive', 'width'=>'100%'])}}
+                        @endunless
+                    </div>
                     @yield('contenido')
                 </div>
             </div>
-            <footer class="row">
-                <div class="col-lg-12">
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
                     <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; 2014 - {{date('Y')}}</p>
                     <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Powered by: <a
                             href="http://usman.it/free-responsive-admin-template">Charisma</a></p>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
 
         <h4><div id="contenedorEspera" class="alert alert-warning navbar-fixed-top" style="display: none;"></div></h4>
         <h4><div id="contenedorCorrecto" class="alert alert-success navbar-fixed-top" style="display: none;"></div></h4>
@@ -109,7 +119,7 @@
         </div>
         @if(Session::has('mensaje'))
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 mostrarMensaje("{{Session::pull('mensaje')}}");
             });
         </script>
