@@ -343,11 +343,17 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
 
     public function getRelatedDescription($attr) {
         $arr = explode('->', $attr);
-        if (count($arr) > 1) {
-            $obj = $this->{$arr[0]}()->getRelated();
-            return $obj->getPrettyFields()[$arr[1]];
-        } else {
-            return $attr;
+        switch (count($arr)) {
+            case 3:
+                $rel2 = str_replace('_id', '', $arr[1]);
+                $camelField = camel_case($rel2);
+                $obj = $this->{$arr[0]}()->getRelated()->{$camelField}()->getRelated();
+                return $obj->getPrettyFields()[$arr[2]];
+            case 2:
+                $obj = $this->{$arr[0]}()->getRelated();
+                return $obj->getPrettyFields()[$arr[1]];
+            case 1:
+                return $attr;
         }
     }
 

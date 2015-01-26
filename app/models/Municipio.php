@@ -67,4 +67,22 @@ class Municipio extends BaseModel {
         return $this->belongsTo('Estado');
     }
 
+    public function parroquias() {
+        return $this->hasMany('Parroquia');
+    }
+
+    public static function getCombo($idEstado = "", array $condiciones = []) {
+        $estado = Estado::find((int) $idEstado);
+        $retorno = array('' => 'Municipio.');
+        if (is_object($estado)) {
+            $municipios = $estado->municipios;
+            foreach ($municipios as $registro) {
+                $retorno[$registro->id] = $registro->nombre;
+            }
+        } else {
+            $retorno = array('' => 'Seleccione primero un estado');
+        }
+        return $retorno;
+    }
+
 }

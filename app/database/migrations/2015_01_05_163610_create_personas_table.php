@@ -22,8 +22,6 @@ class CreatePersonasTable extends Migration {
             $table->string('lugar_nacimiento', 500)->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->integer('nivel_academico_id', false, true)->nullable();
-            $table->integer('estado_id', false, true)->nullable();
-            $table->integer('municipio_id', false, true)->nullable();
             $table->integer('parroquia_id', false, true)->nullable();
             $table->string('ciudad', 15)->nullable();
             $table->string('zona_sector', 250)->nullable();

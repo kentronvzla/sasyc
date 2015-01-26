@@ -55,8 +55,8 @@
 <hr>
 <h4>Direcci&oacute;n de habitaci&oacute;n</h4> 
 <div class="row">
-    {{Form::btInput($beneficiario,'estado_id',4)}}
-    {{Form::btInput($beneficiario,'municipio_id',4)}}
+    {{Form::btInput($beneficiario,'parroquia->municipio->estado_id',4, 'text', ['class'=>'has-child ','data-url'=>'estados/municipios','data-child'=>'municipio_id'])}}
+    {{Form::btInput($beneficiario,'parroquia->municipio_id',4, 'text', ['class'=>'has-child ','data-url'=>'municipios/parroquias','data-child'=>'parroquia_id'])}}
     {{Form::btInput($beneficiario,'parroquia_id',4)}}
 </div>
 <div class="row">

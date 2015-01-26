@@ -19,6 +19,8 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
     });
     Route::group(array('prefix' => 'tablas', 'namespace' => 'Tablas'), function() {
         Route::controller('tipo-ayudas', 'TipoAyudasController');
+        Route::controller('estados', 'EstadosController');
+        Route::controller('municipios', 'MunicipiosController');
     });
 });
 

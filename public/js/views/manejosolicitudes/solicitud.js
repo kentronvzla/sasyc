@@ -32,8 +32,7 @@ function copiarDireccion() {
             }
         });
     });
-}
-;
+};
 
 function solicitudCreada(data)
 {
