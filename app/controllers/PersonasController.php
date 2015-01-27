@@ -31,7 +31,7 @@ class PersonasController extends BaseController {
         return Response::json($data);
     }
 
-    public function postCrear($beneficiario_asoc = null) {
+    public function postCrear($beneficiario_asoc = null, $render = true) {
         $persona = Persona::findOrNew(Input::get('id'));
         $persona->fill(Input::all());
         if ($persona->save()) {
@@ -39,13 +39,13 @@ class PersonasController extends BaseController {
             $data['mensaje'] = 'Datos guardados correctamente';
             if (!is_null($beneficiario_asoc)) {
                 $validator = Persona::asociar($beneficiario_asoc, $persona->id, Input::get('parentesco_id'));
-                if ($validator->passes()) {
+                if ($validator->passes() && $render === true) {
                     $data['vista'] = $this->getFamiliar($beneficiario_asoc)->render();
-                    return Response::json($data);
-                }else{
+                } else if ($render === true) {
                     return Response::json(['errores' => $validator->messages()], 400);
                 }
             }
+            return Response::json($data);
         }
         return Response::json(['errores' => $persona->getErrors()], 400);
     }

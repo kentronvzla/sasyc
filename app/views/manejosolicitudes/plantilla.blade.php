@@ -62,7 +62,7 @@
             </div>
             <div id="PanelTres" class="panel-collapse collapse">
                 <div class="panel-body">
-                    {{Form::open(['url'=>'personas/crear/'.$beneficiario->id,'id'=>'form-persona','class'=>'saveajax'])}}
+                    {{Form::open(['url'=>'personas/crear/'.$beneficiario->id.'/false','id'=>'form-persona','class'=>'saveajax'])}}
                     @include('manejosolicitudes.solicitante')
                     {{Form::close()}}
                 </div>
@@ -147,42 +147,70 @@
     </div>
 </div>
 <div class="col-xs-12 col-sm-4 col-md-4 hidden-xs">
-    <div class="panel panel-default">
-        <div class="panel-heading">Sección de ayuda</div>
-        <div class="panel-body text-center">
-            <p>Sitúe el cursor en un campo para ver mas información.</p>
-            <div class="row alert-warning text-justify" id="contenedorAyuda" data-id="" style="padding: 5px;">
+    <div class="panel-group" id="accordionlateral">
+        <div class="panel panel-danger">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelAyuda">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordionlateral" href="#PanelAyuda">            
+                        Sección de ayuda
+                    </a>
+                </h4>
             </div>
-        </div>
-    </div>
-    <div id="div-cne" class="panel panel-default" style="display:none;">
-        <div class="panel-heading">CNE</div>
-        <div class="panel-body text-center">
-            <div class="row alert-warning text-justify" data-id="" style="padding: 5px;">
-                <iframe id="icne" src="" width="370px" height="510px" ></iframe>
-            </div>
-        </div>
-    </div>
-    @if(!$nuevo)
-    <div class="panel panel-default">
-        <div class="panel-heading">Solicitud</div>
-        <div class="panel-body">
-            <div id="contenedorBarraCarga">
-            </div>
-            <div class="text-center">
-                <a target="_blank" href="#" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span> Ver</a>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-print"></span> Imprimir <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Planilla</a></li>
-                    </ul>
+            <div id="PanelAyuda" class="panel-collapse collapse collapse in">
+                <div class="panel-body"> 
+                    <p>Sitúe el cursor en un campo para ver mas información.</p>
+                    <div class="row alert-warning text-justify" id="contenedorAyuda" data-id="" style="padding: 5px;">
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="div-cne" class="panel panel-danger" style="display:none;">
+            <div class="panel-heading">CNE</div>
+            <div class="panel-body text-center">
+                <div class="row alert-warning text-justify" data-id="" style="padding: 5px;">
+                    <iframe id="icne" src="" width="370px" height="510px" ></iframe>
+                </div>
+            </div>
+        </div>
+        @unless(is_null($solicitud->id))
+        <div id="div-bitacora" class="panel panel-danger" style="display:block;">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelBitacora">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordionlateral" href="#PanelBitacora">            
+                        Bitácora
+                    </a>
+                </h4>
+            </div>
+            <div id="PanelBitacora" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @include('manejosolicitudes.bitacora')
+                </div>
+            </div>
+        </div>    
+        <div class="panel panel-danger">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelPlanilla">
+                <h4 class="panel-title">
+                    Planilla
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div id="contenedorBarraCarga">
+                </div>
+                <div class="text-center">
+                    <a target="_blank" href="#" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span> Ver</a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-print"></span> Imprimir <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Planilla</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endunless
     </div>
-    @endif
 </div>
 @stop
 @section('javascript')

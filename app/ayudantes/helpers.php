@@ -32,7 +32,7 @@ function str_singular_spanish($word) {
  */
 function tm($value, $decimals = 2) {
     if (strpos($value, ',') !== false) {
-        throw new InvalidArgumentException("El parametro $value no es un float válido");
+        throw new InvalidArgumentException("El parámetro $value no es un float válido");
     }
     return number_format((float) $value, $decimals, ',', '.');
 }

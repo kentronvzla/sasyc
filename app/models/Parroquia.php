@@ -10,13 +10,13 @@
  * Parroquia
  *
  * @property integer $id
- * @property integer $estado_id
+ * @property integer $municipio_id
  * @property integer $municipio_id
  * @property string $nombre
  * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property-read \Estado $estado
+ * @property-read \Estado $municipio
  * @property-read \Municipio $municipio
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereEstadoId($value)
@@ -36,7 +36,7 @@ class Parroquia extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'estado_id', 'municipio_id', 'nombre',
+        'municipio_id', 'nombre',
     ];
 
     /**
@@ -47,14 +47,12 @@ class Parroquia extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'estado_id' => 'required|integer',
         'municipio_id' => 'required|integer',
         'nombre' => 'required',
     ];
 
     protected function getPrettyFields() {
         return [
-            'estado_id' => 'Estado',
             'municipio_id' => 'Municipio',
             'nombre' => 'Nombre',
         ];
@@ -65,19 +63,25 @@ class Parroquia extends BaseModel {
     }
 
     /**
-     * Define una relación pertenece a Estado
-     * @return Estado
-     */
-    public function estado() {
-        return $this->belongsTo('Estado');
-    }
-
-    /**
      * Define una relación pertenece a Municipio
      * @return Municipio
      */
     public function municipio() {
         return $this->belongsTo('Municipio');
+    }
+
+    public static function getCombo($idMunicipio = "", array $condiciones = []) {
+        $municipio = Municipio::find((int) $idMunicipio);
+        $retorno = array('' => 'Parroquia.');
+        if (is_object($municipio)) {
+            $municipios = $municipio->parroquias;
+            foreach ($municipios as $registro) {
+                $retorno[$registro->id] = $registro->nombre;
+            }
+        } else {
+            $retorno = array('' => 'Seleccione primero un municipio');
+        }
+        return $retorno;
     }
 
 }

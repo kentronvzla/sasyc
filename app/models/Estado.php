@@ -30,7 +30,7 @@ class Estado extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre', 
+        'nombre',
     ];
 
     /**
@@ -41,19 +41,21 @@ class Estado extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'nombre'=>'required', 
-
+        'nombre' => 'required',
     ];
-    
+
     protected function getPrettyFields() {
         return [
-            'nombre'=>'Nombre', 
-
+            'nombre' => 'Nombre',
         ];
     }
 
     protected function getPrettyName() {
         return "estados";
+    }
+
+    public function municipios() {
+        return $this->hasMany('Municipio');
     }
 
 }

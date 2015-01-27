@@ -10,9 +10,9 @@
         </div>
     </div>
     <div class="row">
-        {{Form::btInput($solicitante,'estado_id',4)}}
-        {{Form::btInput($solicitante,'municipio_id',4)}}
-        {{Form::btInput($solicitante,'parroquia_id',4)}}
+        {{Form::btInput($beneficiario,'parroquia->municipio->estado_id',4, 'text', ['class'=>'has-child ','data-url'=>'estados/municipios','data-child'=>'municipio_id'])}}
+        {{Form::btInput($beneficiario,'parroquia->municipio_id',4, 'text', ['class'=>'has-child ','data-url'=>'municipios/parroquias','data-child'=>'parroquia_id'])}}
+        {{Form::btInput($beneficiario,'parroquia_id',4)}}
     </div>
     <div class="row">
         {{Form::btInput($solicitante,'zona_sector',4)}}

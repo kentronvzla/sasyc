@@ -1,4 +1,5 @@
 <?php
+
 /*
   |--------------------------------------------------------------------------
   | Application Routes
@@ -17,16 +18,19 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
         
     });
     Route::group(array('prefix' => 'tablas', 'namespace' => 'Tablas'), function() {
-        
+        Route::controller('tipo-ayudas', 'TipoAyudasController');
+        Route::controller('estados', 'EstadosController');
+        Route::controller('municipios', 'MunicipiosController');
     });
 });
 
 //se coloca afuera porque no se maneja por namespace
 Route::controller('administracion/actualizaciones', 'ActualizacionesController');
 
-Route::controller('pantallas','PantallasController');
-Route::controller('solicitudes','SolicitudesController');
-Route::controller('personas','PersonasController');
-Route::controller('presupuestos','PresupuestosController');
-Route::controller('recaudossolicitud','RecaudosSolicitudController');
-Route::controller('helpers','HelpersController');
+Route::controller('pantallas', 'PantallasController');
+Route::controller('solicitudes', 'SolicitudesController');
+Route::controller('personas', 'PersonasController');
+Route::controller('presupuestos', 'PresupuestosController');
+Route::controller('recaudossolicitud', 'RecaudosSolicitudController');
+Route::controller('bitacoras', 'BitacorasController');
+Route::controller('helpers', 'HelpersController');

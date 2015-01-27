@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('#form-familiares').find("#tipo_nacionalidad_id, #ci").on('change', buscarPersona);
 
     $('#form-informe').find('#total_ingresos').prop("disabled", true);
+    $('#form-bitacora').find('input,select').removeAttr('required');
 
     $('a.glyphicon-transfer').unbind('click');
     $('a.glyphicon-transfer').click(copiarDireccion);
@@ -22,6 +23,11 @@ $(document).ready(function () {
     $('[id=ind_trabaja]').each(function () {
         $(this).on('change', personaTrabaja);
     });
+    
+    $('[id=ind_alarma]').each(function () {
+        $(this).on('change', bitacoraAlarma);
+    });
+    
 });
 
 function copiarDireccion() {
@@ -105,4 +111,10 @@ function personaTrabaja(evt)
 {
     var parent = $(evt.target).closest('.form-group').parent();
     mostrarOcultar(parent.find('input[name=ind_trabaja]:checked').val() == 0, 'div-trabaja');
+}
+
+function bitacoraAlarma(evt)
+{
+    var parent = $(evt.target).closest('.form-group').parent();
+    mostrarOcultar(parent.find('input[name=ind_alarma]:checked').val() == 0, 'div-fecha-bitacora');
 }

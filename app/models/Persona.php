@@ -20,8 +20,6 @@
  * @property \Carbon\Carbon $fecha_nacimiento
  * @property integer $nivel_academico_id
  * @property integer $co_id
- * @property integer $estado_id
- * @property integer $municipio_id
  * @property integer $parroquia_id
  * @property string $ciudad
  * @property string $zona_sector
@@ -105,8 +103,8 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
     protected $fillable = [
         'nombre', 'apellido', 'tipo_nacionalidad_id', 'ci', 'sexo',
         'estado_civil_id', 'lugar_nacimiento', 'fecha_nacimiento',
-        'nivel_academico_id', 'co_id', 'estado_id', 'municipio_id',
-        'parroquia_id', 'ciudad', 'zona_sector', 'calle_avenida', 'apto_casa',
+        'nivel_academico_id', 'co_id', 'parroquia_id', 'ciudad', 
+        'zona_sector', 'calle_avenida', 'apto_casa',
         'telefono_fijo', 'telefono_celular', 'telefono_otro', 'email',
         'twitter', 'ind_trabaja', 'ocupacion', 'ingreso_mensual',
         'observaciones', 'ind_asegurado', 'empresa_seguro', 'cobertura',
@@ -130,8 +128,6 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         'lugar_nacimiento' => '',
         'fecha_nacimiento' => '',
         'nivel_academico_id' => 'integer',
-        'estado_id' => 'integer',
-        'municipio_id' => 'integer',
         'parroquia_id' => 'integer',
         'ciudad' => '',
         'zona_sector' => '',
@@ -216,22 +212,6 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
      */
     public function nivelAcademico() {
         return $this->belongsTo('NivelAcademico');
-    }
-
-    /**
-     * Define una relación pertenece a Estado
-     * @return Estado
-     */
-    public function estado() {
-        return $this->belongsTo('Estado');
-    }
-
-    /**
-     * Define una relación pertenece a Municipio
-     * @return Municipio
-     */
-    public function municipio() {
-        return $this->belongsTo('Municipio');
     }
 
     /**

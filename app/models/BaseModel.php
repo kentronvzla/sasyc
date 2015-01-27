@@ -310,7 +310,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
             if (is_object($this->{$relation})) {
                 return $this->{$relation}->{$attr};
             }
-            return $this->estadoCivil->nombre;
+            return "";
         }
     }
 
@@ -343,11 +343,17 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
 
     public function getRelatedDescription($attr) {
         $arr = explode('->', $attr);
-        if (count($arr) > 1) {
-            $obj = $this->{$arr[0]}()->getRelated();
-            return $obj->getPrettyFields()[$arr[1]];
-        } else {
-            return $attr;
+        switch (count($arr)) {
+            case 3:
+                $rel2 = str_replace('_id', '', $arr[1]);
+                $camelField = camel_case($rel2);
+                $obj = $this->{$arr[0]}()->getRelated()->{$camelField}()->getRelated();
+                return $obj->getPrettyFields()[$arr[2]];
+            case 2:
+                $obj = $this->{$arr[0]}()->getRelated();
+                return $obj->getPrettyFields()[$arr[1]];
+            case 1:
+                return $attr;
         }
     }
 
@@ -362,24 +368,52 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     }
 
     public function getRelatedOptions($field) {
-        $related = $this->getRelatedField($field)->getRelated();
+        $related = $this->getRelatedField($field, false)->getRelated();
         $className = get_class($related);
-        return call_user_func(array($className, 'getCombo'));
+        if (method_exists($related, 'getParent')) {
+            $relatedObj = $this->getRelatedField($field, true);
+            if (is_object($relatedObj)) {
+                return call_user_func(array($className, 'getCombo'), $relatedObj->{$related->getParent()});
+            } else {
+                return call_user_func(array($className, 'getCombo'));
+            }
+        } else {
+            return call_user_func(array($className, 'getCombo'));
+        }
     }
 
     public function isDateField($field) {
         return in_array($field, $this->dates);
     }
 
-    private function getRelatedField($field) {
-        $field = str_replace('_id', '', $field);
-        $camelField = camel_case($field);
-        //Method Existss??
-        if (method_exists($this, $camelField)) {
-            //Return..
-            return $this->{$camelField}();
+    private function getRelatedField($field, $getInstance = false) {
+        if (strpos($field, '->') === false) {
+            $field = str_replace('_id', '', $field);
+            $camelField = camel_case($field);
+            //Method Existss??
+            if (method_exists($this, $camelField)) {
+                //Return..
+                if ($getInstance) {
+                    return $this->{$camelField};
+                }
+                return $this->{$camelField}();
+            }
+            return null;
+        } else {
+            $arr = explode('->', $field);
+            $field = str_replace('_id', '', $arr[1]);
+            $camelField = camel_case($field);
+            $parent = $this->{$arr[0]}()->getRelated();
+            //Method Existss??
+            if (method_exists($parent, $camelField)) {
+                //Return..
+                if ($getInstance) {
+                    return $this->{$arr[0]}->{$camelField};
+                }
+                return $parent->{$camelField}();
+            }
+            return null;
         }
-        return null;
     }
 
     public function isBooleanField($field) {
@@ -409,7 +443,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     public function isDecimalField($field) {
         return in_array($field, static::getDecimalFields());
     }
-    
+
     protected abstract function getPrettyName();
 
     protected abstract function getPrettyFields();

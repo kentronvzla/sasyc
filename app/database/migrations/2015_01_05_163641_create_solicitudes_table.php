@@ -17,7 +17,6 @@ class CreateSolicitudesTable extends Migration {
             $table->string('descripcion', 2000);
             $table->integer('persona_beneficiario_id', false, true)->nullable();
             $table->integer('persona_solicitante_id', false, true)->nullable();
-            $table->integer('tipo_ayuda_id', false, true);
             $table->integer('area_id', false, true);
             $table->integer('referente_id', false, true);
             $table->integer('recepcion_id', false, true);

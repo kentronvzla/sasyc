@@ -1,50 +1,24 @@
-@extends('layouts.master')
-@section('contenido')
-<div class="panel panel-primary">
-    <div class="panel-heading"><strong>Bitacora</strong></div>  
-    <div class="panel-body">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <strong>Numero de Solicitud:12575</strong> 
-        </div> 
-           <br><br>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <ul>
-  <li>SASYC ADMIN registró el caso  sasyc - 17/12/2014 11:47:11</li>
-</ul> 
-       </div> 
-       
-        
-        
-        
-        
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="">
-            </div> 
-        </div>  
-        <div class="col-xs-12 col-sm-12 col-md-12">
-        <p class="text-center">   
-            <button type="button" class="btn btn-primary">Guardar</button>
-            <button type="button" class="btn btn-default">Cancelar</button>
-
-            <button type="button" class="btn btn-primary">Imprimir</button>
-        </p>  
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-2">
-            <div class="form-group">
-                <strong> Alarma:</strong>
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-primary">
-                        Si
-                    </label>
-                    <label class="btn btn-default">
-                        No
-                    </label>
-                </div>
-            </div>
-        </div> 
+{{Form::open(['url'=>'bitacoras/modificar','id'=>'form-bitacora','class'=>'saveajax'])}}
+@if($bitacoras->count()>0)
+{{HTML::simpleTable($bitacoras, 'Bitacora')}}
+@else
+<div class="row tituloLista">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <h4>No posee bitacoras asociados</h4>
     </div>
 </div>
-
-
-@stop
+@endif
+<hr>
+{{Form::hidden('id',$bitacora->id)}}
+{{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
+<div class="row">
+    {{Form::btInput($bitacora,'nota', 12)}}
+</div> 
+<div class="row">
+    {{Form::btInput($bitacora,'ind_alarma',6)}}
+    <div id="div-fecha-bitacora" style="display:none;">
+        {{Form::btInput($bitacora,'fecha',6)}}
+    </div>
+</div>
+@include('templates.bootstrap.submit')
+{{Form::close()}}

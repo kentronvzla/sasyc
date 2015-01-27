@@ -71,4 +71,22 @@ class Area extends BaseModel {
         return $this->belongsTo('TipoAyuda');
     }
 
+    public function getParent() {
+        return "tipo_ayuda_id";
+    }
+
+    public static function getCombo($idTipoAyuda = "", array $condiciones = []) {
+        $tipoAyuda = TipoAyuda::find((int) $idTipoAyuda);
+        $retorno = array('' => 'Area.');
+        if (is_object($tipoAyuda)) {
+            $actividades = $tipoAyuda->areas;
+            foreach ($actividades as $registro) {
+                $retorno[$registro->id] = $registro->nombre;
+            }
+        } else {
+            $retorno = array('' => 'Seleccione primero un tipo de ayuda');
+        }
+        return $retorno;
+    }
+
 }

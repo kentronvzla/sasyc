@@ -14,7 +14,6 @@
  * @property string $descripcion
  * @property integer $persona_beneficiario_id
  * @property integer $persona_solicitante_id
- * @property integer $tipo_ayuda_id
  * @property integer $area_id
  * @property integer $referente_id
  * @property integer $recepcion_id
@@ -49,7 +48,6 @@
  * @property \Carbon\Carbon $updated_at
  * @property-read \Persona $personaBeneficiario
  * @property-read \Persona $personaSolicitante
- * @property-read \TipoAyuda $tipoAyuda
  * @property-read \Area $area
  * @property-read \Referente $referente
  * @property-read \Recepcion $recepcion
@@ -65,7 +63,6 @@
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereDescripcion($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePersonaBeneficiarioId($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePersonaSolicitanteId($value)
- * @method static \Illuminate\Database\Query\Builder|\Solicitud whereTipoAyudaId($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereAreaId($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferenteId($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereRecepcionId($value)
@@ -110,7 +107,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
      */
     protected $fillable = [
         'ano', 'descripcion', 'persona_beneficiario_id', 'persona_solicitante_id',
-        'tipo_ayuda_id', 'area_id', 'referente_id', 'recepcion_id', 'organismo_id',
+        'area_id', 'referente_id', 'recepcion_id', 'organismo_id',
         'ind_mismo_benef', 'ind_inmediata', 'actividad', 'referencia',
         'accion_tomada', 'necesidad', 'tipo_proc', 'num_proc', 'facturas',
         'observaciones', 'moneda', 'prioridad', 'estatus', 'usuario_asignacion_id',
@@ -131,7 +128,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'descripcion' => 'required',
         'persona_beneficiario_id' => 'integer',
         'persona_solicitante_id' => 'integer',
-        'tipo_ayuda_id' => 'required|integer',
         'area_id' => 'required|integer',
         'referente_id' => 'required|integer',
         'recepcion_id' => 'required|integer',
@@ -171,7 +167,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'descripcion' => 'Descripción',
             'persona_beneficiario_id' => 'Beneficiario',
             'persona_solicitante_id' => 'Solicitante',
-            'tipo_ayuda_id' => 'Tipo de ayuda',
             'area_id' => 'Area',
             'referente_id' => 'Referido por',
             'recepcion_id' => 'Recepción',
@@ -227,14 +222,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
      */
     public function personaSolicitante() {
         return $this->belongsTo('Persona');
-    }
-
-    /**
-     * Define una relación pertenece a TipoAyuda
-     * @return TipoAyuda
-     */
-    public function tipoAyuda() {
-        return $this->belongsTo('TipoAyuda');
     }
 
     /**
@@ -309,6 +296,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return $this->hasMany('Presupuesto');
     }
 
+    public function bitacoras() {
+        return $this->hasMany('Bitacora');
+    }
+    
     public function recaudosSolicitud() {
         return $this->hasMany('RecaudoSolicitud');
     }

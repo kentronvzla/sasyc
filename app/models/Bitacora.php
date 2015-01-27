@@ -36,7 +36,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUpdatedAt($value)
  */
-class Bitacora extends BaseModel {
+class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 
     protected $table = "bitacoras";
 
@@ -59,7 +59,7 @@ class Bitacora extends BaseModel {
      */
     protected $rules = [
         'solicitud_id' => 'required|integer',
-        'fecha' => 'required',
+        'fecha' => 'required__if:ind_alarma,1',
         'nota' => 'required',
         'usuario_id' => 'required|integer',
         'memo' => 'required',
@@ -68,11 +68,13 @@ class Bitacora extends BaseModel {
         'ind_alarma' => 'required',
     ];
 
+    protected $dates = ['fecha'];
+    
     protected function getPrettyFields() {
         return [
             'solicitud_id' => 'Solicitud',
             'fecha' => 'Fecha',
-            'nota' => 'Nota',
+            'nota' => 'Notas',
             'usuario_id' => 'Usuario',
             'memo' => 'Memo',
             'tipo' => 'Tipo',
@@ -85,6 +87,22 @@ class Bitacora extends BaseModel {
         return "bitacoras";
     }
 
+    public function getTableFields() {
+        return [
+            'nota'
+        ];
+    }
+    
+    public function getDefaultValues() {
+        return [
+            'fecha' => Carbon::now(),
+            'usuario_id' => 1,
+            'memo' => 'CR',            
+            'tipo' => 'CR',
+            'ind_activo' => true,
+            'ind_alarma' => false,
+        ];
+    }
     /**
      * Define una relación pertenece a Solicitud
      * @return Solicitud
@@ -100,5 +118,10 @@ class Bitacora extends BaseModel {
     public function usuario() {
         return $this->belongsTo('Usuario');
     }
-
+    
+    public function setFechaAttribute($value) {
+        if ($value != "") {
+            $this->attributes['fecha'] = Carbon::createFromFormat('d/m/Y', $value);
+        }
+    }    
 }

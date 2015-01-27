@@ -37,7 +37,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereUpdatedAt($value)
  */
-class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
+class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTableInterface, DecimalInterface {
 
     protected $table = "presupuestos";
 
@@ -118,6 +118,20 @@ class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTab
         return [
             'estatus' => 'ELA'
         ];
+    }
+    
+    public static function getDecimalFields() {
+        return [
+            'monto'
+        ];
+    }
+    
+    public function setMontoAttribute($value) {
+        $this->attributes['monto'] = tf($value);
+    }
+    
+    public function getMontoForAttribute($value) {
+        return tm($value);
     }
 
 }

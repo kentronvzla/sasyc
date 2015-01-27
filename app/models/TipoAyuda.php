@@ -57,6 +57,9 @@ class TipoAyuda extends BaseModel {
     protected function getPrettyName() {
         return "tipo_ayudas";
     }
-    
+
+    public function areas() {
+        return $this->hasMany('Area');
+    }
 
 }

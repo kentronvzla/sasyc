@@ -44,7 +44,8 @@ class SolicitudesController extends BaseController {
         $data['recaudos'] = $data['solicitud']->recaudosSolicitud;
         $data['presupuesto'] = new Presupuesto();
         $data['presupuestos'] = $data['solicitud']->presupuestos;
-
+        $data['bitacora'] = new Bitacora();
+        $data['bitacoras'] = $data['solicitud']->bitacoras;
         return View::make("manejosolicitudes.plantilla", $data);
     }
 

@@ -13,7 +13,6 @@ class CreateParroquiasTable extends Migration {
     public function up() {
         Schema::create('parroquias', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('estado_id', false, true);
             $table->integer('municipio_id', false, true);
             $table->string('nombre', 200);
             $table->integer('version')->default(0);
