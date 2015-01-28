@@ -60,11 +60,10 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         }
         $data['numCols'] = $numCols;
         $data['attrName'] = $attrName;
-        $data['params']['id'] = str_replace('[]', '', $attrName);
         if (!isset($data['attrValue'])) {
-            $data['attrValue'] = $obj->getValueAt($data['params']['id'], false);
+            $data['attrValue'] = $obj->getValueAt(str_replace('[]', '', $attrName), false);
         }
-
+        $data['params']['id'] = str_replace('->', '_', str_replace('[]', '', $attrName));
         $data['params']['class'] .= 'form-control';
         $data['params']['placeholder'] = $obj->getDescription($attrName);
         if ($obj->isRequired($attrName)) {

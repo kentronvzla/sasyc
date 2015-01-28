@@ -15,9 +15,9 @@ namespace Administracion\Tablas;
  */
 class MunicipiosController extends \Administracion\TablasBaseController {
 
-    public function getAreas($id) {
-        $areas = \Area::getCombo($id);
-        return \Response::json($areas);
+    public function getParroquias($id) {
+        $parroquias = \Parroquia::getCombo($id);
+        return \Response::json($parroquias);
     }
 
 }

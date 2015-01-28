@@ -1,4 +1,5 @@
 <?php
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -44,6 +45,9 @@ function tm($value, $decimals = 2) {
  * @return float Numero convertido a float
  */
 function tf($value) {
+    if ($value == "") {
+        return 0;
+    }
     $value = str_replace('.', '', $value);
     return str_replace(',', '.', $value);
 }

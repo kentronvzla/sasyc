@@ -71,6 +71,10 @@ class Municipio extends BaseModel {
         return $this->hasMany('Parroquia');
     }
 
+    public function getParent() {
+        return "estado_id";
+    }
+
     public static function getCombo($idEstado = "", array $condiciones = []) {
         $estado = Estado::find((int) $idEstado);
         $retorno = array('' => 'Municipio.');

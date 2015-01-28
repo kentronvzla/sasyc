@@ -294,24 +294,29 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     }
 
     public function getValueAt($key, $format = true) {
-        if (strpos($key, '->') === false) {
-            if ($format && $this->isBooleanField($key) &&
-                    isset(static::$cmbsino[$this->{$key}])) {
-                return static::$cmbsino[$this->{$key}];
-            }
-            if ($format && $this->isDateField($key) && is_object($this->{$key})) {
-                return $this->{$key}->format('d/m/Y');
-            }
-            return $this->{$key};
-        } else {
-            $arr = explode('->', $key);
-            $relation = $arr[0];
-            $attr = $arr[1];
-            if (is_object($this->{$relation})) {
-                return $this->{$relation}->{$attr};
-            }
-            return "";
+        $arr = explode('->', $key);
+        switch (count($arr)) {
+            case 3:
+                if (isset($this->{$arr[0]}->{$arr[1]}->{$arr[2]})) {
+                    return $this->{$arr[0]}->{$arr[1]}->{$arr[2]};
+                }
+                break;
+            case 2:
+                if (isset($this->{$arr[0]}->{$arr[1]})) {
+                    return $this->{$arr[0]}->{$arr[1]};
+                }
+            case 1:
+                if ($format && $this->isBooleanField($key) &&
+                        isset(static::$cmbsino[$this->{$key}])) {
+                    return static::$cmbsino[$this->{$key}];
+                }
+                if ($format && $this->isDateField($key) && is_object($this->{$key})) {
+                    return $this->{$key}->format('d/m/Y');
+                }
+                return $this->{$key};
         }
+        die();
+        return "";
     }
 
     public function getPublicFields() {
@@ -328,20 +333,6 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     }
 
     public function getDescription($attr) {
-        //Check for related description
-        if (str_contains($attr, '->')) {
-            return $this->getRelatedDescription($attr);
-        } else {
-            $prettyFields = $this->getPrettyFields();
-            if (isset($prettyFields[$attr])) {
-                return $prettyFields[$attr];
-            } else {
-                return $attr;
-            }
-        }
-    }
-
-    public function getRelatedDescription($attr) {
         $arr = explode('->', $attr);
         switch (count($arr)) {
             case 3:
@@ -353,7 +344,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
                 $obj = $this->{$arr[0]}()->getRelated();
                 return $obj->getPrettyFields()[$arr[1]];
             case 1:
-                return $attr;
+                return $this->getPrettyFields()[$arr[0]];
         }
     }
 

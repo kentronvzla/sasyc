@@ -13,7 +13,7 @@
 App::before(function($request) {
     DB::beginTransaction();
     //DB::disableQueryLog();
-    Debugbar::disable();
+    //Debugbar::disable();
 });
 
 
