@@ -93,23 +93,6 @@ $(document).ready(function () {
         });
     });
 
-    //ajaxify menus
-    $('a.ajax-link').click(function (e) {
-        if (msie)
-            e.which = 1;
-        if (e.which != 1 || $(this).parent().hasClass('active'))
-            return;
-        e.preventDefault();
-        $('.sidebar-nav').removeClass('active');
-        $('.navbar-toggle').removeClass('active');
-        $('#loading').remove();
-        $('#content').fadeOut().parent().append('<div id="loading" class="center">Cargando...<div class="center"></div></div>');
-        var $clink = $(this);
-        History.pushState(null, null, $clink.attr('href'));
-        $('ul.main-menu li.active').removeClass('active');
-        $clink.parent('li').addClass('active');
-    });
-
     $('.accordion > a').click(function (e) {
         e.preventDefault();
         var $ul = $(this).siblings('ul');
@@ -129,6 +112,9 @@ $(document).ready(function () {
 
 
 function docReady() {
+    $('.btn-reset').click(function () {
+        $(this).closest('form').clearForm();
+    });
     $(".decimal-format").autoNumeric('init', {
         aSep: ".",
         aDec: ","
@@ -463,3 +449,19 @@ function mostrarOcultar(mostrar, div) {
         $('#' + div).find('input,select').attr('required', 'required');
     }
 }
+
+$.fn.clearForm = function () {
+    return this.each(function () {
+        var type = this.type, tag = this.tagName.toLowerCase();
+        if (tag == 'form')
+            return $(':input', this).clearForm();
+        if (type == 'text' || type == 'password' || tag == 'textarea')
+            this.value = '';
+        else if (type == 'checkbox' || type == 'radio')
+            this.checked = false;
+        else if (tag == 'select')
+            $(this).val("");
+        else if(type == 'hidden' && $(this).attr('name')!='solicitud_id')
+            $(this).val("");
+    });
+};
