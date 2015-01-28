@@ -85,7 +85,7 @@ class Usuario extends BaseModel {
      * 
      * @return string
      */
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "Usuarios";
     }
 

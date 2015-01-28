@@ -83,7 +83,7 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "bitacoras";
     }
 

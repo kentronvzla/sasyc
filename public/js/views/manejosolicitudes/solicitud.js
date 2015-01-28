@@ -1,11 +1,13 @@
 $(document).ajaxComplete(function () {
-    
+
     $('[id=ind_alarma]').unbind('change');
     $('[id=ind_alarma]').each(function () {
         $(this).on('change', bitacoraAlarma);
     });
-    
+
     $('#form-bitacora').find('input,select').removeAttr('required');
+    $('#form-familiares').find("#tipo_nacionalidad_id, #ci").unbind('change');
+    $('#form-familiares').find("#tipo_nacionalidad_id, #ci").on('change', buscarPersona);
 });
 
 $(document).ready(function () {
@@ -13,13 +15,12 @@ $(document).ready(function () {
         $(this).change(calcularEdad);
     });
 
-    //$('#form-familiares').find('#nombre, #apellido').prop("disabled", true);
     $('#form-familiares').find("#tipo_nacionalidad_id, #ci").on('change', buscarPersona);
 
     $('#form-informe').find('#total_ingresos').prop("disabled", true);
 
     $('a.glyphicon-transfer').click(copiarDireccion);
-$('#form-bitacora').find('input,select').removeAttr('required');
+    $('#form-bitacora').find('input,select').removeAttr('required');
     $('[id=ind_inmediata]').each(function () {
         $(this).on('change', atencionInmediata);
     });
@@ -31,11 +32,11 @@ $('#form-bitacora').find('input,select').removeAttr('required');
     $('[id=ind_trabaja]').each(function () {
         $(this).on('change', personaTrabaja);
     });
-    
+
     $('[id=ind_alarma]').each(function () {
         $(this).on('change', bitacoraAlarma);
     });
-    
+
 });
 
 function copiarDireccion() {
@@ -79,7 +80,7 @@ function buscarPersona(evt)
         success: function (data)
         {
             if (data.persona.id != undefined) {
-                parent.find('#persona_solicitante_id, #persona_beneficiario_id').val(data.persona.id);
+                parent.find('#persona_solicitante_id, #persona_beneficiario_id, #id').val(data.persona.id);
                 $.each(data.persona, function (index, val) {
                     parent.find('#' + index).val(val);
                 });
@@ -94,11 +95,11 @@ function buscarPersona(evt)
 }
 function mostrarOcultar(mostrar, div) {
     if (mostrar) {
-        $('#'+div).find('input,select').removeAttr('required');
-        $('#'+div).hide();
+        $('#' + div).find('input,select').removeAttr('required');
+        $('#' + div).hide();
     } else {
-        $('#'+div).show();
-        $('#'+div).find('input,select').attr('required', 'required');
+        $('#' + div).show();
+        $('#' + div).find('input,select').attr('required', 'required');
     }
 }
 
@@ -111,7 +112,7 @@ function atencionInmediata(evt)
 function beneficiarioAsegurado(evt)
 {
     var parent = $(evt.target).closest('.form-group').parent();
-    mostrarOcultar(parent.find('input[name=ind_asegurado]:checked').val() == 0,'div-asegurado');
+    mostrarOcultar(parent.find('input[name=ind_asegurado]:checked').val() == 0, 'div-asegurado');
 }
 
 function personaTrabaja(evt)

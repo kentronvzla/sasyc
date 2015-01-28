@@ -51,7 +51,7 @@ class Tenencia extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "tenencias";
     }
 

@@ -54,7 +54,7 @@ class TipoAyuda extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "tipo_ayudas";
     }
 

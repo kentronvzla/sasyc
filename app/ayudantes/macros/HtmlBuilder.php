@@ -1,9 +1,11 @@
 <?php
+
 /**
  * Description of HtmlMacros
  *
  * @author nadinarturo
  */
+
 namespace Ayudantes\Macros;
 
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
@@ -17,13 +19,12 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
         return \View::make('templates.bootstrap.simpleTable', $data);
     }
 
-    function tableModel($collection, $modelName, $appendIcons = array(), $hasDelete = true, $hasEdit = true, $hasAdd = true) {
+    function tableModel($collection, $modelName, $hasDelete = true, $hasEdit = true, $hasAdd = true) {
         $model = new $modelName();
         $data['prettyFields'] = $model->getPublicFields();
         $data['collection'] = $collection;
         $ruta = \Route::getCurrentRoute();
         $data['url'] = url($ruta->getPath());
-        $data['appends'] = $appendIcons;
         $data['hasEdit'] = $hasEdit;
         $data['hasDelete'] = $hasDelete;
         $data['hasAdd'] = $hasAdd;

@@ -55,7 +55,7 @@ class Municipio extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "municipios";
     }
 

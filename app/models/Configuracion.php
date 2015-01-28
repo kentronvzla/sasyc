@@ -53,7 +53,7 @@ class Configuracion extends BaseModel {
      * 
      * @return string
      */
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "Tabla de configuracion";
     }
 

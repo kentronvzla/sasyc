@@ -27,7 +27,7 @@ class Beneficiario  extends OracleBaseModel implements \SelectInterface{
         
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         
     }
     

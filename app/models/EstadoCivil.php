@@ -53,7 +53,7 @@ class EstadoCivil extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "estados_civiles";
     }
 

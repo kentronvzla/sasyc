@@ -59,7 +59,7 @@ class Area extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "areas";
     }
 

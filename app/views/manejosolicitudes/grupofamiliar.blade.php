@@ -1,4 +1,5 @@
 {{Form::open(['url'=>'personas/crear/'.$beneficiario->id,'id'=>'form-familiares','class'=>'saveajax'])}}
+{{Form::hidden('id',$familiar->id,['id'=>'id'])}}
 @if($familiares->count()>0)
 {{HTML::simpleTable($familiares, 'Persona', ['pencil'=>'Editar', 'trash'=>'Eliminar'], 'personas/familiar/'.$beneficiario->id)}}
 @else
@@ -12,7 +13,7 @@
 <div class="row">
     {{Form::btInput($familiar,'tipo_nacionalidad_id',4)}}
     {{Form::btInput($familiar,'ci',4)}}
-    {{Form::btInput($beneficiario,'sexo',4,"select",[], BaseModel::$cmbsexo)}}   
+    {{Form::btInput($familiar,'sexo',4,"select",[], BaseModel::$cmbsexo)}}   
 </div>
 <div class="row">
     {{Form::btInput($familiar,'nombre',6)}}

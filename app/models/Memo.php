@@ -63,7 +63,7 @@ class Memo extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "memos";
     }
 

@@ -204,7 +204,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $this->ind_mismo_benef = true;
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "solicitudes";
     }
 

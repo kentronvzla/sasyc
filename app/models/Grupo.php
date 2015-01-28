@@ -1,22 +1,6 @@
 <?php
 
-/**
- * Grupo
- *
- * @property integer $id
- * @property string $name
- * @property string $permissions
- * @property integer $VERSION
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Grupo whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Grupo whereNombre($value)
- * @method static \Illuminate\Database\Query\Builder|\Grupo wherePermissions($value)
- * @method static \Illuminate\Database\Query\Builder|\Grupo whereVERSION($value)
- * @method static \Illuminate\Database\Query\Builder|\Grupo whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Grupo whereUpdatedAt($value)
- */
-class Grupo extends BaseModel {
+class Grupo extends BaseModel implements SimpleTableInterface {
 
     protected $primaryKey = "id";
 
@@ -355,16 +339,12 @@ class Grupo extends BaseModel {
      * 
      * @return string
      */
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "Grupos de usuario.";
     }
 
-    public static function getCampoCombo() {
-        return "name";
-    }
-
-    public static function getPrimaryKey() {
-        return "id";
+    public function getTableFields() {
+        return ['name'];
     }
 
 }

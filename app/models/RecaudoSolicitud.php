@@ -69,7 +69,7 @@ class RecaudoSolicitud extends BaseModel implements DefaultValuesInterface, Simp
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "recaudo_solicitud";
     }
 

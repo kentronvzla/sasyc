@@ -76,7 +76,7 @@ class Documento extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "documentos";
     }
 

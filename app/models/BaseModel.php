@@ -449,7 +449,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         return in_array($field, static::getDecimalFields());
     }
 
-    protected abstract function getPrettyName();
+    public abstract function getPrettyName();
 
     protected abstract function getPrettyFields();
 }

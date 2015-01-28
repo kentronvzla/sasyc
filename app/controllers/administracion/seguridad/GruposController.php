@@ -2,22 +2,16 @@
 
 class GruposController extends \Administracion\TablasBaseController {
 
-    protected static $nombreClase = "Grupo";
-    protected static $nombreColeccion = "grupos";
-    protected static $nombreVista = "grupo";
-    protected static $nombreVariable = "grupo";
-    protected static $nombreCarpeta = 'seguridad';
-
     public function __construct() {
         parent::__construct();
     }
 
     public function getModificar($id = null) {
-        $data['grupo'] = Grupo::find($id);
-        $permisosGlobales = Grupo::$permisos;
+        $data['grupo'] = \Grupo::findOrNew($id);
+        $permisosGlobales = \Grupo::$permisos;
         try {
-            $sentryGroup = Sentry::findGroupById($id);
-        } catch (Exception $ex) {
+            $sentryGroup = \Sentry::findGroupById($id);
+        } catch (\Exception $ex) {
             $sentryGroup = null;
         }
         if (is_object($sentryGroup)) {
@@ -42,7 +36,7 @@ class GruposController extends \Administracion\TablasBaseController {
                 '' => array(),
             );
         }
-        return View::make('administracion.seguridad.grupoform', $data);
+        return \View::make('administracion.seguridad.gruposform', $data);
     }
 
     public function postConcederpermiso() {
@@ -51,7 +45,7 @@ class GruposController extends \Administracion\TablasBaseController {
         $permisos[Input::get('PERMISO')] = 1;
         $sentryGroup->permissions = $permisos;
         $sentryGroup->save();
-        return Response::json(array('mensaje' => 'Se concedió el permiso correctamente.'));
+        return \Response::json(array('mensaje' => 'Se concedió el permiso correctamente.'));
     }
 
     public function postDenegarpermiso() {
@@ -60,7 +54,7 @@ class GruposController extends \Administracion\TablasBaseController {
         $permisos[Input::get('PERMISO')] = 0;
         $sentryGroup->permissions = $permisos;
         $sentryGroup->save();
-        return Response::json(array('mensaje' => 'Se denegó el permiso correctamente.'));
+        return \Response::json(array('mensaje' => 'Se denegó el permiso correctamente.'));
     }
 
 }

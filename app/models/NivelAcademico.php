@@ -54,7 +54,7 @@ class NivelAcademico extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "niveles_academicos";
     }
 

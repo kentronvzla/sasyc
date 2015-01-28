@@ -40,7 +40,7 @@ class @class_name@ extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "@pretty_name@";
     }
 

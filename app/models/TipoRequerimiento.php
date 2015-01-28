@@ -51,7 +51,7 @@ class TipoRequerimiento extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "tipo_requerimientos";
     }
 

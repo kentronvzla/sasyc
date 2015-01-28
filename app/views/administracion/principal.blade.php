@@ -10,8 +10,8 @@
     <div class="panel panel-danger">
         <div class="panel-heading">Seguridad</div>
         <ul class="list-group">
-            <a href="{{url('administracion/grupos')}}"><li class="list-group-item {{$pantallas['grupo'] or ""}}">Grupos</li></a>
-            <a href="{{url('administracion/usuarios')}}"><li class="list-group-item {{$pantallas['usuario'] or ""}}">Usuarios</li></a>
+            <a href="{{url('administracion/seguridad/grupos')}}"><li class="list-group-item {{$pantallas['grupo'] or ""}}">Grupos</li></a>
+            <a href="{{url('administracion/seguridad/usuarios')}}"><li class="list-group-item {{$pantallas['usuario'] or ""}}">Usuarios</li></a>
         </ul>
     </div>
     <div class="panel panel-danger">

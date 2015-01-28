@@ -125,7 +125,7 @@ class ActualizacionesController extends BaseController {
             $version = AyudanteCurl::getUltimaVersion();
             $verInstalada = Configuracion::get('version');
             if (is_object($version) && $version->VERSION > $verInstalada) {
-                $mensaje = "<strong>El sistema tiene una nueva actualización, disponible desde el: " . $version->updated_at;
+                $mensaje = "El sistema tiene una nueva actualización, disponible desde el: " . $version->updated_at;
             } else if (!is_object($version)) {
                 $mensaje = $version;
             }

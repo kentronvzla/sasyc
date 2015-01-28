@@ -186,7 +186,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "personas";
     }
 

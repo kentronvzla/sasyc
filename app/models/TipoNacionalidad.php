@@ -51,7 +51,7 @@ class TipoNacionalidad extends BaseModel {
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "tipo_nacionalidades";
     }
 

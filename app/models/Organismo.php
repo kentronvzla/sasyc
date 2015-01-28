@@ -54,7 +54,7 @@ class Organismo extends BaseModel implements SelectInterface{
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "organismos";
     }
     

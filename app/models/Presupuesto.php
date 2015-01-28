@@ -80,7 +80,7 @@ class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTab
         ];
     }
 
-    protected function getPrettyName() {
+    public function getPrettyName() {
         return "presupuestos";
     }
 
