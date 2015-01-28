@@ -299,7 +299,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     public function bitacoras() {
         return $this->hasMany('Bitacora');
     }
-    
+
     public function recaudosSolicitud() {
         return $this->hasMany('RecaudoSolicitud');
     }
@@ -401,9 +401,13 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     public function setTotalIngresosAttribute($value) {
         $this->attributes['total_ingresos'] = tf($value);
     }
-    
+
     public function getTotalIngresosForAttribute($value) {
         return tm($value);
+    }
+
+    public function savedModel($model) {
+        Bitacora::registrar('Se registró la solicitud.', $model->id);
     }
 
 }

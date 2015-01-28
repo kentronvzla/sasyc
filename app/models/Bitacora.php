@@ -67,12 +67,11 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
         'ind_activo' => 'required',
         'ind_alarma' => 'required',
     ];
-
     protected $dates = ['fecha'];
-    
+
     protected function getPrettyFields() {
         return [
-            'notafor'=>'Notas',
+            'notafor' => 'Notas',
             'solicitud_id' => 'Solicitud',
             'fecha' => 'Fecha',
             'nota' => 'Notas',
@@ -93,17 +92,18 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
             'notafor'
         ];
     }
-    
+
     public function getDefaultValues() {
         return [
             'fecha' => Carbon::now(),
-            'usuario_id' => 1,
-            'memo' => 'CR',            
+            'usuario_id' => Sentry::getUser()->id,
+            'memo' => 'CR',
             'tipo' => 'CR',
             'ind_activo' => true,
             'ind_alarma' => false,
         ];
     }
+
     /**
      * Define una relación pertenece a Solicitud
      * @return Solicitud
@@ -119,14 +119,22 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
     public function usuario() {
         return $this->belongsTo('Usuario');
     }
-    
+
     public function setFechaAttribute($value) {
         if ($value != "") {
             $this->attributes['fecha'] = Carbon::createFromFormat('d/m/Y', $value);
         }
-    }    
-    
-    public function getNotaforAttribute(){
-        return $this->nota.'<br><small>'.$this->created_at->format('d/m/Y H:i').'</small>';
     }
+
+    public function getNotaforAttribute() {
+        return $this->nota . '<br><small>' . $this->created_at->format('d/m/Y H:i') . '</small>';
+    }
+
+    public static function registrar($mensaje, $solicitud_id) {
+        $bitacora = new Bitacora();
+        $bitacora->nota = $mensaje;
+        $bitacora->solicitud_id = $solicitud_id;
+        return $bitacora->save();
+    }
+
 }
