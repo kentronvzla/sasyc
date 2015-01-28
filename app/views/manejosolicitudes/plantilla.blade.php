@@ -52,6 +52,7 @@
                 </div>
             </div>
         </div>
+        @unless($solicitud->ind_mismo_benef)
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelTres">
                 <h4 class="panel-title">
@@ -68,6 +69,7 @@
                 </div>
             </div>
         </div>
+        @endunless
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelCuatro">
                 <h4 class="panel-title">
@@ -126,7 +128,6 @@
                 </div>
             </div>
         </div>   
-        @if(false)
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelOcho">
                 <h4 class="panel-title">
@@ -137,11 +138,10 @@
             </div>
             <div id="PanelOcho" class="panel-collapse collapse">
                 <div class="panel-body">
-                    @include('manejosolicitudes.subirfotos')
+                    @include('manejosolicitudes.galeriafotos')
                 </div>
             </div>
         </div>  
-        @endif
         @endunless
         @endif
     </div>

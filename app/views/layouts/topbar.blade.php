@@ -15,9 +15,9 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li>{{HTML::link('usuario/logout','Cambiar Clave')}}</li>
-                <li>{{HTML::link('usuario/logout','Ayuda')}}</li>
-                <li>{{HTML::link('usuario/logout','Cerrar Sesión')}}</li>
+                <li>{{HTML::link('login/logout','Cambiar Clave')}}</li>
+                <li>{{HTML::link('login/logout','Ayuda')}}</li>
+                <li>{{HTML::link('login/logout','Cerrar Sesión')}}</li>
                 <li class="divider"></li>
                 <li>{{HTML::link('administracion/actualizaciones','Administracion')}}</li>
             </ul>

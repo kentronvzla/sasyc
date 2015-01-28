@@ -301,14 +301,12 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function recaudosSolicitud() {
-        return $this->hasMany('RecaudoSolicitud');
+        return $this->hasMany('RecaudoSolicitud')->orderBy('id');
     }
 
-//    public function setFechaSolicitudAttribute($value) {
-//        if ($value != "") {
-//            $this->attributes['fecha_solicitud'] = Carbon::createFromFormat('d/m/Y', $value);
-//        }
-//    }
+    public function fotos() {
+        return $this->hasMany('FotoSolicitud')->orderBy('id');
+    }
 
     public function setFechaAsignacionAttribute($value) {
         if ($value != "") {
@@ -366,6 +364,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $solicitud = new Solicitud();
         $solicitud->fill($values);
         $solicitud->reglasCreacion();
+        if ($solicitud->ind_beneficiario_menor == "1") {
+            $solicitud->ind_mismo_benef = false;
+        }
         if ($solicitud->ind_mismo_benef == "1") {
             $solicitud->persona_solicitante_id = $solicitud->persona_beneficiario_id;
         }

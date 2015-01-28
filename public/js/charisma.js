@@ -440,13 +440,16 @@ function habilitaCampo(disparador, boton, idPregunta) {
     }
 }
 
-function mostrarOcultar(mostrar, div) {
+function mostrarOcultar(mostrar, div, parent) {
+    if(parent==undefined){
+        parent = document;
+    }
     if (mostrar) {
-        $('#' + div).find('input,select').removeAttr('required');
-        $('#' + div).hide();
+        $(parent).find('#' + div).find('input,select').removeAttr('required');
+        $(parent).find('#' + div).hide();
     } else {
-        $('#' + div).show();
-        $('#' + div).find('input,select').attr('required', 'required');
+        $(parent).find('#' + div).show();
+        $(parent).find('#' + div).find('input,select').attr('required', 'required');
     }
 }
 

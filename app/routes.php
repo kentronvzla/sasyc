@@ -35,3 +35,4 @@ Route::controller('presupuestos', 'PresupuestosController');
 Route::controller('recaudossolicitud', 'RecaudosSolicitudController');
 Route::controller('bitacoras', 'BitacorasController');
 Route::controller('helpers', 'HelpersController');
+Route::controller('fotossolicitud', 'FotosSolicitudController');

@@ -8,6 +8,11 @@ class LoginController extends BaseController {
         $this->forgetBeforeFilter('verificarPermiso');
     }
 
+    public function getLogout() {
+        Sentry::logout();
+        return Redirect::to('login');
+    }
+
     public function getIndex() {
         if (Sentry::check()) {
             return Redirect::to('/');

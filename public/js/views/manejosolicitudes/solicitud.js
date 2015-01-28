@@ -1,5 +1,4 @@
 $(document).ajaxComplete(function () {
-
     $('[id=ind_alarma]').unbind('change');
     $('[id=ind_alarma]').each(function () {
         $(this).on('change', bitacoraAlarma);
@@ -110,8 +109,8 @@ function beneficiarioAsegurado(evt)
 
 function personaTrabaja(evt)
 {
-    var parent = $(evt.target).closest('.form-group').parent();
-    mostrarOcultar(parent.find('input[name=ind_trabaja]:checked').val() == 0, 'div-trabaja');
+    var parent = $(evt.target).closest('form').parent();
+    mostrarOcultar(parent.find('input[name=ind_trabaja]:checked').val() == 0, 'div-trabaja', parent);
 }
 
 function bitacoraAlarma(evt)

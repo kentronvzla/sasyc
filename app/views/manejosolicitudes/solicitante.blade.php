@@ -23,7 +23,7 @@
     {{Form::btInput($solicitante,'nivel_academico_id',8)}}
     {{Form::btInput($solicitante,'ind_trabaja',4)}}
 </div>
-<div id='div-trabaja-sol'>
+<div id='div-trabaja'>
     <hr>
     <h4>Datos Empleo</h4> 
     <div class="row">

@@ -32,13 +32,9 @@
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereUpdatedAt($value)
  */
-class Usuario extends BaseModel {
+class Usuario extends BaseModel implements SimpleTableInterface {
 
     protected $primaryKey = "id";
-    public static $cmbestatus = array(
-        '1' => 'Activado',
-        '0' => 'Desactivado'
-    );
 
     /**
      * Tabla del modelo
@@ -77,6 +73,9 @@ class Usuario extends BaseModel {
             'email' => 'Login',
             'password' => 'Contraseña',
             'nombre' => 'Nombre',
+            'nombregrupo' => 'Grupo',
+            'activated' => '¿Activo?',
+            'activatedfor' => '¿Activo?'
         );
     }
 
@@ -96,7 +95,7 @@ class Usuario extends BaseModel {
     }
 
     public function getActivatedforAttribute() {
-        return static::$cmbestatus[$this->activated];
+        return static::$cmbsino[$this->activated];
     }
 
     public function grupos() {
@@ -121,6 +120,10 @@ class Usuario extends BaseModel {
 
     public static function puedeAcceder($permiso) {
         return Sentry::getUser()->hasAccess($permiso);
+    }
+
+    public function getTableFields() {
+        return ['email', 'nombre', 'nombregrupo', 'activatedfor'];
     }
 
 }

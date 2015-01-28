@@ -53,7 +53,7 @@ class RecaudoSolicitud extends BaseModel implements DefaultValuesInterface, Simp
         'solicitud_id' => 'required|integer',
         'recaudo_id' => 'required|integer',
         'ind_recibido' => '',
-        'fecha_vencimiento' => 'required_if:ind_recibido,1',
+        'fecha_vencimiento' => '',
         'documento' => '',
     ];
     protected $dates = ['fecha_vencimiento'];
@@ -106,17 +106,17 @@ class RecaudoSolicitud extends BaseModel implements DefaultValuesInterface, Simp
     public function setDocumentoAttribute() {
         if (Input::hasFile('documento')) {
             $base_path = storage_path('adjuntos');
-            $base_path = $base_path.DIRECTORY_SEPARATOR.$this->solicitud_id;
-           
-            if(!File::exists($base_path)) {
+            $base_path = $base_path . DIRECTORY_SEPARATOR . $this->solicitud_id;
+
+            if (!File::exists($base_path)) {
                 File::makeDirectory($base_path);
             }
             $file = Input::file('documento');
             $fileName = $file->getClientOriginalName();
             if ($this->documento != "") {
-                File::delete($base_path.DIRECTORY_SEPARATOR.$this->documento);
+                File::delete($base_path . DIRECTORY_SEPARATOR . $this->documento);
             }
-            while (File::exists($base_path.DIRECTORY_SEPARATOR.$fileName)) {
+            while (File::exists($base_path . DIRECTORY_SEPARATOR . $fileName)) {
                 $fileName.=rand(0, 9) . $fileName;
             }
             $file->move($base_path, $fileName);
@@ -144,6 +144,15 @@ class RecaudoSolicitud extends BaseModel implements DefaultValuesInterface, Simp
             'fecha_vencimiento',
             'documento_link',
         ];
+    }
+
+    public function validate($model = null) {
+        if (parent::validate($model)) {
+            if ($this->fecha_vencimiento == "" && $this->recaudo->ind_vence) {
+                $this->addError('fecha_vencimiento', "La fecha de vencimiento es necesaria");
+            }
+        }
+        return !$this->hasErrors();
     }
 
 }
