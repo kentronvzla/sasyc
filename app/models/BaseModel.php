@@ -37,6 +37,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
      */
     protected $validator;
     public static $cmbsexo = array(
+        '' => 'Seleccione',
         'M' => 'Masculino',
         'F' => 'Femenino'
     );
@@ -315,7 +316,6 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
                 }
                 return $this->{$key};
         }
-        die();
         return "";
     }
 
@@ -386,10 +386,11 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
                 $parent = $this->{$arr[0]}()->getRelated()->{$arr[1]}()->getRelated();
                 if (method_exists($parent, $camelField)) {
                     //Return..
-                    if ($getInstance) {
+                    if ($getInstance && isset($this->{$arr[0]}->{$arr[1]}->{$camelField})) {
                         return $this->{$arr[0]}->{$arr[1]}->{$camelField};
+                    } else if (!$getInstance) {
+                        return $parent->{$camelField}();
                     }
-                    return $parent->{$camelField}();
                 }
             case 2:
                 $field = str_replace('_id', '', $arr[1]);
@@ -398,10 +399,11 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
                 //Method Existss??
                 if (method_exists($parent, $camelField)) {
                     //Return..
-                    if ($getInstance) {
+                    if ($getInstance && isset($this->{$arr[0]}->{$camelField})) {
                         return $this->{$arr[0]}->{$camelField};
+                    } else if (!$getInstance) {
+                        return $parent->{$camelField}();
                     }
-                    return $parent->{$camelField}();
                 }
             case 1:
                 $field = str_replace('_id', '', $field);
@@ -409,10 +411,11 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
                 //Method Existss??
                 if (method_exists($this, $camelField)) {
                     //Return..
-                    if ($getInstance) {
+                    if ($getInstance && isset($this->{$camelField})) {
                         return $this->{$camelField};
+                    } else if (!$getInstance) {
+                        return $this->{$camelField}();
                     }
-                    return $this->{$camelField}();
                 }
         }
         return null;

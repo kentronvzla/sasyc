@@ -38,12 +38,11 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
     }
 
     function btInput($obj, $attrName, $numCols = 12, $type = 'text'
-    , $html = []) {
+    , $html = [], $options = []) {
         $data['params'] = $html;
         if (!isset($data['params']['class'])) {
             $data['params']['class'] = '';
         }
-        $options = [];
         if ($obj->isDecimalField($attrName)) {
             $data['params']['class'] = 'decimal-format ';
         } else if ($obj->isRelatedField($attrName) && $type == 'text') {

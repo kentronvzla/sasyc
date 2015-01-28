@@ -1,6 +1,6 @@
 @extends('administracion.principal')
 @section('contenido2')
-<div class="panel panel-primary">
+<div class="panel panel-danger">
     <div class="panel-heading">ACTUALIZACIONES DEL SISTEMA PASO {{$paso}}</div>
     <div class="panel-body al">
         <form method="GET" action="{{url('administracion/actualizaciones/instalar/'.($paso+1).'/'.$version)}}">

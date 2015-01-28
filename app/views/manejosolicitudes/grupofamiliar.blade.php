@@ -12,7 +12,7 @@
 <div class="row">
     {{Form::btInput($familiar,'tipo_nacionalidad_id',4)}}
     {{Form::btInput($familiar,'ci',4)}}
-    {{Form::btInput($familiar,'sexo',4)}}
+    {{Form::btInput($beneficiario,'sexo',4,"select",[], BaseModel::$cmbsexo)}}   
 </div>
 <div class="row">
     {{Form::btInput($familiar,'nombre',6)}}

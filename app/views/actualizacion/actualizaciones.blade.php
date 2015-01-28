@@ -1,10 +1,10 @@
 @extends('administracion.principal')
 @section('contenido2')
-<div class="panel panel-primary">
+<div class="panel panel-danger">
     <div class="panel-heading">Versión instalada: <strong>{{Configuracion::get('version')}}</strong>, Ultima versión disponible: <strong>{{$version->VERSION or "Error al conectar al servidor"}}</strong></div>
     <div class="panel-body">
-        <table class="table">
-            <thead class="headTabla">
+        <table class="table table-striped responsive">
+            <thead>
                 <tr>
                     <th class="t-Left">ID</th>
                     <th class="t-Left">Versión</th>

@@ -13,16 +13,16 @@ class SolicitudesController extends BaseController {
         if ($solicitud->save()) {
             $data['solicitud'] = $solicitud;
             $data['mensaje'] = "Datos guardados correctamente";
-
-            return Redirect::to('solicitudes/modificar/'.$solicitud->id);
+            if (Request::ajax()) {
+                return Response::json($data);
+            }
+            return Redirect::to('solicitudes/modificar/' . $solicitud->id);
         } else {
+            if (Request::ajax()) {
+                return Response::json(['errores' => $solicitud->getErrors()], 400);
+            }
             return Redirect::back()->withInput()->withErrors($solicitud->getErrors());
         }
-
-//            return Response::json($data);
-//        } else {
-//            return Response::json(['errores' => $solicitud->getErrors()], 400);
-//        }
     }
 
     public function getModificar($id = null) {

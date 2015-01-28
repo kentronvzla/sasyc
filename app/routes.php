@@ -15,7 +15,8 @@ Route::get('/', 'IndexController@inicio');
 
 Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'), function() {
     Route::group(array('prefix' => 'seguridad', 'namespace' => 'Seguridad'), function() {
-        
+        Route::controller('usuarios', 'UsuariosController');
+        Route::controller('grupos', 'GruposController');
     });
     Route::group(array('prefix' => 'tablas', 'namespace' => 'Tablas'), function() {
         Route::controller('tipo-ayudas', 'TipoAyudasController');
@@ -23,7 +24,7 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
         Route::controller('municipios', 'MunicipiosController');
     });
 });
-
+Route::controller('login','LoginController');
 //se coloca afuera porque no se maneja por namespace
 Route::controller('administracion/actualizaciones', 'ActualizacionesController');
 

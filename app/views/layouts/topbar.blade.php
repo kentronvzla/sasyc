@@ -11,7 +11,7 @@
         <!-- user dropdown starts -->
         <div class="btn-group pull-right">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> Nombre Usuario</span>
+                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> {{Sentry::getUser()->nombre}}</span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">

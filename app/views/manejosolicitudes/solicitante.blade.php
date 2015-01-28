@@ -8,7 +8,7 @@
 <div class="row">
     {{Form::btInput($solicitante,'nombre',4)}}
     {{Form::btInput($solicitante,'apellido',4)}}
-    {{Form::btInput($solicitante,'sexo',4)}}    
+    {{Form::btInput($beneficiario,'sexo',4,"select",[], BaseModel::$cmbsexo)}}     
 </div>
 <div class="row">
     {{Form::btInput($solicitante,'lugar_nacimiento',8)}}
