@@ -374,16 +374,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.3.1",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "cf483685798a72c93bf4206e3dd6358ea07d64e7"
+                "reference": "2346085d2b027b233ae1d5de59b07440b9f288c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/cf483685798a72c93bf4206e3dd6358ea07d64e7",
-                "reference": "cf483685798a72c93bf4206e3dd6358ea07d64e7",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/2346085d2b027b233ae1d5de59b07440b9f288c8",
+                "reference": "2346085d2b027b233ae1d5de59b07440b9f288c8",
                 "shasum": ""
             },
             "require": {
@@ -394,6 +394,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": ">=3.7",
+                "predis/predis": "~0.8",
                 "satooshi/php-coveralls": "~0.6"
             },
             "type": "library",
@@ -439,7 +440,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2014-09-17 14:24:04"
+            "time": "2015-01-15 20:38:55"
         },
         {
             "name": "doctrine/collections",
@@ -2526,16 +2527,16 @@
         },
         {
             "name": "yajra/laravel-oci8",
-            "version": "v2.0.8",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-oci8.git",
-                "reference": "ed967f5c05cfd04351945384b7a3340bbb349937"
+                "reference": "eb08d4bcf430c4ca40b67f449624ce0d6a8da317"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-oci8/zipball/ed967f5c05cfd04351945384b7a3340bbb349937",
-                "reference": "ed967f5c05cfd04351945384b7a3340bbb349937",
+                "url": "https://api.github.com/repos/yajra/laravel-oci8/zipball/eb08d4bcf430c4ca40b67f449624ce0d6a8da317",
+                "reference": "eb08d4bcf430c4ca40b67f449624ce0d6a8da317",
                 "shasum": ""
             },
             "require": {
@@ -2573,20 +2574,20 @@
                 "oracle",
                 "pdo_oci"
             ],
-            "time": "2015-01-06 03:28:50"
+            "time": "2015-01-19 04:33:51"
         },
         {
             "name": "yajra/laravel-pdo-via-oci8",
-            "version": "0.9.3",
+            "version": "0.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-pdo-via-oci8.git",
-                "reference": "720e9cbc8dd05557a9dd0a0e7afc3311bcc8625b"
+                "reference": "f6c6cea9780105455443e41c8174926a9bb3be5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-pdo-via-oci8/zipball/720e9cbc8dd05557a9dd0a0e7afc3311bcc8625b",
-                "reference": "720e9cbc8dd05557a9dd0a0e7afc3311bcc8625b",
+                "url": "https://api.github.com/repos/yajra/laravel-pdo-via-oci8/zipball/f6c6cea9780105455443e41c8174926a9bb3be5e",
+                "reference": "f6c6cea9780105455443e41c8174926a9bb3be5e",
                 "shasum": ""
             },
             "require-dev": {
@@ -2609,7 +2610,7 @@
                 }
             ],
             "description": "PDO userspace driver proxying calls to PHP OCI8 driver",
-            "time": "2015-01-13 00:38:16"
+            "time": "2015-01-18 10:17:34"
         }
     ],
     "packages-dev": [],

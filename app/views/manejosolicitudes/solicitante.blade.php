@@ -17,7 +17,7 @@
 <div class="row">
     {{Form::btInput($solicitante,'edad',4,'text',['disabled'=>'disabled'])}}
     {{Form::btInput($solicitante,'estado_civil_id',4)}}
-    {{Form::btSelect('parentesco_id', Parentesco::getCombo("Parentesco"), 0, 4)}}
+    {{Form::btSelect('parentesco_id', Parentesco::getCombo("Parentesco"), @$parentesco->id, 4)}}
 </div>
 <div class="row">
     {{Form::btInput($solicitante,'nivel_academico_id',8)}}

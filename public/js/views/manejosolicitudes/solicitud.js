@@ -119,3 +119,9 @@ function bitacoraAlarma(evt)
     var parent = $(evt.target).closest('.form-group').parent();
     mostrarOcultar(parent.find('input[name=ind_alarma]:checked').val() == 0, 'div-fecha-bitacora');
 }
+
+function solicitanteGuardado(data) {
+    var urlFormArr = $('#form-familiares').attr('action').split('/');
+    var beneficiario_id = urlFormArr[urlFormArr.length - 1];
+    $('#grupo-familiares').load(baseUrl + "personas/familiar/" + beneficiario_id);
+}

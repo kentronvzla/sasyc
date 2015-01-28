@@ -62,7 +62,7 @@
             </div>
             <div id="PanelTres" class="panel-collapse collapse">
                 <div class="panel-body">
-                    {{Form::open(['url'=>'personas/crear/'.$beneficiario->id.'/false','id'=>'form-persona','class'=>'saveajax'])}}
+                    {{Form::open(['url'=>'personas/crear/'.$beneficiario->id.'/false','id'=>'form-persona','class'=>'saveajax','data-callback'=>'solicitanteGuardado'])}}
                     @include('manejosolicitudes.solicitante')
                     {{Form::close()}}
                 </div>
@@ -77,7 +77,7 @@
                 </h4>
             </div>
             <div id="PanelCuatro" class="panel-collapse collapse">
-                <div class="panel-body">
+                <div class="panel-body" id='grupo-familiares'>
                     @include('manejosolicitudes.grupofamiliar')
                 </div>
             </div>
