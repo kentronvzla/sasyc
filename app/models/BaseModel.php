@@ -387,33 +387,44 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     }
 
     private function getRelatedField($field, $getInstance = false) {
-        if (strpos($field, '->') === false) {
-            $field = str_replace('_id', '', $field);
-            $camelField = camel_case($field);
-            //Method Existss??
-            if (method_exists($this, $camelField)) {
-                //Return..
-                if ($getInstance) {
-                    return $this->{$camelField};
+        $arr = explode('->', $field);
+        switch (count($arr)) {
+            case 3:
+                $field = str_replace('_id', '', $arr[2]);
+                $camelField = camel_case($field);
+                $parent = $this->{$arr[0]}()->getRelated()->{$arr[1]}()->getRelated();
+                if (method_exists($parent, $camelField)) {
+                    //Return..
+                    if ($getInstance) {
+                        return $this->{$arr[0]}->{$arr[1]}->{$camelField};
+                    }
+                    return $parent->{$camelField}();
                 }
-                return $this->{$camelField}();
-            }
-            return null;
-        } else {
-            $arr = explode('->', $field);
-            $field = str_replace('_id', '', $arr[1]);
-            $camelField = camel_case($field);
-            $parent = $this->{$arr[0]}()->getRelated();
-            //Method Existss??
-            if (method_exists($parent, $camelField)) {
-                //Return..
-                if ($getInstance) {
-                    return $this->{$arr[0]}->{$camelField};
+            case 2:
+                $field = str_replace('_id', '', $arr[1]);
+                $camelField = camel_case($field);
+                $parent = $this->{$arr[0]}()->getRelated();
+                //Method Existss??
+                if (method_exists($parent, $camelField)) {
+                    //Return..
+                    if ($getInstance) {
+                        return $this->{$arr[0]}->{$camelField};
+                    }
+                    return $parent->{$camelField}();
                 }
-                return $parent->{$camelField}();
-            }
-            return null;
+            case 1:
+                $field = str_replace('_id', '', $field);
+                $camelField = camel_case($field);
+                //Method Existss??
+                if (method_exists($this, $camelField)) {
+                    //Return..
+                    if ($getInstance) {
+                        return $this->{$camelField};
+                    }
+                    return $this->{$camelField}();
+                }
         }
+        return null;
     }
 
     public function isBooleanField($field) {

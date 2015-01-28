@@ -3,14 +3,8 @@
 class EstadoTableSeeder extends Seeder {
 
     public function run() {
-        $estados = array('Dtto Federal');
-        foreach ($estados as $estado) {
-            Estado::create(array('nombre' => $estado));
-        }
-    }
-
-    /*      ,
-            'Amazonas',
+        $estados = [
+            'Dtto. Capital',
             'Anzoátegui',
             'Apure',
             'Aragua',
@@ -18,7 +12,6 @@ class EstadoTableSeeder extends Seeder {
             'Bolívar',
             'Carabobo',
             'Cojedes',
-            'Delta Amacuro',
             'Falcón',
             'Guárico',
             'Lara',
@@ -32,6 +25,15 @@ class EstadoTableSeeder extends Seeder {
             'Trujillo',
             'Yaracuy',
             'Zulia',
-            'Vargas'
-     *      */
+            'Amazonas',
+            'Delta Amacuro',
+            'Vargas',
+            'Zonas Inhóspitas',
+            'Embajadas',
+        ];
+        foreach ($estados as $estado) {
+            Estado::create(array('nombre' => $estado));
+        }
+    }
+
 }

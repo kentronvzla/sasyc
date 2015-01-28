@@ -166,8 +166,11 @@ function docReady() {
         $(this).tab('show');
     });
     //select list
-    $('.has-child').unbind('change');
-    $('.has-child').change(function () {
+    $('select[data-child]').unbind('change');
+    $('select[data-child]').change(function () {
+        if($(this).val()==""){
+            return;
+        }
         var child = $(this).data('child');
         var url = 'administracion/tablas/' + $(this).data('url');
         var formParent = $(this).closest('form');
