@@ -48,6 +48,19 @@ function copiarDireccion() {
     });
 }
 ;
+};
+
+function solicitudCreada(data)
+{
+    var sol = data.solicitud;
+    $('#form-solicitud').find('#id').val(sol.id);
+    $('#span-solicitud-id').text(sol.id);
+    $('#form-presupuesto').find('#solicitud_id').val(sol.id);
+    $('#form-informe').find('#id').val(sol.id);
+    $("#PanelSeis").children().load(baseUrl + "recaudossolicitud/modificar/" + sol.id);
+    
+    history.pushState(null, null, baseUrl + 'solicitudes/modificar/' + sol.id);
+}
 
 function calcularEdad(evt)
 {
