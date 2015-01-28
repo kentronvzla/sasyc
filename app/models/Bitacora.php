@@ -59,7 +59,7 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
      */
     protected $rules = [
         'solicitud_id' => 'required|integer',
-        'fecha' => 'required__if:ind_alarma,1',
+        'fecha' => 'required_if:ind_alarma,1',
         'nota' => 'required',
         'usuario_id' => 'required|integer',
         'memo' => 'required',
@@ -72,6 +72,7 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
     
     protected function getPrettyFields() {
         return [
+            'notafor'=>'Notas',
             'solicitud_id' => 'Solicitud',
             'fecha' => 'Fecha',
             'nota' => 'Notas',
@@ -89,7 +90,7 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
 
     public function getTableFields() {
         return [
-            'nota'
+            'notafor'
         ];
     }
     
@@ -124,4 +125,8 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
             $this->attributes['fecha'] = Carbon::createFromFormat('d/m/Y', $value);
         }
     }    
+    
+    public function getNotaforAttribute(){
+        return $this->nota.'<br><small>'.$this->created_at->format('d/m/Y H:i').'</small>';
+    }
 }

@@ -1,3 +1,13 @@
+$(document).ajaxComplete(function () {
+    
+    $('[id=ind_alarma]').unbind('change');
+    $('[id=ind_alarma]').each(function () {
+        $(this).on('change', bitacoraAlarma);
+    });
+    
+    $('#form-bitacora').find('input,select').removeAttr('required');
+});
+
 $(document).ready(function () {
     $('input[id=fecha_nacimiento]').each(function () {
         $(this).change(calcularEdad);
@@ -7,11 +17,9 @@ $(document).ready(function () {
     $('#form-familiares').find("#tipo_nacionalidad_id, #ci").on('change', buscarPersona);
 
     $('#form-informe').find('#total_ingresos').prop("disabled", true);
-    $('#form-bitacora').find('input,select').removeAttr('required');
 
-    $('a.glyphicon-transfer').unbind('click');
     $('a.glyphicon-transfer').click(copiarDireccion);
-
+$('#form-bitacora').find('input,select').removeAttr('required');
     $('[id=ind_inmediata]').each(function () {
         $(this).on('change', atencionInmediata);
     });
@@ -46,20 +54,6 @@ function copiarDireccion() {
             }
         });
     });
-}
-;
-};
-
-function solicitudCreada(data)
-{
-    var sol = data.solicitud;
-    $('#form-solicitud').find('#id').val(sol.id);
-    $('#span-solicitud-id').text(sol.id);
-    $('#form-presupuesto').find('#solicitud_id').val(sol.id);
-    $('#form-informe').find('#id').val(sol.id);
-    $("#PanelSeis").children().load(baseUrl + "recaudossolicitud/modificar/" + sol.id);
-    
-    history.pushState(null, null, baseUrl + 'solicitudes/modificar/' + sol.id);
 }
 
 function calcularEdad(evt)
