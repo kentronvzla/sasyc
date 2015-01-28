@@ -27,10 +27,12 @@ $(document).ready(function () {
 
     $('[id=ind_asegurado]').each(function () {
         $(this).on('change', beneficiarioAsegurado);
+        $(this).trigger('change');
     });
 
     $('[id=ind_trabaja]').each(function () {
         $(this).on('change', personaTrabaja);
+        $(this).trigger('change');
     });
 
     $('[id=ind_alarma]').each(function () {
@@ -92,15 +94,6 @@ function buscarPersona(evt)
             }
         }
     });
-}
-function mostrarOcultar(mostrar, div) {
-    if (mostrar) {
-        $('#' + div).find('input,select').removeAttr('required');
-        $('#' + div).hide();
-    } else {
-        $('#' + div).show();
-        $('#' + div).find('input,select').attr('required', 'required');
-    }
 }
 
 function atencionInmediata(evt)

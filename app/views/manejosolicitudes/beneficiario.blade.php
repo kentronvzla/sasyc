@@ -72,4 +72,4 @@
     {{Form::btInput($beneficiario,'email',6)}}
     {{Form::btInput($beneficiario,'twitter',6)}}
 </div> 
-@include('templates.bootstrap.submit')
+@include('templates.bootstrap.submit',['nomostrar'=>true])

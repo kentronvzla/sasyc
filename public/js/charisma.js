@@ -131,7 +131,7 @@ $(document).ready(function () {
 function docReady() {
     $(".decimal-format").autoNumeric('init', {
         aSep: ".",
-        aDec: ",",
+        aDec: ","
     });
     $(".decimal-format").css('text-align', 'right');
     $('input, select, textarea').each(function () {
@@ -147,28 +147,12 @@ function docReady() {
     }).on('changeDate', function (ev) {
         $(this).datepicker('hide');
     });
-    //prevent # links from moving to top
-    $('a[href="#"][data-top!=true]').click(function (e) {
-        e.preventDefault();
-    });
-    //notifications
-    $('.noty').click(function (e) {
-        e.preventDefault();
-        var options = $.parseJSON($(this).attr('data-noty-options'));
-        noty(options);
-    });
     //chosen - improves select
     $('[data-rel="chosen"],[rel="chosen"]').chosen();
-    //tabs
-    $('#myTab a:first').tab('show');
-    $('#myTab a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
     //select list
     $('select[data-child]').unbind('change');
     $('select[data-child]').change(function () {
-        if($(this).val()==""){
+        if ($(this).val() == "") {
             return;
         }
         var child = $(this).data('child');
@@ -207,12 +191,6 @@ function docReady() {
     //star rating
     $('.raty').raty({
         score: 4 //default stars
-    });
-    //uploadify - multiple uploads
-    $('#file_upload').uploadify({
-        'swf': 'misc/uploadify.swf',
-        'uploader': 'misc/uploadify.php'
-                // Put your options here
     });
     //gallery controls container animation
     $('ul.gallery li').hover(function () {
@@ -301,70 +279,7 @@ function docReady() {
             });
         }
     });
-    $('.btn-close').click(function (e) {
-        e.preventDefault();
-        $(this).parent().parent().parent().fadeOut();
-    });
-    $('.btn-minimize').click(function (e) {
-        e.preventDefault();
-        var $target = $(this).parent().parent().next('.box-content');
-        if ($target.is(':visible'))
-            $('i', $(this)).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-        else
-            $('i', $(this)).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-        $target.slideToggle();
-    });
-    $('.btn-setting').click(function (e) {
-        e.preventDefault();
-        $('#myModal').modal('show');
-    });
-    $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
-        defaultDate: '2014-06-12',
-        events: [
-            {
-                title: 'All Day Event',
-                start: '2014-06-01'
-            },
-            {
-                title: 'Long Event',
-                start: '2014-06-07',
-                end: '2014-06-10'
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: '2014-06-09T16:00:00'
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: '2014-06-16T16:00:00'
-            },
-            {
-                title: 'Meeting',
-                start: '2014-06-12T10:30:00',
-                end: '2014-06-12T12:30:00'
-            },
-            {
-                title: 'Lunch',
-                start: '2014-06-12T12:00:00'
-            },
-            {
-                title: 'Birthday Party',
-                start: '2014-06-13T07:00:00'
-            },
-            {
-                title: 'Click for Google',
-                url: 'http://google.com/',
-                start: '2014-06-28'
-            }
-        ]
-    });
+
     $('.form-eliminar').unbind('submit');
     $('.form-eliminar').submit(function (e) {
         e.preventDefault();
@@ -536,5 +451,15 @@ function habilitaCampo(disparador, boton, idPregunta) {
         $('#respuesta' + idPregunta).removeAttr('disabled');
     } else {
         $('#respuesta' + idPregunta).attr('disabled', true);
+    }
+}
+
+function mostrarOcultar(mostrar, div) {
+    if (mostrar) {
+        $('#' + div).find('input,select').removeAttr('required');
+        $('#' + div).hide();
+    } else {
+        $('#' + div).show();
+        $('#' + div).find('input,select').attr('required', 'required');
     }
 }

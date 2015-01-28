@@ -40,4 +40,4 @@
 <div class="row">
     {{Form::btInput($solicitud,'observaciones')}}
 </div>
-@include('templates.bootstrap.submit')
+@include('templates.bootstrap.submit',['nomostrar'=>true])

@@ -21,7 +21,7 @@
 </div>
 <div class="row">
     {{Form::btInput($familiar,'estado_civil_id',6)}}
-    {{Form::btSelect('parentesco_id', Parentesco::getCombo("Parentesco"), @$parentesco_id, 6)}}
+    {{Form::btSelect('parentesco_id', Parentesco::getCombo("Parentesco"), @$parentesco->id, 6)}}
 </div>
 <div class="row">
     {{Form::btInput($familiar,'ocupacion',6)}}

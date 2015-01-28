@@ -7,4 +7,4 @@
 <div class="row">
     {{Form::btInput($solicitud,'informe_social',12,'textarea',['class'=>'ckeditor '])}}
 </div>
-@include('templates.bootstrap.submit')
+@include('templates.bootstrap.submit',['nomostrar'=>true])

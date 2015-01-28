@@ -63,7 +63,7 @@ class PersonasController extends BaseController {
         $data['beneficiario'] = Persona::findOrFail($id);
         $data['familiar'] = Persona::findOrNew($familiar_id);
         $data['familiares'] = $data['beneficiario']->familiaresBeneficiario;
-        $data['parentesco_id'] = $data['beneficiario']->getParentesco($data['familiar']->id);
+        $data['parentesco'] = $data['beneficiario']->getParentesco($data['familiar']->id);
         return View::make('manejosolicitudes.grupofamiliar', $data);
     }
 

@@ -90,7 +90,7 @@
  * @property-read mixed $edad
  * @property-read mixed $documento
  */
-class Persona extends BaseModel implements SimpleTableInterface, DecimalInterface {
+class Persona extends BaseModel implements SimpleTableInterface, DecimalInterface, DefaultValuesInterface {
 
     protected $table = "personas";
     protected $dates = ['fecha_nacimiento'];
@@ -103,7 +103,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
     protected $fillable = [
         'nombre', 'apellido', 'tipo_nacionalidad_id', 'ci', 'sexo',
         'estado_civil_id', 'lugar_nacimiento', 'fecha_nacimiento',
-        'nivel_academico_id', 'co_id', 'parroquia_id', 'ciudad', 
+        'nivel_academico_id', 'co_id', 'parroquia_id', 'ciudad',
         'zona_sector', 'calle_avenida', 'apto_casa',
         'telefono_fijo', 'telefono_celular', 'telefono_otro', 'email',
         'twitter', 'ind_trabaja', 'ocupacion', 'ingreso_mensual',
@@ -248,10 +248,9 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         return $var;
     }
 
-    public function solicitudes(){
+    public function solicitudes() {
         return $this->hasMany('Solicitud', 'persona_beneficiario_id');
     }
-
 
     public function setFechaNacimientoAttribute($value) {
         if ($value != "") {
@@ -289,7 +288,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
                     'parentesco_id' => 'required|integer'
                         ]
         );
-        if($validator->passes()){
+        if ($validator->passes()) {
             $persona = Persona::findOrFail($beneficiario_id);
             $belongsMany = $persona->familiaresBeneficiario();
             if ($belongsMany->wherePivot('persona_familia_id', '=', $solicitante_id)->count() == 0) {
@@ -298,26 +297,35 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         }
         return $validator;
     }
-    
+
     public function getParentesco($familiar_id) {
-        $parentesco_id = $this->familiaresBeneficiario()
+        $rel = $this->familiaresBeneficiario()
                 ->wherePivot('persona_familia_id', '=', $familiar_id)
-                ->first()->parentesco_id;
-        return Parentesco::find($parentesco_id);
+                ->first();
+        if (is_object($rel)) {
+            return Parentesco::find($rel->pivot->parentesco_id);
+        }
+        return null;
     }
-    
+
     public static function getDecimalFields() {
         return [
             'ingreso_mensual'
         ];
     }
-    
+
     public function setIngresoMensualAttribute($value) {
         $this->attributes['ingreso_mensual'] = tf($value);
     }
-    
+
     public function getIngresoMensualForAttribute($value) {
         return tm($value);
     }
 
+    public function getDefaultValues() {
+        return [
+            'ind_asegurado' => 1,
+            'ind_trabaja' => 1,
+        ];
+    }
 }

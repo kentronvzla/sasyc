@@ -47,4 +47,4 @@
 <div class="row">
     {{Form::btInput($solicitante,'observaciones')}}
 </div>  
-@include('templates.bootstrap.submit')
+@include('templates.bootstrap.submit',['nomostrar'=>true])
