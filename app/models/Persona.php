@@ -282,12 +282,15 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         $data['beneficiario_id'] = $beneficiario_id;
         $data['solicitante_id'] = $solicitante_id;
         $data['parentesco_id'] = $parentesco_id;
-        $validator = Validator::make($data, [
-                    'beneficiario_id' => 'required|integer',
-                    'solicitante_id' => 'required|integer',
-                    'parentesco_id' => 'required|integer'
-                        ]
-        );
+        $reglas = [
+            'beneficiario_id' => 'required|integer',
+            'solicitante_id' => 'required|integer|different:beneficiario_id',
+            'parentesco_id' => 'required|integer'
+        ];
+        $mensajes = [
+            'solicitante_id.different' => 'No puedes agregar como familiar a la misma persona',
+        ];
+        $validator = Validator::make($data, $reglas, $mensajes);
         if ($validator->passes()) {
             $persona = Persona::findOrFail($beneficiario_id);
             $belongsMany = $persona->familiaresBeneficiario();
@@ -328,4 +331,12 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
             'ind_trabaja' => 1,
         ];
     }
+
+    public function afterValidate() {
+        if (!$this->ind_trabaja) {
+            $this->ingreso_mensual = 0;
+            $this->ocupacion = "";
+        }
+    }
+
 }

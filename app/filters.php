@@ -12,13 +12,15 @@
 
 App::before(function($request) {
     DB::beginTransaction();
-    //DB::disableQueryLog();
-    //Debugbar::disable();
+    DB::connection('oracle')->beginTransaction();
+    DB::disableQueryLog();
+    Debugbar::disable();
 });
 
 
 App::after(function($request, $response) {
     DB::commit();
+    DB::connection('oracle')->commit();
 });
 
 /*

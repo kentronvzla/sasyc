@@ -46,7 +46,7 @@
             </div>
             <div id="PanelDos" class="panel-collapse collapse">                
                 <div class="panel-body">
-                    {{Form::open(['url'=>'personas/modificar','id'=>'form-persona','class'=>'saveajax'])}}
+                    {{Form::open(['url'=>'personas/modificar','id'=>'form-persona','class'=>'saveajax', 'data-callback'=>'grupoFamiliar'])}}
                     @include('manejosolicitudes.beneficiario')
                     {{Form::close()}}
                 </div>
@@ -93,10 +93,8 @@
                 </h4>
             </div>
             <div id="PanelCinco" class="panel-collapse collapse">
-                <div class="panel-body">
-                    {{Form::open(['url'=>'solicitudes/modificar/'.$solicitud->id,'id'=>'form-informe','class'=>'saveajax'])}}
+                <div class="panel-body" id="informe-socioeconomico">
                     @include('manejosolicitudes.informesocioeconomico')
-                    {{Form::close()}}
                 </div>
             </div>
         </div>

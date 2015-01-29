@@ -22,6 +22,7 @@ $(document).ready(function () {
     $('#form-bitacora').find('input,select').removeAttr('required');
     $('[id=ind_inmediata]').each(function () {
         $(this).on('change', atencionInmediata);
+        $(this).trigger('change');
     });
 
     $('[id=ind_asegurado]').each(function () {
@@ -36,6 +37,62 @@ $(document).ready(function () {
 
     $('[id=ind_alarma]').each(function () {
         $(this).on('change', bitacoraAlarma);
+    });
+    
+    //gallery controls container animation
+    $('ul.gallery li').hover(function () {
+        $('img', this).fadeToggle(1000);
+        $(this).find('.gallery-controls').remove();
+        $(this).append('<div class="well gallery-controls">' +
+                '<p><a href="#" class="gallery-edit btn"><i class="glyphicon glyphicon-edit"></i></a> <a href="#" class="gallery-delete btn"><i class="glyphicon glyphicon-remove"></i></a></p>' +
+                '</div>');
+        $(this).find('.gallery-controls').stop().animate({'margin-top': '-1'}, 400);
+    }, function () {
+        $('img', this).fadeToggle(1000);
+        $(this).find('.gallery-controls').stop().animate({'margin-top': '-30'}, 200, function () {
+            $(this).remove();
+        });
+    });
+    //gallery image controls example
+    //gallery delete
+    $('.thumbnails').on('click', '.gallery-delete', function (e) {
+        e.preventDefault();
+        //get image id
+        //alert($(this).parents('.thumbnail').attr('id'));
+        $(this).parents('.thumbnail').fadeOut();
+    });
+    //gallery edit
+    $('.thumbnails').on('click', '.gallery-edit', function (e) {
+        e.preventDefault();
+        //get image id
+        //alert($(this).parents('.thumbnail').attr('id'));
+    });
+    //gallery colorbox
+    $('.thumbnail a').colorbox({
+        rel: 'thumbnail a',
+        transition: "elastic",
+        maxWidth: "95%",
+        maxHeight: "95%",
+        slideshow: true
+    });
+    //gallery fullscreen
+    $('#toggle-fullscreen').button().click(function () {
+        var button = $(this), root = document.documentElement;
+        if (!button.hasClass('active')) {
+            $('#thumbnails').addClass('modal-fullscreen');
+            if (root.webkitRequestFullScreen) {
+                root.webkitRequestFullScreen(
+                        window.Element.ALLOW_KEYBOARD_INPUT
+                        );
+            } else if (root.mozRequestFullScreen) {
+                root.mozRequestFullScreen();
+            }
+        } else {
+            $('#thumbnails').removeClass('modal-fullscreen');
+            (document.webkitCancelFullScreen ||
+                    document.mozCancelFullScreen ||
+                    $.noop).apply(document);
+        }
     });
 
 });
@@ -123,4 +180,12 @@ function solicitanteGuardado(data) {
     var urlFormArr = $('#form-familiares').attr('action').split('/');
     var beneficiario_id = urlFormArr[urlFormArr.length - 1];
     $('#grupo-familiares').load(baseUrl + "personas/familiar/" + beneficiario_id);
+    grupoFamiliar(null);
+}
+
+function grupoFamiliar(data) {
+    var solicitud_id = $('#form-solicitud').find('#id').val();
+    $.get(baseUrl + 'solicitudes/modificar/' + solicitud_id, function (data) {
+        $('#total_ingresos').autoNumeric('set', data.solicitud.total_ingresos);
+    });
 }

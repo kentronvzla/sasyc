@@ -1,5 +1,4 @@
 {{Form::hidden('id',$solicitud->persona_solicitante_id)}}
-
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-8">
         <h4><span id='span-solicitante-documento'>{{$solicitante->documento}}</span></h4>

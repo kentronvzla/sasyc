@@ -160,6 +160,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     ];
     protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion',
         'fecha_aprobacion', 'fecha_cierre'];
+    
+    protected $appends = ['total_ingresos'];
 
     protected function getPrettyFields() {
         return [
@@ -403,8 +405,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $this->attributes['total_ingresos'] = tf($value);
     }
 
-    public function getTotalIngresosForAttribute($value) {
-        return tm($value);
+    public function getTotalIngresosForAttribute() {
+        return tm($this->total_ingresos);
     }
 
     public function savedModel($model) {

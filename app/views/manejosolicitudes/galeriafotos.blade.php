@@ -4,9 +4,9 @@
 <ul class="thumbnails gallery">
     @foreach($fotos as $foto)
     <li class="thumbnail">
-        <a title="Sample Image 1" style="background:url({{$foto->url}})"
+        <a title="{{$foto->description}}" style="background:url({{$foto->url}})"
            href="{{$foto->url}}">
-            <img alt="Sample Image 1" class="grayscale" src="{{$foto->url}}">
+            <img alt="{{$foto->description}}" class="grayscale" src="{{$foto->url}}">
         </a>
     </li>
     @endforeach

@@ -1,4 +1,4 @@
-{{Form::open(['url'=>'personas/crear/'.$beneficiario->id,'id'=>'form-familiares','class'=>'saveajax'])}}
+{{Form::open(['url'=>'personas/crear/'.$beneficiario->id,'id'=>'form-familiares','class'=>'saveajax','data-callback'=>'grupoFamiliar'])}}
 {{Form::hidden('id',$familiar->id,['id'=>'id'])}}
 @if($familiares->count()>0)
 {{HTML::simpleTable($familiares, 'Persona', ['pencil'=>'Editar', 'trash'=>'Eliminar'], 'personas/familiar/'.$beneficiario->id)}}

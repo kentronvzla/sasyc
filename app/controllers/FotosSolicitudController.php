@@ -31,22 +31,16 @@ class FotosSolicitudController extends BaseController {
     public function getDescargar($foto_id) {
         $foto = FotoSolicitud::findOrFail($foto_id);
         $path = storage_path('adjuntos' . DIRECTORY_SEPARATOR . $foto->solicitud_id . DIRECTORY_SEPARATOR . $foto->foto);
-        
-        $filetime = filemtime($path);
-        $etag = md5($filetime . $path);
-        $time = gmdate('r', $filetime);
-        $expires = gmdate('r', $filetime);
-        $length = filesize($path);
 
+        $length = filesize($path);
+        $file = new Symfony\Component\HttpFoundation\File\File($path);
+        
         $headers = array(
             'Content-Disposition' => 'inline; filename="' . $foto->foto . '"',
-            'Last-Modified' => $time,
-            'Cache-Control' => 'must-revalidate',
-            'Expires' => $expires,
-            'Pragma' => 'public',
-            'Etag' => $etag,
+            'Content-Type' => $file->getMimeType(),
+            'Content-Length' => $length,
         );
-        return Response::download($path, $foto->foto, $headers);
+        return Response::make(File::get($path), 200, $headers);
     }
 
 }

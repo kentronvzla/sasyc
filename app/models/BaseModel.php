@@ -223,6 +223,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         $v = $this->validator->make($this->attributes, $this->rules);
         $v->setAttributeNames($this->getPrettyFields());
         if ($v->passes()) {
+            $this->afterValidate();
             return true;
         }
         $this->setErrors($v->messages());
@@ -447,6 +448,10 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
 
     public function isDecimalField($field) {
         return in_array($field, static::getDecimalFields());
+    }
+
+    protected function afterValidate() {
+        
     }
 
     public abstract function getPrettyName();
