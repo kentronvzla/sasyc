@@ -111,7 +111,7 @@ class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTab
 
     public function getTableFields() {
         return [
-            'requerimiento->nombre', 'beneficiario->NOMBRE', 'cantidad', 'montofor', 'estatus'
+            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'montofor', 'estatus'
         ];
     }
 

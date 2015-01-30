@@ -14,7 +14,7 @@ class PresupuestosController extends BaseController {
             if ($beneficiario->hasErrors()) {
                 return Response::json(['errores' => $beneficiario->getErrors()], 400);
             }
-            $presupuesto->beneficiario_id = $beneficiario->NUMBENEF;
+            $presupuesto->beneficiario_id = $beneficiario->numbenef;
         }
         if ($presupuesto->save()) {
             $data['mensaje'] = 'Datos guardados correctamente';

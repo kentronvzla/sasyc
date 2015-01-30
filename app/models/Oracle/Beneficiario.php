@@ -16,16 +16,16 @@ namespace Oracle;
 class Beneficiario extends OracleBaseModel implements \SelectInterface {
 
     protected $sequence = "SQ_NUMBENEF";
-    protected $primaryKey = "NUMBENEF";
-    protected $fillable = ['NOMBRE', 'APPABREV', 'TIPOBENEF', 'LETRAID', 'NUMID', 'CLASE'];
+    protected $primaryKey = "numbenef";
+    protected $fillable = ['nombre', 'appabrev', 'tipobenef', 'letraid', 'numid', 'clase'];
     protected $table = "beneficiarios";
     protected $rules = [
-        'NOMBRE' => 'required',
-        'APPABREV' => 'required',
-        'TIPOBENEF' => 'required',
-        'LETRAID' => 'required',
-        'NUMID' => 'required|between:0,12',
-        'CLASE' => 'required',
+        'nombre' => 'required',
+        'appabrev' => 'required',
+        'tipobenef' => 'required',
+        'letraid' => 'required',
+        'numid' => 'required|between:0,12',
+        'clase' => 'required',
     ];
     public static $tipoBenef = [
         'P' => 'Público',
@@ -57,12 +57,12 @@ class Beneficiario extends OracleBaseModel implements \SelectInterface {
 
     protected function getPrettyFields() {
         return [
-            'NOMBRE' => 'Nombre del beneficiario',
-            'APPABREV' => 'Apellido abreviado',
-            'TIPOBENEF' => 'Tipo de beneficiario',
-            'LETRAID' => 'Tipo Identificacion',
-            'NUMID' => 'Cédula o RIF',
-            'CLASE' => 'Clase del beneficiario',
+            'nombre' => 'Nombre del beneficiario',
+            'appabrev' => 'Apellido abreviado',
+            'tipobenef' => 'Tipo de beneficiario',
+            'letraid' => 'Tipo Identificacion',
+            'numid' => 'Cédula o RIF',
+            'clase' => 'Clase del beneficiario',
         ];
     }
 
@@ -76,12 +76,12 @@ class Beneficiario extends OracleBaseModel implements \SelectInterface {
 
     public function validate($model = null) {
         if (parent::validate($model)) {
-            $check = static::where('LETRAID', '=', $this->LETRAID)->where('NUMID', '=', $this->NUMID);
-            if (isset($this->NUMBENEF)) {
-                $check->where('NUMBENEF', '<>', $this->NUMBENEF);
+            $check = static::where('letraid', '=', $this->LETRAID)->where('numid', '=', $this->numid);
+            if (isset($this->numbenef)) {
+                $check->where('numbenef', '<>', $this->numbenef);
             }
             if ($check->count() > 0) {
-                $this->addError('NUMID', 'Este beneficiario ya existe.');
+                $this->addError('numid', 'Este beneficiario ya existe.');
             }
         }
         return !$this->hasErrors();

@@ -32,14 +32,14 @@
         </div>
     </div>
     <div class="row">
-        {{Form::btInput($beneficiario_kerux,'NOMBRE',8)}}
-        {{Form::btInput($beneficiario_kerux,'APPABREV',4)}}
+        {{Form::btInput($beneficiario_kerux,'nombre',8)}}
+        {{Form::btInput($beneficiario_kerux,'appabrev',4)}}
     </div>
     <div class="row">
-        {{Form::btInput($beneficiario_kerux,'LETRAID',2)}}
-        {{Form::btInput($beneficiario_kerux,'NUMID',3)}}
-        {{Form::btInput($beneficiario_kerux,'TIPOBENEF',3,"select", [], Oracle\Beneficiario::$tipoBenef)}}
-        {{Form::btInput($beneficiario_kerux,'CLASE',4, "select", [], Oracle\Beneficiario::$clase)}}
+        {{Form::btInput($beneficiario_kerux,'letraid',2)}}
+        {{Form::btInput($beneficiario_kerux,'numid',3)}}
+        {{Form::btInput($beneficiario_kerux,'tipobenef',3,"select", [], Oracle\Beneficiario::$tipoBenef)}}
+        {{Form::btInput($beneficiario_kerux,'clase',4, "select", [], Oracle\Beneficiario::$clase)}}
     </div>
     <div class="row">
         <div class="col-md-2">
