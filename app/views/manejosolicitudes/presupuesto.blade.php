@@ -17,8 +17,36 @@
     {{Form::btInput($presupuesto,'cantidad',4)}}
 </div>
 <div class="row">
-    {{Form::btInput($presupuesto,'beneficiario_id',8)}}
+    {{Form::btInput($presupuesto,'beneficiario_id',5)}}
+    <div class="col-md-3">
+        <a id="btn-agregar-beneficiario" class="btn btn-danger">Agregar Beneficiario</a>
+    </div>
     {{Form::btInput($presupuesto,'monto',4)}}
+</div>
+<div id="agregar-beneficiario" style="display:none;">
+    {{Form::hidden('ind_creando_benef',0,['id'=>'ind_creando_benef'])}}
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <h4>Agregar beneficiario a KERUX</h4> 
+        </div>
+    </div>
+    <div class="row">
+        {{Form::btInput($beneficiario_kerux,'NOMBRE',8)}}
+        {{Form::btInput($beneficiario_kerux,'APPABREV',4)}}
+    </div>
+    <div class="row">
+        {{Form::btInput($beneficiario_kerux,'LETRAID',2)}}
+        {{Form::btInput($beneficiario_kerux,'NUMID',3)}}
+        {{Form::btInput($beneficiario_kerux,'TIPOBENEF',3,"select", [], Oracle\Beneficiario::$tipoBenef)}}
+        {{Form::btInput($beneficiario_kerux,'CLASE',4, "select", [], Oracle\Beneficiario::$clase)}}
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <a id="btn-seleccionar-beneficiario" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+    <hr>
 </div>
 @include('templates.bootstrap.submit')
 {{Form::close()}}

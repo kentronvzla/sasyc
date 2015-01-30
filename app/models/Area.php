@@ -77,7 +77,7 @@ class Area extends BaseModel {
 
     public static function getCombo($idTipoAyuda = "", array $condiciones = []) {
         $tipoAyuda = TipoAyuda::find((int) $idTipoAyuda);
-        $retorno = array('' => 'Area.');
+        $retorno = array('' => 'Seleccione.');
         if (is_object($tipoAyuda)) {
             $actividades = $tipoAyuda->areas;
             foreach ($actividades as $registro) {

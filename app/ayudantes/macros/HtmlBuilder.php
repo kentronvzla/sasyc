@@ -10,12 +10,13 @@ namespace Ayudantes\Macros;
 
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
-    function simpleTable($collection, $modelName, $botones = [], $urlDelete = "") {
+    function simpleTable($collection, $modelName, $botones = [], $urlDelete = "", $href = []) {
         $model = new $modelName();
         $data['prettyFields'] = $model->getPublicFields();
         $data['collection'] = $collection;
         $data['botones'] = $botones;
         $data['urlDelete'] = $urlDelete;
+        $data['href'] = $href;
         return \View::make('templates.bootstrap.simpleTable', $data);
     }
 

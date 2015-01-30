@@ -76,7 +76,7 @@ class Parroquia extends BaseModel {
 
     public static function getCombo($idMunicipio = "", array $condiciones = []) {
         $municipio = Municipio::find((int) $idMunicipio);
-        $retorno = array('' => 'Parroquia.');
+        $retorno = array('' => 'Seleccione.');
         if (is_object($municipio)) {
             $municipios = $municipio->parroquias;
             foreach ($municipios as $registro) {

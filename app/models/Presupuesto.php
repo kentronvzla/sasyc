@@ -74,6 +74,7 @@ class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTab
             'beneficiario_id' => 'Beneficiario',
             'cantidad' => 'Cantidad',
             'monto' => 'Monto',
+            'montofor' => 'Monto',
             'estatus' => 'Estatus',
             'id_doc_proc' => 'IdDoc proc',
             'id_sol_sum' => 'IdSol sum',
@@ -99,39 +100,39 @@ class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTab
     public function requerimiento() {
         return $this->belongsTo('Requerimiento');
     }
-   
+
     public function beneficiario() {
         return $this->belongsTo('Oracle\Beneficiario');
     }
-    
-    public function tipo_requerimiento_id(){
+
+    public function tipo_requerimiento_id() {
         return $this->requerimiento->id;
     }
 
     public function getTableFields() {
         return [
-            'requerimiento->nombre', 'cantidad', 'monto', 'estatus'
+            'requerimiento->nombre', 'beneficiario->NOMBRE', 'cantidad', 'montofor', 'estatus'
         ];
     }
-    
+
     public function getDefaultValues() {
         return [
             'estatus' => 'ELA'
         ];
     }
-    
+
     public static function getDecimalFields() {
         return [
             'monto'
         ];
     }
-    
+
     public function setMontoAttribute($value) {
         $this->attributes['monto'] = tf($value);
     }
-    
-    public function getMontoForAttribute($value) {
-        return tm($value);
+
+    public function getMontoForAttribute() {
+        return tm($this->monto);
     }
 
 }

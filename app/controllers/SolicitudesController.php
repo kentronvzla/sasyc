@@ -49,6 +49,7 @@ class SolicitudesController extends BaseController {
         $data['parentesco'] = $data['beneficiario']->getParentesco($data['solicitante']->id);
         $data['foto'] = new FotoSolicitud();
         $data['fotos'] = $data['solicitud']->fotos;
+        $data['beneficiario_kerux'] = new Oracle\Beneficiario();
         if (Request::ajax()) {
             return Response::json($data);
         }

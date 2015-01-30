@@ -45,7 +45,9 @@ class CreateSolicitudesTable extends Migration {
             $table->integer('tipo_vivienda_id', false, true)->nullable();
             $table->integer('tenencia_id', false, true)->nullable();
             $table->string('informe_social', 4000)->nullable();
-            $table->decimal('total_ingresos', 14, 2)->nullable();           
+            $table->decimal('total_ingresos', 14, 2)->nullable();
+            $table->text('beneficiario_json')->nullable();
+            $table->text('solicitante_json')->nullable();
             $table->integer('version')->default(0)->nullable();
             $table->timestamps();
         });

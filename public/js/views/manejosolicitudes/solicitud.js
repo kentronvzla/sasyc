@@ -8,9 +8,11 @@ $(document).ajaxComplete(function () {
     $('#form-familiares').find("#tipo_nacionalidad_id, #ci").unbind('change');
     $('#form-familiares').find("#tipo_nacionalidad_id, #ci").on('change', buscarPersona);
     $('#gallery').photobox('a');
+    beneficiarioKerux();
 });
 
 $(document).ready(function () {
+    beneficiarioKerux();
     $('input[id=fecha_nacimiento]').each(function () {
         $(this).change(calcularEdad);
     });
@@ -132,5 +134,27 @@ function grupoFamiliar(data) {
     var solicitud_id = $('#form-solicitud').find('#id').val();
     $.get(baseUrl + 'solicitudes/modificar/' + solicitud_id, function (data) {
         $('#total_ingresos').autoNumeric('set', data.solicitud.total_ingresos);
+    });
+}
+
+function beneficiarioKerux() {
+    $('#agregar-beneficiario').find('input, select').removeAttr('required');
+    $('#btn-agregar-beneficiario').click(function () {
+        var parent = $(this).closest('form');
+        $(parent).find('#beneficiario_id').removeAttr('required');
+        $(parent).find('#beneficiario_id').hide();
+        $(this).hide();
+        $('#agregar-beneficiario').show();
+        $('#agregar-beneficiario').find('input, select').attr('required', 'required');
+        $('#ind_creando_benef').val(1);
+    });
+    $('#btn-seleccionar-beneficiario').click(function () {
+        var parent = $(this).closest('form');
+        $(parent).find('#beneficiario_id').attr('required', 'required');
+        $(parent).find('#beneficiario_id').show();
+        $('#agregar-beneficiario').find('input, select').removeAttr('required');
+        $('#btn-agregar-beneficiario').show();
+        $('#agregar-beneficiario').hide();
+        $('#ind_creando_benef').val(0);
     });
 }

@@ -135,8 +135,8 @@ function docReady() {
     });
 
     /*$('select.has-select2').select2({
-        language: "es"
-    });*/
+     language: "es"
+     });*/
     //select list
     $('select[data-child]').unbind('change');
     $('select[data-child]').change(function () {
@@ -290,7 +290,12 @@ function docReady() {
         e.preventDefault();
     });
     $('button.glyphicon-pencil, a.glyphicon-pencil').unbind('click');
-    $('button.glyphicon-pencil, a.glyphicon-pencil').click(function () {
+    $('button.glyphicon-pencil, a.glyphicon-pencil').click(function (evt) {
+        if ($(this).attr('href') == undefined) {
+            evt.preventDefault();
+        } else {
+            return;
+        }
         var id = $(this).attr('data-id');
         var url = $(this).attr('data-url');
         var div = $(this).closest('.panel-body');
@@ -302,7 +307,12 @@ function docReady() {
         });
     });
     $('button.glyphicon-trash, a.glyphicon-trash').unbind('click');
-    $('button.glyphicon-trash, a.glyphicon-trash').click(function () {
+    $('button.glyphicon-trash, a.glyphicon-trash').click(function (evt) {
+        if ($(this).attr('href') == undefined) {
+            evt.preventDefault();
+        } else {
+            return;
+        }
         var btn = this;
         confirmarIntencion("¿Esta seguro que desea eliminar el elemento seleccionado?", function () {
             var id = $(btn).attr('data-id');

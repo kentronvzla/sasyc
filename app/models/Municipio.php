@@ -77,7 +77,7 @@ class Municipio extends BaseModel {
 
     public static function getCombo($idEstado = "", array $condiciones = []) {
         $estado = Estado::find((int) $idEstado);
-        $retorno = array('' => 'Municipio.');
+        $retorno = array('' => 'Seleccione.');
         if (is_object($estado)) {
             $municipios = $estado->municipios;
             foreach ($municipios as $registro) {

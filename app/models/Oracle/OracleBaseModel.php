@@ -1,4 +1,6 @@
-<?php namespace Oracle;
+<?php
+
+namespace Oracle;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,10 +16,12 @@
 abstract class OracleBaseModel extends \BaseModel {
 
     protected $sequence = "";
+    public $timestamps = false;
     protected $connection = 'oracle';
-    
+
     public function creatingModel($model) {
-        $sequence = DB::connection($this->connection)->getSequence();
+        unset($this->id);
+        $sequence = \DB::connection($this->connection)->getSequence();
         $model->{$model->primaryKey} = $sequence->nextValue($model->sequence);
         return true;
     }
