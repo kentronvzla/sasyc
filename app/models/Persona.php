@@ -339,4 +339,9 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         }
     }
 
+    public function getFamiliares() {
+        return $this->familiaresBeneficiario;
+        return $this->familiaresBeneficiario->merge($this->familiaresSolicitante);
+    }
+
 }

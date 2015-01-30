@@ -7,8 +7,6 @@ $(document).ajaxComplete(function () {
     $('#form-bitacora').find('input,select').removeAttr('required');
     $('#form-familiares').find("#tipo_nacionalidad_id, #ci").unbind('change');
     $('#form-familiares').find("#tipo_nacionalidad_id, #ci").on('change', buscarPersona);
-    
-    $('#gallery').photobox('destroy');
     $('#gallery').photobox('a');
 });
 

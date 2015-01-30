@@ -134,9 +134,9 @@ function docReady() {
         $(this).datepicker('hide');
     });
 
-    //chosen - improves select
-    $('[data-rel="chosen"],[rel="chosen"]').chosen();
-
+    /*$('select.has-select2').select2({
+        language: "es"
+    });*/
     //select list
     $('select[data-child]').unbind('change');
     $('select[data-child]').change(function () {

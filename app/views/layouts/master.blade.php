@@ -75,7 +75,6 @@
         {{HTML::script('bower_components/bootstrap/dist/js/bootstrap.min.js')}}
         {{HTML::script('js/jquery.cookie.min.js')}}
         {{HTML::script('bower_components/moment/min/moment.min.js')}}
-        {{HTML::script('bower_components/chosen/chosen.jquery.min.js')}}
         {{HTML::script('bower_components/colorbox/jquery.colorbox-min.js')}}
         {{HTML::script('js/jquery.noty.min.js')}}
         {{HTML::script('js/jquery.raty.min.js')}}
@@ -92,12 +91,12 @@
         {{HTML::script('js/datepicker.min.js')}}
         {{HTML::script('js/ckeditor/ckeditor.js')}}
 
-        {{HTML::style('bower_components/chosen/chosen.min.css')}}
-
         {{HTML::script('js/charisma.js')}}
         {{HTML::style('css/photobox.min.css')}}
         {{HTML::style('css/photobox_styles.css')}}
         {{HTML::script('js/jquery.photobox.min.js')}}
+        {{HTML::style('css/select2.min.css')}}
+        {{HTML::script('js/select2.min.js')}}
         <div class="modal fade" id="modalConfirmacion">
             <div class="modal-dialog">
                 <div class="modal-content">

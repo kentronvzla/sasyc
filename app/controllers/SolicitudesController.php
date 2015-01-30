@@ -38,7 +38,7 @@ class SolicitudesController extends BaseController {
         }
         $data['beneficiario'] = Persona::findOrFail($data['solicitud']->persona_beneficiario_id);
         $data['solicitante'] = Persona::findOrNew($data['solicitud']->persona_solicitante_id);
-        $data['familiares'] = $data['beneficiario']->familiaresBeneficiario;
+        $data['familiares'] = $data['beneficiario']->getFamiliares();
         $data['familiar'] = new Persona();
         $data['recaudo'] = new RecaudoSolicitud();
         $data['recaudos'] = $data['solicitud']->recaudosSolicitud;
