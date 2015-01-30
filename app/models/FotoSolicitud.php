@@ -33,7 +33,7 @@ class FotoSolicitud extends BaseModel {
     protected $rules = [
         'solicitud_id' => 'required|integer',
         'descripcion' => 'required',
-        'foto' => 'required',
+        'foto' => '',
         'ind_reporte' => 'required',
     ];
 
@@ -81,6 +81,11 @@ class FotoSolicitud extends BaseModel {
 
     public function getUrlAttribute() {
         return url('fotossolicitud/descargar/' . $this->id);
+    }
+
+    public function deletedModel($model) {
+        $solicitud_id = $model->solicitud_id;
+        File::delete(storage_path('adjuntos/' . $solicitud_id) . '/' . $model->foto);
     }
 
 }

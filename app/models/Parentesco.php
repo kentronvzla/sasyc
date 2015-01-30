@@ -22,7 +22,7 @@
  */
 class Parentesco extends BaseModel {
 
-    protected $table = "parentesco";
+    protected $table = "parentescos";
 
     /**
      * Campos que se pueden llenar mediante el uso de mass-assignment
@@ -30,7 +30,7 @@ class Parentesco extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre',
+        'nombre', 'inverso'
     ];
 
     /**
@@ -41,18 +41,19 @@ class Parentesco extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'nombre'=>'required', 
-
+        'nombre' => 'required|max:100',
+        'inverso' => 'required|max:100'
     ];
 
     protected function getPrettyFields() {
         return [
             'nombre' => 'Nombre',
+            'inverso' => 'Parentesco inverso',
         ];
     }
 
     public function getPrettyName() {
-        return "parentesco";
+        return "Parentescos";
     }
 
 }

@@ -133,8 +133,10 @@ function docReady() {
     }).on('changeDate', function (ev) {
         $(this).datepicker('hide');
     });
+
     //chosen - improves select
     $('[data-rel="chosen"],[rel="chosen"]').chosen();
+
     //select list
     $('select[data-child]').unbind('change');
     $('select[data-child]').change(function () {
@@ -178,7 +180,7 @@ function docReady() {
     $('.raty').raty({
         score: 4 //default stars
     });
-    
+
     $('table.jqueryTable').each(function () {
         if ($(this).attr('data-esdatatable') == undefined) {
             $(this).attr('data-esdatatable', true);
@@ -287,8 +289,8 @@ function docReady() {
         });
         e.preventDefault();
     });
-    $('a.glyphicon-pencil').unbind('click');
-    $('a.glyphicon-pencil').click(function () {
+    $('button.glyphicon-pencil, a.glyphicon-pencil').unbind('click');
+    $('button.glyphicon-pencil, a.glyphicon-pencil').click(function () {
         var id = $(this).attr('data-id');
         var url = $(this).attr('data-url');
         var div = $(this).closest('.panel-body');
@@ -299,8 +301,8 @@ function docReady() {
             }
         });
     });
-    $('a.glyphicon-trash').unbind('click');
-    $('a.glyphicon-trash').click(function () {
+    $('button.glyphicon-trash, a.glyphicon-trash').unbind('click');
+    $('button.glyphicon-trash, a.glyphicon-trash').click(function () {
         var btn = this;
         confirmarIntencion("¿Esta seguro que desea eliminar el elemento seleccionado?", function () {
             var id = $(btn).attr('data-id');
@@ -387,7 +389,7 @@ function habilitaCampo(disparador, boton, idPregunta) {
 }
 
 function mostrarOcultar(ocultar, div, parent) {
-    if(parent==undefined){
+    if (parent == undefined) {
         parent = document;
     }
     if (ocultar) {
@@ -410,7 +412,7 @@ $.fn.clearForm = function () {
             this.checked = false;
         else if (tag == 'select')
             $(this).val("");
-        else if(type == 'hidden' && $(this).attr('name')!='solicitud_id')
+        else if (type == 'hidden' && $(this).attr('name') != 'solicitud_id')
             $(this).val("");
     });
 };

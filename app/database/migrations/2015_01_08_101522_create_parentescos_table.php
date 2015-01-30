@@ -11,9 +11,10 @@ class CreateParentescosTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('parentesco', function(Blueprint $table) {
+        Schema::create('parentescos', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre', 200);
+            $table->string('nombre', 100);
+            $table->string('inverso', 100);
             $table->integer('version')->default(0);
             $table->timestamps();
         });
@@ -25,7 +26,7 @@ class CreateParentescosTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('parentesco');
+        Schema::drop('parentescos');
     }
 
 }

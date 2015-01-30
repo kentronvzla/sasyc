@@ -6,6 +6,15 @@ class FotosSolicitudController extends BaseController {
         parent::__construct();
     }
 
+    public function deleteFoto() {
+        $foto = FotoSolicitud::findOrFail(Input::get('id'));
+        $solicitud_id = $foto->solicitud_id;
+        $foto->delete();
+        $data['mensaje'] = "Se eliminó la foto correctamente";
+        $data['vista'] = $this->getModificar(null, $solicitud_id)->render();
+        return Response::json($data);
+    }
+
     public function postModificar() {
         $fotoSolicitud = FotoSolicitud::findOrNew(Input::get('id'));
         $fotoSolicitud->fill(Input::all());
@@ -24,6 +33,7 @@ class FotosSolicitudController extends BaseController {
             $data['fotos'] = $data['solicitud']->fotos;
         } else {
             $data['fotos'] = $data['foto']->solicitud->fotos;
+            $data['solicitud'] = $data['foto']->solicitud;
         }
         return View::make('manejosolicitudes.galeriafotos', $data);
     }
@@ -34,7 +44,7 @@ class FotosSolicitudController extends BaseController {
 
         $length = filesize($path);
         $file = new Symfony\Component\HttpFoundation\File\File($path);
-        
+
         $headers = array(
             'Content-Disposition' => 'inline; filename="' . $foto->foto . '"',
             'Content-Type' => $file->getMimeType(),

@@ -9,14 +9,11 @@
         <!--CSS-->
         {{HTML::style('css/bootstrap-united.min.css')}}
         {{HTML::style('css/charisma-app.css')}}
-        {{HTML::style('bower_components/fullcalendar/dist/fullcalendar.min.css')}}
-        {{HTML::style('bower_components/fullcalendar/dist/fullcalendar.print.min.css',array('media'=>'print'))}}
         {{HTML::style('bower_components/colorbox/example3/colorbox.min.css')}}
         {{HTML::style('css/jquery.noty.min.css')}}
         {{HTML::style('css/noty_theme_default.min.css')}}
         {{HTML::style('css/elfinder.min.css')}}
         {{HTML::style('css/elfinder.theme.min.css')}}
-        {{HTML::style('css/uploadify.min.css')}}
         {{HTML::style('css/estilo_sasyc.css')}}
 
         <!--JS-->
@@ -78,12 +75,10 @@
         {{HTML::script('bower_components/bootstrap/dist/js/bootstrap.min.js')}}
         {{HTML::script('js/jquery.cookie.min.js')}}
         {{HTML::script('bower_components/moment/min/moment.min.js')}}
-        {{HTML::script('bower_components/fullcalendar/dist/fullcalendar.min.js')}}
         {{HTML::script('bower_components/chosen/chosen.jquery.min.js')}}
         {{HTML::script('bower_components/colorbox/jquery.colorbox-min.js')}}
         {{HTML::script('js/jquery.noty.min.js')}}
         {{HTML::script('js/jquery.raty.min.js')}}
-        {{HTML::script('js/jquery.uploadify-3.1.min.js')}}
         {{HTML::script('js/jquery.history.min.js')}}
         {{HTML::script('js/jquery.autoNumeric.min.js')}}
 
@@ -100,6 +95,9 @@
         {{HTML::style('bower_components/chosen/chosen.min.css')}}
 
         {{HTML::script('js/charisma.js')}}
+        {{HTML::style('css/photobox.min.css')}}
+        {{HTML::style('css/photobox_styles.css')}}
+        {{HTML::script('js/jquery.photobox.min.js')}}
         <div class="modal fade" id="modalConfirmacion">
             <div class="modal-dialog">
                 <div class="modal-content">

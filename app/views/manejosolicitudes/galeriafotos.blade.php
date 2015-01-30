@@ -1,17 +1,22 @@
 {{Form::open(['url'=>'fotossolicitud/modificar','id'=>'form-galeria-fotos','class'=>'saveajax','files'=>true])}}
 {{Form::hidden('id',$foto->id)}}
 {{Form::hidden('solicitud_id',$solicitud->id)}}
-<ul class="thumbnails gallery">
-    @foreach($fotos as $foto)
-    <li class="thumbnail">
-        <a title="{{$foto->description}}" style="background:url({{$foto->url}})"
-           href="{{$foto->url}}">
-            <img alt="{{$foto->description}}" class="grayscale" src="{{$foto->url}}">
-        </a>
-    </li>
-    @endforeach
-</ul>
 <div class="row">
+    <ul id='gallery'>
+        @foreach($fotos as $ft)
+        <li class="loaded">
+            <a href="{{$ft->url}}">
+                <img src="{{$ft->url}}" title="{{$ft->descripcion}}">
+            </a>
+            <div>
+                <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-pencil" title="Editar" data-id="{{$ft->id}}" data-url="fotossolicitud/modificar"></button>
+                <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-trash" title="Eliminar" data-id="{{$ft->id}}" data-url="fotossolicitud/foto"></button>
+            </div>
+        </li>
+        @endforeach
+    </ul>
+</div>
+<div class="row paddingFila">
     {{Form::btInput($foto,'descripcion',12)}}
 </div>
 <div class="row">
