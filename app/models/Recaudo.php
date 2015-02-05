@@ -28,7 +28,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereUpdatedAt($value)
  */
-class Recaudo extends BaseModel {
+class Recaudo extends BaseModel implements SimpleTableInterface {
 
     protected $table = "recaudos";
 
@@ -66,7 +66,7 @@ class Recaudo extends BaseModel {
     }
 
     public function getPrettyName() {
-        return "recaudos";
+        return "Recaudo";
     }
 
 }

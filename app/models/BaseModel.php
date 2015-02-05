@@ -431,7 +431,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     }
 
     public function getTableFields() {
-        return [];
+        return $this->fillable;
     }
 
     public static function getDecimalFields() {
@@ -452,6 +452,10 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
 
     protected function afterValidate() {
         
+    }
+    
+    public function getFillable() {
+        return $this->fillable;
     }
 
     public abstract function getPrettyName();

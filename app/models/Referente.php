@@ -22,7 +22,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Referente whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Referente whereUpdatedAt($value)
  */
-class Referente extends BaseModel{
+class Referente extends BaseModel implements SimpleTableInterface {
 
     protected $table = "referentes";
 
@@ -55,10 +55,6 @@ class Referente extends BaseModel{
     }
 
     public function getPrettyName() {
-        return "referentes";
-    }
-    
-    public function test() {
-        return $this->belongsTo('Recaudo');
+        return "Referente";
     }
 }

@@ -22,7 +22,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereUpdatedAt($value)
  */
-class Organismo extends BaseModel implements SelectInterface{
+class Organismo extends BaseModel implements SelectInterface, SimpleTableInterface{
 
     protected $table = "organismos";
 
@@ -55,7 +55,7 @@ class Organismo extends BaseModel implements SelectInterface{
     }
 
     public function getPrettyName() {
-        return "organismos";
+        return "Organismo";
     }
     
     public static function getCampoCombo() {

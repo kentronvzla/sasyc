@@ -72,7 +72,7 @@ class Requerimiento extends BaseModel {
     }
 
     public function getPrettyName() {
-        return "requerimientos";
+        return "Requerimiento";
     }
 
     /**
@@ -89,6 +89,12 @@ class Requerimiento extends BaseModel {
      */
     public function tipoAyuda() {
         return $this->belongsTo('TipoAyuda');
+    }
+
+    public function getTableFields() {
+        return [
+            'nombre', 'tipoRequerimiento->nombre', 'tipoAyuda->nombre'
+        ];
     }
 
 }

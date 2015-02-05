@@ -20,7 +20,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereUpdatedAt($value)
  */
-class TipoVivienda extends BaseModel {
+class TipoVivienda extends BaseModel implements SimpleTableInterface {
 
     protected $table = "tipo_viviendas";
 
@@ -30,7 +30,7 @@ class TipoVivienda extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre', 
+        'nombre',
     ];
 
     /**
@@ -40,21 +40,16 @@ class TipoVivienda extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'nombre'=>'required', 
-
+        'nombre' => 'required',
     ];
-    
+
     protected function getPrettyFields() {
         return [
-            'nombre'=>'nombre', 
-
+            'nombre' => 'Tipo de vivienda',
         ];
     }
 
     public function getPrettyName() {
-        return "tipo_viviendas";
+        return "Tipo de vivienda";
     }
-
-    
-
 }

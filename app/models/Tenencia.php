@@ -46,13 +46,12 @@ class Tenencia extends BaseModel {
     
     protected function getPrettyFields() {
         return [
-            'nombre'=>'nombre', 
-
+            'nombre'=>'Tenencia', 
         ];
     }
 
     public function getPrettyName() {
-        return "tenencias";
+        return "Tenencia";
     }
 
     

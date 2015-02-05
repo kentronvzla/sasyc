@@ -14,7 +14,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Configuracion whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Configuracion whereUpdatedAt($value)
  */
-class Configuracion extends BaseModel {
+class Configuracion extends BaseModel implements SimpleTableInterface {
 
     protected $table = "configuraciones";
 
@@ -45,7 +45,10 @@ class Configuracion extends BaseModel {
      * @return array
      */
     protected function getPrettyFields() {
-        return array();
+        return [
+            'variable' => 'Variable',
+            'valor' => 'Valor',
+        ];
     }
 
     /**
@@ -54,7 +57,7 @@ class Configuracion extends BaseModel {
      * @return string
      */
     public function getPrettyName() {
-        return "Tabla de configuracion";
+        return "Configuraciones";
     }
 
 }

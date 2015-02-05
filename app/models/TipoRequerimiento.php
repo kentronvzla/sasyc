@@ -20,7 +20,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereUpdatedAt($value)
  */
-class TipoRequerimiento extends BaseModel {
+class TipoRequerimiento extends BaseModel implements SimpleTableInterface {
 
     protected $table = "tipo_requerimientos";
 
@@ -46,13 +46,13 @@ class TipoRequerimiento extends BaseModel {
     
     protected function getPrettyFields() {
         return [
-            'nombre'=>'nombre', 
+            'nombre'=>'Tipo de requerimiento', 
 
         ];
     }
 
     public function getPrettyName() {
-        return "tipo_requerimientos";
+        return "Tipo de requerimiento";
     }
 
     

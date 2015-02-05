@@ -20,7 +20,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereUpdatedAt($value)
  */
-class TipoNacionalidad extends BaseModel {
+class TipoNacionalidad extends BaseModel implements SimpleTableInterface {
 
     protected $table = "tipo_nacionalidades";
 
@@ -46,13 +46,13 @@ class TipoNacionalidad extends BaseModel {
     
     protected function getPrettyFields() {
         return [
-            'nombre'=>'nombre', 
+            'nombre'=>'Nacionalidad', 
 
         ];
     }
 
     public function getPrettyName() {
-        return "tipo_nacionalidades";
+        return "Nacionalidad";
     }
 
     

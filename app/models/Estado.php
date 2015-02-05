@@ -20,7 +20,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Estado whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Estado whereUpdatedAt($value)
  */
-class Estado extends BaseModel {
+class Estado extends BaseModel implements SimpleTableInterface{
 
     protected $table = "estados";
 
@@ -46,12 +46,12 @@ class Estado extends BaseModel {
 
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
+            'nombre' => 'Estado',
         ];
     }
 
     public function getPrettyName() {
-        return "estados";
+        return "Estados";
     }
 
     public function municipios() {

@@ -26,7 +26,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereUpdatedAt($value)
  */
-class Parroquia extends BaseModel {
+class Parroquia extends BaseModel implements SimpleTableInterface {
 
     protected $table = "parroquias";
 
@@ -54,12 +54,12 @@ class Parroquia extends BaseModel {
     protected function getPrettyFields() {
         return [
             'municipio_id' => 'Municipio',
-            'nombre' => 'Nombre',
+            'nombre' => 'Parroquia',
         ];
     }
 
     public function getPrettyName() {
-        return "parroquias";
+        return "Parroquias";
     }
 
     /**
@@ -69,7 +69,7 @@ class Parroquia extends BaseModel {
     public function municipio() {
         return $this->belongsTo('Municipio');
     }
-    
+
     public function getParent() {
         return "municipio_id";
     }
@@ -86,6 +86,12 @@ class Parroquia extends BaseModel {
             $retorno = array('' => 'Seleccione primero un municipio');
         }
         return $retorno;
+    }
+
+    public function getTableFields() {
+        return [
+            'municipio->estado->nombre', 'municipio->nombre', 'nombre'
+        ];
     }
 
 }

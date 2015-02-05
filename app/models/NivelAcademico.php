@@ -22,7 +22,7 @@
  * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereUpdatedAt($value)
  */
-class NivelAcademico extends BaseModel {
+class NivelAcademico extends BaseModel implements SimpleTableInterface {
 
     protected $table = "niveles_academicos";
 
@@ -42,9 +42,8 @@ class NivelAcademico extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'nombre'=>'required', 
-'orden'=>'required|integer', 
-
+        'nombre' => 'required',
+        'orden' => 'required|integer',
     ];
 
     protected function getPrettyFields() {
@@ -55,7 +54,7 @@ class NivelAcademico extends BaseModel {
     }
 
     public function getPrettyName() {
-        return "niveles_academicos";
+        return "Nivel Académico";
     }
 
 }

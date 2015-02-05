@@ -1,0 +1,18 @@
+@extends('administracion.principal')
+@section('contenido2')
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        @include('templates.tituloBarra',array('obj'=>$@var_name@, 'titulo'=>'@pretty_name@'))
+    </div>
+    <div class="panel-body">
+        @include('templates.errores')
+        {{Form::open(array('url'=>'administracion/tablas/@collection_name@'))}}
+        <div class="row">
+            {{Form::hidden('id',$@var_name@->id)}}
+            @fields@
+        </div>
+        {{Form::submitBt()}}
+        {{Form::close()}}
+    </div>
+</div>
+@stop

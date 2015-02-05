@@ -14,3 +14,5 @@
 Artisan::add(new EmpaquetarApp());
 Artisan::add(new CambiarAmbiente());
 Artisan::add(new GenerarModelos());
+Artisan::add(new GenerarControladores());
+Artisan::add(new GenerarVistas());

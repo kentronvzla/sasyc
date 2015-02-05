@@ -1,0 +1,10 @@
+<?php namespace Administracion\@namespace@;
+
+/**
+ * Description of @class_name@
+ *
+ * @author Nadin Yamani
+ */
+class @class_name@ extends \Administracion\TablasBaseController {
+
+}

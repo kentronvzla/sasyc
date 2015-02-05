@@ -86,8 +86,8 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         return \View::make('templates.bootstrap.input', $data);
     }
 
-    function submitBt() {
-        return \View::make('templates.bootstrap.submit');
+    function submitBt($btn_type = "btn-volver") {
+        return \View::make('templates.bootstrap.submit', ['btn_type' => $btn_type]);
     }
 
 }
