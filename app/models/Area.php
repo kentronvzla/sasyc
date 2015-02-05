@@ -60,7 +60,7 @@ class Area extends BaseModel implements SimpleTableInterface {
     }
 
     public function getPrettyName() {
-        return "Areas";
+        return "Área";
     }
 
     /**

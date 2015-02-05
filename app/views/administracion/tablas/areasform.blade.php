@@ -2,7 +2,7 @@
 @section('contenido2')
 <div class="panel panel-danger">
     <div class="panel-heading">
-        @include('templates.tituloBarra',array('obj'=>$area, 'titulo'=>'Areas'))
+        @include('templates.tituloBarra',array('obj'=>$area, 'titulo'=>'area'))
     </div>
     <div class="panel-body">
         @include('templates.errores')
