@@ -1,4 +1,6 @@
-<?php namespace Administracion;
+<?php
+
+namespace Administracion;
 
 abstract class TablasBaseController extends \BaseController {
 
@@ -21,6 +23,9 @@ abstract class TablasBaseController extends \BaseController {
             $data[$this->getCollectionName()] = $this->executeFunction('all');
         } else {
             $data[$this->getCollectionName()] = $this->executeFunction('with', static::$eagerLoading[0]);
+            if (isset(static::$eagerLoading[1])) {
+                $data[$this->getCollectionName()] = $data[$this->getCollectionName()]->with(static::$eagerLoading[1]);
+            }
             $data[$this->getCollectionName()] = $data[$this->getCollectionName()]->get();
         }
         return \View::make($this->getFolder(), $data);

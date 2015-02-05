@@ -21,7 +21,7 @@
  * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\Persona[] $personas
  */
-class EstadoCivil extends BaseModel {
+class EstadoCivil extends BaseModel implements SimpleTableInterface{
 
     protected $table = "estados_civiles";
 
@@ -54,7 +54,7 @@ class EstadoCivil extends BaseModel {
     }
 
     public function getPrettyName() {
-        return "estados_civiles";
+        return "Estado Civil";
     }
 
     public function personas(){

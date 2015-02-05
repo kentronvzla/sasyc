@@ -23,7 +23,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Municipio whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Municipio whereUpdatedAt($value)
  */
-class Municipio extends BaseModel {
+class Municipio extends BaseModel implements SimpleTableInterface {
 
     protected $table = "municipios";
 
@@ -51,12 +51,12 @@ class Municipio extends BaseModel {
     protected function getPrettyFields() {
         return [
             'estado_id' => 'Estado',
-            'nombre' => 'Nombre',
+            'nombre' => 'Municipio',
         ];
     }
 
     public function getPrettyName() {
-        return "municipios";
+        return "Municipios";
     }
 
     /**
@@ -87,6 +87,12 @@ class Municipio extends BaseModel {
             $retorno = array('' => 'Seleccione primero un estado');
         }
         return $retorno;
+    }
+
+    public function getTableFields() {
+        return [
+            'estado->nombre', 'nombre'
+        ];
     }
 
 }

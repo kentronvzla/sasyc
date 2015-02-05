@@ -120,6 +120,9 @@ class ActualizacionesController extends BaseController {
     }
 
     public static function verificarActualizaciones() {
+        if(Configuracion::get('ambiente')=="DESARROLLO"){
+            return;
+        }
         try {
             $mensaje = "";
             $version = AyudanteCurl::getUltimaVersion();

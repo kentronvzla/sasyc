@@ -22,7 +22,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereUpdatedAt($value)
  */
-class TipoAyuda extends BaseModel {
+class TipoAyuda extends BaseModel implements SimpleTableInterface {
 
     protected $table = "tipo_ayudas";
 
@@ -49,13 +49,13 @@ class TipoAyuda extends BaseModel {
 
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
+            'nombre' => 'Tipo de ayuda',
             'cod_acc_int' => 'Acción interna',
         ];
     }
 
     public function getPrettyName() {
-        return "tipo_ayudas";
+        return "Tipos de ayuda";
     }
 
     public function areas() {

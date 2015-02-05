@@ -15,6 +15,8 @@ namespace Administracion\Tablas;
  */
 class MunicipiosController extends \Administracion\TablasBaseController {
 
+    protected static $eagerLoading = ['estado'];
+
     public function getParroquias($id) {
         $parroquias = \Parroquia::getCombo($id);
         return \Response::json($parroquias);

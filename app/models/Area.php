@@ -25,7 +25,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Area whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Area whereUpdatedAt($value)
  */
-class Area extends BaseModel {
+class Area extends BaseModel implements SimpleTableInterface {
 
     protected $table = "areas";
 
@@ -60,7 +60,7 @@ class Area extends BaseModel {
     }
 
     public function getPrettyName() {
-        return "areas";
+        return "Areas";
     }
 
     /**
@@ -87,6 +87,12 @@ class Area extends BaseModel {
             $retorno = array('' => 'Seleccione primero un tipo de ayuda');
         }
         return $retorno;
+    }
+
+    public function getTableFields() {
+        return [
+            'nombre', 'descripcion', 'tipoAyuda->nombre'
+        ];
     }
 
 }

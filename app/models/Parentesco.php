@@ -20,7 +20,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereUpdatedAt($value)
  */
-class Parentesco extends BaseModel {
+class Parentesco extends BaseModel implements SimpleTableInterface {
 
     protected $table = "parentescos";
 
@@ -53,7 +53,7 @@ class Parentesco extends BaseModel {
     }
 
     public function getPrettyName() {
-        return "Parentescos";
+        return "Parentesco";
     }
 
 }

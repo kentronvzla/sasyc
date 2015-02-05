@@ -45,7 +45,7 @@ Log::useFiles(storage_path() . '/logs/laravel.log');
 
 App::error(function(Exception $exception, $code) {
     DB::rollback();
-    DB::connection('oracle')->rollback();
+    //DB::connection('oracle')->rollback();
     Log::error($exception);
 });
 

@@ -1,37 +1,5 @@
 <?php
 
-/**
- * Usuario
- *
- * @property integer $id
- * @property string $email
- * @property string $password
- * @property string $nombre
- * @property boolean $activated
- * @property string $activation_code
- * @property string $activated_at
- * @property string $last_login
- * @property string $persist_code
- * @property string $reset_password_code
- * @property integer $IDCANDIDATO
- * @property integer $VERSION
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario wherePassword($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereNombre($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereActivated($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereActivationCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereActivatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereLastLogin($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario wherePersistCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereResetPasswordCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereIDCANDIDATO($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereVERSION($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Usuario whereUpdatedAt($value)
- */
 class Usuario extends BaseModel implements SimpleTableInterface {
 
     protected $primaryKey = "id";
