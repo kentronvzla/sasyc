@@ -2,7 +2,7 @@
 @section('contenido2')
 <div class="panel panel-danger">
     <div class="panel-heading">
-        @include('templates.tituloBarra',array('obj'=>$area, 'titulo'=>'Areas'))
+        @include('templates.tituloBarra',array('obj'=>$area, 'titulo'=>'area'))
     </div>
     <div class="panel-body">
         @include('templates.errores')
@@ -12,7 +12,6 @@
             {{Form::btInput($area, 'nombre', 6)}}
 {{Form::btInput($area, 'descripcion', 6)}}
 {{Form::btInput($area, 'tipo_ayuda_id', 6)}}
-
         </div>
         {{Form::submitBt()}}
         {{Form::close()}}

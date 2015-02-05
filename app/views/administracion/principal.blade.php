@@ -68,6 +68,9 @@
             <a href="{{url('administracion/tablas/tipoViviendas')}}">
                 <li class="list-group-item">Tipos de Viviendas</li>
             </a>
+            <a href="{{url('administracion/tablas/departamentos')}}">
+                <li class="list-group-item">Departamentos</li>
+            </a>
         </ul>
     </div>
 </div>

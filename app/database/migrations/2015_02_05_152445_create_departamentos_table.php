@@ -13,9 +13,13 @@ class CreateDepartamentosTable extends Migration {
     public function up() {
         Schema::create('departamentos', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('usuario_id', false, true);
+            $table->integer('supervisor_id', false, true);
             $table->string('nombre', 100);
             $table->timestamps();
+        });
+
+        Schema::table('users', function(Blueprint $table) {
+            $table->integer('departamento_id', false, true)->nullable();
         });
     }
 
@@ -26,6 +30,9 @@ class CreateDepartamentosTable extends Migration {
      */
     public function down() {
         Schema::drop('departamentos');
+        Schema::table('users', function(Blueprint $table) {
+            $table->dropColumn('departamento_id');
+        });
     }
 
 }
