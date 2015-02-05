@@ -52,7 +52,22 @@ class GenerarVistas extends Command {
 
                     $basePath = app_path('vistas_generadas');
                     $this->info("Generando vista: " . $collectionName);
-                    File::put($basePath . '/' . $collectionName . '.blade.php', $baseText);
+                    //File::put($basePath . '/' . $collectionName . '.blade.php', $baseText);
+
+                    $baseText = File::get(app_path('controllers/templates/Form.txt'));
+                    $baseText = str_replace('@var_name@', lcfirst($modelName), $baseText);
+                    $baseText = str_replace('@pretty_name@', $modelInstance->getPrettyName(), $baseText);
+                    $baseText = str_replace('@collection_name@', $collectionName, $baseText);
+
+                    $fieldsStr = "";
+                    $fields = $modelInstance->getFillable();
+                    foreach ($fields as $key) {
+                        $fieldsStr.="{{Form::btInput($" . lcfirst($modelName) . ", '" . $key . "', 6)}}" . PHP_EOL;
+                    }
+                    $baseText = str_replace('@fields@', $fieldsStr, $baseText);
+                    $basePath = app_path('vistas_generadas');
+                    $this->info("Generando formulario: " . $collectionName);
+                    File::put($basePath . '/' . $collectionName . 'form.blade.php', $baseText);
                 }
             }
         }

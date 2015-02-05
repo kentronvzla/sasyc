@@ -17,7 +17,7 @@
     <div class="panel panel-danger">
         <div class="panel-heading">Tablas</div>
         <ul class="list-group">
-            <a href="{{url('administracion/tablas/tipo-ayudas')}}">
+            <a href="{{url('administracion/tablas/tipoAyudas')}}">
                 <li class="list-group-item">Tipos de Ayuda</li>
             </a>
             <a href="{{url('administracion/tablas/areas')}}">
@@ -35,10 +35,10 @@
             <a href="{{url('administracion/tablas/configuraciones')}}">
                 <li class="list-group-item">Configuracion Avanzada</li>
             </a>
-            <a href="{{url('administracion/tablas/estado-civiles')}}">
+            <a href="{{url('administracion/tablas/estadoCiviles')}}">
                 <li class="list-group-item">Estados Civiles</li>
             </a>
-            <a href="{{url('administracion/tablas/nivel-academicos')}}">
+            <a href="{{url('administracion/tablas/nivelAcademicos')}}">
                 <li class="list-group-item">Niveles Académicos</li>
             </a>
             <a href="{{url('administracion/tablas/organismos')}}">
@@ -59,13 +59,13 @@
             <a href="{{url('administracion/tablas/tenencias')}}">
                 <li class="list-group-item">Tenencias</li>
             </a>
-            <a href="{{url('administracion/tablas/tipo-nacionalidades')}}">
+            <a href="{{url('administracion/tablas/tipoNacionalidades')}}">
                 <li class="list-group-item">Nacionalidades</li>
             </a>
-            <a href="{{url('administracion/tablas/tipo-requerimientos')}}">
+            <a href="{{url('administracion/tablas/tipoRequerimientos')}}">
                 <li class="list-group-item">Tipos de Requerimiento</li>
             </a>
-            <a href="{{url('administracion/tablas/tipo-viviendas')}}">
+            <a href="{{url('administracion/tablas/tipoViviendas')}}">
                 <li class="list-group-item">Tipos de Viviendas</li>
             </a>
         </ul>

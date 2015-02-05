@@ -2,14 +2,15 @@
 @section('contenido2')
 <div class="panel panel-danger">
     <div class="panel-heading">
-        @include('templates.tituloBarra',array('obj'=>$@var_name@, 'titulo'=>'@pretty_name@'))
+        @include('templates.tituloBarra',array('obj'=>$estado, 'titulo'=>'Estados'))
     </div>
     <div class="panel-body">
         @include('templates.errores')
-        {{Form::open(array('url'=>'administracion/tablas/@collection_name@'))}}
+        {{Form::open(array('url'=>'administracion/tablas/estados'))}}
         <div class="row">
-            {{Form::hidden('id',$@var_name@->id)}}
-            @fields@
+            {{Form::hidden('id',$estado->id)}}
+            {{Form::btInput($estado, 'nombre', 6)}}
+
         </div>
         {{Form::submitBt()}}
         {{Form::close()}}

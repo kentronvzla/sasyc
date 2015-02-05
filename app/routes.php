@@ -19,13 +19,13 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
         Route::controller('grupos', 'GruposController');
     });
     Route::group(array('prefix' => 'tablas', 'namespace' => 'Tablas'), function() {
-        Route::controller('tipo-ayudas', 'TipoAyudasController');
+        Route::controller('tipoAyudas', 'TipoAyudasController');
         Route::controller('estados', 'EstadosController');
         Route::controller('municipios', 'MunicipiosController');
         Route::controller('areas', 'AreasController');
         Route::controller('configuraciones', 'ConfiguracionesController');
-        Route::controller('estado-civiles', 'EstadoCivilesController');
-        Route::controller('nivel-academicos', 'NivelAcademicosController');
+        Route::controller('estadoCiviles', 'EstadoCivilesController');
+        Route::controller('nivelAcademicos', 'NivelAcademicosController');
         Route::controller('organismos', 'OrganismosController');
         Route::controller('parentescos', 'ParentescosController');
         Route::controller('parroquias', 'ParroquiasController');
@@ -33,10 +33,9 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
         Route::controller('referentes', 'ReferentesController');
         Route::controller('requerimientos', 'RequerimientosController');
         Route::controller('tenencias', 'TenenciasController');
-        Route::controller('tipo-ayudas', 'TipoAyudasController');
-        Route::controller('tipo-nacionalidades', 'TipoNacionalidadesController');
-        Route::controller('tipo-requerimientos', 'TipoRequerimientosController');
-        Route::controller('tipo-viviendas', 'TipoViviendasController');
+        Route::controller('tipoNacionalidades', 'TipoNacionalidadesController');
+        Route::controller('tipoRequerimientos', 'TipoRequerimientosController');
+        Route::controller('tipoViviendas', 'TipoViviendasController');
     });
 });
 Route::controller('login','LoginController');

@@ -453,6 +453,10 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     protected function afterValidate() {
         
     }
+    
+    public function getFillable() {
+        return $this->fillable;
+    }
 
     public abstract function getPrettyName();
 
