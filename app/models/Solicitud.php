@@ -175,7 +175,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'organismo_id' => 'Procesado por',
             'ind_mismo_benef' => 'Solicitante es el mismo Beneficiario?',
             'ind_inmediata' => 'Atención inmediata?',
-            'ind_beneficiario_menor' => 'El beneficiario es menor de edad?',
+            'ind_beneficiario_menor' => 'El beneficiario es menor de edad sin CI?',
             'actividad' => 'Actividad',
             'referencia' => 'Referencia',
             'accion_tomada' => 'Acción Tomada',
@@ -375,7 +375,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $solicitud->validate();
         return $solicitud;
     }
-
+    
     public function createdModel($model) {
         $recaudos = Recaudo::whereIndActivo(true)->get();
         $recaudos->each(function ($recaudo) use ($model) {

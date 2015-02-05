@@ -9,7 +9,7 @@
 {{Form::hidden('ind_beneficiario_menor',$solicitud->ind_beneficiario_menor, ['id'=>'ind_beneficiario_menor'])}}
 {{Form::hidden('ind_mismo_benef',$solicitud->ind_mismo_benef, ['id'=>'ind_mismo_benef'])}}
 <div class="row">
-    {{Form::btInput($solicitud,'descripcion')}}
+    {{Form::btInput($solicitud,'descripcion',12)}}
 </div>
 <div class="row">
     {{Form::btInput($solicitud,'ind_inmediata',6)}}
