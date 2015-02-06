@@ -33,8 +33,8 @@
                     <li>{{HTML::link('solicitudes/nueva/','Nueva Solicitud')}}</li> 
                     <li>{{HTML::link('solicitudes','Solicitudes')}}</li> 
                     <li class="divider"></li>
-                    <li>{{HTML::link('solicitudes','Asignar a un Departamento')}}</li> 
-                    <li>{{HTML::link('solicitudes','Asignar a un Analista')}}</li>
+                    <li>{{HTML::link('solicitudes?estatus=ELA&asignar=departamento','Asignar a un Departamento')}}</li> 
+                    <li>{{HTML::link('solicitudes?estatus=ELD&asignar=usuario','Asignar a un Analista')}}</li>
                     <li class="divider"></li>
                     <li><a href="#">Alarmas Pendientes</a></li>
                 </ul>
@@ -53,10 +53,8 @@
                 </ul>
             </li>
         </ul>
-
-
     </div>
-     @unless(Request::is('/'))
+    @unless(Request::is('/'))
     {{HTML::image('img/banner_ppal.jpg', 'Banner principal', ['class'=>'img-responsive', 'width'=>'100%'])}}
     @endunless
 </div>

@@ -26,7 +26,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Memo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Memo whereUpdatedAt($value)
  */
-class Memo extends BaseModel {
+class Memo extends BaseModel implements DefaultValuesInterface {
 
     protected $table = "memos";
 
@@ -36,7 +36,7 @@ class Memo extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'fecha', 'numero', 'origen', 'destino',
+        'fecha', 'numero', 'origen_id', 'destino_id', 'asunto'
     ];
 
     /**
@@ -47,24 +47,46 @@ class Memo extends BaseModel {
      * @var array
      */
     protected $rules = [
-        'fecha'=>'required', 
-'numero'=>'required', 
-'origen'=>'required', 
-'destino'=>'required', 
-
+        'fecha' => 'required',
+        'numero' => 'required',
+        'asunto' => 'required',
+        'origen_id' => 'required',
+        'destino_id' => 'required',
     ];
+    protected $dates = ['fecha'];
 
     protected function getPrettyFields() {
         return [
             'fecha' => 'Fecha',
             'numero' => 'Número',
-            'origen' => 'Origen',
-            'destino' => 'Destino',
+            'asunto' => 'Asunto',
+            'origen_id' => 'Origen',
+            'destino_id' => 'Destino',
         ];
     }
 
     public function getPrettyName() {
         return "memos";
+    }
+
+    public function getDefaultValues() {
+        return [
+            'asunto' => 'Remisión de Solicitudes de Apoyo',
+            'fecha' => Carbon::now(),
+        ];
+    }
+
+    public static function crear($values) {
+        $memo = new Memo();
+        $depto = Usuario::find(Sentry::getUser()->id)->departamento;
+        $memo->origen_id = $depto->id;
+        $memo->destino_id = $values['departamento_id'];
+        $numero = Configuracion::get('secuencia_memo');
+        $numero++;
+        $memo->numero = $numero;
+        Configuracion::set('secuencia_memo', $numero);
+        $memo->save();
+        return $memo;
     }
 
 }

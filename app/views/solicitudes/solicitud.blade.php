@@ -1,6 +1,9 @@
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-12 col-sm-10 col-md-10">
         <h4>Número de Solicitud: <span id='span-solicitud-id'>{{$solicitud->id}}</span></h4> 
+    </div>
+    <div class="col-md-2">
+        <h5>Estatus: <b>{{$solicitud->estatus_display}}</b></h5>
     </div>
 </div>
 {{Form::hidden('id',$solicitud->id, ['id'=>'id'])}}
@@ -17,13 +20,13 @@
 </div>
 <div id='div-inmediata'>
     <div class="row">
-        {{Form::btInput($solicitud,'actividad')}}
+        {{Form::btInput($solicitud,'actividad',12,'textarea')}}
     </div>
     <div class="row">
-        {{Form::btInput($solicitud,'referencia')}}
+        {{Form::btInput($solicitud,'referencia',12,'textarea')}}
     </div>
     <div class="row">
-        {{Form::btInput($solicitud,'accion_tomada')}}
+        {{Form::btInput($solicitud,'accion_tomada',12, 'textarea')}}
     </div>
 </div>
 <div class="row">

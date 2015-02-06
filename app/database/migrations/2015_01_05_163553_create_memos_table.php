@@ -14,9 +14,10 @@ class CreateMemosTable extends Migration {
         Schema::create('memos', function(Blueprint $table) {
             $table->increments('id');
             $table->date('fecha');
-            $table->string('numero', 15);
-            $table->string('origen', 15);
-            $table->string('destino', 15);
+            $table->integer('numero', false, true);
+            $table->string('asunto', 100);
+            $table->integer('origen_id', false, true);
+            $table->integer('destino_id', false, true);
             $table->integer('version')->default(0);
             $table->timestamps();
         });

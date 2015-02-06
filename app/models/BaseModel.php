@@ -11,7 +11,7 @@
  *
  * @author Nadin Yamaui
  */
-abstract class BaseModel extends Eloquent implements DefaultValuesInterface, SelectInterface, SimpleTableInterface, DecimalInterface {
+abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTableInterface, DecimalInterface {
 
     /**
      * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save, 
@@ -47,6 +47,8 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     ];
     protected static $estatusArray = [
         'ELA' => 'Elaboración',
+        'ELD' => 'Departamento Asignado',
+        'REF' => 'Referenciada',
     ];
 
     public function __construct(array $attributes = []) {
@@ -144,7 +146,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
      * @return boolean
      */
     public function savingModel($model) {
-        if (!isset($model->id)) {
+        if (!isset($model->id) && method_exists($this, 'getDefaultValues')) {
             $default = $model->getDefaultValues();
             $model->attributes = array_merge($default, $this->attributes);
         }
@@ -421,11 +423,7 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     public function isBooleanField($field) {
         return Str::startsWith($field, 'ind_');
     }
-
-    public function getDefaultValues() {
-        return [];
-    }
-
+    
     public function getTableFields() {
         return $this->fillable;
     }

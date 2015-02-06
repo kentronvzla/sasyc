@@ -157,7 +157,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     ];
     protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion',
         'fecha_aprobacion', 'fecha_cierre'];
-    protected $appends = ['total_ingresos'];
 
     protected function getPrettyFields() {
         return [
@@ -343,7 +342,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function getTotalIngresosAttribute() {
-        return $this->personaBeneficiario->ingreso_mensual + $this->ingresoFamiliar();
+        if (is_null($this->attributes['total_ingresos'])) {
+            return $this->personaBeneficiario->ingreso_mensual + $this->ingresoFamiliar();
+        }
+        return $this->total_ingresos;
     }
 
     public function getDefaultValues() {
@@ -375,6 +377,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if ($solicitud->ind_mismo_benef == "1") {
             $solicitud->persona_solicitante_id = $solicitud->persona_beneficiario_id;
         }
+        $solicitud->estatus = "ELA";
         $solicitud->validate();
         return $solicitud;
     }
@@ -434,6 +437,76 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                         ->with('usuarioAutorizacion')
                         ->with('usuarioAsignacion')
                         ->with('area.tipoAyuda');
+    }
+
+    public function afterValidate() {
+        if (is_object($this->organismo) && $this->organismo->ind_externo) {
+            $this->estatus = "REF";
+        } else if ($this->estatus == "REF") {
+            $this->estatus = "ELA";
+        }
+    }
+
+    public function asignarDepartamento($departamento_id, $memo) {
+        if ($this->estatus == "ELA") {
+            $this->departamento_id = $departamento_id;
+            $this->estatus = "ELD";
+            $this->beneficiario_json = $this->personaBeneficiario->toJson();
+            if (is_object($this->personaSolicitante)) {
+                $this->solicitante_json = $this->personaSolicitante->toJson();
+            }
+            //despues que se asigna el modelo retorna lo que esta en BD.
+            $this->total_ingresos = tm($this->total_ingresos);
+            $this->memo_id = $memo->id;
+            $this->save();
+        }
+        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELA']);
+    }
+
+    public function asignarAnalista($encargado_id, $autorizador_id) {
+        if ($this->estatus == "ELD") {
+            $this->usuario_asignacion_id = $encargado_id;
+            $this->usuario_autorizacion_id = $autorizador_id;
+            $this->save();
+            return true;
+        }
+        return false;
+    }
+
+    public static function asignar(array $values) {
+        //se usa para los message bags
+        $mensajes = new Solicitud();
+        if (!isset($values['solicitudes'])) {
+            $mensajes->addError('solicitudes', 'Debes seleccionar al menos una solicitud');
+            return $mensajes;
+        }
+        $rules = [
+            'departamento_id' => 'required_if:campo,departamento',
+            'usuario_autorizacion_id' => 'required_if:campo,usuario',
+            'usuario_asignacion_id' => 'required_if:campo,usuario',
+            'campo' => 'required',
+        ];
+        $validator = Validator::make(Input::all(), $rules);
+        $validator->setAttributeNames($mensajes->getPrettyFields());
+        if ($validator->passes()) {
+            $solicitudes = Solicitud::findMany($values['solicitudes']);
+            if ($values['campo'] == "departamento") {
+                $memo = Memo::crear($values);
+                $solicitudes->each(function($solicitud) use ($values, $mensajes, $memo) {
+                    $solicitud->asignarDepartamento($values['departamento_id'], $memo);
+                    //si salieron errores hacemos un merge
+                    $mensajes->errors->merge($solicitud->errors);
+                });
+            } else if ($values['campo'] == "usuario") {
+                $solicitudes->each(function($solicitud) use ($values, $mensajes) {
+                    $solicitud->asignarAnalista($values['usuario_asignacion_id'], $values['usuario_autorizacion_id']);
+                    //si salieron errores hacemos un merge
+                    $mensajes->errors->merge($solicitud->errors);
+                });
+            }
+        }
+        $mensajes->setErrors($validator->messages());
+        return $mensajes;
     }
 
 }

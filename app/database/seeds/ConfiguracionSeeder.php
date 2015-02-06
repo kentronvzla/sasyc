@@ -32,6 +32,10 @@ class ConfiguracionSeeder extends Seeder {
             'variable' => 'urlactualizacion',
             'valor' => 'http://appwebdesa.kentron.com.ve:8090/proyectos/public/api/',
         ));
+        Configuracion::create(array(
+            'variable' => 'secuencia_memo',
+            'valor' => 1,
+        ));
     }
 
 }

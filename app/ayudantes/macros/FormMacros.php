@@ -83,6 +83,9 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
                 $data['attrValue'][] = $value->id;
             }
         }
+        if ($type == "textarea") {
+            $data['params']['rows'] = 4;
+        }
         return \View::make('templates.bootstrap.input', $data);
     }
 

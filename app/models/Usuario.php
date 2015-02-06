@@ -16,7 +16,7 @@ class Usuario extends BaseModel implements SimpleTableInterface {
      * @var array
      */
     protected $fillable = array(
-        'email', 'password', 'nombre', 'activated'
+        'email', 'password', 'nombre', 'activated', 'departamento_id'
     );
 
     /**
@@ -29,6 +29,7 @@ class Usuario extends BaseModel implements SimpleTableInterface {
         'email' => 'required|max:100',
         'password' => 'required',
         'nombre' => 'required',
+        'departamento_id' => ''
     );
 
     /**
@@ -43,6 +44,7 @@ class Usuario extends BaseModel implements SimpleTableInterface {
             'nombre' => 'Nombre',
             'nombregrupo' => 'Grupo',
             'activated' => '¿Activo?',
+            'departamento_id' => 'Departamento',
             'activatedfor' => '¿Activo?'
         );
     }
@@ -64,6 +66,10 @@ class Usuario extends BaseModel implements SimpleTableInterface {
 
     public function getActivatedforAttribute() {
         return static::$cmbsino[$this->activated];
+    }
+    
+    public function departamento(){
+        return $this->belongsTo('Departamento');
     }
 
     public function grupos() {

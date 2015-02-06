@@ -11,6 +11,10 @@ class SolicitudesController extends BaseController {
                 ->eagerLoad()
                 ->aplicarFiltro(Input::all())
                 ->paginate(30);
+        if (Input::has('asignar')) {
+            $data['campo'] = Input::get('asignar');
+            $data['solicitud'] = new Solicitud();
+        }
         return View::make('solicitudes.index', $data);
     }
 
@@ -39,7 +43,7 @@ class SolicitudesController extends BaseController {
         } else {
             $data['nuevo'] = false;
         }
-        if (Session::has('solicitud')) {
+        if (Session::has('solicitud') && is_null($id)) {
             $data['solicitud'] = new Solicitud(Session::get('solicitud'));
         } else {
             $data['solicitud'] = Solicitud::findOrFail($id);
@@ -83,6 +87,14 @@ class SolicitudesController extends BaseController {
         } else {
             return Redirect::back()->withInput()->withErrors($solicitud->getErrors());
         }
+    }
+
+    public function postAsignar() {
+        $resultado = Solicitud::asignar(Input::all());
+        if ($resultado->hasErrors()) {
+            return Response::json(['errores' => $resultado->getErrors()], 400);
+        }
+        return Response::json(['mensaje' => 'Se asignaron las solicitudes correctamente']);
     }
 
 }
