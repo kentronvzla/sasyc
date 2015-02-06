@@ -4,4 +4,6 @@
 /vendor
 /nbproject
 /app/modelos_generados
+/app/controladores_generados
+/app/vistas_generadas
 /_ide_helper.php

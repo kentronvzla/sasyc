@@ -11,6 +11,14 @@ class SolicitudesController extends BaseController {
         return View::make('solicitudes.ver', $data);
     }
 
+    public function getIndex() {
+        $data['solicitudes'] = Solicitud::ordenar()
+                ->eagerLoad()
+                ->aplicarFiltro(Input::all())
+                ->paginate(30);
+        return View::make('solicitudes.index', $data);
+    }
+
     public function postModificar() {
         Session::forget('solicitud');
         $solicitud = Solicitud::findOrNew(Input::get('id'));
@@ -58,7 +66,7 @@ class SolicitudesController extends BaseController {
         if (Request::ajax()) {
             return Response::json($data);
         }
-        return View::make("manejosolicitudes.plantilla", $data);
+        return View::make("solicitudes.plantilla", $data);
     }
 
     public function getNueva() {
@@ -69,7 +77,7 @@ class SolicitudesController extends BaseController {
         $data['personaBeneficiario'] = new Persona();
         $data['familiares'] = $data['personaSolicitante']->familiaresBeneficiario;
         $data['solicitudes'] = $data['personaSolicitante']->solicitudes;
-        return View::make("manejosolicitudes.plantilla", $data);
+        return View::make("solicitudes.plantilla", $data);
     }
 
     public function postNueva() {

@@ -38,7 +38,6 @@
  * @property string $empresa_seguro
  * @property string $cobertura
  * @property string $otro_apoyo
- * @property string $como_conocio_fps
  * @property integer $version
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -108,7 +107,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         'telefono_fijo', 'telefono_celular', 'telefono_otro', 'email',
         'twitter', 'ind_trabaja', 'ocupacion', 'ingreso_mensual',
         'observaciones', 'ind_asegurado', 'empresa_seguro', 'cobertura',
-        'otro_apoyo', 'como_conocio_fps',
+        'otro_apoyo',
     ];
 
     /**
@@ -146,7 +145,6 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         'empresa_seguro' => '',
         'cobertura' => '',
         'otro_apoyo' => '',
-        'como_conocio_fps' => '',
     ];
 
     protected function getPrettyFields() {
@@ -181,7 +179,6 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
             'empresa_seguro' => 'Empresa seguro',
             'cobertura' => 'Cobertura',
             'otro_apoyo' => 'Otro apoyo otorgado',
-            'como_conocio_fps' => 'Como conoció FPS',
             'documento' => 'Documento',
         ];
     }
@@ -270,6 +267,33 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
             return $this->tipoNacionalidad->nombre . ' - ' . $this->ci;
         }
         return $this->ci;
+    }
+
+    public function getNombreCompletoAttribute() {
+        return $this->nombre . ' ' . $this->apellido;
+    }
+
+    public function getInformacionContactoAttribute() {
+        $contactos = "";
+        if ($this->telefono_fijo != "") {
+            $contactos .= "Fijo: " . $this->telefono_fijo . '<br>';
+        }
+        if ($this->telefono_celular != "") {
+            $contactos .= "Celular: " . $this->telefono_celular . '<br>';
+        }
+        if ($this->telefono_otro != "") {
+            $contactos .= "Otro: " . $this->telefono_otro . '<br>';
+        }
+        if ($this->email != "") {
+            $contactos .= "Email: " . $this->email . '<br>';
+        }
+        if ($this->twitter != "") {
+            $contactos .= "Twitter: " . $this->twitter . '<br>';
+        }
+        if($contactos==""){
+            return "No tiene información de contacto.";
+        }
+        return $contactos;
     }
 
     public function getTableFields() {

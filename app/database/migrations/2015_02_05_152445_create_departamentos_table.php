@@ -21,6 +21,10 @@ class CreateDepartamentosTable extends Migration {
         Schema::table('users', function(Blueprint $table) {
             $table->integer('departamento_id', false, true)->nullable();
         });
+
+        Schema::table('solicitudes', function(Blueprint $table) {
+            $table->integer('departamento_id', false, true)->nullable();
+        });
     }
 
     /**
@@ -30,8 +34,10 @@ class CreateDepartamentosTable extends Migration {
      */
     public function down() {
         Schema::drop('departamentos');
-        
         Schema::table('users', function(Blueprint $table) {
+            $table->dropColumn('departamento_id');
+        });
+        Schema::table('solicitudes', function(Blueprint $table) {
             $table->dropColumn('departamento_id');
         });
     }

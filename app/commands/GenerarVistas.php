@@ -52,6 +52,7 @@ class GenerarVistas extends Command {
 
                     $basePath = app_path('vistas_generadas');
                     $this->info("Generando vista: " . $collectionName);
+
                     File::put($basePath . '/' . $collectionName . '.blade.php', $baseText);
 
                     $baseText = File::get(app_path('controllers/templates/Form.txt'));

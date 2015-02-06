@@ -43,7 +43,6 @@ Route::controller('login','LoginController');
 //se coloca afuera porque no se maneja por namespace
 Route::controller('administracion/actualizaciones', 'ActualizacionesController');
 
-Route::controller('pantallas', 'PantallasController');
 Route::controller('solicitudes', 'SolicitudesController');
 Route::controller('personas', 'PersonasController');
 Route::controller('presupuestos', 'PresupuestosController');

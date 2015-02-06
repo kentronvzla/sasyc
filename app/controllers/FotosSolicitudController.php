@@ -35,7 +35,7 @@ class FotosSolicitudController extends BaseController {
             $data['fotos'] = $data['foto']->solicitud->fotos;
             $data['solicitud'] = $data['foto']->solicitud;
         }
-        return View::make('manejosolicitudes.galeriafotos', $data);
+        return View::make('solicitudes.galeriafotos', $data);
     }
 
     public function getDescargar($foto_id) {
