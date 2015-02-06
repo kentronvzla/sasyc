@@ -46,7 +46,7 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
      * @var array
      */
     protected $fillable = [
-        'solicitud_id', 'fecha', 'nota', 'usuario_id', 'memo', 'tipo',
+        'solicitud_id', 'fecha', 'nota', 'usuario_id',
         'ind_activo', 'ind_alarma',
     ];
 
@@ -62,8 +62,6 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
         'fecha' => 'required_if:ind_alarma,1',
         'nota' => 'required',
         'usuario_id' => 'required|integer',
-        'memo' => 'required',
-        'tipo' => 'required',
         'ind_activo' => 'required',
         'ind_alarma' => 'required',
     ];
@@ -76,8 +74,6 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
             'fecha' => 'Fecha',
             'nota' => 'Notas',
             'usuario_id' => 'Usuario',
-            'memo' => 'Memo',
-            'tipo' => 'Tipo',
             'ind_activo' => 'Activo?',
             'ind_alarma' => 'Alarma?',
         ];
@@ -97,8 +93,6 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
         return [
             'fecha' => Carbon::now(),
             'usuario_id' => Sentry::getUser()->id,
-            'memo' => 'CR',
-            'tipo' => 'CR',
             'ind_activo' => true,
             'ind_alarma' => false,
         ];

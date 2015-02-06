@@ -345,10 +345,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if (is_null($this->attributes['total_ingresos'])) {
             return $this->personaBeneficiario->ingreso_mensual + $this->ingresoFamiliar();
         }
-        return $this->total_ingresos;
+        return $this->attributes['total_ingresos'];
     }
 
     public function getDefaultValues() {
+        Bitacora::registrar('Se registró la solicitud.', $model->id);
         return [
             'ano' => Carbon::now()->format('Y'),
             'fecha_solicitud' => Carbon::now(),
@@ -415,10 +416,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return tm($this->total_ingresos);
     }
 
-    public function savedModel($model) {
-        Bitacora::registrar('Se registró la solicitud.', $model->id);
-    }
-
     public function scopeOrdenar($query) {
         return $query->orderBy('ind_inmediata', 'DESC')->orderBy('estatus');
     }
@@ -459,6 +456,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->total_ingresos = tm($this->total_ingresos);
             $this->memo_id = $memo->id;
             $this->save();
+            Bitacora::registrar("Se asigno la solicitud al departamento: " . $this->departamento->nombre, $this->id);
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELA']);
     }
@@ -467,10 +465,13 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if ($this->estatus == "ELD") {
             $this->usuario_asignacion_id = $encargado_id;
             $this->usuario_autorizacion_id = $autorizador_id;
+            $this->estatus = "EPR";
             $this->save();
-            return true;
+            Bitacora::registrar("Se asignó la solicitud al analista: " .
+                    $this->usuarioAsignacion->nombre . ', autorizado por: ' .
+                    $this->usuarioAutorizacion->nombre, $this->id);
         }
-        return false;
+        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELD']);
     }
 
     public static function asignar(array $values) {

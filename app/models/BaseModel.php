@@ -49,6 +49,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
         'ELA' => 'Elaboración',
         'ELD' => 'Departamento Asignado',
         'REF' => 'Referenciada',
+        'EPR' => 'Esperando Aprobación',
     ];
 
     public function __construct(array $attributes = []) {
@@ -423,7 +424,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
     public function isBooleanField($field) {
         return Str::startsWith($field, 'ind_');
     }
-    
+
     public function getTableFields() {
         return $this->fillable;
     }

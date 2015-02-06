@@ -17,8 +17,6 @@ class CreateBitacorasTable extends Migration {
             $table->date('fecha');
             $table->string('nota', 1500);
             $table->integer('usuario_id', false, true);
-            $table->string('memo', 14);
-            $table->string('tipo', 5);
             $table->boolean('ind_activo')->default(0);
             $table->boolean('ind_alarma')->default(0);
             $table->integer('version')->default(0);
