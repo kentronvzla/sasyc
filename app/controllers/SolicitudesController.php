@@ -7,7 +7,10 @@ class SolicitudesController extends BaseController {
     }
 
     public function getIndex() {
-        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::all())->paginate(10);
+        $data['solicitudes'] = Solicitud::ordenar()
+                ->eagerLoad()
+                ->aplicarFiltro(Input::all())
+                ->paginate(30);
         return View::make('solicitudes.index', $data);
     }
 

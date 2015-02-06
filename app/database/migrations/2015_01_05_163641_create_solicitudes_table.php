@@ -33,7 +33,6 @@ class CreateSolicitudesTable extends Migration {
             $table->string('facturas', 100)->nullable();
             $table->string('observaciones', 1500)->nullable();
             $table->string('moneda', 3);
-            $table->integer('prioridad');
             $table->string('estatus', 3);
             $table->integer('usuario_asignacion_id', false, true)->nullable();
             $table->integer('usuario_autorizacion_id', false, true)->nullable();

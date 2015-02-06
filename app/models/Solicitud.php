@@ -30,7 +30,6 @@
  * @property string $facturas
  * @property string $observaciones
  * @property string $moneda
- * @property integer $prioridad
  * @property string $estatus
  * @property integer $usuario_asignacion_id
  * @property integer $usuario_autorizacion_id
@@ -79,7 +78,6 @@
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereFacturas($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereObservaciones($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereMoneda($value)
- * @method static \Illuminate\Database\Query\Builder|\Solicitud wherePrioridad($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereEstatus($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUsuarioAsignacionId($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUsuarioAutorizacionId($value)
@@ -110,7 +108,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'area_id', 'referente_id', 'recepcion_id', 'organismo_id',
         'ind_mismo_benef', 'ind_inmediata', 'actividad', 'referencia',
         'accion_tomada', 'necesidad', 'tipo_proc', 'num_proc', 'facturas',
-        'observaciones', 'moneda', 'prioridad', 'estatus', 'usuario_asignacion_id',
+        'observaciones', 'moneda', 'estatus', 'usuario_asignacion_id',
         'usuario_autorizacion_id', 'fecha_solicitud', 'fecha_asignacion',
         'fecha_aceptacion', 'fecha_aprobacion', 'fecha_cierre', 'ind_beneficiario_menor',
         'tipo_vivienda_id', 'tenencia_id', 'informe_social', 'total_ingresos',
@@ -144,7 +142,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'facturas' => '',
         'observaciones' => '',
         'moneda' => 'required',
-        'prioridad' => 'required|integer',
         'estatus' => 'required',
         'usuario_asignacion_id' => 'integer',
         'usuario_autorizacion_id' => 'integer',
@@ -184,7 +181,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'facturas' => 'Facturas',
             'observaciones' => 'Observaciones',
             'moneda' => 'Moneda',
-            'prioridad' => 'Prioridad',
             'estatus' => 'Estatus',
             'usuario_asignacion_id' => 'Analista',
             'usuario_autorizacion_id' => 'Autorizado por',
@@ -289,8 +285,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     public function tenencia() {
         return $this->belongsTo('Tenencia');
     }
-    
-     /**
+
+    /**
      * Define una relación pertenece a Departamento
      * @return Departamento
      */
@@ -356,8 +352,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'fecha_solicitud' => Carbon::now(),
             'estatus' => 'ELA',
             'ind_mismo_benef' => false,
-            'moneda' => 'VEF',
-            'prioridad' => 1,
+            'moneda' => 'VEF'
         ];
     }
 
@@ -421,8 +416,24 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         Bitacora::registrar('Se registró la solicitud.', $model->id);
     }
 
+    public function scopeOrdenar($query) {
+        return $query->orderBy('ind_inmediata', 'DESC')->orderBy('estatus');
+    }
+
     public function scopeAplicarFiltro($query, $filtro) {
+        if (isset($filtro['estatus'])) {
+            $query->whereEstatus($filtro['estatus']);
+        }
         return $query;
+    }
+
+    public function scopeEagerLoad($query) {
+        return $query->with('organismo')
+                        ->with('personaSolicitante')
+                        ->with('personaBeneficiario')
+                        ->with('usuarioAutorizacion')
+                        ->with('usuarioAsignacion')
+                        ->with('area.tipoAyuda');
     }
 
 }
