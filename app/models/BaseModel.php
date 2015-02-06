@@ -45,6 +45,9 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         '0' => 'No',
         '1' => 'Si'
     ];
+    protected static $estatusArray = [
+        'ELA' => 'Elaboración',
+    ];
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
@@ -272,19 +275,12 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         return $this->errors->count() > 0;
     }
 
-    public function fill(array $atributos, $filter = "") {
-        if ($filter != "") {
-            foreach ($atributos as $key => $value) {
-                $arr = explode('->', $key);
-                if (count($arr) > 1) {
-                    $atributos[$arr[1]] = $value;
-                }
-                unset($atributos[$key]);
-            }
-        }
+    public function fill(array $atributos) {
         foreach ($atributos as $key => $atributo) {
-            if ($atributo == "") {
+            if ($atributo == "" && !$this->isBooleanField($key)) {
                 $atributos[$key] = null;
+            } else if ($atributo == "" || is_null($atributo)) {
+                $atributos[$key] = false;
             }
         }
         return parent::fill($atributos);
@@ -453,9 +449,13 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
     protected function afterValidate() {
         
     }
-    
+
     public function getFillable() {
         return $this->fillable;
+    }
+
+    public function getEstatusDisplayAttribute() {
+        return static::$estatusArray[$this->estatus];
     }
 
     public abstract function getPrettyName();

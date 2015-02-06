@@ -30,6 +30,7 @@
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Aten. social y ciudadana <span
                         class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
+                    <li>{{HTML::link('solicitudes','Solicitudes')}}</li> 
                     <li>{{HTML::link('solicitudes/nueva/','Nueva Solicitud')}}</li> 
                     <li><a href="#">Anular Solicitud</a></li>
                     <li class="divider"></li>

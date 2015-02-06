@@ -31,7 +31,7 @@
     {{Form::btInput($solicitud,'organismo_id',6)}}
 </div>
 <div class="row">
-    {{Form::btInput($solicitud,'area->tipo_ayuda_id',6, 'text', ['data-url'=>'tipo-ayudas/areas','data-child'=>'area_id'])}}
+    {{Form::btInput($solicitud,'area->tipo_ayuda_id',6, 'text', ['data-url'=>'tipoAyudas/areas','data-child'=>'area_id'])}}
     {{Form::btInput($solicitud,'area_id',6)}}
 </div>
 <div class="row">

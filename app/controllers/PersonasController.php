@@ -64,7 +64,7 @@ class PersonasController extends BaseController {
         $data['familiar'] = Persona::findOrNew($familiar_id);
         $data['familiares'] = $data['beneficiario']->familiaresBeneficiario;
         $data['parentesco'] = $data['beneficiario']->getParentesco($data['familiar']->id);
-        return View::make('manejosolicitudes.grupofamiliar', $data);
+        return View::make('solicitudes.grupofamiliar', $data);
     }
 
     public function deleteFamiliar($beneficiario_id) {
@@ -83,18 +83,18 @@ class PersonasController extends BaseController {
     
     public function getFamiliaressolicitante($id) {
         $data['familiares'] = Persona::findOrNew($id)->familiaresSolicitante;
-        return View::make('manejosolicitudes.relacionados-lista', $data);
+        return View::make('solicitudes.relacionados-lista', $data);
     }
 
     public function getSolictudesAnteriores($id) {
         $data['solicitudes'] = Persona::findOrNew($id)->solicitudes;
-        return View::make('manejosolicitudes.solicitudesanteriores-lista', $data);
+        return View::make('solicitudes.solicitudesanteriores-lista', $data);
     }
     
     public function getCopiarDireccion($id) {
         $beneficiario = Persona::findOrFail($id);
         $data['beneficiario'] = $beneficiario;
         $data['solicitante'] = $beneficiario;
-        return View::make('manejosolicitudes.direccion-solicitante', $data);
+        return View::make('solicitudes.direccion-solicitante', $data);
     }
 }

@@ -48,9 +48,6 @@
 <div class="row">
     {{Form::btInput($beneficiario,'otro_apoyo')}}
 </div>
-<div class="row">     
-    {{Form::btInput($beneficiario,'como_conocio_fps')}}
-</div>
 <hr>
 <h4>Direcci&oacute;n de habitaci&oacute;n</h4> 
 <div class="row">

@@ -21,7 +21,7 @@ class BitacorasController extends BaseController {
         $data['solicitud'] = Solicitud::findOrFail($solicitud_id);
         $data['bitacora'] = Bitacora::findOrNew($bitacora_id);
         $data['bitacoras'] = $data['solicitud']->bitacoras;
-        return View::make('manejosolicitudes.bitacora', $data);
+        return View::make('solicitudes.bitacora', $data);
     }
 
     public function deleteBitacora($id) {

@@ -14,7 +14,7 @@
             <div id="Panel" class="panel-collapse collapse in">
                 <div class="panel-body">
                     @include('templates.errores')
-                    @include('manejosolicitudes.nuevasolicitud')
+                    @include('solicitudes.nuevasolicitud')
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div id="PanelUno" class="panel-collapse collapse in">
                 <div class="panel-body">
                     {{Form::open(['url'=>'solicitudes/modificar','id'=>'form-solicitud'])}}
-                    @include('manejosolicitudes.solicitud')
+                    @include('solicitudes.solicitud')
                     {{Form::close()}}
                 </div>
             </div>
@@ -47,7 +47,7 @@
             <div id="PanelDos" class="panel-collapse collapse">                
                 <div class="panel-body">
                     {{Form::open(['url'=>'personas/modificar','id'=>'form-persona','class'=>'saveajax', 'data-callback'=>'grupoFamiliar'])}}
-                    @include('manejosolicitudes.beneficiario')
+                    @include('solicitudes.beneficiario')
                     {{Form::close()}}
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <div id="PanelTres" class="panel-collapse collapse">
                 <div class="panel-body">
                     {{Form::open(['url'=>'personas/crear/'.$beneficiario->id.'/false','id'=>'form-persona','class'=>'saveajax','data-callback'=>'solicitanteGuardado'])}}
-                    @include('manejosolicitudes.solicitante')
+                    @include('solicitudes.solicitante')
                     {{Form::close()}}
                 </div>
             </div>
@@ -80,7 +80,7 @@
             </div>
             <div id="PanelCuatro" class="panel-collapse collapse">
                 <div class="panel-body" id='grupo-familiares'>
-                    @include('manejosolicitudes.grupofamiliar')
+                    @include('solicitudes.grupofamiliar')
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
             </div>
             <div id="PanelCinco" class="panel-collapse collapse">
                 <div class="panel-body" id="informe-socioeconomico">
-                    @include('manejosolicitudes.informesocioeconomico')
+                    @include('solicitudes.informesocioeconomico')
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
             </div>
             <div id="PanelSeis" class="panel-collapse collapse">
                 <div class="panel-body">
-                    @include('manejosolicitudes.recaudos')
+                    @include('solicitudes.recaudos')
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@
             </div>
             <div id="PanelSiete" class="panel-collapse collapse">
                 <div class="panel-body">                   
-                    @include('manejosolicitudes.presupuesto')                    
+                    @include('solicitudes.presupuesto')                    
                 </div>
             </div>
         </div>   
@@ -136,7 +136,7 @@
             </div>
             <div id="PanelOcho" class="panel-collapse collapse">
                 <div class="panel-body">
-                    @include('manejosolicitudes.galeriafotos')
+                    @include('solicitudes.galeriafotos')
                 </div>
             </div>
         </div>  
@@ -181,7 +181,7 @@
             </div>
             <div id="PanelBitacora" class="panel-collapse collapse">
                 <div class="panel-body">
-                    @include('manejosolicitudes.bitacora')
+                    @include('solicitudes.bitacora')
                 </div>
             </div>
         </div>    
@@ -212,5 +212,5 @@
 </div>
 @stop
 @section('javascript')
-{{HTML::script('js/views/manejosolicitudes/solicitud.js')}}
+{{HTML::script('js/views/solicitudes/solicitud.js')}}
 @stop

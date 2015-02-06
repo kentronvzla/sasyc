@@ -59,6 +59,6 @@
 <hr>
 @include('templates.bootstrap.submit',['nombreSubmit'=>'Siguiente','nomostrar'=>true,'icon'=>'forward', 'clase'=>'siguiente'])
 @section('javascript')
-{{HTML::script('js/views/manejosolicitudes/nuevasolicitud.js')}}
+{{HTML::script('js/views/solicitudes/nuevasolicitud.js')}}
 @stop
 {{Form::close()}}

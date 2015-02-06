@@ -38,7 +38,7 @@
         </div>         
     </div> 
 </div>
-@include('manejosolicitudes/direccion-solicitante')
+@include('solicitudes/direccion-solicitante')
 <div class="row">
     {{Form::btInput($solicitante,'email',6)}}
     {{Form::btInput($solicitante,'twitter',6)}}

@@ -10,6 +10,14 @@ namespace Ayudantes\Macros;
 
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
+    function button($href, $icon, $title) {
+        return '<a class="btn btn-primary btn-xs" href="'.url($href).'" title="'.$title.'" target="_blank">'.\HTML::icon($icon).'</a>';
+    }
+
+    function icon($icon) {
+        return '<span class="glyphicon glyphicon-' . $icon . '"></span>';
+    }
+
     function simpleTable($collection, $modelName, $botones = [], $urlDelete = "", $href = []) {
         $model = new $modelName();
         $data['prettyFields'] = $model->getPublicFields();

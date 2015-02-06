@@ -160,7 +160,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     ];
     protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion',
         'fecha_aprobacion', 'fecha_cierre'];
-    
     protected $appends = ['total_ingresos'];
 
     protected function getPrettyFields() {
@@ -198,6 +197,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'tenencia_id' => 'Tenencia',
             'informe_social' => 'Informe social',
             'total_ingresos' => 'Total de ingresos',
+            'departamento_id' => 'Departamento',
         ];
     }
 
@@ -263,7 +263,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
      * @return UsuarioAsignacion
      */
     public function usuarioAsignacion() {
-        return $this->belongsTo('UsuarioAsignacion');
+        return $this->belongsTo('Usuario');
     }
 
     /**
@@ -271,7 +271,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
      * @return UsuarioAutorizacion
      */
     public function usuarioAutorizacion() {
-        return $this->belongsTo('UsuarioAutorizacion');
+        return $this->belongsTo('Usuario');
     }
 
     /**
@@ -288,6 +288,14 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
      */
     public function tenencia() {
         return $this->belongsTo('Tenencia');
+    }
+    
+     /**
+     * Define una relación pertenece a Departamento
+     * @return Departamento
+     */
+    public function departamento() {
+        return $this->belongsTo('Departamento');
     }
 
     public function familiaPersonas() {
@@ -375,7 +383,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $solicitud->validate();
         return $solicitud;
     }
-    
+
     public function createdModel($model) {
         $recaudos = Recaudo::whereIndActivo(true)->get();
         $recaudos->each(function ($recaudo) use ($model) {
@@ -411,6 +419,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function savedModel($model) {
         Bitacora::registrar('Se registró la solicitud.', $model->id);
+    }
+
+    public function scopeAplicarFiltro($query, $filtro) {
+        return $query;
     }
 
 }

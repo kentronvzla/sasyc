@@ -25,7 +25,7 @@ class RecaudosSolicitudController extends BaseController {
         } else {
             $data['recaudos'] = $data['recaudo']->solicitud->recaudosSolicitud;
         }
-        return View::make('manejosolicitudes.recaudos', $data);
+        return View::make('solicitudes.recaudos', $data);
     }
 
     public function getDescargar($recaudoSolicitudId) {

@@ -31,7 +31,7 @@ class PresupuestosController extends BaseController {
         $data['presupuesto'] = Presupuesto::findOrNew($presupuesto_id);
         $data['presupuestos'] = $data['solicitud']->presupuestos;
         $data['beneficiario_kerux'] = new Oracle\Beneficiario();
-        return View::make('manejosolicitudes.presupuesto', $data);
+        return View::make('solicitudes.presupuesto', $data);
     }
 
     public function deletePresupuesto($id) {
