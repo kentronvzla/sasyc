@@ -6,6 +6,11 @@ class SolicitudesController extends BaseController {
         parent::__construct();
     }
 
+    public function getVer($id) {
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        return View::make('solicitudes.ver', $data);
+    }
+
     public function getIndex() {
         $data['solicitudes'] = Solicitud::ordenar()
                 ->eagerLoad()
