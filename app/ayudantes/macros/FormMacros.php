@@ -14,8 +14,8 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         $data['numCols'] = $numCols;
         $data['attrName'] = $attrName;
         $data['params']['id'] = str_replace('[]', '', $attrName);
-        $data['attrValue'] = $obj->getValueAt($data['params']['id'], false);
-        $data['params']['placeholder'] = $obj->getDescription($attrName);
+        $data['attrValue'] = $obj->getValueAt($data['params']['id']);
+        $data['params']['placeholder'] = $obj->getBaseDescription($attrName);
         return \View::make('templates.bootstrap.display', $data);
     }
 

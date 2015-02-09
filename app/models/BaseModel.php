@@ -329,6 +329,15 @@ abstract class BaseModel extends Eloquent implements DefaultValuesInterface, Sel
         $this->errors->add($var, $description);
     }
 
+    public function getBaseDescription($attr) {
+        $arr = explode('->', $attr);
+        if (count($arr) > 1) {
+            $snakeString = snake_case($arr[0]) . '_id';
+            return $this->getDescription($snakeString);
+        }
+        return $this->getDescription($attr);
+    }
+
     public function getDescription($attr) {
         $arr = explode('->', $attr);
         switch (count($arr)) {

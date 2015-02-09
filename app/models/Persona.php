@@ -248,6 +248,8 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
     public function solicitudes() {
         return $this->hasMany('Solicitud', 'persona_beneficiario_id');
     }
+    
+    
 
     public function setFechaNacimientoAttribute($value) {
         if ($value != "") {
