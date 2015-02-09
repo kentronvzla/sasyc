@@ -13,22 +13,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        {{Form::display($solicitud,'descripcion',12)}}
-                        {{Form::display($solicitud,'referente->nombre',12)}}
-                        {{Form::display($solicitud,'area->nombre',12)}}
-                        {{Form::display($solicitud,'ind_inmediata',12)}}
+                        {{Form::display($solicitud,'descripcion',8, true)}}
+                        {{Form::display($solicitud,'ind_inmediata',4)}}
+                        {{Form::display($solicitud,'referente->nombre',8, true)}}
+                        {{Form::display($solicitud,'area->nombre',4)}}
                     </div>
                     
                     @if ($solicitud->ind_inmediata)
-                        <div class="row">
-                            {{Form::display($solicitud,'actividad')}}
+                        {{Form::display($solicitud,'actividad',4)}}
+                        {{Form::display($solicitud,'referencia',4)}}
+                        {{Form::display($solicitud,'accion_tomada',4)}}
+                        <!--<div class="row">
+                            {{Form::display($solicitud,'actividad',4)}}
                         </div>
                         <div class="row">
-                            {{Form::display($solicitud,'referencia')}}
+                            {{Form::display($solicitud,'referencia',4)}}
                         </div>
                         <div class="row">
-                            {{Form::display($solicitud,'accion_tomada')}}
-                        </div>
+                            {{Form::display($solicitud,'accion_tomada',4)}}
+                        </div>-->
                     @endif    
                 </div>
             </div>
@@ -73,8 +76,8 @@
                 <div class="panel-body">
                     <div class="row">
                         {{Form::display($solicitud->personaBeneficiario,'parroquia->nombre',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'municipio->nombre',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'estado->nombre',3)}}
+                        {{Form::display($solicitud->personaBeneficiario,'parroquia->municipio->nombre',3)}}
+                        {{--Form::display($solicitud->personaBeneficiario,'parroquia->municipio->estado->nombre',3)--}}
                         {{Form::display($solicitud->personaBeneficiario,'telefono_fijo',3)}}
                     </div>
                     <div class="row">
@@ -82,6 +85,18 @@
                         {{Form::display($solicitud->personaBeneficiario,'calle_avenida',3)}}
                         {{Form::display($solicitud->personaBeneficiario,'apto_casa',3)}}
                         {{Form::display($solicitud->personaBeneficiario,'telefono_celular',3)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+           <div >
+            <div class="panel-heading">
+                <center><h4 class="panel-title">Presupuesto</h4></center>
+            </div>
+            <div id="Panel2" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        {{HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')}}
                     </div>
                 </div>
             </div>
