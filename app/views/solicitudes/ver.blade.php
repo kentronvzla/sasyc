@@ -13,26 +13,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        {{Form::display($solicitud,'descripcion',8, true)}}
-                        {{Form::display($solicitud,'ind_inmediata',4)}}
-                        {{Form::display($solicitud,'referente->nombre',8, true)}}
-                        {{Form::display($solicitud,'area->nombre',4)}}
+                        {{Form::display($solicitud,'descripcion',9, true)}}
+                        {{Form::display($solicitud,'ind_inmediata',3)}}
+                        {{Form::display($solicitud,'referente->nombre',9, true)}}
+                        {{Form::display($solicitud,'area->nombre',3)}}
+                        @if ($solicitud->ind_inmediata)
+                            {{Form::display($solicitud,'actividad',5)}}
+                            {{Form::display($solicitud,'referencia',4)}}
+                            {{Form::display($solicitud,'accion_tomada',3)}}
+                        @endif
                     </div>
                     
-                    @if ($solicitud->ind_inmediata)
-                        {{Form::display($solicitud,'actividad',4)}}
-                        {{Form::display($solicitud,'referencia',4)}}
-                        {{Form::display($solicitud,'accion_tomada',4)}}
-                        <!--<div class="row">
-                            {{Form::display($solicitud,'actividad',4)}}
-                        </div>
-                        <div class="row">
-                            {{Form::display($solicitud,'referencia',4)}}
-                        </div>
-                        <div class="row">
-                            {{Form::display($solicitud,'accion_tomada',4)}}
-                        </div>-->
-                    @endif    
                 </div>
             </div>
         </div>
@@ -56,13 +47,15 @@
                     </div>
                      <div class="row">
                         {{Form::display($solicitud->personaBeneficiario,'ocupacion',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'nivel_academico_id',3)}}
+                        {{Form::display($solicitud->personaBeneficiario,'nivelAcademico->nombre',3)}}
                         {{Form::display($solicitud->personaBeneficiario,'ingreso_mensual',3)}}
                         {{Form::display($solicitud->personaBeneficiario,'ind_asegurado',3)}}
                     </div>
                     <div class="row">
-                        {{Form::display($solicitud->personaBeneficiario,'empresa_seguro',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'cobertura',3)}}
+                        @if ($solicitud->personaBeneficiario->ind_asegurado)
+                            {{Form::display($solicitud->personaBeneficiario,'empresa_seguro',3)}}
+                            {{Form::display($solicitud->personaBeneficiario,'cobertura',3)}}
+                        @endif
                         {{Form::display($solicitud->personaBeneficiario,'otro_apoyo',3)}}
                     </div>
                 </div>
@@ -90,8 +83,9 @@
             </div>
         </div>
            <div >
+           <!--<div class="panel panel-danger">-->
             <div class="panel-heading">
-                <center><h4 class="panel-title">Presupuesto</h4></center>
+                <h4 class="panel-title"><h4>Presupuesto</h4>
             </div>
             <div id="Panel2" class="panel-collapse collapse in">
                 <div class="panel-body">
@@ -100,6 +94,7 @@
                     </div>
                 </div>
             </div>
+            <!--</div>-->
         </div>
      
       
