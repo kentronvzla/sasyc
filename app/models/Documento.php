@@ -32,6 +32,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Documento whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Documento whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Documento whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class Documento extends BaseModel {
 

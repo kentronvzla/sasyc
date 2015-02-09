@@ -19,6 +19,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class TipoRequerimiento extends BaseModel implements SimpleTableInterface {
 

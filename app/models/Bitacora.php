@@ -35,6 +35,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUpdatedAt($value)
+ * @property-read mixed $notafor 
+ * @property-read mixed $estatus_display 
  */
 class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 

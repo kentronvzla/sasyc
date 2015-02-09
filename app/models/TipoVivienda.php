@@ -19,6 +19,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoVivienda whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class TipoVivienda extends BaseModel implements SimpleTableInterface {
 

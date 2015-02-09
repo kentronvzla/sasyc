@@ -10,12 +10,13 @@ namespace Ayudantes\Macros;
 
 class FormBuilder extends \Illuminate\Html\FormBuilder {
 
-    public function display($obj, $attrName, $numCols = 12) {
+    public function display($obj, $attrName, $numCols = 12, $inline = false) {
         $data['numCols'] = $numCols;
         $data['attrName'] = $attrName;
         $data['params']['id'] = str_replace('[]', '', $attrName);
-        $data['attrValue'] = $obj->getValueAt($data['params']['id'], false);
+        $data['attrValue'] = $obj->getValueAt($data['params']['id'], true);
         $data['params']['placeholder'] = $obj->getDescription($attrName);
+        $data['inline'] = $inline;
         return \View::make('templates.bootstrap.display', $data);
     }
 

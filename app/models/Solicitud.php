@@ -93,6 +93,23 @@
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUpdatedAt($value)
+ * @property integer $memo_id 
+ * @property string $beneficiario_json 
+ * @property string $solicitante_json 
+ * @property integer $departamento_id 
+ * @property-read \Departamento $departamento 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bitacora[] $bitacoras 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\RecaudoSolicitud')->orderBy('id[] $recaudosSolicitud 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\FotoSolicitud')->orderBy('id[] $fotos 
+ * @property-read mixed $total_ingresos_for 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereMemoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereBeneficiarioJson($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereSolicitanteJson($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereDepartamentoId($value)
+ * @method static \Solicitud ordenar()
+ * @method static \Solicitud aplicarFiltro($filtro)
+ * @method static \Solicitud eagerLoad()
  */
 class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface, DecimalInterface {
 

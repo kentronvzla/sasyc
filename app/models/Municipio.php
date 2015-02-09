@@ -22,6 +22,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Municipio whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Municipio whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Municipio whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Parroquia[] $parroquias 
+ * @property-read mixed $estatus_display 
  */
 class Municipio extends BaseModel implements SimpleTableInterface {
 

@@ -36,6 +36,10 @@
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereUpdatedAt($value)
+ * @property-read \Oracle\Beneficiario $beneficiario 
+ * @property-read mixed $monto_for 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereBeneficiarioId($value)
  */
 class Presupuesto extends BaseModel implements DefaultValuesInterface, SimpleTableInterface, DecimalInterface {
 

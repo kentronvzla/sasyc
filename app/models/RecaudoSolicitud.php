@@ -29,6 +29,8 @@
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\RecaudoSolicitud whereUpdatedAt($value)
+ * @property-read mixed $documento_link 
+ * @property-read mixed $estatus_display 
  */
 class RecaudoSolicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 

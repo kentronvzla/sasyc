@@ -19,6 +19,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Recepcion whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Recepcion whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Recepcion whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class Recepcion extends BaseModel {
 

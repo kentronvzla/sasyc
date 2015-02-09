@@ -19,6 +19,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Tenencia whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Tenencia whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Tenencia whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class Tenencia extends BaseModel {
 
