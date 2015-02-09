@@ -27,6 +27,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class Recaudo extends BaseModel implements SimpleTableInterface {
 

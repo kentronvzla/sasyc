@@ -19,6 +19,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoNacionalidad whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class TipoNacionalidad extends BaseModel implements SimpleTableInterface {
 

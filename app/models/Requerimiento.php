@@ -31,6 +31,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Requerimiento whereUpdatedAt($value)
  * @property-read \TipoRequerimiento $tipoRequerimiento
+ * @property-read mixed $estatus_display 
  */
 class Requerimiento extends BaseModel {
 

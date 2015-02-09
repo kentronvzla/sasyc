@@ -13,7 +13,7 @@
             {{Form::btInput($usuario, 'nombre', 6)}}
         </div>
         <div class="row">
-            
+            {{Form::btInput($usuario, 'departamento_id', 6)}}
             {{Form::btInput($usuario, 'activated', 6)}}
         </div>
         {{Form::submitBt()}}

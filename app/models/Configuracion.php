@@ -13,6 +13,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Configuracion whereValor($value)
  * @method static \Illuminate\Database\Query\Builder|\Configuracion whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Configuracion whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class Configuracion extends BaseModel implements SimpleTableInterface {
 

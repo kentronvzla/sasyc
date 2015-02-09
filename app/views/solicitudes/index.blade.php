@@ -3,9 +3,10 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="panel panel-danger">
         <div class="panel-heading"><h4 class="panel-title">Solicitudes</h4></div>
-        <div class="panel-body">
+        <div class="panel-body" id='solicitudes-lista'>
             @foreach ($solicitudes as $solicitud)
-            <div class="row filaLista warning">
+            <div class="row filaLista marcar-solicitud">
+                {{Form::hidden('solicitudes[]', $solicitud->id)}}
                 <div class="col-xs-12 col-sm-3 col-md-3">
                     <b>({{$solicitud->id}}) {{$solicitud->personaSolicitante->nombre_completo}}</b>
                     <br><a href="#" data-toggle="tooltip" data-original-title="{{$solicitud->personaSolicitante->informacion_contacto}}">(Información de contacto)</a>
@@ -18,9 +19,6 @@
                     {{$solicitud->descripcion}} / {{$solicitud->necesidad}}
                     <br>{{$solicitud->area->tipoAyuda->nombre or ""}} / {{$solicitud->area->nombre or ""}}
                     <br>{{$solicitud->recepcion->nombre or ""}} / {{$solicitud->organismo->nombre or ""}}
-                    @if($solicitud->ind_inmediata)
-                    {{$solicitud->actividad}} / {{$solicitud->referencia}}
-                    @endif
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3">
                     Encargado: <b>{{$solicitud->usuarioAsignacion->nombre or "Sin Asignar"}}</b>
@@ -41,6 +39,11 @@
             {{$solicitudes->appends(Input::all())->links('paginacion.slider-3')}}
         </div>
     </div>
+    @if(isset($campo))
+    @include('solicitudes.asignar')
+    @endif
 </div>
-</div>
+@stop
+@section('javascript')
+{{HTML::script('js/views/solicitudes/index.js')}}
 @stop

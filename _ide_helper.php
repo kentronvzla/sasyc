@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 4, to provide autocomplete information to your IDE
- * Generated for Laravel 4.2.11 on 2014-11-19.
+ * Generated for Laravel 4.2.16 on 2015-02-09.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -366,7 +366,7 @@ namespace {
         }
         
         /**
-         * Terminate the request and send the response to the browser.
+         * Call the "finish" and "shutdown" callbacks assigned to the application.
          *
          * @param \Symfony\Component\HttpFoundation\Request $request
          * @param \Symfony\Component\HttpFoundation\Response $response
@@ -1095,7 +1095,7 @@ namespace {
         }
         
         /**
-         * Set an input definition set to be used with this application
+         * Set an input definition set to be used with this application.
          *
          * @param \Symfony\Component\Console\InputDefinition $definition The input definition
          * @api 
@@ -1351,7 +1351,7 @@ namespace {
         }
         
         /**
-         * Tries to figure out the terminal dimensions based on the current environment
+         * Tries to figure out the terminal dimensions based on the current environment.
          *
          * @return array Array containing width and height
          * @static 
@@ -3107,7 +3107,7 @@ namespace {
          *
          * @param string $query
          * @param array $bindings
-         * @param $time
+         * @param float|null $time
          * @return void 
          * @static 
          */
@@ -3719,12 +3719,25 @@ namespace {
          * @param string $operator
          * @param int $count
          * @param string $boolean
-         * @param \Closure $callback
+         * @param \Closure|null $callback
          * @return \Illuminate\Database\Eloquent\Builder|static 
          * @static 
          */
         public static function has($relation, $operator = '>=', $count = 1, $boolean = 'and', $callback = null){
             return \Illuminate\Database\Eloquent\Builder::has($relation, $operator, $count, $boolean, $callback);
+        }
+        
+        /**
+         * Add a relationship count condition to the query.
+         *
+         * @param string $relation
+         * @param string $boolean
+         * @param \Closure|null $callback
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function doesntHave($relation, $boolean = 'and', $callback = null){
+            return \Illuminate\Database\Eloquent\Builder::doesntHave($relation, $boolean, $callback);
         }
         
         /**
@@ -3739,6 +3752,18 @@ namespace {
          */
         public static function whereHas($relation, $callback, $operator = '>=', $count = 1){
             return \Illuminate\Database\Eloquent\Builder::whereHas($relation, $callback, $operator, $count);
+        }
+        
+        /**
+         * Add a relationship count condition to the query with where clauses.
+         *
+         * @param string $relation
+         * @param \Closure|null $callback
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function whereDoesntHave($relation, $callback = null){
+            return \Illuminate\Database\Eloquent\Builder::whereDoesntHave($relation, $callback);
         }
         
         /**
@@ -4298,6 +4323,7 @@ namespace {
         /**
          * Add a "group by" clause to the query.
          *
+         * @param array|string $column,...
          * @return $this 
          * @static 
          */
@@ -4855,6 +4881,16 @@ namespace {
             return \Illuminate\Database\Query\Builder::getGrammar();
         }
         
+        /**
+         * Use the write pdo for query.
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function useWritePdo(){
+            return \Illuminate\Database\Query\Builder::useWritePdo();
+        }
+        
     }
 
 
@@ -5130,6 +5166,17 @@ namespace {
         }
         
         /**
+         * Extract the file name from a file path.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */
+        public static function name($path){
+            return \Illuminate\Filesystem\Filesystem::name($path);
+        }
+        
+        /**
          * Extract the file extension from a file path.
          *
          * @param string $path
@@ -5313,6 +5360,15 @@ namespace {
          *
          * @static 
          */
+        public static function display($obj, $attrName, $numCols = 12, $inline = false){
+            return \Ayudantes\Macros\FormBuilder::display($obj, $attrName, $numCols, $inline);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
         public static function concurrencia($obj){
             return \Ayudantes\Macros\FormBuilder::concurrencia($obj);
         }
@@ -5322,8 +5378,8 @@ namespace {
          *
          * @static 
          */
-        public static function btInput($obj, $attrName, $numCols, $required = true, $type = 'text', $options = array()){
-            return \Ayudantes\Macros\FormBuilder::btInput($obj, $attrName, $numCols, $required, $type, $options);
+        public static function btSelect($attrName, $values, $value, $numCols = 12, $required = true){
+            return \Ayudantes\Macros\FormBuilder::btSelect($attrName, $values, $value, $numCols, $required);
         }
         
         /**
@@ -5331,8 +5387,17 @@ namespace {
          *
          * @static 
          */
-        public static function submitBt(){
-            return \Ayudantes\Macros\FormBuilder::submitBt();
+        public static function btInput($obj, $attrName, $numCols = 12, $type = 'text', $html = array(), $options = array()){
+            return \Ayudantes\Macros\FormBuilder::btInput($obj, $attrName, $numCols, $type, $html, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function submitBt($btn_type = 'btn-volver'){
+            return \Ayudantes\Macros\FormBuilder::submitBt($btn_type);
         }
         
         /**
@@ -5831,6 +5896,17 @@ namespace {
             return \Illuminate\Hashing\BcryptHasher::needsRehash($hashedValue, $options);
         }
         
+        /**
+         * Set the default crypt cost factor.
+         *
+         * @param int $rounds
+         * @return void 
+         * @static 
+         */
+        public static function setRounds($rounds){
+            \Illuminate\Hashing\BcryptHasher::setRounds($rounds);
+        }
+        
     }
 
 
@@ -5841,8 +5917,8 @@ namespace {
          *
          * @static 
          */
-        public static function tableModelSimple($collection, $modelName, $url = '', $parentId = 0){
-            return \Ayudantes\Macros\HtmlBuilder::tableModelSimple($collection, $modelName, $url, $parentId);
+        public static function button($href, $icon, $title){
+            return \Ayudantes\Macros\HtmlBuilder::button($href, $icon, $title);
         }
         
         /**
@@ -5850,8 +5926,26 @@ namespace {
          *
          * @static 
          */
-        public static function tableModel($collection, $modelName, $appendIcons = array(), $hasDelete = true, $hasEdit = true, $hasAdd = true){
-            return \Ayudantes\Macros\HtmlBuilder::tableModel($collection, $modelName, $appendIcons, $hasDelete, $hasEdit, $hasAdd);
+        public static function icon($icon){
+            return \Ayudantes\Macros\HtmlBuilder::icon($icon);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function simpleTable($collection, $modelName, $botones = array(), $urlDelete = '', $href = array()){
+            return \Ayudantes\Macros\HtmlBuilder::simpleTable($collection, $modelName, $botones, $urlDelete, $href);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function tableModel($collection, $modelName, $hasDelete = true, $hasEdit = true, $hasAdd = true){
+            return \Ayudantes\Macros\HtmlBuilder::tableModel($collection, $modelName, $hasDelete, $hasEdit, $hasAdd);
         }
         
         /**
@@ -6685,7 +6779,7 @@ namespace {
          * Overrides the PHP global variables according to this request instance.
          * 
          * It overrides $_GET, $_POST, $_REQUEST, $_SERVER, $_COOKIE.
-         * $_FILES is never override, see rfc1867
+         * $_FILES is never overridden, see rfc1867
          *
          * @api 
          * @static 
@@ -6799,6 +6893,9 @@ namespace {
          * 
          * Be warned that enabling this feature might lead to CSRF issues in your code.
          * Check that you are using CSRF tokens when required.
+         * If the HTTP method parameter override is enabled, an html-form with method "POST" can be altered
+         * and used to send a "PUT" or "DELETE" request via the _method request parameter.
+         * If these methods are not protected against CSRF, this presents a possible vulnerability.
          * 
          * The HTTP method can only be overridden when the real HTTP method is POST.
          *
@@ -7223,7 +7320,7 @@ namespace {
          *
          * @return string The request method
          * @api 
-         * @see getRealMethod
+         * @see getRealMethod()
          * @static 
          */
         public static function getMethod(){
@@ -7235,7 +7332,7 @@ namespace {
          * Gets the "real" request method.
          *
          * @return string The request method
-         * @see getMethod
+         * @see getMethod()
          * @static 
          */
         public static function getRealMethod(){
@@ -7479,7 +7576,7 @@ namespace {
         }
         
         /**
-         * Gets a list of content types acceptable by the client browser
+         * Gets a list of content types acceptable by the client browser.
          *
          * @return array List of content types in preferable order
          * @api 
@@ -7493,7 +7590,7 @@ namespace {
         /**
          * Returns true if the request is a XMLHttpRequest.
          * 
-         * It works if your JavaScript library set an X-Requested-With HTTP header.
+         * It works if your JavaScript library sets an X-Requested-With HTTP header.
          * It is known to work with common JavaScript frameworks:
          *
          * @link http://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript
@@ -8554,7 +8651,7 @@ namespace {
         }
         
         /**
-         * Push a new an array of jobs onto the queue.
+         * Push an array of jobs onto the queue.
          *
          * @param array $jobs
          * @param mixed $data
@@ -9317,7 +9414,7 @@ namespace {
          * Overrides the PHP global variables according to this request instance.
          * 
          * It overrides $_GET, $_POST, $_REQUEST, $_SERVER, $_COOKIE.
-         * $_FILES is never override, see rfc1867
+         * $_FILES is never overridden, see rfc1867
          *
          * @api 
          * @static 
@@ -9431,6 +9528,9 @@ namespace {
          * 
          * Be warned that enabling this feature might lead to CSRF issues in your code.
          * Check that you are using CSRF tokens when required.
+         * If the HTTP method parameter override is enabled, an html-form with method "POST" can be altered
+         * and used to send a "PUT" or "DELETE" request via the _method request parameter.
+         * If these methods are not protected against CSRF, this presents a possible vulnerability.
          * 
          * The HTTP method can only be overridden when the real HTTP method is POST.
          *
@@ -9855,7 +9955,7 @@ namespace {
          *
          * @return string The request method
          * @api 
-         * @see getRealMethod
+         * @see getRealMethod()
          * @static 
          */
         public static function getMethod(){
@@ -9867,7 +9967,7 @@ namespace {
          * Gets the "real" request method.
          *
          * @return string The request method
-         * @see getMethod
+         * @see getMethod()
          * @static 
          */
         public static function getRealMethod(){
@@ -10111,7 +10211,7 @@ namespace {
         }
         
         /**
-         * Gets a list of content types acceptable by the client browser
+         * Gets a list of content types acceptable by the client browser.
          *
          * @return array List of content types in preferable order
          * @api 
@@ -10125,7 +10225,7 @@ namespace {
         /**
          * Returns true if the request is a XMLHttpRequest.
          * 
-         * It works if your JavaScript library set an X-Requested-With HTTP header.
+         * It works if your JavaScript library sets an X-Requested-With HTTP header.
          * It is known to work with common JavaScript frameworks:
          *
          * @link http://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript
@@ -10985,7 +11085,7 @@ namespace {
         }
         
         /**
-         * Sets the session ID
+         * Sets the session ID.
          *
          * @param string $id
          * @api 
@@ -11035,9 +11135,9 @@ namespace {
          * session and deletes the old session from persistence.
          *
          * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
-         *                          will leave the system settings unchanged, 0 sets the cookie
-         *                          to expire with browser session. Time is in seconds, and is
-         *                          not a Unix timestamp.
+         *                      will leave the system settings unchanged, 0 sets the cookie
+         *                      to expire with browser session. Time is in seconds, and is
+         *                      not a Unix timestamp.
          * @return bool True if session invalidated, false if error.
          * @api 
          * @static 
@@ -11052,9 +11152,9 @@ namespace {
          *
          * @param bool $destroy Whether to delete the old session or leave it to garbage collection.
          * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
-         *                          will leave the system settings unchanged, 0 sets the cookie
-         *                          to expire with browser session. Time is in seconds, and is
-         *                          not a Unix timestamp.
+         *                       will leave the system settings unchanged, 0 sets the cookie
+         *                       to expire with browser session. Time is in seconds, and is
+         *                       not a Unix timestamp.
          * @return bool True if session migrated, false if error.
          * @api 
          * @static 
@@ -12801,6 +12901,475 @@ namespace {
          */
         public static function findThrottlerByUserLogin($login, $ipAddress = null){
             return \Cartalyst\Sentry\Sentry::findThrottlerByUserLogin($login, $ipAddress);
+        }
+        
+    }
+
+
+    class Debugbar extends \Barryvdh\Debugbar\Facade{
+        
+        /**
+         * Enable the Debugbar and boot, if not already booted.
+         *
+         * @static 
+         */
+        public static function enable(){
+            return \Barryvdh\Debugbar\LaravelDebugbar::enable();
+        }
+        
+        /**
+         * Boot the debugbar (add collectors, renderer and listener)
+         *
+         * @static 
+         */
+        public static function boot(){
+            return \Barryvdh\Debugbar\LaravelDebugbar::boot();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function shouldCollect($name, $default = false){
+            return \Barryvdh\Debugbar\LaravelDebugbar::shouldCollect($name, $default);
+        }
+        
+        /**
+         * Starts a measure
+         *
+         * @param string $name Internal name, used to stop the measure
+         * @param string $label Public name
+         * @static 
+         */
+        public static function startMeasure($name, $label = null){
+            return \Barryvdh\Debugbar\LaravelDebugbar::startMeasure($name, $label);
+        }
+        
+        /**
+         * Stops a measure
+         *
+         * @param string $name
+         * @static 
+         */
+        public static function stopMeasure($name){
+            return \Barryvdh\Debugbar\LaravelDebugbar::stopMeasure($name);
+        }
+        
+        /**
+         * Adds an exception to be profiled in the debug bar
+         *
+         * @param \Barryvdh\Debugbar\Exception $e
+         * @static 
+         */
+        public static function addException($e){
+            return \Barryvdh\Debugbar\LaravelDebugbar::addException($e);
+        }
+        
+        /**
+         * Returns a JavascriptRenderer for this instance
+         *
+         * @param string $baseUrl
+         * @param string $basePathng
+         * @return \Barryvdh\Debugbar\JavascriptRenderer 
+         * @static 
+         */
+        public static function getJavascriptRenderer($baseUrl = null, $basePath = null){
+            return \Barryvdh\Debugbar\LaravelDebugbar::getJavascriptRenderer($baseUrl, $basePath);
+        }
+        
+        /**
+         * Modify the response and inject the debugbar (or data in headers)
+         *
+         * @param \Symfony\Component\HttpFoundation\Request $request
+         * @param \Symfony\Component\HttpFoundation\Response $response
+         * @return \Symfony\Component\HttpFoundation\Response 
+         * @static 
+         */
+        public static function modifyResponse($request, $response){
+            return \Barryvdh\Debugbar\LaravelDebugbar::modifyResponse($request, $response);
+        }
+        
+        /**
+         * Check if the Debugbar is enabled
+         *
+         * @return boolean 
+         * @static 
+         */
+        public static function isEnabled(){
+            return \Barryvdh\Debugbar\LaravelDebugbar::isEnabled();
+        }
+        
+        /**
+         * Collects the data from the collectors
+         *
+         * @return array 
+         * @static 
+         */
+        public static function collect(){
+            return \Barryvdh\Debugbar\LaravelDebugbar::collect();
+        }
+        
+        /**
+         * Injects the web debug toolbar into the given Response.
+         *
+         * @param \Symfony\Component\HttpFoundation\Response $response A Response instance
+         * Based on https://github.com/symfony/WebProfilerBundle/blob/master/EventListener/WebDebugToolbarListener.php
+         * @static 
+         */
+        public static function injectDebugbar($response){
+            return \Barryvdh\Debugbar\LaravelDebugbar::injectDebugbar($response);
+        }
+        
+        /**
+         * Disable the Debugbar
+         *
+         * @static 
+         */
+        public static function disable(){
+            return \Barryvdh\Debugbar\LaravelDebugbar::disable();
+        }
+        
+        /**
+         * Adds a measure
+         *
+         * @param string $label
+         * @param float $start
+         * @param float $end
+         * @static 
+         */
+        public static function addMeasure($label, $start, $end){
+            return \Barryvdh\Debugbar\LaravelDebugbar::addMeasure($label, $start, $end);
+        }
+        
+        /**
+         * Utility function to measure the execution of a Closure
+         *
+         * @param string $label
+         * @param \Closure $closure
+         * @static 
+         */
+        public static function measure($label, $closure){
+            return \Barryvdh\Debugbar\LaravelDebugbar::measure($label, $closure);
+        }
+        
+        /**
+         * Collect data in a CLI request
+         *
+         * @return array 
+         * @static 
+         */
+        public static function collectConsole(){
+            return \Barryvdh\Debugbar\LaravelDebugbar::collectConsole();
+        }
+        
+        /**
+         * Adds a message to the MessagesCollector
+         * 
+         * A message can be anything from an object to a string
+         *
+         * @param mixed $message
+         * @param string $label
+         * @static 
+         */
+        public static function addMessage($message, $label = 'info'){
+            return \Barryvdh\Debugbar\LaravelDebugbar::addMessage($message, $label);
+        }
+        
+        /**
+         * Adds a data collector
+         *
+         * @param \DebugBar\DataCollectorInterface $collector
+         * @throws DebugBarException
+         * @return $this 
+         * @static 
+         */
+        public static function addCollector($collector){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::addCollector($collector);
+        }
+        
+        /**
+         * Checks if a data collector has been added
+         *
+         * @param string $name
+         * @return boolean 
+         * @static 
+         */
+        public static function hasCollector($name){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::hasCollector($name);
+        }
+        
+        /**
+         * Returns a data collector
+         *
+         * @param string $name
+         * @return \DebugBar\DataCollectorInterface 
+         * @static 
+         */
+        public static function getCollector($name){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getCollector($name);
+        }
+        
+        /**
+         * Returns an array of all data collectors
+         *
+         * @return \DebugBar\array[DataCollectorInterface] 
+         * @static 
+         */
+        public static function getCollectors(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getCollectors();
+        }
+        
+        /**
+         * Sets the request id generator
+         *
+         * @param \DebugBar\RequestIdGeneratorInterface $generator
+         * @static 
+         */
+        public static function setRequestIdGenerator($generator){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::setRequestIdGenerator($generator);
+        }
+        
+        /**
+         * 
+         *
+         * @return \DebugBar\RequestIdGeneratorInterface 
+         * @static 
+         */
+        public static function getRequestIdGenerator(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getRequestIdGenerator();
+        }
+        
+        /**
+         * Returns the id of the current request
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getCurrentRequestId(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getCurrentRequestId();
+        }
+        
+        /**
+         * Sets the storage backend to use to store the collected data
+         *
+         * @param \DebugBar\StorageInterface $storage
+         * @static 
+         */
+        public static function setStorage($storage = null){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::setStorage($storage);
+        }
+        
+        /**
+         * 
+         *
+         * @return \DebugBar\StorageInterface 
+         * @static 
+         */
+        public static function getStorage(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getStorage();
+        }
+        
+        /**
+         * Checks if the data will be persisted
+         *
+         * @return boolean 
+         * @static 
+         */
+        public static function isDataPersisted(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::isDataPersisted();
+        }
+        
+        /**
+         * Sets the HTTP driver
+         *
+         * @param \DebugBar\HttpDriverInterface $driver
+         * @static 
+         */
+        public static function setHttpDriver($driver){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::setHttpDriver($driver);
+        }
+        
+        /**
+         * Returns the HTTP driver
+         * 
+         * If no http driver where defined, a PhpHttpDriver is automatically created
+         *
+         * @return \DebugBar\HttpDriverInterface 
+         * @static 
+         */
+        public static function getHttpDriver(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getHttpDriver();
+        }
+        
+        /**
+         * Returns collected data
+         * 
+         * Will collect the data if none have been collected yet
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getData(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getData();
+        }
+        
+        /**
+         * Returns an array of HTTP headers containing the data
+         *
+         * @param string $headerName
+         * @param integer $maxHeaderLength
+         * @return array 
+         * @static 
+         */
+        public static function getDataAsHeaders($headerName = 'phpdebugbar', $maxHeaderLength = 4096, $maxTotalHeaderLength = 250000){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getDataAsHeaders($headerName, $maxHeaderLength, $maxTotalHeaderLength);
+        }
+        
+        /**
+         * Sends the data through the HTTP headers
+         *
+         * @param bool $useOpenHandler
+         * @param string $headerName
+         * @param integer $maxHeaderLength
+         * @static 
+         */
+        public static function sendDataInHeaders($useOpenHandler = null, $headerName = 'phpdebugbar', $maxHeaderLength = 4096){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::sendDataInHeaders($useOpenHandler, $headerName, $maxHeaderLength);
+        }
+        
+        /**
+         * Stacks the data in the session for later rendering
+         *
+         * @static 
+         */
+        public static function stackData(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::stackData();
+        }
+        
+        /**
+         * Checks if there is stacked data in the session
+         *
+         * @return boolean 
+         * @static 
+         */
+        public static function hasStackedData(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::hasStackedData();
+        }
+        
+        /**
+         * Returns the data stacked in the session
+         *
+         * @param boolean $delete Whether to delete the data in the session
+         * @return array 
+         * @static 
+         */
+        public static function getStackedData($delete = true){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getStackedData($delete);
+        }
+        
+        /**
+         * Sets the key to use in the $_SESSION array
+         *
+         * @param string $ns
+         * @static 
+         */
+        public static function setStackDataSessionNamespace($ns){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::setStackDataSessionNamespace($ns);
+        }
+        
+        /**
+         * Returns the key used in the $_SESSION array
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getStackDataSessionNamespace(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::getStackDataSessionNamespace();
+        }
+        
+        /**
+         * Sets whether to only use the session to store stacked data even
+         * if a storage is enabled
+         *
+         * @param boolean $enabled
+         * @static 
+         */
+        public static function setStackAlwaysUseSessionStorage($enabled = true){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::setStackAlwaysUseSessionStorage($enabled);
+        }
+        
+        /**
+         * Checks if the session is always used to store stacked data
+         * even if a storage is enabled
+         *
+         * @return boolean 
+         * @static 
+         */
+        public static function isStackAlwaysUseSessionStorage(){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::isStackAlwaysUseSessionStorage();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function offsetSet($key, $value){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::offsetSet($key, $value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function offsetGet($key){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::offsetGet($key);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function offsetExists($key){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::offsetExists($key);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function offsetUnset($key){
+            //Method inherited from \DebugBar\DebugBar            
+            return \Barryvdh\Debugbar\LaravelDebugbar::offsetUnset($key);
         }
         
     }

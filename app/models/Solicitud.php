@@ -93,6 +93,23 @@
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUpdatedAt($value)
+ * @property integer $memo_id 
+ * @property string $beneficiario_json 
+ * @property string $solicitante_json 
+ * @property integer $departamento_id 
+ * @property-read \Departamento $departamento 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bitacora[] $bitacoras 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\RecaudoSolicitud')->orderBy('id[] $recaudosSolicitud 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\FotoSolicitud')->orderBy('id[] $fotos 
+ * @property-read mixed $total_ingresos_for 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereMemoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereBeneficiarioJson($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereSolicitanteJson($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereDepartamentoId($value)
+ * @method static \Solicitud ordenar()
+ * @method static \Solicitud aplicarFiltro($filtro)
+ * @method static \Solicitud eagerLoad()
  */
 class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface, DecimalInterface {
 
@@ -157,7 +174,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     ];
     protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion',
         'fecha_aprobacion', 'fecha_cierre'];
-    protected $appends = ['total_ingresos'];
 
     protected function getPrettyFields() {
         return [
@@ -343,10 +359,14 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function getTotalIngresosAttribute() {
-        return $this->personaBeneficiario->ingreso_mensual + $this->ingresoFamiliar();
+        if (is_null($this->attributes['total_ingresos'])) {
+            return $this->personaBeneficiario->ingreso_mensual + $this->ingresoFamiliar();
+        }
+        return $this->attributes['total_ingresos'];
     }
 
     public function getDefaultValues() {
+        Bitacora::registrar('Se registró la solicitud.', $model->id);
         return [
             'ano' => Carbon::now()->format('Y'),
             'fecha_solicitud' => Carbon::now(),
@@ -375,6 +395,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if ($solicitud->ind_mismo_benef == "1") {
             $solicitud->persona_solicitante_id = $solicitud->persona_beneficiario_id;
         }
+        $solicitud->estatus = "ELA";
         $solicitud->validate();
         return $solicitud;
     }
@@ -412,10 +433,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return tm($this->total_ingresos);
     }
 
-    public function savedModel($model) {
-        Bitacora::registrar('Se registró la solicitud.', $model->id);
-    }
-
     public function scopeOrdenar($query) {
         return $query->orderBy('ind_inmediata', 'DESC')->orderBy('estatus');
     }
@@ -434,6 +451,80 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                         ->with('usuarioAutorizacion')
                         ->with('usuarioAsignacion')
                         ->with('area.tipoAyuda');
+    }
+
+    public function afterValidate() {
+        if (is_object($this->organismo) && $this->organismo->ind_externo) {
+            $this->estatus = "REF";
+        } else if ($this->estatus == "REF") {
+            $this->estatus = "ELA";
+        }
+    }
+
+    public function asignarDepartamento($departamento_id, $memo) {
+        if ($this->estatus == "ELA") {
+            $this->departamento_id = $departamento_id;
+            $this->estatus = "ELD";
+            $this->beneficiario_json = $this->personaBeneficiario->toJson();
+            if (is_object($this->personaSolicitante)) {
+                $this->solicitante_json = $this->personaSolicitante->toJson();
+            }
+            //despues que se asigna el modelo retorna lo que esta en BD.
+            $this->total_ingresos = tm($this->total_ingresos);
+            $this->memo_id = $memo->id;
+            $this->save();
+            Bitacora::registrar("Se asigno la solicitud al departamento: " . $this->departamento->nombre, $this->id);
+        }
+        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELA']);
+    }
+
+    public function asignarAnalista($encargado_id, $autorizador_id) {
+        if ($this->estatus == "ELD") {
+            $this->usuario_asignacion_id = $encargado_id;
+            $this->usuario_autorizacion_id = $autorizador_id;
+            $this->estatus = "EPR";
+            $this->save();
+            Bitacora::registrar("Se asignó la solicitud al analista: " .
+                    $this->usuarioAsignacion->nombre . ', autorizado por: ' .
+                    $this->usuarioAutorizacion->nombre, $this->id);
+        }
+        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELD']);
+    }
+
+    public static function asignar(array $values) {
+        //se usa para los message bags
+        $mensajes = new Solicitud();
+        if (!isset($values['solicitudes'])) {
+            $mensajes->addError('solicitudes', 'Debes seleccionar al menos una solicitud');
+            return $mensajes;
+        }
+        $rules = [
+            'departamento_id' => 'required_if:campo,departamento',
+            'usuario_autorizacion_id' => 'required_if:campo,usuario',
+            'usuario_asignacion_id' => 'required_if:campo,usuario',
+            'campo' => 'required',
+        ];
+        $validator = Validator::make(Input::all(), $rules);
+        $validator->setAttributeNames($mensajes->getPrettyFields());
+        if ($validator->passes()) {
+            $solicitudes = Solicitud::findMany($values['solicitudes']);
+            if ($values['campo'] == "departamento") {
+                $memo = Memo::crear($values);
+                $solicitudes->each(function($solicitud) use ($values, $mensajes, $memo) {
+                    $solicitud->asignarDepartamento($values['departamento_id'], $memo);
+                    //si salieron errores hacemos un merge
+                    $mensajes->errors->merge($solicitud->errors);
+                });
+            } else if ($values['campo'] == "usuario") {
+                $solicitudes->each(function($solicitud) use ($values, $mensajes) {
+                    $solicitud->asignarAnalista($values['usuario_asignacion_id'], $values['usuario_autorizacion_id']);
+                    //si salieron errores hacemos un merge
+                    $mensajes->errors->merge($solicitud->errors);
+                });
+            }
+        }
+        $mensajes->setErrors($validator->messages());
+        return $mensajes;
     }
 
 }

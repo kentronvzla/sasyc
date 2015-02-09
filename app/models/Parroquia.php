@@ -25,6 +25,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Parroquia whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class Parroquia extends BaseModel implements SimpleTableInterface {
 

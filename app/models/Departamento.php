@@ -4,6 +4,18 @@
  * Description of Departamento
  *
  * @author Nadin Yamani
+ * @property integer $id 
+ * @property integer $supervisor_id 
+ * @property string $nombre 
+ * @property \Carbon\Carbon $created_at 
+ * @property \Carbon\Carbon $updated_at 
+ * @property-read \Usuario $supervisor 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\Departamento whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Departamento whereSupervisorId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Departamento whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\Departamento whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Departamento whereUpdatedAt($value)
  */
 class Departamento extends BaseModel implements SimpleTableInterface {
 

@@ -24,6 +24,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Area whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Area whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Area whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class Area extends BaseModel implements SimpleTableInterface {
 

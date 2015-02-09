@@ -112,7 +112,7 @@ $(document).ready(function () {
 
 
 function docReady() {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({html: true});
     $('.btn-reset').click(function () {
         $(this).closest('form').clearForm();
     });

@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * Grupo
+ *
+ * @property integer $id 
+ * @property string $name 
+ * @property string $permissions 
+ * @property \Carbon\Carbon $created_at 
+ * @property \Carbon\Carbon $updated_at 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\Grupo whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Grupo whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\Grupo wherePermissions($value)
+ * @method static \Illuminate\Database\Query\Builder|\Grupo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Grupo whereUpdatedAt($value)
+ */
 class Grupo extends BaseModel implements SimpleTableInterface {
 
     protected $primaryKey = "id";

@@ -12,6 +12,9 @@ namespace Oracle;
  * Description of Beneficiario
  *
  * @author Richard Arrieta
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Presupuesto[] $presupuestos 
+ * @property-read mixed $id 
+ * @property-read mixed $estatus_display 
  */
 class Beneficiario extends OracleBaseModel implements \SelectInterface {
 

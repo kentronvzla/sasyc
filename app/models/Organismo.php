@@ -21,6 +21,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Organismo whereUpdatedAt($value)
+ * @property-read mixed $estatus_display 
  */
 class Organismo extends BaseModel implements SelectInterface, SimpleTableInterface{
 
