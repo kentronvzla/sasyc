@@ -3,6 +3,7 @@
 .env.php
 /vendor
 /nbproject
+/.idea
 /app/modelos_generados
 /app/controladores_generados
 /app/vistas_generadas
