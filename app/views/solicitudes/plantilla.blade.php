@@ -195,7 +195,9 @@
                 <div id="contenedorBarraCarga">
                 </div>
                 <div class="text-center">
-                    <a target="_blank" href="#" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span> Ver</a>
+                    <a target="_blank" href="{{url('solicitudes/ver/'.$solicitud->id)}}" class="btn btn-primary btn-lg">
+                        <span class="glyphicon glyphicon-search"></span> Ver
+                    </a>
                     <div class="btn-group">
                         <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-print"></span> Imprimir <span class="caret"></span>

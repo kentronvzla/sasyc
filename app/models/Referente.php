@@ -50,7 +50,7 @@ class Referente extends BaseModel implements SimpleTableInterface {
 
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
+            'nombre' => 'Referido por',
             'cargo' => 'Cargo',
         ];
     }

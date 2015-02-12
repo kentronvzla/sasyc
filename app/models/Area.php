@@ -54,7 +54,7 @@ class Area extends BaseModel implements SimpleTableInterface {
 
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
+            'nombre' => 'Area',
             'descripcion' => 'Descripción',
             'tipo_ayuda_id' => 'Tipo de ayuda',
         ];
