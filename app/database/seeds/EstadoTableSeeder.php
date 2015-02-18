@@ -29,7 +29,6 @@ class EstadoTableSeeder extends Seeder {
             'Delta Amacuro',
             'Vargas',
             'Zonas Inhóspitas',
-            'Embajadas',
         ];
         foreach ($estados as $estado) {
             Estado::create(array('nombre' => $estado));

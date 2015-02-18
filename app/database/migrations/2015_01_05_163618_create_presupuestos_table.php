@@ -11,16 +11,26 @@ class CreatePresupuestosTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('presupuestos', function(Blueprint $table) {
+        Schema::connection('oracle')->create('presupuestos_sasyc', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('solicitud_id', false, true);
             $table->integer('requerimiento_id', false, true);
-            $table->integer('beneficiario_id', false, true);
+
+            //esto es para kerux
+            $table->string('ccosto', 10)->nullable();//configuracion
+            $table->string('cod_acc_int', 7)->nullable();//Tipo de ayuda
+            $table->string('cod_cta', 14)->nullable();//Requerimiento
+            $table->string('cod_item', 10)->nullable();//Requerimiento
+            $table->string('desc_requerimiento', 500)->nullable();//Nombre del requerimiento
+            $table->integer('id_doc')->length(14)->nullable();//Lo pone kerux.
+            $table->string('moneda', 3)->nullable();//Configuracion
+            $table->string('tipo_reng', 4)->nullable();//Requirimiento->TipoRequerimiento
+            $table->integer('beneficiario_id', false, true)->length(14);//Lo selecciona el usuario
+            //fin de kerux
+
             $table->integer('cantidad');
             $table->decimal('monto', 14, 2);
-            $table->string('estatus', 3);
-            $table->integer('id_doc_proc')->nullable();
-            $table->integer('id_sol_sum')->nullable();
+            $table->string('estatus', 3);//Kerux cambia este campo.
             $table->integer('version')->default(0);
             $table->timestamps();
         });
@@ -32,7 +42,7 @@ class CreatePresupuestosTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('presupuestos');
+        Schema::connection('oracle')->drop('presupuestos');
     }
 
 }

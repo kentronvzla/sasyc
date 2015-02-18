@@ -19,7 +19,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereUpdatedAt($value)
- * @property-read mixed $estatus_display 
+ * @property-read mixed $estatus_display
  */
 class TipoRequerimiento extends BaseModel implements SimpleTableInterface {
 
@@ -31,24 +31,23 @@ class TipoRequerimiento extends BaseModel implements SimpleTableInterface {
      * @var array
      */
     protected $fillable = [
-        'nombre', 
+        'codigo', 'nombre',
     ];
 
     /**
-     * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save, 
+     * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save,
      * si el modelo no cumple con estas reglas el metodo save retornará false, y los cambios realizados no haran persistencia.
      * @link http://laravel.com/docs/validation#available-validation-rules
      * @var array
      */
     protected $rules = [
-        'nombre'=>'required', 
-
+        'codigo'=>'required|unique:tipo_requerimientos',
+        'nombre'=>'required',
     ];
-    
+
     protected function getPrettyFields() {
         return [
-            'nombre'=>'Tipo de requerimiento', 
-
+            'nombre'=>'Tipo de requerimiento',
         ];
     }
 
@@ -56,6 +55,6 @@ class TipoRequerimiento extends BaseModel implements SimpleTableInterface {
         return "Tipo de requerimiento";
     }
 
-    
+
 
 }

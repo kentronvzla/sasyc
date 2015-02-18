@@ -64,17 +64,12 @@ class CreateForeigTables extends Migration {
             $table->index('parroquia_id');
             $table->foreign('parroquia_id')->references('id')->on('parroquias');
         });
-        
-        Schema::table('presupuestos', function(Blueprint $table) {
-            $table->index('solicitud_id');
-            $table->foreign('solicitud_id')->references('id')->on('solicitudes');
-            
-            $table->index('requerimiento_id');
-            $table->foreign('requerimiento_id')->references('id')->on('requerimientos');
-            
+
+        //Hay que revisar la documentacion, los campos no coinciden INT(10) != Int(14)
+        /*Schema::connection('oracle')->table('presupuestos_sasyc', function(Blueprint $table) {
             $table->index('beneficiario_id');
-            $table->foreign('beneficiario_id')->references('id')->on('personas'); 
-        });
+            $table->foreign('beneficiario_id')->references('nu,benef')->on('doc.beneficiarios');
+        });*/
         
         Schema::table('recaudo_solicitud', function(Blueprint $table) {
             $table->index('solicitud_id');

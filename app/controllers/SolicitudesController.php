@@ -1,5 +1,7 @@
 <?php
 
+use Oracle\Presupuesto;
+
 class SolicitudesController extends BaseController {
 
     public function __construct() {
