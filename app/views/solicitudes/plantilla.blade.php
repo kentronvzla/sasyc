@@ -139,7 +139,8 @@
                     @include('solicitudes.galeriafotos')
                 </div>
             </div>
-        </div>  
+        </div> 
+        <!-------------------------------------------------------------------->
         @endunless
         @endif
     </div>

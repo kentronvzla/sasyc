@@ -1,0 +1,149 @@
+@extends('layouts.master')
+@section('contenido')
+<div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-12 col-sm-8 col-md-8">
+    <!------------------------------------------------------>    
+       <table class="table table-bordered" border="0">
+            <tr>
+                <td class="danger">
+                    <center><strong>Memorandun a Imprimir</strong></center>
+                </td>
+            </tr>
+        </table>
+    <br>
+    <!------------------------------------------------------>
+        <div class="cuerpo" style="position: center">
+            <table width="100%" border="0" cellpadding="10" cellspacing="5">
+                <tr>
+                <td style="background: white;">
+                    {{HTML::image('img/logoReporte.jpg')}}
+                </td>
+                </tr>
+                <tr>
+                    <td style="background: white;">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                               <strong>
+                                   <center>Republica Bolivariana de Venezuela</center>
+                               </strong>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                 <tr>
+                    <td style="background: white;">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                               <strong>
+                                   <center>Ministerio del poder Popular del Despacho de la Presidencia</center>
+                               </strong>   
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                  <tr>
+                    <td style="background: white;">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <strong>
+                                    <center>Fundacion pueblo Soberano</center>
+                                </strong>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!------------------------------------------------------>
+        <br>
+        <div class="cuerpo" style="position: center">
+            <table width="100%" border="0" cellpadding="10" cellspacing="5">
+                <tr><td width=170 style="background: white;">
+                        <strong>Para:</strong>
+                    </td>
+                    <td width=500 style="background: white;">
+                        {{$memo->destino->Departamento}}
+                    </td>
+                </tr>
+                <tr><td style="background: white;">
+                        <strong>De:</strong>
+                    </td>
+                    <td style="background: white;">
+                        {{$memo->origen->Departamento}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background: white;">
+                        <strong>Asunto:</strong>
+                    </td>
+                    <td style="background: white;">
+                        {{$memo->asunto}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background: white;">
+                        <strong>Fecha:</strong>
+                    </td>
+                    <td style="background: white;">
+                        {{$memo->fecha}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!------------------------------------------------------>
+        <br>
+        <div class="cuerpo" style="position: center">
+            <table width="100%" border="0" cellpadding="10" cellspacing="10">
+                <tr>
+                    <td width=670 ALIGN=CENTER style="background: white;">
+                        <strong>Listado de casos por fecha y codigo</strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!------------------------------------------------------>
+        <br>
+        <div class="cuerpo" style="position: center">
+            {{HTML::simpleTable($memo->solicitudes, 'Solicitud')}}
+        </div>
+    </div>
+ <!------------------------------------------------------------------------------------->   
+    <div class="col-xs-12 col-sm-4 col-md-4 hidden-xs">
+        <div id="div-bitacora" class="panel panel-danger">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelBitacora">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordionlateral" href="#PanelBitacora">            
+                        Bitácora
+                    </a>
+                </h4>
+            </div>
+            <div id="PanelBitacora" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>    
+        <div class="panel panel-danger">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelPlanilla">
+                <h4 class="panel-title">
+                    Memorandum
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div id="contenedorBarraCarga">
+                </div>
+                <div class="text-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-print"></span> Imprimir <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                             <li><a href="{{url('memorandum/imprimir/'.$memo->id)}}">Memorandum</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@stop

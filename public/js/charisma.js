@@ -112,6 +112,22 @@ $(document).ready(function () {
 
 
 function docReady() {
+    $('.abrir-modal').unbind('click');
+    $('.abrir-modal').click(function(evt) {
+        evt.preventDefault();
+        var url = $(this).attr('href');
+        $.get(url, function(data) {
+            if ($("#divModal").is(':empty')) {
+                $("#divModal").html(data);
+                $("#divModal").modal('show');
+            } else {
+                $("#divModal2").html(data);
+                $("#divModal2").modal('show');
+            }
+        });
+        return false;
+    });
+    
     $('[data-toggle="tooltip"]').tooltip({html: true});
     $('.btn-reset').click(function () {
         $(this).closest('form').clearForm();

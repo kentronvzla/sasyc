@@ -1,10 +1,10 @@
-<table class="table table-striped responsive">
+<table class="table table-striped responsive {{$datatable ?'jqueryTable':''}}">
     <thead>
         <tr>
             @foreach($prettyFields as $col)
             <th>{{$col}}</th>
             @endforeach
-            @if(count($botones)>0)
+            @if(count($botones)>0 || count($href)>0)
             <th>Acciones</th>
             @endif
         </tr>

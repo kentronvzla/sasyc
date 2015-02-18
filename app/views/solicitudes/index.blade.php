@@ -31,8 +31,10 @@
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 text-right">
                     {{HTML::button('solicitudes/ver/'.$solicitud->id, 'search','Ver Solicitud')}}
-                    {{HTML::button('solicitudes/modificar/'.$solicitud->id, 'pencil','Modificar Solicitud')}}
-                    {{HTML::button('solicitudes/eliminar/'.$solicitud->id, 'trash','Eliminar Solicitud')}}
+                    {{HTML::button('solicitudes/modificar/'.$solicitud->id, 'pencil','Modificar Solicitud')}}   
+                    @if(isset($anulando))
+                    {{HTML::button('solicitudes/anular/'.$solicitud->id, 'trash','Anular Solicitud', true)}}
+                    @endif
                 </div>
             </div>
             @endforeach

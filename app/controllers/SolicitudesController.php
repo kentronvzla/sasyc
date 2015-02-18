@@ -8,7 +8,7 @@ class SolicitudesController extends BaseController {
 
     public function getVer($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
-        return View::make('solicitudes.ver', $data);
+        return View::make('solicitudes.planilla', $data);
     }
 
     public function getIndex() {
@@ -19,6 +19,9 @@ class SolicitudesController extends BaseController {
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
             $data['solicitud'] = new Solicitud();
+        }
+        else if(Input::has('anulando')){
+            $data['anulando'] = true;
         }
         return View::make('solicitudes.index', $data);
     }
@@ -102,4 +105,65 @@ class SolicitudesController extends BaseController {
         return Response::json(['mensaje' => 'Se asignaron las solicitudes correctamente']);
     }
 
+    /* --------------------------------------------------------------------*/
+
+    public function getPlanilla($id, $store = false) {
+        require_once(app_path('/ayudantes/report/html2pdf.class.php'));
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        $data['personaBeneficiario'] = $data['solicitud']->personaBeneficiario;
+        $pdf = new HTML2PDF('P', 'letter', 'es');
+        $pdf->pdf->SetDisplayMode('fullpage');
+        try {
+            ob_clean();
+            $html = View::make('solicitudes.imprimir', $data)->render();
+            $pdf->writeHTML($html);
+            if ($store) {
+                $pdf->Output(app_path('storage/temp/solicitud' . $id . '.pdf'), 'F');
+            } else {
+                $pdf->Output('solicitud.pdf');
+            }
+        } catch (HTML2PDF_exception $e) {
+            die($e . " :(");
+        }
+        die();
+    }
+
+    public function getVermemo($id) {
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        $data['personaBeneficiario'] = $data['solicitud']->personaBeneficiario;
+        return View::make('memorandun.memorandun',$data);
+    }
+    
+    public function getMemo($id, $store = false) {
+        require_once(app_path('/ayudantes/report/html2pdf.class.php'));
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        $data['personaBeneficiario'] = $data['solicitud']->personaBeneficiario;
+        $pdf = new HTML2PDF('P', 'letter', 'es');
+        $pdf->pdf->SetDisplayMode('fullpage');
+        try {
+            ob_clean();
+            $html = View::make('memorandum.imprimir', $data)->render();
+            $pdf->writeHTML($html);
+            if ($store) {
+                $pdf->Output(app_path('storage/temp/memorandum' . $id . '.pdf'), 'F');
+            } else {
+                $pdf->Output('memorandum.pdf');
+            }
+        } catch (HTML2PDF_exception $e) {
+            die($e . " :(");
+        }
+        die();
+    }
+    
+    public function getAnular ($id){
+        $data['solicitud'] = Solicitud::findOrFail($id);
+
+        return View::make('solicitudes.anular',$data);
+    }
+    
+    public function postAnular (){
+        
+    }
+    
+    /* -------------------------------------- */
 }

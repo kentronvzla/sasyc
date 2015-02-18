@@ -343,7 +343,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
 
     public static function getDecimalFields() {
         return [
-            'ingreso_mensual'
+            'ingreso_mensual','cobertura'
         ];
     }
 
@@ -351,10 +351,19 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         $this->attributes['ingreso_mensual'] = tf($value);
     }
 
-    public function getIngresoMensualForAttribute($value) {
+    public function getIngresoMensualAttribute($value) {
         return tm($value);
     }
 
+    
+    public function setCoberturaAttribute($value) {
+        $this->attributes['cobertura'] = tf($value);
+    }
+
+    public function getCoberturaAttribute($value) {
+        return tm($value);
+    }
+    
     public function getDefaultValues() {
         return [
             'ind_asegurado' => 1,

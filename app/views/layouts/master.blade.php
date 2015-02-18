@@ -114,6 +114,9 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="divModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+        <div class="modal fade" id="divModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+        
         @if(Session::has('mensaje'))
         <script>
             $(document).ready(function () {

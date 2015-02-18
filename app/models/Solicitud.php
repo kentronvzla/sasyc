@@ -409,7 +409,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $recSolicitud->save();
         });
     }
-
+    ////
     public function getTableFields() {
         return [
             'ano',
@@ -439,7 +439,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function scopeAplicarFiltro($query, $filtro) {
         if (isset($filtro['estatus'])) {
-            $query->whereEstatus($filtro['estatus']);
+            if(is_array($filtro['estatus'])){
+                $query->whereIn('estatus', $filtro['estatus']);
+            }else{
+                $query->whereEstatus($filtro['estatus']);
+            }
         }
         return $query;
     }

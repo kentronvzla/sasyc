@@ -50,6 +50,9 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
         'ELD' => 'Departamento Asignado',
         'REF' => 'Referenciada',
         'EPR' => 'Esperando Aprobación',
+        //-----------------------------
+        'ACP' => 'Aceptada',
+        'PEN' => 'Pendiente',
     ];
 
     public function __construct(array $attributes = []) {

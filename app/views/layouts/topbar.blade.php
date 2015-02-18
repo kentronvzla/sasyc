@@ -32,6 +32,9 @@
                 <ul class="dropdown-menu" role="menu">
                     <li>{{HTML::link('solicitudes/nueva/','Nueva Solicitud')}}</li> 
                     <li>{{HTML::link('solicitudes','Solicitudes')}}</li> 
+                    <li>{{HTML::link('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true','Anular solicitud')}}</li> 
+                    <li class="divider"></li>
+                    <li>{{HTML::link('memorandum','Listar Memorandums')}}</li>
                     <li class="divider"></li>
                     <li>{{HTML::link('solicitudes?estatus=ELA&asignar=departamento','Asignar a un Departamento')}}</li> 
                     <li>{{HTML::link('solicitudes?estatus=ELD&asignar=usuario','Asignar a un Analista')}}</li>

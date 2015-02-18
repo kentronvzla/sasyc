@@ -33,7 +33,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Memo whereOrigenId($value)
  * @method static \Illuminate\Database\Query\Builder|\Memo whereDestinoId($value)
  */
-class Memo extends BaseModel implements DefaultValuesInterface {
+class Memo extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 
     protected $table = "memos";
 
@@ -83,6 +83,14 @@ class Memo extends BaseModel implements DefaultValuesInterface {
         ];
     }
 
+    public function origen() {
+        return $this->belongsTo('Departamento');
+    }
+
+    public function destino() {
+        return $this->belongsTo('Departamento');
+    }
+
     public static function crear($values) {
         $memo = new Memo();
         $depto = Usuario::find(Sentry::getUser()->id)->departamento;
@@ -95,5 +103,18 @@ class Memo extends BaseModel implements DefaultValuesInterface {
         $memo->save();
         return $memo;
     }
+    ////
+    public function getTableFields() {
+        return [
+            'numero', 
+            'fecha', 
+            'asunto', 
+            'origen->nombre', 
+            'destino->nombre'
+        ];
+    }
 
+    public function solicitudes() {
+        return $this->hasMany('Solicitud');
+    }
 }
