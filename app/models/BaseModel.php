@@ -4,7 +4,7 @@
  * Description of BaseModel
  * Modelo base que extiende a eloquent con todo lo necesario para validaciones.
  * y observadores
- * 
+ *
  * Validaciones: Para poder usar la validacion se debe incluir el atributo $rules para el validator.
  * Si se quiere validación especial se debe sobreescribir el metodo Validate.
  * Por defecto el metodo validate es ejecutado con el evento save();
@@ -14,7 +14,7 @@
 abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTableInterface, DecimalInterface {
 
     /**
-     * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save, 
+     * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save,
      * si el modelo no cumple con estas reglas el metodo save retornará false, y los cambios realizados no haran persistencia.
      * @link http://laravel.com/docs/validation#available-validation-rules
      * @var array
@@ -114,17 +114,17 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
     }
 
     /**
-     * Metodo que se ejecuta al crear un modelo. 
-     * Si se sobre escribe se pierde la funcionalidad de auditar los procesos realizados contra la bd. 
+     * Metodo que se ejecuta al crear un modelo.
+     * Si se sobre escribe se pierde la funcionalidad de auditar los procesos realizados contra la bd.
      * Se debe incluir $this->auditarProceso('I');
      * Docs: @link http://laravel.com/docs/eloquent#model-events
      */
     public function createdModel($model) {
-        
+
     }
 
     /**
-     * Metodo que se ejecuta antes de actualizar un objeto. 
+     * Metodo que se ejecuta antes de actualizar un objeto.
      * Si el retorno es false no se actualiza el modelo
      * Docs: @link http://laravel.com/docs/eloquent#model-events
      * @return boolean
@@ -140,7 +140,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
      * Docs: @link http://laravel.com/docs/eloquent#model-events
      */
     public function updatedModel($model) {
-        
+
     }
 
     /**
@@ -163,7 +163,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
      * Docs: @link http://laravel.com/docs/eloquent#model-events
      */
     public function savedModel($model) {
-        
+
     }
 
     /**
@@ -183,7 +183,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
      * Docs: @link http://laravel.com/docs/eloquent#model-events
      */
     public function deletedModel($model) {
-        
+
     }
 
     /**
@@ -195,7 +195,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
 
     /**
      * Set error message bag
-     * 
+     *
      * @var Illuminate\Support\MessageBag
      */
     protected function setErrors($errors) {
@@ -215,18 +215,15 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
      */
     public function validate($model = null) {
         if (isset($this->attributes['created_at']) && isset($this->attributes[$this->primaryKey])) {
-            $objAux = static::find($this->attributes[$this->primaryKey]);
-            if (is_object($objAux)) {
-                foreach ($this->rules as $key => $rule) {
-                    if (strpos($rule, 'unique:') !== false) {
-                        $rulesCol = explode('|', $rule);
-                        foreach ($rulesCol as $key2 => $val) {
-                            if (starts_with($rulesCol[$key2], 'unique:')) {
-                                $rulesCol[$key2].=',' . $objAux->{$this->primaryKey} . ',' . $this->primaryKey;
-                            }
+            foreach ($this->rules as $key => $rule) {
+                if (strpos($rule, 'unique:') !== false) {
+                    $rulesCol = explode('|', $rule);
+                    foreach ($rulesCol as $key2 => $val) {
+                        if (starts_with($rulesCol[$key2], 'unique:')) {
+                            $rulesCol[$key2].=',' . $objAux->{$this->primaryKey} . ',' . $this->primaryKey;
                         }
-                        $this->rules[$key] = implode('|', $rulesCol);
                     }
+                    $this->rules[$key] = implode('|', $rulesCol);
                 }
             }
         }
@@ -312,7 +309,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
                 }
             case 1:
                 if ($format && $this->isBooleanField($key) &&
-                        isset(static::$cmbsino[$this->{$key}])) {
+                    isset(static::$cmbsino[$this->{$key}])) {
                     return static::$cmbsino[$this->{$key}];
                 }
                 if ($format && $this->isDateField($key) && is_object($this->{$key})) {
@@ -459,7 +456,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
     }
 
     protected function afterValidate() {
-        
+
     }
 
     public function getFillable() {

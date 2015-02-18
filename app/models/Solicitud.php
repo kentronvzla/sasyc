@@ -315,7 +315,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function presupuestos() {
-        return $this->hasMany('Presupuesto');
+        return $this->hasMany('Oracle\Presupuesto');
     }
 
     public function bitacoras() {
@@ -366,7 +366,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function getDefaultValues() {
-        Bitacora::registrar('Se registró la solicitud.', $model->id);
         return [
             'ano' => Carbon::now()->format('Y'),
             'fecha_solicitud' => Carbon::now(),
@@ -408,6 +407,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $recSolicitud->recaudo()->associate($recaudo);
             $recSolicitud->save();
         });
+        Bitacora::registrar('Se registró la solicitud.', $model->id);
     }
     ////
     public function getTableFields() {

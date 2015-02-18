@@ -1,6 +1,6 @@
 {{Form::open(['url'=>'presupuestos/modificar','id'=>'form-presupuesto','class'=>'saveajax'])}}
 @if($presupuestos->count()>0)
-{{HTML::simpleTable($presupuestos, 'Presupuesto',['pencil'=>'Editar', 'trash'=>'Eliminar'], 'presupuestos/presupuesto/'.$solicitud->id)}}
+{{HTML::simpleTable($presupuestos, 'Oracle\Presupuesto',['pencil'=>'Editar', 'trash'=>'Eliminar'], 'presupuestos/presupuesto/'.$solicitud->id)}}
 <h4>Presupuestos de la solicitud</h4>
 @else
 <div class="row tituloLista">

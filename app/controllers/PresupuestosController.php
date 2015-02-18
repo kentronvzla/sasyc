@@ -1,5 +1,8 @@
 <?php
 
+use Oracle\Presupuesto;
+use Oracle\Beneficiario;
+
 class PresupuestosController extends BaseController {
 
     public function __construct() {
@@ -10,7 +13,7 @@ class PresupuestosController extends BaseController {
         $presupuesto = Presupuesto::findOrNew(Input::get('id'));
         $presupuesto->fill(Input::all());
         if (Input::get('ind_creando_benef') == 1) {
-            $beneficiario = Oracle\Beneficiario::create(Input::all());
+            $beneficiario = Beneficiario::create(Input::all());
             if ($beneficiario->hasErrors()) {
                 return Response::json(['errores' => $beneficiario->getErrors()], 400);
             }
@@ -30,7 +33,7 @@ class PresupuestosController extends BaseController {
         $data['solicitud'] = Solicitud::findOrFail($solicitud_id);
         $data['presupuesto'] = Presupuesto::findOrNew($presupuesto_id);
         $data['presupuestos'] = $data['solicitud']->presupuestos;
-        $data['beneficiario_kerux'] = new Oracle\Beneficiario();
+        $data['beneficiario_kerux'] = new Beneficiario();
         return View::make('solicitudes.presupuesto', $data);
     }
 

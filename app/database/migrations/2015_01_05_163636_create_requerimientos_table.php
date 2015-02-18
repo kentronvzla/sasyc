@@ -17,7 +17,7 @@ class CreateRequerimientosTable extends Migration {
             $table->string('descripcion', 500);
             $table->string('cod_item', 10)->nullable();
             $table->string('cod_cta', 14);
-            $table->string('tipo_requerimiento_id', 1);
+            $table->integer('tipo_requerimiento_id', false, true);
             $table->integer('tipo_ayuda_id', false, true);
             $table->integer('version')->default(0);
             $table->timestamps();
