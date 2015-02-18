@@ -14,7 +14,7 @@
 <div class="row">
     {{Form::btInput($solicitud,'descripcion',12)}}
 </div>
-<<div class="row">
+<div class="row">
     {{Form::btInput($solicitud,'ind_inmediata',6)}}
     {{Form::btInput($solicitud,'referente_id',6)}}
 </div>

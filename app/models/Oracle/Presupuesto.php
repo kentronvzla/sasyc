@@ -2,9 +2,9 @@
 
 class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \DecimalInterface {
 
-    protected $sequence = "presupuestos_sasyc_id_seq";
+    protected $sequence = "presupuestos_id_seq";
     public $timestamps = true;
-    protected $table = "presupuestos_sasyc";
+    protected $table = "presupuestos";
 
     /**
      * Campos que se pueden llenar mediante el uso de mass-assignment
@@ -30,15 +30,16 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
         'cod_cta' => 'max:14',
         'cod_item' => 'max:10',
         'desc_requerimiento' => 'max:500',
-        'id_doc' => 'integer',
+        'documento_id' => 'integer',
         'moneda' => 'max:3',
         'tipo_reng' => 'max:4',
-        'beneficiario_id' => 'integer',
+        'beneficiario_id' => 'required_if:codigo_requerimiento,OP|integer',
         //fin kerux
-        'cantidad' => 'required',
-        'monto' => 'required',
-        'estatus' => 'required',
+        'cantidad' => 'required_if:codigo_requerimiento,OP|required_if:codigo_requerimiento,ALM',
+        'monto' => 'required_if:codigo_requerimiento,OP|required_if:codigo_requerimiento,FDEL',
     ];
+
+    protected $appends = ['codigo_requerimiento'];
 
     protected function getPrettyFields() {
         return [
@@ -50,7 +51,7 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
             'cod_cta' => 'Código de Cuenta',
             'cod_item' => 'Código de Item',
             'desc_requerimiento' => 'Descripción',
-            'id_doc' => 'ID Documento',
+            'documento_id' => 'ID Doc',
             'moneda' => 'Moneda',
             'tipo_reng' => 'Tipo Requerimiento (Código)',
             'beneficiario_id' => 'Beneficiario',
@@ -58,7 +59,6 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
             'cantidad' => 'Cantidad',
             'monto' => 'Monto',
             'montofor' => 'Monto',
-            'estatus' => 'Estatus',
         ];
     }
 
@@ -86,13 +86,17 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
         return $this->belongsTo('Oracle\Beneficiario');
     }
 
+    public function documento() {
+        return $this->belongsTo('Oracle\Documento');
+    }
+
     public function tipo_requerimiento_id() {
         return $this->requerimiento->id;
     }
 
     public function getTableFields() {
         return [
-            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'montofor', 'estatus'
+            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'montofor', 'documento_id','documento->estatus'
         ];
     }
 
@@ -111,9 +115,6 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
         $this->desc_requerimiento = $this->requerimiento->nombre;
         $this->moneda = \Configuracion::get('moneda_presupuesto');
         $this->tipo_reng = $this->requerimiento->tipoRequerimiento->codigo;
-        if($this->estatus==""){
-            $this->estatus = "ELA";
-        }
         return parent::savingModel($model);
     }
 
@@ -123,6 +124,10 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
 
     public function getMontoForAttribute() {
         return tm($this->monto);
+    }
+
+    public function getCodigoRequerimientoAttribute(){
+        return $this->requerimiento->tipoRequerimiento->codigo;
     }
 
 }

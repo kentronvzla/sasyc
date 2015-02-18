@@ -47,6 +47,7 @@ class TipoRequerimiento extends BaseModel implements SimpleTableInterface {
 
     protected function getPrettyFields() {
         return [
+            'codigo'=>'Código',
             'nombre'=>'Tipo de requerimiento',
         ];
     }

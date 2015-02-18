@@ -11,4 +11,8 @@ class RequerimientosController extends \Administracion\TablasBaseController {
 
     protected static $eagerLoading = ['tipoAyuda', 'tipoRequerimiento'];
 
+    public function getRequerimiento($id){
+        return \Response::json(\Requerimiento::with('tipoRequerimiento')->findOrFail($id));
+    }
+
 }

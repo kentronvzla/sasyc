@@ -11,7 +11,7 @@ class CreateDocumentosTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('documentos', function(Blueprint $table) {
+        Schema::connection('oracle')->create('documentos', function(Blueprint $table) {
             $table->increments('id');
             $table->string('tipo', 5);
             $table->string('descripcion', 60);
@@ -31,7 +31,7 @@ class CreateDocumentosTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('documentos');
+        Schema::connection('oracle')->drop('documentos');
     }
 
 }

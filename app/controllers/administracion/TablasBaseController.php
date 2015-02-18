@@ -36,20 +36,11 @@ abstract class TablasBaseController extends \BaseController {
         $var->fill(\Input::all());
         if ($var->save()) {
             $this->afterPostIndex($var);
-            if (\Request::ajax()) {
-                return Response::json(array('mensaje' =>
-                            'Se guardo el ' .
-                            call_user_func(array($var, 'getPrettyName')) .
-                            ' correctamente.'));
-            }
             return \Redirect::to($this->getFolder(false))
                             ->with('mensaje', 'Se guardo el ' .
                                     call_user_func(array($var, 'getPrettyName')) .
                                     ' correctamente.');
         } else {
-            if (\Request::ajax()) {
-                return \Response::json(array('errores' => $var->getErrors()), 400);
-            }
             return \Redirect::back()->withInput()
                             ->withErrors($var->getErrors());
         }
@@ -87,7 +78,7 @@ abstract class TablasBaseController extends \BaseController {
             }
             $aux = substr($aux, 0, -1);
             $this->folder = $aux;
-            $this->folderUrlFormat = str_replace('.', '/', $aux);
+            $this->folderUrlFormat = camel_case(str_replace('.', '/', $aux));
         }
         if ($formatFolder) {
             return $this->folder;

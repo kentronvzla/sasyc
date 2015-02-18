@@ -458,7 +458,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function afterValidate() {
-        if (is_object($this->organismo) && $this->organismo->ind_externo) {
+        if (is_object($this->organismo) && $this->organismo->ind_externo && $this->estatus != "ANU") {
             $this->estatus = "REF";
         } else if ($this->estatus == "REF") {
             $this->estatus = "ELA";

@@ -42,6 +42,29 @@ $(document).ready(function () {
         $(this).on('change', bitacoraAlarma);
     });
     $('#gallery').photobox('a');
+
+    $('body').on('change', '#requerimiento_id', function(){
+        var formulario = $(this).closest('form');
+        $.get(baseUrl+'administracion/tablas/requerimientos/requerimiento/'+$(this).val(), function(data){
+
+            //Se ocultan todos para que sea mas facil trabajarlos
+            $(formulario).find('#beneficiario_id').hide().removeAttr('required');
+            $(formulario).find('#btn-agregar-beneficiario').hide().removeAttr('required');
+            $(formulario).find('#monto').hide().removeAttr('required');
+            $(formulario).find('#cantidad').hide().removeAttr('required');
+
+            if(data.tipo_requerimiento.codigo=="OP"){
+                $(formulario).find('#beneficiario_id').show().attr('required',true);
+                $(formulario).find('#btn-agregar-beneficiario').show();
+                $(formulario).find('#monto').show().attr('required',true);
+                $(formulario).find('#cantidad').show().attr('required',true);
+            }else if(data.tipo_requerimiento.codigo=="ALM"){
+                $(formulario).find('#cantidad').show().attr('required',true);
+            }else if(data.tipo_requerimiento.codigo=="FDEL"){
+                $(formulario).find('#monto').show().attr('required',true);
+            }
+        });
+    });
 });
 
 function copiarDireccion() {
