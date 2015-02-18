@@ -157,12 +157,16 @@ class SolicitudesController extends BaseController {
     
     public function getAnular ($id){
         $data['solicitud'] = Solicitud::findOrFail($id);
-
+        $data['bitacora'] = new Bitacora();
         return View::make('solicitudes.anular',$data);
     }
     
     public function postAnular (){
-        
+        $solicitud = Solicitud::findOrFail(Input::get('id'));
+        $solicitud->estatus = "ANU";
+        $solicitud->save();
+        Bitacora::registrar(Input::get('nota'), $solicitud->id);
+        return Redirect::to('solicitudes')->with('mensaje', 'Se anuló la solicitud: '.$solicitud->id.', correctamente');
     }
     
     /* -------------------------------------- */
