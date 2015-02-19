@@ -21,12 +21,12 @@ class SolicitudesController extends BaseController {
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
             $data['solicitud'] = new Solicitud();
-        }
-        if(Input::has('anulando')){
+        } else if(Input::has('anulando')){
             $data['anulando'] = true;
-        }
-        if(Input::has('cerrar')){
+        } else if(Input::has('cerrar')){
             $data['cerrar'] = true;
+        } else if(Input::has('solo_asignadas')){
+            $data['solo_asignadas'] = true;
         }
         return View::make('solicitudes.index', $data);
     }
@@ -159,7 +159,20 @@ class SolicitudesController extends BaseController {
         }
         die();
     }
-    
+
+    public function getAprobarasignacion($id){
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        return View::make('solicitudes.aprobarasignacion',$data);
+    }
+
+    public function postAprobarasignacion(){
+        $solicitud = Solicitud::findOrFail(Input::get('id'));
+        if($solicitud->aprobarAnalista(Input::get('nota'))){
+            return Redirect::to('solicitudes?estatus=EPR&solo_asignadas=true')->with('mensaje', 'Se acepto la asignación de la solicitud: '.$solicitud->id.', correctamente');
+        }
+        return Redirect::to('solicitudes?estatus=EPR&solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
+    }
+
     public function getAnular ($id){
         $data['solicitud'] = Solicitud::findOrFail($id);
         $data['bitacora'] = new Bitacora();
@@ -168,12 +181,12 @@ class SolicitudesController extends BaseController {
     
     public function postAnular (){
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        $solicitud->estatus = "ANU";
-        $solicitud->save();
-        Bitacora::registrar(Input::get('nota'), $solicitud->id);
-        return Redirect::to('solicitudes')->with('mensaje', 'Se anuló la solicitud: '.$solicitud->id.', correctamente');
+        if($solicitud->anular(Input::get('nota'))){
+            return Redirect::to('solicitudes')->with('mensaje', 'Se anuló la solicitud: '.$solicitud->id.', correctamente');
+        }
+        return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true')->with('error', $solicitud->getErrors()->first());
     }
-    
+
     public function getCerrar ($id){
         $data['solicitud'] = Solicitud::findOrFail($id);
         $data['bitacora'] = new Bitacora();

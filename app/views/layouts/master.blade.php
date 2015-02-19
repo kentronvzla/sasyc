@@ -124,6 +124,13 @@
             });
         </script>
         @endif
+        @if(Session::has('error'))
+            <script>
+                $(document).ready(function () {
+                    mostrarError("{{Session::pull('error')}}");
+                });
+            </script>
+        @endif
         @yield('javascript')
     </body>
 </html>

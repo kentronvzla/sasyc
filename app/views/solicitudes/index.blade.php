@@ -38,6 +38,9 @@
                     @if(isset($cerrar))
                         {{HTML::button('solicitudes/cerrar/'.$solicitud->id, 'lock','Cerrar Solicitud', true)}}
                     @endif
+                    @if(isset($solo_asignadas))
+                        {{HTML::button('solicitudes/aprobarasignacion/'.$solicitud->id, 'check','Aprobar Asignación', true)}}
+                    @endif
                 </div>
             </div>
             @endforeach

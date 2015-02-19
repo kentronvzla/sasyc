@@ -93,16 +93,16 @@
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereUpdatedAt($value)
- * @property integer $memo_id 
- * @property string $beneficiario_json 
- * @property string $solicitante_json 
- * @property integer $departamento_id 
- * @property-read \Departamento $departamento 
- * @property-read \Illuminate\Database\Eloquent\Collection|\Bitacora[] $bitacoras 
- * @property-read \Illuminate\Database\Eloquent\Collection|\RecaudoSolicitud')->orderBy('id[] $recaudosSolicitud 
- * @property-read \Illuminate\Database\Eloquent\Collection|\FotoSolicitud')->orderBy('id[] $fotos 
- * @property-read mixed $total_ingresos_for 
- * @property-read mixed $estatus_display 
+ * @property integer $memo_id
+ * @property string $beneficiario_json
+ * @property string $solicitante_json
+ * @property integer $departamento_id
+ * @property-read \Departamento $departamento
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bitacora[] $bitacoras
+ * @property-read \Illuminate\Database\Eloquent\Collection|\RecaudoSolicitud')->orderBy('id[] $recaudosSolicitud
+ * @property-read \Illuminate\Database\Eloquent\Collection|\FotoSolicitud')->orderBy('id[] $fotos
+ * @property-read mixed $total_ingresos_for
+ * @property-read mixed $estatus_display
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereMemoId($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereBeneficiarioJson($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereSolicitanteJson($value)
@@ -132,8 +132,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     ];
 
     /**
-     * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save, 
-     * si el modelo no cumple con estas reglas el metodo save retornará false, 
+     * Reglas que debe cumplir el objeto al momento de ejecutar el metodo save,
+     * si el modelo no cumple con estas reglas el metodo save retornará false,
      * y los cambios realizados no haran persistencia.
      * @link http://laravel.com/docs/validation#available-validation-rules
      * @var array
@@ -453,11 +453,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function scopeEagerLoad($query) {
         return $query->with('organismo')
-                        ->with('personaSolicitante')
-                        ->with('personaBeneficiario')
-                        ->with('usuarioAutorizacion')
-                        ->with('usuarioAsignacion')
-                        ->with('area.tipoAyuda');
+            ->with('personaSolicitante')
+            ->with('personaBeneficiario')
+            ->with('usuarioAutorizacion')
+            ->with('usuarioAsignacion')
+            ->with('area.tipoAyuda');
     }
 
     public function afterValidate() {
@@ -492,8 +492,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->estatus = "EPR";
             $this->save();
             Bitacora::registrar("Se asignó la solicitud al analista: " .
-                    $this->usuarioAsignacion->nombre . ', autorizado por: ' .
-                    $this->usuarioAutorizacion->nombre, $this->id);
+                $this->usuarioAsignacion->nombre . ', autorizado por: ' .
+                $this->usuarioAutorizacion->nombre, $this->id);
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELD']);
     }
@@ -515,7 +515,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $validator->setAttributeNames($mensajes->getPrettyFields());
         if ($validator->passes()) {
             $solicitudes = Solicitud::findMany($values['solicitudes']);
-            if ($values['campo'] == "departamento") {                
+            if ($values['campo'] == "departamento") {
                 $memo = \Memo::crear($values);
                 $solicitudes->each(function($solicitud) use ($values, $mensajes, $memo) {
                     $solicitud->asignarDepartamento($values['departamento_id'], $memo);
@@ -532,6 +532,29 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         }
         $mensajes->setErrors($validator->messages());
         return $mensajes;
+    }
+
+    public function anular($nota){
+        if($this->estatus=="ELA" || $this->estatus=="REF"){
+            $this->estatus = "ANU";
+            $this->save();
+            Bitacora::registrar($nota, $this->id);
+            return true;
+        }
+        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
+        return false;
+    }
+
+    public function aprobarAnalista(){
+        if($this->estatus=="EPR"){
+            $this->estatus = "APA";
+            $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
+            $this->save();
+            Bitacora::registrar('El analista aceptó la solicitud', $this->id);
+            return true;
+        }
+        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
+        return false;
     }
 
 }
