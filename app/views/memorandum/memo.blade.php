@@ -62,14 +62,14 @@
                         <strong>Para:</strong>
                     </td>
                     <td width=500 style="background: white;">
-                        {{$memo->destino->Departamento}}
+                        {{$memo->destino->Departamento or "No se encontro departamento"}}
                     </td>
                 </tr>
                 <tr><td style="background: white;">
                         <strong>De:</strong>
                     </td>
                     <td style="background: white;">
-                        {{$memo->origen->Departamento}}
+                        {{$memo->origen->Departamento or "No se encontro departamento"}}
                     </td>
                 </tr>
                 <tr>

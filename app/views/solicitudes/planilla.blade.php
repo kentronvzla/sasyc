@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('contenido')
 <div class="col-xs-12 col-sm-12 col-md-12">
-    <div class="col-xs-12 col-sm-8 col-md-8">
+   <div class="col-xs-12 col-sm-8 col-md-8">
         <table class="table">
             <tr>
                 <td class="danger">
@@ -52,10 +52,10 @@
                     </div>
                     <div class="row">
                         @if ($solicitud->personaBeneficiario->ind_asegurado)
-                        {{Form::display($solicitud->personaBeneficiario,'empresa_seguro',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'cobertura',3)}}
+                            {{Form::display($solicitud->personaBeneficiario,'empresa_seguro',3)}}
+                            {{Form::display($solicitud->personaBeneficiario,'cobertura',3)}}
                         @endif
-                        {{Form::display($solicitud->personaBeneficiario,'otro_apoyo',3)}}
+                            {{Form::display($solicitud->personaBeneficiario,'otro_apoyo',3)}}
                     </div>                        
                 </td>
             </tr>
@@ -69,6 +69,7 @@
                     <div class="row">
                         {{Form::display($solicitud->personaBeneficiario,'parroquia->nombre',3)}}
                         {{Form::display($solicitud->personaBeneficiario,'parroquia->municipio->nombre',3)}}
+                        <!---------------------detalle para indicae el nombre de un municipio-->
                         {{--Form::display($solicitud->personaBeneficiario,'parroquia->municipio->estado->nombre',3)--}}
                         {{Form::display($solicitud->personaBeneficiario,'telefono_fijo',3)}}
                     </div>
@@ -87,11 +88,11 @@
             </tr>
             <tr>
                 <td style="background-color: #fff">
-                        {{HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')}}
+                        {{--HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')--}}
                 </td>
             </tr>
         </table>
-    </div>
+    </div>  
 
     <div class="col-xs-12 col-sm-4 col-md-4 hidden-xs">
         <div id="div-bitacora" class="panel panel-danger">
@@ -124,6 +125,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li>{{HTML::link('solicitudes/planilla/'.$solicitud->id, 'Planilla', ['target'=>'_blank'])}}</li>
+                            <li><a>Informe socioeconomico</a></li>
                             @unless(is_null($solicitud->memo_id))
                             <li>{{--HTML::link('memorandum/imprimir/'.$solicitud->memo_id, 'Memorandum', ['target'=>'_blank'])--}}</li>
                             @endunless

@@ -22,8 +22,11 @@ class SolicitudesController extends BaseController {
             $data['campo'] = Input::get('asignar');
             $data['solicitud'] = new Solicitud();
         }
-        else if(Input::has('anulando')){
+        if(Input::has('anulando')){
             $data['anulando'] = true;
+        }
+        if(Input::has('cerrar')){
+            $data['cerrar'] = true;
         }
         return View::make('solicitudes.index', $data);
     }
@@ -170,4 +173,19 @@ class SolicitudesController extends BaseController {
         Bitacora::registrar(Input::get('nota'), $solicitud->id);
         return Redirect::to('solicitudes')->with('mensaje', 'Se anuló la solicitud: '.$solicitud->id.', correctamente');
     }
+    
+    public function getCerrar ($id){
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        $data['bitacora'] = new Bitacora();
+        return View::make('solicitudes.cerrar',$data);
+    }
+    
+    public function postCerrar (){
+        $solicitud = Solicitud::findOrFail(Input::get('id'));
+        $solicitud->estatus = "CER";
+        $solicitud->save();
+        return Redirect::to('solicitudes')->with('mensaje', 'Se Cerro la solicitud: '.$solicitud->id.', correctamente');
+    }
+    
+    /* -------------------------------------- */
 }

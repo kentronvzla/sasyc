@@ -33,7 +33,10 @@
                     {{HTML::button('solicitudes/ver/'.$solicitud->id, 'search','Ver Solicitud')}}
                     {{HTML::button('solicitudes/modificar/'.$solicitud->id, 'pencil','Modificar Solicitud')}}   
                     @if(isset($anulando))
-                    {{HTML::button('solicitudes/anular/'.$solicitud->id, 'trash','Anular Solicitud', true)}}
+                        {{HTML::button('solicitudes/anular/'.$solicitud->id, 'trash','Anular Solicitud', true)}}
+                    @endif
+                    @if(isset($cerrar))
+                        {{HTML::button('solicitudes/cerrar/'.$solicitud->id, 'lock','Cerrar Solicitud', true)}}
                     @endif
                 </div>
             </div>
