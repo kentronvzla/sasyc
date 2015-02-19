@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('contenido')
 <div class="col-xs-12 col-sm-12 col-md-12">
-    <div class="col-xs-12 col-sm-8 col-md-8">
+   <div class="col-xs-12 col-sm-8 col-md-8">
         <table class="table">
             <tr>
                 <td class="danger">
@@ -14,12 +14,12 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             {{Form::display($solicitud,'descripcion',9, true)}}
                             {{Form::display($solicitud,'ind_inmediata',3)}}
-                            {{Form::display($solicitud,'referente->nombre',9, true)}}
-                            {{Form::display($solicitud,'area->nombre',3)}}
+                            {{--Form::display($solicitud,'referente->nombre',9, true--)}}
+                            {{--Form::display($solicitud,'area->nombre',3)--}}
                             @if ($solicitud->ind_inmediata)
                             {{Form::display($solicitud,'actividad',5)}}
-                            {{Form::display($solicitud,'referencia',4)}}
-                            {{Form::display($solicitud,'accion_tomada',3)}}
+                            {{--Form::display($solicitud,'referencia',4)--}}
+                            {{--Form::display($solicitud,'accion_tomada',3)--}}
                             @endif
                         </div>
                     </div>
@@ -39,23 +39,23 @@
                         {{Form::display($solicitud->personaBeneficiario,'sexo',3)}}
                     </div>
                     <div class="row">
-                        {{Form::display($solicitud->personaBeneficiario,'estadoCivil->nombre',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'fecha_nacimiento',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'edad',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'ind_trabaja',3)}}
+                        {{--Form::display($solicitud->personaBeneficiario,'estadoCivil->nombre',3)--}}
+                        {{--Form::display($solicitud->personaBeneficiario,'fecha_nacimiento',3)--}}
+                        {{--Form::display($solicitud->personaBeneficiario,'edad',3)--}}
+                        {{--Form::display($solicitud->personaBeneficiario,'ind_trabaja',3)--}}
                     </div>
                     <div class="row">
                         {{Form::display($solicitud->personaBeneficiario,'ocupacion',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'nivelAcademico->nombre',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'ingreso_mensual',3)}}
+                        {{--Form::display($solicitud->personaBeneficiario,'nivelAcademico->nombre',3)--}}
+                        {{--Form::display($solicitud->personaBeneficiario,'ingreso_mensual',3)--}}
                         {{Form::display($solicitud->personaBeneficiario,'ind_asegurado',3)}}
                     </div>
                     <div class="row">
                         @if ($solicitud->personaBeneficiario->ind_asegurado)
-                        {{Form::display($solicitud->personaBeneficiario,'empresa_seguro',3)}}
-                        {{Form::display($solicitud->personaBeneficiario,'cobertura',3)}}
+                            {{--Form::display($solicitud->personaBeneficiario,'empresa_seguro',3)--}}
+                            {{--Form::display($solicitud->personaBeneficiario,'cobertura',3)--}}
                         @endif
-                        {{Form::display($solicitud->personaBeneficiario,'otro_apoyo',3)}}
+                            {{--Form::display($solicitud->personaBeneficiario,'otro_apoyo',3)--}}
                     </div>                        
                 </td>
             </tr>
@@ -67,10 +67,10 @@
             <tr>
                 <td style="background-color: #fff">
                     <div class="row">
-                        {{Form::display($solicitud->personaBeneficiario,'parroquia->nombre',3)}}
+                        {{--Form::display($solicitud->personaBeneficiario,'parroquia->nombre',3)--}}
                         {{Form::display($solicitud->personaBeneficiario,'parroquia->municipio->nombre',3)}}
                         {{--Form::display($solicitud->personaBeneficiario,'parroquia->municipio->estado->nombre',3)--}}
-                        {{Form::display($solicitud->personaBeneficiario,'telefono_fijo',3)}}
+                        {{--Form::display($solicitud->personaBeneficiario,'telefono_fijo',3)--}}
                     </div>
                     <div class="row">
                         {{Form::display($solicitud->personaBeneficiario,'zona_sector',3)}}
@@ -87,11 +87,11 @@
             </tr>
             <tr>
                 <td style="background-color: #fff">
-                        {{HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')}}
+                        {{--HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')--}}
                 </td>
             </tr>
         </table>
-    </div>
+    </div>  
 
     <div class="col-xs-12 col-sm-4 col-md-4 hidden-xs">
         <div id="div-bitacora" class="panel panel-danger">
