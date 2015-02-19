@@ -32,10 +32,10 @@
    <div class="cuerpo" style="position: center">
         <table width="100%" border="0" cellpadding="10" cellspacing="5">
             <tr><td width=170><strong>Para:</strong></td>
-                <td width=500>{{$memo->origen->Departamento or ""}}</td>
+                <td width=500>{{$memo->origen->Departamento or "No se encontro departamento"}}</td>
             </tr>
             <tr><td><strong>De:</strong></td>
-                <td>{{$memo->origen->Departamento or ""}}</td>
+                <td>{{$memo->origen->Departamento or "No se encontro departamento"}}</td>
             </tr>
             <tr><td><strong>Asunto:</strong></td>
                 <td>{{$memo->asunto or ""}}</td>

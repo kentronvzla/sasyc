@@ -512,8 +512,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $validator->setAttributeNames($mensajes->getPrettyFields());
         if ($validator->passes()) {
             $solicitudes = Solicitud::findMany($values['solicitudes']);
-            if ($values['campo'] == "departamento") {
-                $memo = Memo::crear($values);
+            if ($values['campo'] == "departamento") {                
+                $memo = \Memo::crear($values);
                 $solicitudes->each(function($solicitud) use ($values, $mensajes, $memo) {
                     $solicitud->asignarDepartamento($values['departamento_id'], $memo);
                     //si salieron errores hacemos un merge

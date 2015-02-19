@@ -43,7 +43,7 @@
     <!--<div><h5>Solicitud</h5></div>-->
     <strong>Solicitud</strong>
     <div class="cuerpo">
-       <table width="100%" border="1" cellpadding="10" cellspacing="10">
+       <table width="100%" border="0" cellpadding="10" cellspacing="10">
            <tr>
                <td>
                    <strong>Descripcion:</strong>
@@ -51,7 +51,7 @@
                <td width=390>
                    {{$solicitud->descripcion or ""}}
                </td>
-               <td>
+                 <td>
                    <strong>Area:</strong>
                    {{$solicitud->area->nombre or ""}}
                </td>
@@ -89,9 +89,10 @@
     </div><br>
     <hr width="100%">
    <!------------------------------------------------------------------------->
-   <div class="cuerpo"><h5>Beneficiario</h5></div>
+   <!--<div class="cuerpo"><h5>Beneficiario</h5></div>-->
+   <strong>Beneficiario</strong>
    <div class="cuerpo">
-       <table width="100%" border="1" cellpadding="10" cellspacing="20">
+       <table width="100%" border="0" cellpadding="10" cellspacing="10">
             <tr>
                 <td width=150>
                     <strong>Nombre:</strong><br>
@@ -167,9 +168,10 @@
     </div>
     <hr width="100%">
     <!------------------------------------------------------------------------->
-     <div class="cuerpo"><h5>Direccion</h5></div>
+     <!--<div class="cuerpo"><h5>Direccion</h5></div>-->
+     <strong>Direccion</strong>
      <div class="cuerpo">
-       <table width="100%" border="1" cellpadding="10" cellspacing="20">
+       <table width="100%" border="0" cellpadding="10" cellspacing="10">
             <tr>
                 <td width=150>
                     <strong>Parroquia:</strong><br>
@@ -216,7 +218,7 @@
     <!------------------------------------------------------------------------->
     <br>
     <div class="cuerpo" style="position: center">
-        {{HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')}}
+        {{--HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')--}}
     </div>
     
 </page>
