@@ -96,7 +96,7 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
 
     public function getTableFields() {
         return [
-            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'montofor', 'documento_id','documento->estatus'
+            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'montofor', 'documento_id'
         ];
     }
 
@@ -108,6 +108,8 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
 
     public function savingModel($model){
         //Se preparan los datos para guardarlos en oracle
+        //Esto se hace para las validaciones de monto, cantidad y beneficiario, el required_if. NO QUITAR
+        $this->codigo_requerimiento = $this->requerimiento->tipoRequerimiento->codigo;
         $this->ccosto = \Configuracion::get('ccosto');
         $this->cod_acc_int = $this->solicitud->area->tipoAyuda->cod_acc_int;
         $this->cod_cta = $this->requerimiento->cod_cta;
@@ -118,16 +120,17 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
         return parent::savingModel($model);
     }
 
+    public function afterValidate(){
+        //se borra para que no trate de actualizarlo en base de datos.
+        unset($this->codigo_requerimiento);
+    }
+
     public function setMontoAttribute($value) {
         $this->attributes['monto'] = tf($value);
     }
 
     public function getMontoForAttribute() {
         return tm($this->monto);
-    }
-
-    public function getCodigoRequerimientoAttribute(){
-        return $this->requerimiento->tipoRequerimiento->codigo;
     }
 
 }

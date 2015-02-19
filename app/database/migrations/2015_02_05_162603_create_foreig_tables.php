@@ -19,9 +19,9 @@ class CreateForeigTables extends Migration {
             $table->foreign('usuario_id')->references('id')->on('users');
         });
         
-        Schema::table('documentos', function(Blueprint $table) {
+        Schema::connection('oracle')->table('documentos', function(Blueprint $table) {
             $table->index('solicitud_id');
-            $table->foreign('solicitud_id')->references('id')->on('solicitudes');
+            //$table->foreign('solicitud_id')->references('id')->on('solicitudes');
         });
         
         /*nuevas agregadas--luego borro este comentario*/
@@ -78,8 +78,8 @@ class CreateForeigTables extends Migration {
             $table->index('cod_item');
             //$table->foreign('cod_item')->references('coditem')->on('cat.item_cat');
 
-            $table->index('id_doc');
-            //$table->foreign('id_doc')->references('iddoc')->on('doc.documentos_origen');
+            $table->index('documento_id');
+            //$table->foreign('documento_id')->references('iddoc')->on('doc.documentos_origen');
         });
         
         Schema::table('recaudo_solicitud', function(Blueprint $table) {

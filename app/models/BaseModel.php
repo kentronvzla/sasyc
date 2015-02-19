@@ -304,8 +304,6 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
                 }
                 break;
             case 2:
-                if($arr)
-                dd($arr[0]);
                 if (isset($this->{$arr[0]}->{$arr[1]})) {
                     return $this->{$arr[0]}->{$arr[1]};
                 }
