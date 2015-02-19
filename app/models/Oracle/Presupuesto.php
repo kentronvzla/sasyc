@@ -96,7 +96,7 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
 
     public function getTableFields() {
         return [
-            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'montofor', 'documento_id'
+            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'montofor', 'documento_id', 'documento->estatus'
         ];
     }
 

@@ -170,6 +170,4 @@ class SolicitudesController extends BaseController {
         Bitacora::registrar(Input::get('nota'), $solicitud->id);
         return Redirect::to('solicitudes')->with('mensaje', 'Se anuló la solicitud: '.$solicitud->id.', correctamente');
     }
-    
-    /* -------------------------------------- */
 }

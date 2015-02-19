@@ -445,6 +445,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 $query->whereEstatus($filtro['estatus']);
             }
         }
+        if(isset($filtro['solo_asignadas'])){
+            $query->whereUsuarioAsignacionId(\Cartalyst\Sentry\Facades\Laravel\Sentry::getUser()->id);
+        }
         return $query;
     }
 

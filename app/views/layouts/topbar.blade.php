@@ -38,6 +38,7 @@
                     <li class="divider"></li>
                     <li>{{HTML::link('solicitudes?estatus=ELA&asignar=departamento','Asignar a un Departamento')}}</li> 
                     <li>{{HTML::link('solicitudes?estatus=ELD&asignar=usuario','Asignar a un Analista')}}</li>
+                    <li>{{HTML::link('solicitudes?estatus=EPR&solo_asignadas=true','Mis Solicitudes (Esperando Aprobación)')}}</li>
                     <li class="divider"></li>
                     <li><a href="#">Alarmas Pendientes</a></li>
                 </ul>

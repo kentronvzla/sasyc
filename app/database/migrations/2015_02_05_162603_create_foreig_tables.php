@@ -79,7 +79,7 @@ class CreateForeigTables extends Migration {
             //$table->foreign('cod_item')->references('coditem')->on('cat.item_cat');
 
             $table->index('documento_id');
-            //$table->foreign('documento_id')->references('iddoc')->on('doc.documentos_origen');
+            $table->foreign('documento_id')->references('id')->on('documentos');
         });
         
         Schema::table('recaudo_solicitud', function(Blueprint $table) {

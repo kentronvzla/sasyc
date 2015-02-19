@@ -13,7 +13,7 @@ class CreateDocumentosTable extends Migration {
     public function up() {
         Schema::connection('oracle')->create('documentos', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('tipo', 5);
+            $table->string('tipo_doc', 5);
             $table->string('descripcion', 60);
             $table->date('fecha');
             $table->string('estatus', 3);

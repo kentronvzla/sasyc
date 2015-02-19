@@ -49,4 +49,7 @@
     <hr>
 </div>
 @include('templates.bootstrap.submit')
+<script>
+    $('#requerimiento_id').trigger('change');
+</script>
 {{Form::close()}}
