@@ -44,6 +44,9 @@
                     @if(isset($solo_asignadas) && $solicitud->puedeDevolverAsignacion())
                         {{HTML::button('solicitudes/devolverasignacion/'.$solicitud->id, 'undo','Devolver Asignación', true)}}
                     @endif
+                    @if(isset($solo_asignadas) && $solicitud->puedeSolicitarAprobacion())
+                        {{HTML::button('solicitudes/solicitaraprobacion/'.$solicitud->id, 'certificate','Solicitar Aprobación', true)}}
+                    @endif
                 </div>
             </div>
             @endforeach

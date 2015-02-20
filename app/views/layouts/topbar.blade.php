@@ -28,40 +28,41 @@
         <ul class="collapse navbar-collapse nav navbar-nav top-menu">
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Aten. social y ciudadana <span
-                        class="caret"></span></a>
+                            class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li>{{HTML::link('solicitudes/nueva/','Nueva Solicitud')}}</li> 
-                    <li>{{HTML::link('solicitudes','Solicitudes')}}</li> 
+                    <li>{{HTML::link('solicitudes/nueva/','Nueva Solicitud')}}</li>
+                    <li>{{HTML::link('solicitudes','Solicitudes')}}</li>
                     <li>{{HTML::link('solicitudes?estatus[]=ELD&&cerrar=true','Cerrar solicitud')}}</li>
-                    <li>{{HTML::link('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true','Anular solicitud')}}</li> 
+                    <li>{{HTML::link('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true','Anular solicitud')}}</li>
                     <li class="divider"></li>
                     <li>{{HTML::link('memorandum','Listar Memorandums')}}</li>
                     <li class="divider"></li>
-                    <li>{{HTML::link('solicitudes?estatus=ELA&asignar=departamento','Asignar a un Departamento')}}</li> 
+                    <li>{{HTML::link('solicitudes?estatus=ELA&asignar=departamento','Asignar a un Departamento')}}</li>
                     <li>{{HTML::link('solicitudes?estatus=ELD&asignar=usuario','Asignar a un Analista')}}</li>
                     <li class="divider"></li>
                     <li>{{HTML::link('solicitudes?solo_asignadas=true','Mis Solicitudes')}}</li>
-                    <li>{{HTML::link('solicitudes?estatus=EAA&solo_asignadas=true','Mis Solicitudes (Esperando Aprobación)')}}</li>
+                    <li>{{HTML::link('solicitudes?estatus=EAA&solo_asignadas=true','Mis Solicitudes (Aceptar Asignacion)')}}</li>
+                    <li>{{HTML::link('solicitudes?estatus=ACA&solo_asignadas=true','Mis Solicitudes (Solicitar Aprobación)')}}</li>
                     <li class="divider"></li>
                     <li><a href="#">Alarmas Pendientes</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Consulta <span
-                        class="caret"></span></a>
+                            class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">General</a></li>
                     <li class="divider"></li>
                     <li><a href="#">Por Beneficio</a></li>
                     <li><a href="#">Por Solicitud</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">Control de Casos</a></li> 
+                    <li><a href="#">Control de Casos</a></li>
                     <li><a href="#">Casos por proceso</a></li>
                 </ul>
             </li>
         </ul>
     </div>
     @unless(Request::is('/'))
-    {{HTML::image('img/banner_ppal.jpg', 'Banner principal', ['class'=>'img-responsive', 'width'=>'100%'])}}
+        {{HTML::image('img/banner_ppal.jpg', 'Banner principal', ['class'=>'img-responsive', 'width'=>'100%'])}}
     @endunless
 </div>

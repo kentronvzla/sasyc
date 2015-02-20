@@ -162,6 +162,7 @@ class SolicitudesController extends BaseController {
 
     public function getAceptarasignacion($id){
         $data['solicitud'] = Solicitud::findOrFail($id);
+        $data['manual'] = Configuracion::get('ind_secuencia_automatica')=="No";
         $data['solicitud']->configurarPresupuesto("", false);
         return View::make('solicitudes.aceptarasignacion',$data);
     }
@@ -183,6 +184,19 @@ class SolicitudesController extends BaseController {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         if($solicitud->devolverAsignacion()){
             return Redirect::to('solicitudes?solo_asignadas=true')->with('mensaje', 'Se devolvió la asignación de la solicitud: '.$solicitud->id.', correctamente');
+        }
+        return Redirect::to('solicitudes?solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
+    }
+
+    public function getSolicitaraprobacion($id){
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        return View::make('solicitudes.solicitaraprobacion',$data);
+    }
+
+    public function postSolicitaraprobacion(){
+        $solicitud = Solicitud::findOrFail(Input::get('id'));
+        if($solicitud->solicitarAprobacion()){
+            return Redirect::to('solicitudes?solo_asignadas=true')->with('mensaje', 'Se solicitó la aprobación de la solicitud: '.$solicitud->id.', correctamente');
         }
         return Redirect::to('solicitudes?solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
     }

@@ -175,8 +175,14 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion',
         'fecha_aprobacion', 'fecha_cierre'];
 
+    public static $tipo_procesamientos = [
+        'P'=>'Punto de Cuenta',
+        'M'=>'Memo',
+    ];
+
     protected function getPrettyFields() {
         return [
+            'id' => 'Numero Solicitud',
             'ano' => 'Año',
             'descripcion' => 'Descripción',
             'persona_beneficiario_id' => 'Beneficiario',
@@ -193,11 +199,13 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'accion_tomada' => 'Acción Tomada',
             'necesidad' => 'Necesidad',
             'tipo_proc' => 'Tipo de procesamiento',
+            'tipo_proc_for' => 'Tipo de procesamiento',
             'num_proc' => 'Número de procesamiento',
             'facturas' => 'Facturas',
             'observaciones' => 'Observaciones',
             'moneda' => 'Moneda',
             'estatus' => 'Estatus',
+            'estatus_display'=>'Estatus',
             'usuario_asignacion_id' => 'Analista',
             'usuario_autorizacion_id' => 'Autorizado por',
             'fecha_solicitud' => 'Fecha de solicitud',
@@ -570,15 +578,19 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $secuencia_auto = Configuracion::get('ind_secuencia_automatica');
         if($secuencia_auto=="Si" && $this->tipo_proc=="M"){
             $proximo = Configuracion::get('secuencia_memo_presupuesto');
-            Configuracion::set('secuencia_memo_presupuesto', $proximo+1);
             $this->num_proc = $proximo;
+            if($salvar){
+                Configuracion::set('secuencia_memo_presupuesto', $proximo+1);
+            }
         }else if($secuencia_auto=="Si"){
             $proximo = Configuracion::get('secuencia_memo_punto_cuenta');
-            Configuracion::set('secuencia_memo_punto_cuenta', $proximo+1);
+            if($salvar){
+                Configuracion::set('secuencia_memo_punto_cuenta', $proximo+1);
+            }
             $this->num_proc = $proximo;
         }else if($num_proc!=""){
             $this->num_proc = $num_proc;
-        }else{
+        }else if($salvar){
             $this->addError('num_proc', "Debe indicar el número de proceso");
         }
         if(!$this->hasErrors() && $salvar){
@@ -590,8 +602,22 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if($this->puedeDevolverAsignacion()){
             $this->estatus = "EAA";
             $this->fecha_aceptacion = null;
+            $this->tipo_proc = null;
+            $this->num_proc = null;
             $this->save();
             Bitacora::registrar('El analista devolvio la aceptación de la solicitud', $this->id);
+            return true;
+        }
+        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
+        return false;
+    }
+
+    public function solicitarAprobacion(){
+        if($this->puedeSolicitarAprobacion()){
+            $descripcion = "jeje";
+            \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
+            $this->estatus = 'EAP';
+            $this->save();
             return true;
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
@@ -603,6 +629,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function puedeDevolverAsignacion(){
+        return $this->estatus == "ACA";
+    }
+
+    public function puedeSolicitarAprobacion(){
         return $this->estatus == "ACA";
     }
 
@@ -620,5 +650,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
         return false;
+    }
+
+    public function getTipoProcForAttribute(){
+        return static::$tipo_procesamientos[$this->tipo_proc];
     }
 }
