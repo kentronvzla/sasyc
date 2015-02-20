@@ -556,5 +556,18 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
         return false;
     }
-
+    
+    ////////////////////////////////////////////////////////////////////////
+    public function cerrar ()
+    {
+        if($this->estatus=="ELA"||$this->estatus=="ELD"||$this->estatus=="REF"||
+           $this->estatus=="EPR"||$this->estatus=="APA"||$this->estatus=="ACP"||
+           $this->estatus=="PEN"){
+           $this->estatus = "CER";
+           $this->save(); 
+           return true; 
+        }
+           $this->addError('estatus', 'La solicitud ' . $this->id . ' ya fue cerrada');
+        return false;
+    }
 }

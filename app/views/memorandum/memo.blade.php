@@ -62,14 +62,14 @@
                         <strong>Para:</strong>
                     </td>
                     <td width=500 style="background: white;">
-                        {{$memo->destino->Departamento or "No se encontro departamento"}}
+                        {{$memo->destino->nombre or "No se encontro departamento"}}
                     </td>
                 </tr>
                 <tr><td style="background: white;">
                         <strong>De:</strong>
                     </td>
                     <td style="background: white;">
-                        {{$memo->origen->Departamento or "No se encontro departamento"}}
+                        {{$memo->origen->nombre or "No se encontro departamento"}}
                     </td>
                 </tr>
                 <tr>
@@ -85,7 +85,7 @@
                         <strong>Fecha:</strong>
                     </td>
                     <td style="background: white;">
-                        {{$memo->fecha}}
+                        {{$memo->fecha->format('d/m/Y')}}
                     </td>
                 </tr>
             </table>
