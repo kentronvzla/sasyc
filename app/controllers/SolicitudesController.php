@@ -209,9 +209,13 @@ class SolicitudesController extends BaseController {
     
     public function postCerrar (){
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        $solicitud->estatus = "CER";
+        if($solicitud->cerrar()){
+            return Redirect::to('solicitudes')->with('mensaje', 'Se cerro la solicitud: '.$solicitud->id.', correctamente');
+        }
+        return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&cerrar=true')->with('error', $solicitud->getErrors()->first());
+        /*$solicitud->estatus = "CER";
         $solicitud->save();
-        return Redirect::to('solicitudes')->with('mensaje', 'Se Cerro la solicitud: '.$solicitud->id.', correctamente');
+        return Redirect::to('solicitudes')->with('mensaje', 'Se Cerro la solicitud: '.$solicitud->id.', correctamente');*/
     }
     
     /* -------------------------------------- */

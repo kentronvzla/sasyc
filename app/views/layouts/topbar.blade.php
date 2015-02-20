@@ -32,7 +32,7 @@
                 <ul class="dropdown-menu" role="menu">
                     <li>{{HTML::link('solicitudes/nueva/','Nueva Solicitud')}}</li> 
                     <li>{{HTML::link('solicitudes','Solicitudes')}}</li> 
-                    <li>{{HTML::link('solicitudes?cerrar=true','Cerrar solicitud')}}</li>
+                    <li>{{HTML::link('solicitudes?estatus[]=ELD&&cerrar=true','Cerrar solicitud')}}</li>
                     <li>{{HTML::link('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true','Anular solicitud')}}</li> 
                     <li class="divider"></li>
                     <li>{{HTML::link('memorandum','Listar Memorandums')}}</li>
