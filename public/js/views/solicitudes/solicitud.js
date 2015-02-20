@@ -45,6 +45,9 @@ $(document).ready(function () {
 
     $('body').on('change', '#requerimiento_id', function(){
         var formulario = $(this).closest('form');
+        if($(this).val()==""){
+            return;
+        }
         $.get(baseUrl+'administracion/tablas/requerimientos/requerimiento/'+$(this).val(), function(data){
 
             //Se ocultan todos para que sea mas facil trabajarlos

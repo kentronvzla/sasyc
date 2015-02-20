@@ -160,17 +160,31 @@ class SolicitudesController extends BaseController {
         die();
     }
 
-    public function getAprobarasignacion($id){
+    public function getAceptarasignacion($id){
         $data['solicitud'] = Solicitud::findOrFail($id);
-        return View::make('solicitudes.aprobarasignacion',$data);
+        $data['solicitud']->configurarPresupuesto("", false);
+        return View::make('solicitudes.aceptarasignacion',$data);
     }
 
-    public function postAprobarasignacion(){
+    public function postAceptarasignacion(){
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        if($solicitud->aprobarAnalista(Input::get('nota'))){
-            return Redirect::to('solicitudes?estatus=EPR&solo_asignadas=true')->with('mensaje', 'Se acepto la asignación de la solicitud: '.$solicitud->id.', correctamente');
+        if($solicitud->aceptarAsignacion(Input::get('num_proc'))){
+            return Redirect::to('solicitudes?solo_asignadas=true')->with('mensaje', 'Se aceptó la asignación de la solicitud: '.$solicitud->id.', correctamente');
         }
-        return Redirect::to('solicitudes?estatus=EPR&solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
+        return Redirect::to('solicitudes?solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
+    }
+
+    public function getDevolverasignacion($id){
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        return View::make('solicitudes.devolverasignacion',$data);
+    }
+
+    public function postDevolverasignacion(){
+        $solicitud = Solicitud::findOrFail(Input::get('id'));
+        if($solicitud->devolverAsignacion()){
+            return Redirect::to('solicitudes?solo_asignadas=true')->with('mensaje', 'Se devolvió la asignación de la solicitud: '.$solicitud->id.', correctamente');
+        }
+        return Redirect::to('solicitudes?solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
     }
 
     public function getAnular ($id){

@@ -489,7 +489,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if ($this->estatus == "ELD") {
             $this->usuario_asignacion_id = $encargado_id;
             $this->usuario_autorizacion_id = $autorizador_id;
-            $this->estatus = "EPR";
+            $this->estatus = "EAA";
+            $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save();
             Bitacora::registrar("Se asignó la solicitud al analista: " .
                 $this->usuarioAsignacion->nombre . ', autorizado por: ' .
@@ -545,16 +546,64 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
-    public function aprobarAnalista(){
-        if($this->estatus=="EPR"){
-            $this->estatus = "APA";
+    public function aceptarAsignacion($num_proc){
+        if($this->puedeAceptarAsignacion()){
+            $this->estatus = "ACA";
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
-            $this->save();
             Bitacora::registrar('El analista aceptó la solicitud', $this->id);
+            $this->configurarPresupuesto($num_proc);
+            return !$this->hasErrors();
+        }
+        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
+        return false;
+    }
+
+    public function configurarPresupuesto($num_proc, $salvar = true){
+        $monto_maximo = Configuracion::get('monto_maximo_memo');
+        $monto_presupuesto = $this->presupuestos()->sum('monto');
+        //Tipo es M
+        if($monto_maximo>$monto_presupuesto){
+            $this->tipo_proc = "M";
+        }else{
+            $this->tipo_proc = "P";
+        }
+        $secuencia_auto = Configuracion::get('ind_secuencia_automatica');
+        if($secuencia_auto=="Si" && $this->tipo_proc=="M"){
+            $proximo = Configuracion::get('secuencia_memo_presupuesto');
+            Configuracion::set('secuencia_memo_presupuesto', $proximo+1);
+            $this->num_proc = $proximo;
+        }else if($secuencia_auto=="Si"){
+            $proximo = Configuracion::get('secuencia_memo_punto_cuenta');
+            Configuracion::set('secuencia_memo_punto_cuenta', $proximo+1);
+            $this->num_proc = $proximo;
+        }else if($num_proc!=""){
+            $this->num_proc = $num_proc;
+        }else{
+            $this->addError('num_proc', "Debe indicar el número de proceso");
+        }
+        if(!$this->hasErrors() && $salvar){
+            $this->save();
+        }
+    }
+
+    public function devolverAsignacion(){
+        if($this->puedeDevolverAsignacion()){
+            $this->estatus = "EAA";
+            $this->fecha_aceptacion = null;
+            $this->save();
+            Bitacora::registrar('El analista devolvio la aceptación de la solicitud', $this->id);
             return true;
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
         return false;
+    }
+
+    public function puedeAceptarAsignacion(){
+        return $this->estatus == "EAA";
+    }
+
+    public function puedeDevolverAsignacion(){
+        return $this->estatus == "ACA";
     }
 
 }

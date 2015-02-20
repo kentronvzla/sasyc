@@ -13,7 +13,7 @@
         @foreach($collection as $object)
         <tr>
             @foreach($prettyFields as $key=>$col)
-            <td>{{$object->getValueAt($key)}}</td>
+            <td class="{{$object->isDecimalField($key) ? 'decimal-format':''}}">{{$object->getValueAt($key)}}</td>
             @endforeach
             @if(count($botones)>0)
             <td>

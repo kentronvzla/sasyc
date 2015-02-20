@@ -341,6 +341,12 @@ function docReady() {
                 success: function (data) {
                     div.html(data.vista);
                     mostrarMensaje(data.mensaje);
+                },
+                error: function (data)
+                {
+                    if (data.status == 400) {
+                        mostrarError(procesarErrores(data.responseJSON.errores));
+                    }
                 }
             });
         });

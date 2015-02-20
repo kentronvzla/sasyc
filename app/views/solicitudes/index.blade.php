@@ -38,8 +38,11 @@
                     @if(isset($cerrar))
                         {{HTML::button('solicitudes/cerrar/'.$solicitud->id, 'lock','Cerrar Solicitud', true)}}
                     @endif
-                    @if(isset($solo_asignadas))
-                        {{HTML::button('solicitudes/aprobarasignacion/'.$solicitud->id, 'check','Aprobar Asignación', true)}}
+                    @if(isset($solo_asignadas) && $solicitud->puedeAceptarAsignacion())
+                        {{HTML::button('solicitudes/aceptarasignacion/'.$solicitud->id, 'check','Aceptar Asignación', true)}}
+                    @endif
+                    @if(isset($solo_asignadas) && $solicitud->puedeDevolverAsignacion())
+                        {{HTML::button('solicitudes/devolverasignacion/'.$solicitud->id, 'undo','Devolver Asignación', true)}}
                     @endif
                 </div>
             </div>

@@ -2,8 +2,11 @@
 
 class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \DecimalInterface {
 
+    private static $estatusModificacion = [
+        'ELA', 'ELD','REF','EAA'
+    ];
     protected $sequence = "presupuestos_id_seq";
-    public $timestamps = true;
+    public $timestamps = false;
     protected $table = "presupuestos";
 
     /**
@@ -96,7 +99,7 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
 
     public function getTableFields() {
         return [
-            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'montofor', 'documento_id', 'documento->estatus'
+            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'monto', 'documento_id', 'documento->estatus'
         ];
     }
 
@@ -107,17 +110,21 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
     }
 
     public function savingModel($model){
-        //Se preparan los datos para guardarlos en oracle
-        //Esto se hace para las validaciones de monto, cantidad y beneficiario, el required_if. NO QUITAR
-        $this->codigo_requerimiento = $this->requerimiento->tipoRequerimiento->codigo;
-        $this->ccosto = \Configuracion::get('ccosto');
-        $this->cod_acc_int = $this->solicitud->area->tipoAyuda->cod_acc_int;
-        $this->cod_cta = $this->requerimiento->cod_cta;
-        $this->cod_item = $this->requerimiento->cod_item;
-        $this->desc_requerimiento = $this->requerimiento->nombre;
-        $this->moneda = \Configuracion::get('moneda_presupuesto');
-        $this->tipo_reng = $this->requerimiento->tipoRequerimiento->codigo;
-        return parent::savingModel($model);
+        if($this->puedeModificarEliminar()){
+            //Se preparan los datos para guardarlos en oracle
+            //Esto se hace para las validaciones de monto, cantidad y beneficiario, el required_if. NO QUITAR
+            $this->codigo_requerimiento = $this->requerimiento->tipoRequerimiento->codigo;
+            $this->ccosto = \Configuracion::get('ccosto');
+            $this->cod_acc_int = $this->solicitud->area->tipoAyuda->cod_acc_int;
+            $this->cod_cta = $this->requerimiento->cod_cta;
+            $this->cod_item = $this->requerimiento->cod_item;
+            $this->desc_requerimiento = $this->requerimiento->nombre;
+            $this->moneda = \Configuracion::get('moneda_presupuesto');
+            $this->tipo_reng = $this->requerimiento->tipoRequerimiento->codigo;
+            return parent::savingModel($model);
+        }
+        $this->addError('estatus','No se puede modificar/crear el presupuesto. La solicitud no esta en el estatus correcto');
+        return false;
     }
 
     public function afterValidate(){
@@ -131,6 +138,19 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
 
     public function getMontoForAttribute() {
         return tm($this->monto);
+    }
+
+    public function deletingModel($model){
+        if($this->puedeModificarEliminar()){
+            return true;
+        }
+        $this->addError('estatus','No se puede eliminar el presupuesto. La solicitud no esta en el estatus correcto');
+        return false;
+    }
+
+    private function puedeModificarEliminar(){
+        $stsSolicitud = $this->solicitud->estatus;
+        return in_array($stsSolicitud, static::$estatusModificacion);
     }
 
 }

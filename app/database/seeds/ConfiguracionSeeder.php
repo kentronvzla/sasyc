@@ -44,6 +44,22 @@ class ConfiguracionSeeder extends Seeder {
             'variable' => 'moneda_presupuesto',
             'valor' => 'VEF',
         ));
+        Configuracion::create(array(
+            'variable' => 'secuencia_memo_presupuesto',
+            'valor' => 1,
+        ));
+        Configuracion::create(array(
+            'variable' => 'secuencia_memo_punto_cuenta',
+            'valor' => 1,
+        ));
+        Configuracion::create(array(
+            'variable' => 'ind_secuencia_automatica',
+            'valor' => "Si",
+        ));
+        Configuracion::create(array(
+            'variable' => 'monto_maximo_memo',
+            'valor' => 5000,
+        ));
     }
 
 }

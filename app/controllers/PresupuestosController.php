@@ -39,10 +39,13 @@ class PresupuestosController extends BaseController {
 
     public function deletePresupuesto($id) {
         $presupuesto = Presupuesto::findOrFail(Input::get('id'));
-        $presupuesto->delete();
-        $data['mensaje'] = "Se eliminó el presupuesto correctamente";
-        $data['vista'] = $this->getPresupuesto($id)->render();
-        return Response::json($data);
+        if($presupuesto->delete()){
+            $data['mensaje'] = "Se eliminó el presupuesto correctamente";
+            $data['vista'] = $this->getPresupuesto($id)->render();
+            return Response::json($data);
+        }
+        return Response::json(['errores'=>$presupuesto->getErrors()], 400);
+
     }
 
 }
