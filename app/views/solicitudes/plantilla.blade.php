@@ -204,7 +204,8 @@
                             <span class="glyphicon glyphicon-print"></span> Imprimir <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Planilla</a></li>
+                              <li>{{HTML::link('solicitudes/planilla/'.$solicitud->id, 'Planilla', ['target'=>'_blank'])}}</li>
+                              <li><a>Informe socioeconomico</a></li>
                         </ul>
                     </div>
                 </div>

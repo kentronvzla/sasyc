@@ -74,43 +74,60 @@
         <table width="100%" border="0" cellpadding="10" cellspacing="5">
             <tr>
                 <td width=670 ALIGN=CENTER>
-                    <strong>Listado de casos por fecha y codigo</strong>
+                    <strong>Listado de casos por fecha y codigo se anexan () expedientes</strong>
                 </td>
             </tr>
         </table>
     </div>
     <br>
-        <table style="width: 100%;font-size: 10pt;border: 0.5px solid black" cellspacing="0" border="0">
-            <thead>
+        <table width="100%" border="1" cellpadding="10" cellspacing="0">
+            <tr style=' background: gray;'>
+                <td width=45 height=25 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                    <strong>N Caso</strong>
+                </td>
+                <td width=110 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                    <strong>Nombre</strong>
+                </td>
+                <td width=107 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                    <strong>Apellido</strong>
+                </td>
+                <td width=120 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                    <strong>Cedula</strong>
+                </td>
+                <td width=70 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                    <strong>N Solicitud</strong>
+                </td>
+                <td width=90 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                    <strong>Tipo Solicitud</strong>
+                </td>
+                <td width=100 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                    <strong>Monto</strong>
+                </td>
+            </tr>
+            @foreach($memo->solicitudes as $resultado)
                 <tr>
-                    <th style="width: 10%;" class="titulo-tabla" ALIGN=CENTER>N° solicitud</th>
-                    <th style="width: 15%;" class="titulo-tabla" ALIGN=CENTER>Fecha</th>
-                    <th style="width: 10%;" class="titulo-tabla" ALIGN=CENTER>Descripcion</th>
-                    <th style="width: 10%;" class="titulo-tabla" ALIGN=CENTER>Estatus</th>
-                    <th style="width: 20%;" class="titulo-tabla" ALIGN=CENTER>Beneficiario</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($memo->solicitudes as $resultado)
-                <tr>
-                    <td class="fila-tabla" style="width: 10%;" ALIGN=CENTER> 
-                        {{$memo->solicitud->id or "#"}}
+                    <td width=45 height=15 valign="middle" ALIGN=CENTER >
+                        
                     </td>
-                    <td class="fila-tabla" style="width: 15%;" ALIGN=CENTER> 
-                        {{$memo->fecha->format('d/m/Y')}}
-                    </td>
-                    <td class="fila-tabla" style="width: 40%;"> 
-                        {{$resultado->descripcion}}
-                    </td> 
-                    <td class="fila-tabla" style="width: 20%;" ALIGN=CENTER> 
-                        {{$resultado->estatus_display}}
-                    </td>
-                    <td class="fila-tabla" style="width: 15%;">
+                    <td width=110 valign="middle">
                         {{$resultado->personaBeneficiario->nombre}}
-                        {{$resultado->personaBeneficiario->apellido}} 
+                    </td>
+                    <td width=107 valign="middle">
+                        {{$resultado->personaBeneficiario->apellido}}
+                    </td>
+                    <td width=120 height=15 valign="middle">
+                        {{$resultado->personaBeneficiario->ci}}
+                    </td>
+                    <td width=70 ALIGN=CENTER valign="middle">
+                        {{$resultado->id}}
+                    </td>
+                    <td width=90 ALIGN=CENTER valign="middle">
+                        {{$resultado->area->tipoAyuda->nombre}}
+                    </td>
+                    <td width=100 valign="middle" >
+
                     </td>
                 </tr>
-                @endforeach
-            </tbody>
+            @endforeach
         </table>
 </page>

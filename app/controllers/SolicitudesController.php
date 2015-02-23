@@ -232,5 +232,25 @@ class SolicitudesController extends BaseController {
         return Redirect::to('solicitudes')->with('mensaje', 'Se Cerro la solicitud: '.$solicitud->id.', correctamente');*/
     }
     
+    
+        public function getBitacora($id, $store = false) {
+        require_once(app_path('/ayudantes/report/html2pdf.class.php'));
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        $pdf = new HTML2PDF('P', 'letter', 'es');
+        $pdf->pdf->SetDisplayMode('fullpage');
+        try {
+            ob_clean();
+            $html = View::make('solicitudes.imprimirbitacora', $data)->render();
+            $pdf->writeHTML($html);
+            if ($store) {
+                $pdf->Output(app_path('storage/temp/solicitud' . $id . '.pdf'), 'F');
+            } else {
+                $pdf->Output('solicitud.pdf');
+            }
+        } catch (HTML2PDF_exception $e) {
+            die($e . " :(");
+        }
+        die();
+    }
     /* -------------------------------------- */
 }

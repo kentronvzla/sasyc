@@ -97,8 +97,8 @@ class CreateForeigTables extends Migration {
             $table->index('tipo_ayuda_id');
             $table->foreign('tipo_ayuda_id')->references('id')->on('tipo_ayudas');
         });
-        
-        /*Schema::table('solicitudes', function(Blueprint $table) {
+        /*--------------------------------------------------------------------*/
+        Schema::table('solicitudes', function(Blueprint $table) {
             $table->index('persona_beneficiario_id');
             $table->foreign('persona_beneficiario_id')->references('id')->on('personas');
             
@@ -116,13 +116,18 @@ class CreateForeigTables extends Migration {
             
             $table->index('organismo_id');
             $table->foreign('organismo_id')->references('id')->on('organismos');
-            -------------?
+ 
             $table->index('usuario_asignacion_id');
-            $table->foreign('usuario_asignacion_id')->references('id')->on('tipo_requerimientos');
+            $table->foreign('usuario_asignacion_id')->references('id')->on('personas');
             
             $table->index('usuario_autorizacion_id');
-            $table->foreign('usuario_autorizacion_id')->references('id')->on('tipo_ayudas');
-        });*/
+            $table->foreign('usuario_autorizacion_id')->references('id')->on('personas');
+        });
+        
+        Schema::table('fotos_solicitud', function(Blueprint $table) {
+            $table->index('solicitud_id');
+            $table->foreign('solicitud_id')->references('id')->on('solicitudes');
+        });
     }
 
     /**
@@ -211,6 +216,34 @@ class CreateForeigTables extends Migration {
             
             $table->dropForeign('requerimientos_tipo_ayuda_id_foreign');
             $table->dropIndex('requerimientos_tipo_ayuda_id_index');
+        });
+        
+         Schema::table('solicitudes', function(Blueprint $table) {
+            $table->dropForeign('solicitudes_persona_beneficiario_id_foreign');
+            $table->dropIndex('solicitudes_persona_beneficiario_id_index');
+            
+            $table->dropForeign('solicitudes_persona_solicitante_id_foreign');
+            $table->dropIndex('solicitudes_persona_solicitante_id_index');
+            
+            $table->dropForeign('solicitudes_area_id_foreign');
+            $table->dropIndex('solicitudes_area_id_index');
+            
+            $table->dropForeign('solicitudes_referente_id_foreign');
+            $table->dropIndex('solicitudes_referente_id_index');
+            
+            $table->dropForeign('solicitudes_organismo_id_foreign');
+            $table->dropIndex('solicitudes_organismo_id_index');
+            
+            $table->dropForeign('solicitudes_usuario_asignacion_id_foreign');
+            $table->dropIndex('solicitudes_usuario_asignacion_id_index');
+            
+             $table->dropForeign('solicitudes_usuario_autorizacion_id_foreign');
+            $table->dropIndex('solicitudes_usuario_autorizacion_id_index');
+        });
+        
+        Schema::table('fotos_solicitud', function(Blueprint $table) {
+            $table->dropForeign('fotos_solicitud_solicitud_id_foreign');
+            $table->dropIndex('fotos_solicitud_solicitud_id_index');
         });
     }
 

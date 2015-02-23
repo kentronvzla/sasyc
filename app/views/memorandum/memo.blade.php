@@ -104,25 +104,60 @@
         <!------------------------------------------------------>
         <br>
         <div class="cuerpo" style="position: center">
-            {{HTML::simpleTable($memo->solicitudes, 'Solicitud')}}
+             <table width="100%" border="1" cellpadding="10" cellspacing="0">
+                <tr style=' background: gray;'>
+                    <td width=45 height=25 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                        <strong>N Caso</strong>
+                    </td>
+                    <td width=110 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                        <strong>Nombre</strong>
+                    </td>
+                    <td width=107 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                        <strong>Apellido</strong>
+                    </td>
+                    <td width=120 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                        <strong>Cedula</strong>
+                    </td>
+                    <td width=70 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                        <strong>N Solicitud</strong>
+                    </td>
+                    <td width=90 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                        <strong>Tipo Solicitud</strong>
+                    </td>
+                    <td width=100 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+                        <strong>Monto</strong>
+                    </td>
+                </tr>
+                @foreach($memo->solicitudes as $resultado)
+                <tr>
+                    <td height=15 valign="middle" ALIGN=CENTER>
+
+                    </td>
+                    <td valign="middle">
+                        {{$resultado->personaBeneficiario->nombre}}
+                    </td>
+                    <td valign="middle">
+                        {{$resultado->personaBeneficiario->apellido}}
+                    </td>
+                    <td height=15 valign="middle" >
+                        {{$resultado->personaBeneficiario->ci}}
+                    </td>
+                    <td ALIGN=CENTER valign="middle">
+                        {{$resultado->id}}
+                    </td>
+                    <td ALIGN=CENTER valign="middle">
+                       {{$resultado->area->tipoAyuda->nombre}}
+                    </td>
+                    <td valign="middle">
+                      
+                    </td>
+                </tr>
+                @endforeach
+            </table>
         </div>
     </div>
  <!------------------------------------------------------------------------------------->   
     <div class="col-xs-12 col-sm-4 col-md-4 hidden-xs">
-        <div id="div-bitacora" class="panel panel-danger">
-            <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelBitacora">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordionlateral" href="#PanelBitacora">            
-                        Bitácora
-                    </a>
-                </h4>
-            </div>
-            <div id="PanelBitacora" class="panel-collapse collapse">
-                <div class="panel-body">
-
-                </div>
-            </div>
-        </div>    
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelPlanilla">
                 <h4 class="panel-title">
