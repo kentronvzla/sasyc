@@ -653,6 +653,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function getTipoProcForAttribute(){
+        if ($this->tipo_proc != null){
         return static::$tipo_procesamientos[$this->tipo_proc];
+        }
+        else
+        {
+          return "";}
     }
 }

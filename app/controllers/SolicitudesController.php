@@ -217,8 +217,9 @@ class SolicitudesController extends BaseController {
 
     public function getCerrar ($id){
         $data['solicitud'] = Solicitud::findOrFail($id);
-        $data['bitacora'] = new Bitacora();
+        $data['bitacora'] = new Bitacora();       
         return View::make('solicitudes.cerrar',$data);
+        
     }
     
     public function postCerrar (){
@@ -227,13 +228,10 @@ class SolicitudesController extends BaseController {
             return Redirect::to('solicitudes')->with('mensaje', 'Se cerro la solicitud: '.$solicitud->id.', correctamente');
         }
         return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&cerrar=true')->with('error', $solicitud->getErrors()->first());
-        /*$solicitud->estatus = "CER";
-        $solicitud->save();
-        return Redirect::to('solicitudes')->with('mensaje', 'Se Cerro la solicitud: '.$solicitud->id.', correctamente');*/
     }
     
     
-        public function getBitacora($id, $store = false) {
+    public function getBitacora($id, $store = false) {
         require_once(app_path('/ayudantes/report/html2pdf.class.php'));
         $data['solicitud'] = Solicitud::findOrFail($id);
         $pdf = new HTML2PDF('P', 'letter', 'es');
@@ -241,6 +239,26 @@ class SolicitudesController extends BaseController {
         try {
             ob_clean();
             $html = View::make('solicitudes.imprimirbitacora', $data)->render();
+            $pdf->writeHTML($html);
+            if ($store) {
+                $pdf->Output(app_path('storage/temp/solicitud' . $id . '.pdf'), 'F');
+            } else {
+                $pdf->Output('solicitud.pdf');
+            }
+        } catch (HTML2PDF_exception $e) {
+            die($e . " :(");
+        }
+        die();
+    }
+    
+    public function getInforme($id, $store = false) {
+        require_once(app_path('/ayudantes/report/html2pdf.class.php'));
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        $pdf = new HTML2PDF('P', 'letter', 'es');
+        $pdf->pdf->SetDisplayMode('fullpage');
+        try {
+            ob_clean();
+            $html = View::make('solicitudes.imprimirinforme', $data)->render();
             $pdf->writeHTML($html);
             if ($store) {
                 $pdf->Output(app_path('storage/temp/solicitud' . $id . '.pdf'), 'F');

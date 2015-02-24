@@ -13,9 +13,9 @@
                     {{Form::display($solicitud,'referente->nombre',9, true)}}
                     {{Form::display($solicitud,'area->nombre',3)}}
                     @if ($solicitud->ind_inmediata)
-                    {{Form::display($solicitud,'actividad',5)}}
-                    {{Form::display($solicitud,'referencia',4)}}
-                    {{Form::display($solicitud,'accion_tomada',3)}}
+                        {{Form::display($solicitud,'actividad',5)}}
+                        {{Form::display($solicitud,'referencia',4)}}
+                        {{Form::display($solicitud,'accion_tomada',3)}}
                     @endif
                 </div>
             </div>
@@ -84,7 +84,8 @@
     </tr>
     <tr>
         <td style="background-color: #fff">
-                {{HTML::simpleTable($solicitud->presupuestos, 'Oracle\Presupuesto')}}
+            {{--HTML::simpleTable($solicitud->presupuestos, 'Oracle\Presupuesto')--}}
+            @include('solicitudes.tablapresupuesto')
         </td>
     </tr>
 </table>

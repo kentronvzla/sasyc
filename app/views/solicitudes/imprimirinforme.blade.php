@@ -65,4 +65,3 @@
     <p>{{$solicitud->informe_solicitud}}</p>
     
 </div>    
-

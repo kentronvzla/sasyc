@@ -73,7 +73,7 @@
                     {{$resultado->fecha->format('d/m/Y')}}
                 </td>
                 <td ALIGN=CENTER valign="middle">
-                    {{$resultado->fecha->format('h:m')}}
+                    {{$resultado->created_at->format('H:m a')}}
                 </td>
             </tr>
             @endforeach

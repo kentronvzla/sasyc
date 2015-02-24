@@ -68,8 +68,10 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li>{{HTML::link('solicitudes/planilla/'.$solicitud->id, 'Planilla', ['target'=>'_blank'])}}</li>
-                            <li><a>Informe socioeconomico</a></li>
-                            <li>{{HTML::link('solicitudes/bitacora/'.$solicitud->id, 'Bitacora', ['target'=>'_blank'])}}</li>
+                            @if($solicitud->TipoVivienda && $solicitud->Tenencia)
+                                <li>{{HTML::link('solicitudes/informe/'.$solicitud->id, 'Informe Socioeconomico', ['target'=>'_blank'])}}</li>
+                            @endif
+                            <li>{{HTML::link('solicitudes/bitacora/'.$solicitud->id, 'Bitacora', ['target'=>'_blank'])}}</li>             
                             @unless(is_null($solicitud->memo_id))
                                 <li>{{--HTML::link('memorandum/imprimir/'.$solicitud->memo_id, 'Memorandum', ['target'=>'_blank'])--}}</li>
                             @endunless

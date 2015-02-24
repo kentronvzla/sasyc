@@ -16,6 +16,10 @@
             {{Form::btInput($usuario, 'departamento_id', 6)}}
             {{Form::btInput($usuario, 'activated', 6)}}
         </div>
+        <div class="row">
+            {{Form::btInput($usuario, 'nombregrupo', 6)}}
+            {{Form::btInput($usuario, 'password', 6)}}
+        </div>
         {{Form::submitBt()}}
         {{Form::close()}}
     </div>

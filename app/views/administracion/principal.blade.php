@@ -12,6 +12,9 @@
         <ul class="list-group">
             <a href="{{url('administracion/seguridad/grupos')}}"><li class="list-group-item">Grupos</li></a>
             <a href="{{url('administracion/seguridad/usuarios')}}"><li class="list-group-item">Usuarios</li></a>
+            <a href="{{url('administracion/tablas/departamentos')}}">
+                <li class="list-group-item">Departamentos</li>
+            </a>
         </ul>
     </div>
     <div class="panel panel-danger">
@@ -50,6 +53,9 @@
             <a href="{{url('administracion/tablas/recaudos')}}">
                 <li class="list-group-item">Recaudos</li>
             </a>
+            <a href="">
+                <li class="list-group-item">Recepciones</li>
+            </a>
             <a href="{{url('administracion/tablas/referentes')}}">
                 <li class="list-group-item">Referentes</li>
             </a>
@@ -67,9 +73,6 @@
             </a>
             <a href="{{url('administracion/tablas/tipoViviendas')}}">
                 <li class="list-group-item">Tipos de Viviendas</li>
-            </a>
-            <a href="{{url('administracion/tablas/departamentos')}}">
-                <li class="list-group-item">Departamentos</li>
             </a>
         </ul>
     </div>

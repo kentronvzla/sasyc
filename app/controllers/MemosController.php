@@ -19,7 +19,6 @@ class MemosController extends BaseController
     public function getImprimir($id, $store = false) {
       require_once(app_path('/ayudantes/report/html2pdf.class.php'));
         $data['memo'] = Memo::findOrFail($id);
-        //$data['personaBeneficiario'] = $data['solicitud']->personaBeneficiario;
         $pdf = new HTML2PDF('P', 'letter', 'es');
         $pdf->pdf->SetDisplayMode('fullpage');
         try {
