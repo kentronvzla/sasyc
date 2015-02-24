@@ -6,10 +6,9 @@ class RecepcionTableSeeder extends Seeder {
         $recepciones = array('Presidencia',
             'Ayudantía',
             'Correspondencia',
-            'Gobernación');
+            'Actividad presidencial');
         foreach ($recepciones as $recepcion) {
             Recepcion::create(array('nombre' => $recepcion));
         }
     }
-
 }
