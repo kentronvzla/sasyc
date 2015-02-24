@@ -38,7 +38,7 @@ class ConfiguracionSeeder extends Seeder {
         ));
         Configuracion::create(array(
             'variable' => 'ccosto',
-            'valor' => 1,
+            'valor' => 10301,
         ));
         Configuracion::create(array(
             'variable' => 'moneda_presupuesto',
