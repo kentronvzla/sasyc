@@ -11,15 +11,16 @@
             {{Form::hidden('id',$persona->id)}}
             {{Form::btInput($persona, 'nombre', 6)}}
             {{Form::btInput($persona, 'apellido', 6)}}
-            {{Form::btInput($persona, 'tipo_nacionalidad_id', 6)}}
-            {{Form::btInput($persona, 'ci', 6)}}
+            {{Form::btInput($persona, 'tipo_nacionalidad_id', 3)}}
+            {{Form::btInput($persona, 'ci', 3)}}
             {{Form::btInput($persona, 'sexo', 6)}}
             {{Form::btInput($persona, 'estado_civil_id', 6)}}
             {{Form::btInput($persona, 'lugar_nacimiento', 6)}}
             {{Form::btInput($persona, 'fecha_nacimiento', 6)}}
-            {{Form::btInput($persona, 'nivel_academico_id', 6)}}
-            {{Form::btInput($persona, 'co_id', 6)}}
-            {{Form::btInput($persona, 'parroquia_id', 6)}}
+            {{Form::btInput($persona, 'nivel_academico_id', 6)}}               
+            {{Form::btInput($persona, 'parroquia->municipio->estado_id',6, 'text', ['data-url'=>'estados/municipios','data-child'=>'parroquia_municipio_id'])}}
+            {{Form::btInput($persona, 'parroquia->municipio_id',6, 'text', ['data-url'=>'municipios/parroquias','data-child'=>'parroquia_id'])}}
+            {{Form::btInput($persona, 'parroquia_id',6)}}
             {{Form::btInput($persona, 'ciudad', 6)}}
             {{Form::btInput($persona, 'zona_sector', 6)}}
             {{Form::btInput($persona, 'calle_avenida', 6)}}

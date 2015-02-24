@@ -44,9 +44,6 @@
             <td width=130 height=20  valign="middle" style="background: white;">
                {{$solicitud->TipoVivienda->nombre}}
             </td>
-             <td width=40 height=20  valign="middle" style="background: white;">
-               {{$solicitud->TipoVivienda->version}}
-            </td>
         </tr>
         <tr>
             <td width= 150 height=20 valign="middle" style="background: white;">
@@ -55,8 +52,13 @@
             <td width=130 height=20  valign="middle" style="background: white;">
                {{$solicitud->Tenencia->nombre}}
             </td>
-             <td width=40 height=20  valign="middle" style="background: white;">
-               {{$solicitud->Tenencia->version}}
+        </tr>
+        <tr>
+            <td width= 150 height=20 valign="middle" style="background: white;">
+                <strong>Total Ingresos:</strong>
+            </td>
+            <td width=130 height=20  valign="middle" style="background: white;">
+               {{$solicitud->total_ingresos}}
             </td>
         </tr>
     </table>

@@ -37,6 +37,10 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
         Route::controller('tipoRequerimientos', 'TipoRequerimientosController');
         Route::controller('tipoViviendas', 'TipoViviendasController');
         Route::controller('departamentos', 'DepartamentosController');
+        
+        Route::controller('recepciones', 'RecepcionesController');
+        Route::controller('personas', 'PersonasController');
+        
     });
 });
 Route::controller('login','LoginController');

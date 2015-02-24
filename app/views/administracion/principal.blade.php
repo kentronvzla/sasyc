@@ -50,10 +50,13 @@
             <a href="{{url('administracion/tablas/parentescos')}}">
                 <li class="list-group-item">Parentescos</li>
             </a>
+            <a href="{{url('administracion/tablas/personas')}}">
+                <li class="list-group-item">Personas</li>
+            </a>
             <a href="{{url('administracion/tablas/recaudos')}}">
                 <li class="list-group-item">Recaudos</li>
             </a>
-            <a href="">
+            <a href="{{url('administracion/tablas/recepciones')}}">
                 <li class="list-group-item">Recepciones</li>
             </a>
             <a href="{{url('administracion/tablas/referentes')}}">
