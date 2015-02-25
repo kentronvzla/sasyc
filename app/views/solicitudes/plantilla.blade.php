@@ -158,7 +158,7 @@
             <div id="PanelAyuda" class="panel-collapse collapse collapse in">
                 <div class="panel-body"> 
                     <p>Sitúe el cursor en un campo para ver mas información.</p>
-                    <div class="row alert-warning text-justify" id="contenedorAyuda" data-id="" style="padding: 5px;">
+                    <div class="row alert-warning text-justify" id="contenedor-ayudas" style="padding: 5px;">
                     </div>
                 </div>
             </div>
@@ -193,8 +193,6 @@
                 </h4>
             </div>
             <div class="panel-body">
-                <div id="contenedorBarraCarga">
-                </div>
                 <div class="text-center">
                     <a target="_blank" href="{{url('solicitudes/ver/'.$solicitud->id)}}" class="btn btn-primary btn-lg">
                         <span class="glyphicon glyphicon-search"></span> Ver

@@ -30,6 +30,7 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
+    guardarAyudasNavegador();
     var msie = navigator.userAgent.match(/msie/i);
     $.browser = {};
     $.browser.msie = {};
@@ -46,11 +47,11 @@ $(document).ready(function () {
     // Hide responsive navbar on clicking outside
     $(document).mouseup(function (e) {
         if (!$sidebarNav.is(e.target) // if the target of the click isn't the container...
-                && $sidebarNav.has(e.target).length === 0
-                && !$('.navbar-toggle').is(e.target)
-                && $('.navbar-toggle').has(e.target).length === 0
-                && $sidebarNav.hasClass('active')
-                )// ... nor a descendant of the container
+            && $sidebarNav.has(e.target).length === 0
+            && !$('.navbar-toggle').is(e.target)
+            && $('.navbar-toggle').has(e.target).length === 0
+            && $sidebarNav.hasClass('active')
+        )// ... nor a descendant of the container
         {
             e.stopPropagation();
             $('.navbar-toggle').click();
@@ -74,9 +75,9 @@ $(document).ready(function () {
 
     //establish history variables
     var
-            History = window.History, // Note: We are using a capital H instead of a lower h
-            State = History.getState(),
-            $log = $('#log');
+        History = window.History, // Note: We are using a capital H instead of a lower h
+        State = History.getState(),
+        $log = $('#log');
 
     //bind to State Change
     History.Adapter.bind(window, 'statechange', function () { // Note: We are using statechange instead of popstate
@@ -127,7 +128,7 @@ function docReady() {
         });
         return false;
     });
-    
+
     $('[data-toggle="tooltip"]').tooltip({html: true});
     $('.btn-reset').click(function () {
         $(this).closest('form').clearForm();
@@ -138,9 +139,14 @@ function docReady() {
     });
     $(".decimal-format").css('text-align', 'right');
     $('input, select, textarea').each(function () {
-        if ($(this).attr("data-tienetooltip") == undefined && $(this).attr('type') != "radio") {
+        if ($(this).attr("data-tienetooltip") == undefined && $(this).attr('type') != "radio" && $(this).attr('type') != "hidden") {
             $(this).attr("data-tienetooltip", 1);
             $(this).tooltip({'trigger': 'focus hover', 'title': $(this).attr("placeholder")});
+        }
+        if ($(this).attr("data-tieneayuda") == undefined  && $(this).attr('type') != "hidden") {
+            $(this).attr("data-tieneayuda", 1);
+            $(this).hover(buscarAyuda);
+            $(this).focus(buscarAyuda);
         }
     });
     $('.jqueryDatePicker').datepicker({
@@ -432,6 +438,41 @@ function mostrarOcultar(ocultar, div, parent) {
         $(parent).find('#' + div).show();
         $(parent).find('#' + div).find('input,select').attr('required', 'required');
     }
+}
+
+function guardarAyudasNavegador(){
+    localStorage.clear();
+    $.getJSON(baseUrl+"administracion/tablas/ayudaCampos/todas", function(data){
+        $.each(data, function(index, obj){
+            localStorage.setItem(obj.formulario+"."+obj.campo, obj.ayuda);
+        });
+    });
+}
+
+function buscarAyuda(evt){
+    var form = $(evt.target).closest('form');
+    var input = $(evt.target);
+    if(form.attr('id')==undefined){
+        alert("El formulario no tiene ID, debe tener un id para poder mostrar la ayuda");
+    }
+    if(input.attr('id')==undefined){
+        alert("El input no tiene ID, debe tener un id para poder mostrar la ayuda");
+    }
+    var ayuda = localStorage.getItem(form.attr('id')+"."+input.attr('id'));
+    if(ayuda!=undefined){
+        $('#contenedor-ayudas').html(ayuda);
+    }else if(evt.type=="mouseenter"){
+        crearAyuda(form.attr('id'), input.attr('id'));
+    }
+}
+
+function crearAyuda(formulario, campo){
+    var data = {
+        formulario: formulario,
+        campo: campo,
+    };
+    localStorage.setItem(formulario+"."+campo, "Pendiente por documentar");
+    $.post(baseUrl+"administracion/tablas/ayudaCampos/crear", data);
 }
 
 $.fn.clearForm = function () {

@@ -20,6 +20,9 @@
     <div class="panel panel-danger">
         <div class="panel-heading">Tablas</div>
         <ul class="list-group">
+            <a href="{{url('administracion/tablas/ayudaCampos')}}">
+                <li class="list-group-item">Documentacion</li>
+            </a>
             <a href="{{url('administracion/tablas/tipoAyudas')}}">
                 <li class="list-group-item">Tipos de Ayuda</li>
             </a>
