@@ -41,11 +41,11 @@ Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion'
         Route::controller('personas', 'PersonasController');
         Route::controller('ayudaCampos', 'AyudaCamposController');
     });
+    Route::get('', function(){
+        return View::make('administracion.principal');
+    });
 });
 Route::controller('login','LoginController');
-//se coloca afuera porque no se maneja por namespace
-Route::controller('administracion/actualizaciones', 'ActualizacionesController');
-
 Route::controller('solicitudes', 'SolicitudesController');
 Route::controller('personas', 'PersonasController');
 Route::controller('presupuestos', 'PresupuestosController');

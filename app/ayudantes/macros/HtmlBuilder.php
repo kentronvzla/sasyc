@@ -15,7 +15,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
     }
 
     function icon($icon) {
-        return '<span class="fa fa-' . $icon . '"></span>';
+        return '<span class="glyphicon glyphicon-' . $icon . '"></span>';
     }
 
     function simpleTable($collection, $modelName, $botones = [], $urlDelete = "", $href = [], $datatable = false) {

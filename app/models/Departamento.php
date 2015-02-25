@@ -65,5 +65,4 @@ class Departamento extends BaseModel implements SimpleTableInterface {
             'supervisor->nombre', 'nombre'
         ];
     }
-
 }

@@ -20,7 +20,7 @@
             <ul class="dropdown-menu">
                 <li>{{HTML::link('login/logout','Cerrar Sesión')}}</li>
                 <li class="divider"></li>
-                <li>{{HTML::link('administracion/actualizaciones','Administración')}}</li>
+                <li>{{HTML::link('administracion','Administración')}}</li>
             </ul>
         </div>
         <!-- user dropdown ends -->

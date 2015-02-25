@@ -132,4 +132,8 @@ class Usuario extends BaseModel implements SimpleTableInterface {
         return ['email', 'nombre', 'grupos_display', 'activatedfor'];
     }
 
+    public static function getLogged(){
+        return self::find(Sentry::getUser()->id);
+    }
+
 }

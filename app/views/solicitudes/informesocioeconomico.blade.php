@@ -1,4 +1,4 @@
-{{Form::open(['url'=>'solicitudes/modificar/'.$solicitud->id,'id'=>'form-informe','class'=>'saveajax'])}}
+{{Form::open(['url'=>'solicitudes/modificar/'.$solicitud->id.'?informe=true','id'=>'form-informe','class'=>'saveajax'])}}
 {{Form::hidden('id',$solicitud->id, ['id'=>'id'])}}
 <div class="row">
     {{Form::btInput($solicitud,'tipo_vivienda_id',4)}}

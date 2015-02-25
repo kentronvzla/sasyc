@@ -222,8 +222,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function __construct(array $values = []) {
-        parent::__construct($values);
         $this->ind_mismo_benef = true;
+        parent::__construct($values);
     }
 
     public function getPrettyName() {
@@ -645,6 +645,12 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return $this->estatus == "ELA" || $this->estatus == "REF";
     }
 
+    public function reglasInforme(){
+        $this->rules = [
+            'tipo_vivienda_id'=>'required|integer',
+            'tenencia_id'=>'required|integer',
+        ];
+    }
     ////////////////////////////////////////////////////////////////////////
     public function cerrar ()
     {

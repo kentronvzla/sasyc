@@ -35,6 +35,9 @@ class SolicitudesController extends BaseController {
         Session::forget('solicitud');
         $solicitud = Solicitud::findOrNew(Input::get('id'));
         $solicitud->fill(Input::all());
+        if(Input::has('informe')){
+            $solicitud->reglasInforme();
+        }
         if ($solicitud->save()) {
             $data['solicitud'] = $solicitud;
             $data['mensaje'] = "Datos guardados correctamente";
