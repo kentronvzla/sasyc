@@ -442,7 +442,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function scopeOrdenar($query) {
-        return $query->orderBy('ind_inmediata', 'DESC')->orderBy('estatus');
+        return $query->orderBy('ind_inmediata', 'DESC')->orderBy('id','DESC');
     }
 
     public function scopeAplicarFiltro($query, $filtro) {
@@ -480,17 +480,21 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function asignarDepartamento($departamento_id, $memo) {
-        if ($this->estatus == "ELA") {
+        $usuario = Usuario::getLogged();
+        if($departamento_id == $usuario->departamento_id){
+            $this->addError('departamento_id', 'No puedes asignar la solicitud al mismo departamento al cual permaneces');
+        } else if ($this->estatus == "ELA") {
             $this->departamento_id = $departamento_id;
             $this->estatus = "ELD";
-
             //despues que se asigna el modelo retorna lo que esta en BD.
             $this->total_ingresos = tm($this->total_ingresos);
             $this->memo_id = $memo->id;
             $this->save();
             Bitacora::registrar("Se asigno la solicitud al departamento: " . $this->departamento->nombre, $this->id);
+        }else{
+            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELA']);
         }
-        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELA']);
+
     }
 
     public function asignarAnalista($encargado_id) {
@@ -501,8 +505,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->save();
             Bitacora::registrar("Se asignó la solicitud al analista: " .
                 $this->usuarioAsignacion->nombre, $this->id);
+        }else{
+            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELD']);
         }
-        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELD']);
     }
 
     public static function asignar(array $values) {
@@ -535,8 +540,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                     $mensajes->errors->merge($solicitud->errors);
                 });
             }
+        }else{
+            $mensajes->setErrors($validator->messages());
         }
-        $mensajes->setErrors($validator->messages());
         return $mensajes;
     }
 
@@ -609,11 +615,12 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
-    public function solicitarAprobacion() {
-        if ($this->puedeSolicitarAprobacion()) {
-            $descripcion = "jeje";
+    public function solicitarAprobacion($autorizador_id) {
+        if ($this->puedeSolicitarAprobacion() && $autorizador_id!='') {
+            $descripcion = 'Caso N°: '.$this->id.' Beneficiario: '.$this->personaBeneficiario->nombre.' '.$this->personaBeneficiario->nombre.' C.I.:'.$this->personaBeneficiario->ci.' '.$this->descripcion;
             \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
             $this->estatus = 'EAP';
+            $this->usuario_autorizacion_id = $autorizador_id;
             $this->beneficiario_json = json_encode($this->personaBeneficiario->toArray());
             if (is_object($this->personaSolicitante)) {
                 $this->solicitante_json = json_encode($this->personaSolicitante->toArray());
@@ -621,8 +628,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->save();
             Bitacora::registrar('Se solicito la aprobacion de lasolicitud correctamente', $this->id);
             return true;
+        }else if($autorizador_id==''){
+            $this->addError('estatus', 'Debes seleccionar el autorizador');
+        }else{
+            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
         }
-        $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
         return false;
     }
 

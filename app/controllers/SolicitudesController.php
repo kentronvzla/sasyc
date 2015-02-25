@@ -209,7 +209,7 @@ class SolicitudesController extends BaseController {
 
     public function postSolicitaraprobacion(){
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        if($solicitud->solicitarAprobacion()){
+        if($solicitud->solicitarAprobacion(Input::get('usuario_autorizacion_id'))){
             return Redirect::to('solicitudes?solo_asignadas=true')->with('mensaje', 'Se solicitó la aprobación de la solicitud: '.$solicitud->id.', correctamente');
         }
         return Redirect::to('solicitudes?solo_asignadas=true')->with('error', $solicitud->getErrors()->first());

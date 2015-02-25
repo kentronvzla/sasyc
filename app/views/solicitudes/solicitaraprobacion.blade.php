@@ -11,6 +11,7 @@
         </div>
         <div class="modal-body">
             @include('solicitudes.detalle_solicitud_modal')
+            {{Form::btInput($solicitud, 'usuario_autorizacion_id')}}
             <h4>Presupuestos</h4>
             {{HTML::simpleTable($solicitud->presupuestos, 'Oracle\Presupuesto')}}
         </div>
