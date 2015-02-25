@@ -21,10 +21,10 @@
                 {{Form::hidden('_method','DELETE')}}
                 {{Form::hidden('id',$object->id)}}
                 @if($hasEdit)
-                <a class="btn btn-primary btn-xs" href="{{$url}}/modificar/{{$object->id}}"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a class="btn btn-primary btn-xs" href="{{$url}}/modificar/{{$object->id}}"><i class="fa fa-pencil"></i></a>
                 @endif
                 @if($hasDelete)
-                <button type="submit" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+                <button type="submit" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></button>
                 @endif
                 {{Form::close()}}
             </td>
