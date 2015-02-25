@@ -42,8 +42,6 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
         'monto' => 'required_if:codigo_requerimiento,OP|required_if:codigo_requerimiento,FDEL',
     ];
 
-    protected $appends = ['codigo_requerimiento'];
-
     protected function getPrettyFields() {
         return [
             'solicitud_id' => 'Solicitud',

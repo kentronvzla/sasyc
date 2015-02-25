@@ -20,8 +20,6 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
      * @var array
      */
     protected $rules = [];
-    protected $appends = [];
-    protected $dates = [];
     protected $manejaConcurrencia;
     protected $displayTable = [];
 

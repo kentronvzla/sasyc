@@ -648,6 +648,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return in_array($this->estatus, $arr);
     }
 
+    public function puedeModificarFamiliarEconomico() {
+        return $this->estatus=="ACA";
+    }
+
     public function reglasInforme() {
         $this->rules = [
             'tipo_vivienda_id' => 'required|integer',

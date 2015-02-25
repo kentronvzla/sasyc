@@ -95,6 +95,7 @@
         {{HTML::script('js/jquery.photobox.min.js')}}
         {{HTML::style('css/select2.min.css')}}
         {{HTML::script('js/select2.min.js')}}
+        {{HTML::style('css/font-awesome.min.css')}}
         <div class="modal fade" id="modalConfirmacion">
             <div class="modal-dialog">
                 <div class="modal-content">
