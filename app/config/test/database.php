@@ -19,7 +19,7 @@ return array(
     'connections' => array(
         'pgsql' => array(
             'driver' => 'pgsql',
-            'host' => 'appwebdesa.kentron.com.ve',
+            'host' => 'localhost',
             'database' => 'sasyc_prueba',
             'username' => 'sasyc',
             'password' => 'sasyc',
