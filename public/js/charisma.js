@@ -459,10 +459,10 @@ function buscarAyuda(evt){
         return;
     }
     else if(form.attr('id')==undefined){
-        alert("El formulario no tiene ID, debe tener un id para poder mostrar la ayuda");
+        console.log("El formulario no tiene ID, debe tener un id para poder mostrar la ayuda");
     }
     else if(input.attr('id')==undefined){
-        alert("El input no tiene ID, debe tener un id para poder mostrar la ayuda");
+        console.log("El input no tiene ID, debe tener un id para poder mostrar la ayuda");
     }else{
         var ayuda = localStorage.getItem(form.attr('id')+"."+input.attr('id'));
         if(ayuda!=undefined){

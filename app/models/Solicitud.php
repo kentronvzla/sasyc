@@ -456,6 +456,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if(isset($filtro['solo_asignadas'])){
             $query->whereUsuarioAsignacionId(\Cartalyst\Sentry\Facades\Laravel\Sentry::getUser()->id);
         }
+        if(isset($filtro['departamento_id'])){
+            $query->whereDepartamentoId($filtro['departamento_id']);
+        }
         return $query;
     }
 

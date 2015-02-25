@@ -136,4 +136,8 @@ class Usuario extends BaseModel implements SimpleTableInterface {
         return self::find(Sentry::getUser()->id);
     }
 
+    public function getCompaneros(){
+        return array_merge([''=>'Seleccione'], $this->departamento->usuarios->lists('nombre','id'));
+    }
+
 }
