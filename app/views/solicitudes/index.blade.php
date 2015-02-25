@@ -31,7 +31,9 @@
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 text-right">
                     {{HTML::button('solicitudes/ver/'.$solicitud->id, 'search','Ver Solicitud')}}
-                    {{HTML::button('solicitudes/modificar/'.$solicitud->id, 'pencil','Modificar Solicitud')}}   
+                    @if($solicitud->puedeModificar())
+                    {{HTML::button('solicitudes/modificar/'.$solicitud->id, 'pencil','Modificar Solicitud')}}
+                    @endif
                     @if(isset($anulando))
                         {{HTML::button('solicitudes/anular/'.$solicitud->id, 'trash','Anular Solicitud', true)}}
                     @endif

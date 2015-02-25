@@ -12,8 +12,6 @@
         {{HTML::style('bower_components/colorbox/example3/colorbox.min.css')}}
         {{HTML::style('css/jquery.noty.min.css')}}
         {{HTML::style('css/noty_theme_default.min.css')}}
-        {{HTML::style('css/elfinder.min.css')}}
-        {{HTML::style('css/elfinder.theme.min.css')}}
         {{HTML::style('css/estilo_sasyc.css')}}
 
         <!--JS-->

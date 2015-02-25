@@ -17,8 +17,8 @@
             {{Form::btInput($usuario, 'activated', 6)}}
         </div>
        <div class="row">
-            {{Form::btInput($usuario, 'nombregrupo', 6)}}
-            {{Form::btInput($usuario, 'password', 6)}}
+            {{Form::multiselect($usuario, 'grupos', 6)}}
+            {{Form::btInput($usuario, 'password', 6,'password')}}
         </div>
         {{Form::submitBt()}}
         {{Form::close()}}

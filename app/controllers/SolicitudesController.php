@@ -61,6 +61,9 @@ class SolicitudesController extends BaseController {
         } else {
             $data['solicitud'] = Solicitud::findOrFail($id);
         }
+        if(!$data['solicitud']->puedeModificar()){
+            return Redirect::to('solicitudes')->with('error','Solo se pueden editar solicitudes en Elaboración');
+        }
         $data['beneficiario'] = Persona::findOrFail($data['solicitud']->persona_beneficiario_id);
         $data['solicitante'] = Persona::findOrNew($data['solicitud']->persona_solicitante_id);
         $data['familiares'] = $data['beneficiario']->getFamiliares();

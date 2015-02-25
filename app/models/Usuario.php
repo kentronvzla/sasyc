@@ -52,7 +52,7 @@ class Usuario extends BaseModel implements SimpleTableInterface {
      * @var array
      */
     protected $fillable = array(
-        'email', 'password', 'nombre', 'activated', 'departamento_id'
+        'email', 'nombre', 'activated', 'departamento_id'
     );
 
     /**
@@ -78,10 +78,11 @@ class Usuario extends BaseModel implements SimpleTableInterface {
             'email' => 'Login',
             'password' => 'Contraseña',
             'nombre' => 'Nombre',
-            'nombregrupo' => 'Grupo',
             'activated' => '¿Activo?',
             'departamento_id' => 'Departamento',
-            'activatedfor' => '¿Activo?'
+            'activatedfor' => '¿Activo?',
+            'grupos' => 'Grupos del usuario',
+            'grupos_display'=>'Grupos'
         );
     }
 
@@ -112,28 +113,23 @@ class Usuario extends BaseModel implements SimpleTableInterface {
         return $this->belongsToMany('Grupo', 'users_groups', 'user_id', 'group_id');
     }
 
-    public function getNombregrupoAttribute() {
-        $grupos = $this->grupos;
-        if (count($grupos) == 0) {
-            return "";
-        }
-        return $grupos[0]->name;
-    }
-
-    public function getIdgrupoAttribute() {
-        $grupos = $this->grupos;
-        if (count($grupos) == 0) {
-            return "";
-        }
-        return $grupos[0]->id;
-    }
 
     public static function puedeAcceder($permiso) {
         return Sentry::getUser()->hasAccess($permiso);
     }
 
+    public function isBooleanField($key){
+        if($key=="activated"){
+            return true;
+        }
+    }
+
+    public function getGruposDisplayAttribute(){
+        return implode(", ", $this->grupos->lists('name'));
+    }
+
     public function getTableFields() {
-        return ['email', 'nombre', 'nombregrupo', 'activatedfor'];
+        return ['email', 'nombre', 'grupos_display', 'activatedfor'];
     }
 
 }

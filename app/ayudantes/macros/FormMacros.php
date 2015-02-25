@@ -10,6 +10,21 @@ namespace Ayudantes\Macros;
 
 class FormBuilder extends \Illuminate\Html\FormBuilder {
 
+    public function multiselect($obj, $relation, $numCols = 12){
+        $related = $obj->{$relation}()->getRelated();
+        $data['options'] = call_user_func(array(get_class($related), 'getCombo'));
+        unset($data['options']['']);
+        $data['params']['multiple'] = 'multiple';
+        $data['params']['class'] = 'advanced-select';
+        $data['params']['id'] = $relation;
+        $data['params']['style'] = 'width: 100%;';
+        $data['attrName'] = $relation.'[]';
+        $data['values'] = $obj->{$relation}->lists('id');
+        $data['numCols'] = $numCols;
+        $data['params']['data-placeholder'] = $obj->getDescription($relation);
+        return \View::make('templates.bootstrap.multiselect', $data)->render();
+    }
+
     public function display($obj, $attrName, $numCols = 12, $inline = false) {
         $data['numCols'] = $numCols;
         $data['attrName'] = $attrName;
@@ -69,7 +84,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         $data['params']['id'] = str_replace('->', '_', str_replace('[]', '', $attrName));
         $data['params']['class'] .= 'form-control';
         $data['params']['placeholder'] = $obj->getDescription($attrName);
-        if ($obj->isRequired($attrName)) {
+        if ($obj->isRequired($attrName) && $type!='password') {
             $data['params']['required'] = 'true';
         }
         $data['inputType'] = $type;

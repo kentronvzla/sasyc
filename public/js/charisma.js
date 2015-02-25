@@ -113,6 +113,7 @@ $(document).ready(function () {
 
 
 function docReady() {
+    $('select.advanced-select').select2();
     $('.abrir-modal').unbind('click');
     $('.abrir-modal').click(function(evt) {
         evt.preventDefault();
@@ -452,17 +453,23 @@ function guardarAyudasNavegador(){
 function buscarAyuda(evt){
     var form = $(evt.target).closest('form');
     var input = $(evt.target);
-    if(form.attr('id')==undefined){
+    var url = location.href;
+    //la seccion de administracion no tiene ayuda en lso campos
+    if(url.startsWith(baseUrl+"administracion")){
+        return;
+    }
+    else if(form.attr('id')==undefined){
         alert("El formulario no tiene ID, debe tener un id para poder mostrar la ayuda");
     }
-    if(input.attr('id')==undefined){
+    else if(input.attr('id')==undefined){
         alert("El input no tiene ID, debe tener un id para poder mostrar la ayuda");
-    }
-    var ayuda = localStorage.getItem(form.attr('id')+"."+input.attr('id'));
-    if(ayuda!=undefined){
-        $('#contenedor-ayudas').html(ayuda);
-    }else if(evt.type=="mouseenter"){
-        crearAyuda(form.attr('id'), input.attr('id'));
+    }else{
+        var ayuda = localStorage.getItem(form.attr('id')+"."+input.attr('id'));
+        if(ayuda!=undefined){
+            $('#contenedor-ayudas').html(ayuda);
+        }else if(evt.type=="mouseenter"){
+            crearAyuda(form.attr('id'), input.attr('id'));
+        }
     }
 }
 
@@ -490,3 +497,9 @@ $.fn.clearForm = function () {
             $(this).val("");
     });
 };
+
+if (typeof String.prototype.startsWith != 'function') {
+    String.prototype.startsWith = function (str){
+        return this.slice(0, str.length) == str;
+    };
+}

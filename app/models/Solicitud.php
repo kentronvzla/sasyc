@@ -618,6 +618,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
             $this->estatus = 'EAP';
             $this->save();
+            Bitacora::registrar('Se solicito la aprobacion de lasolicitud correctamente', $this->id);
             return true;
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
@@ -638,6 +639,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function puedeCerrar(){
         return $this->estatus == "APR";
+    }
+
+    public function puedeModificar(){
+        return $this->estatus == "ELA" || $this->estatus == "REF";
     }
 
     ////////////////////////////////////////////////////////////////////////

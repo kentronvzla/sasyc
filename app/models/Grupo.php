@@ -15,7 +15,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Grupo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Grupo whereUpdatedAt($value)
  */
-class Grupo extends BaseModel implements SimpleTableInterface {
+class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
 
     protected $primaryKey = "id";
 
@@ -360,6 +360,10 @@ class Grupo extends BaseModel implements SimpleTableInterface {
 
     public function getTableFields() {
         return ['name'];
+    }
+
+    public static function getCampoCombo(){
+        return "name";
     }
 
 }

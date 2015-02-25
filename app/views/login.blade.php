@@ -7,14 +7,9 @@
         <!--CSS-->
         {{HTML::style('css/bootstrap-united.min.css')}}
         {{HTML::style('css/charisma-app.css')}}
-        {{HTML::style('bower_components/fullcalendar/dist/fullcalendar.min.css')}}
-        {{HTML::style('bower_components/fullcalendar/dist/fullcalendar.print.min.css',array('media'=>'print'))}}
         {{HTML::style('bower_components/colorbox/example3/colorbox.min.css')}}
         {{HTML::style('css/jquery.noty.min.css')}}
         {{HTML::style('css/noty_theme_default.min.css')}}
-        {{HTML::style('css/elfinder.min.css')}}
-        {{HTML::style('css/elfinder.theme.min.css')}}
-        {{HTML::style('css/uploadify.min.css')}}
         {{HTML::style('css/estilo_sasyc.css')}}
 
         <!--JS-->
@@ -51,6 +46,6 @@
                 </div>
             </div>
         </div>
-        {{HTML::script('js/bootstrap.min.js')}}
+        {{HTML::script('bower_components/bootstrap/dist/js/bootstrap.min.js')}}
     </body>
 </html>
