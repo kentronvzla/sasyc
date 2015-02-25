@@ -31,10 +31,10 @@
                         {{$resultado->cantidad}} 
                     </td>
                     <td width=70 height=15 valign="middle" ALIGN=CENTER>
-                        {{$resultado->documento_id}}
+                        {{$resultado->documento_id or ""}}
                     </td>
                     <td width=90 ALIGN=CENTER valign="middle">
-                        {{$resultado->documento->estatus}}
+                        {{$resultado->documento->estatus or ""}}
                     </td>
                     <td width=100 ALIGN=CENTER valign="middle">
                         {{$resultado->monto}}
