@@ -64,6 +64,5 @@
     </table>
     </div>
     <br>
-    <p>{{$solicitud->informe_solicitud}}</p>
-    
+    <p>{{$solicitud->informe_social}}</p>
 </div>    

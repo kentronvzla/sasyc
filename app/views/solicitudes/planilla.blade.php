@@ -26,7 +26,7 @@
             </div>
             <div id="PanelUno" class="panel-collapse collapse in">
                 <div class="panel-body">
-                    @if ($solicitud->TipoVivienda && $solicitud->Tenencia)
+                    @if ($solicitud->tipoVivienda && $solicitud->tenencia)
                         @include('solicitudes.vistadeinforme')
                     @else
                         No existe informe asociado
