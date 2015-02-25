@@ -26,9 +26,7 @@
                     @endforeach
                     @endif
                     <form method="POST" action="{{url('login')}}">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            {{HTML::image('img/logoLogin.jpg');}}
-                        </div>    
+                        <img src="../public/img/logoLogin.jpg">
                         <div class="form-group">
                             <label for="email">Usuario</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Correo">
