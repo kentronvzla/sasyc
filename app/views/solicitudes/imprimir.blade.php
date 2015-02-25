@@ -63,10 +63,9 @@
                <td width=390>
                    {{$solicitud->referente->nombre or ""}}
                </td>
-               <td>
-                   <!--<strong>Atencion Inmediata:</strong> <br>--> 
-                   {{--$solicitud->ind_inmediata or "No"--}}
-                   {{Form::display($solicitud,'ind_inmediata',3, true)}}
+               <td ALIGN=CENTER>
+                   <strong>Atencion Inmediata:</strong> <br>
+                   {{$solicitud->ind_inmediata ? "Si":"No"}}
                </td>
            </tr>
            @if ($solicitud->ind_inmediata)
@@ -124,9 +123,8 @@
                     {{$solicitud->personaBeneficiario->edad or ""}}
                 </td>
                 <td>
-                    <!--<strong>Trabaja?</strong><br>-->
-                    {{--$solicitud->personaBeneficiario->ind_trabaja or ""--}}
-                    {{Form::display($solicitud->personaBeneficiario,'ind_trabaja',3)}}
+                    <strong>Trabaja?</strong><br>
+                    {{$solicitud->personaBeneficiario->ind_trabaja ? "Si":"No"}}
                 </td>
             </tr>
             <tr>
@@ -142,9 +140,8 @@
                     {{$solicitud->personaBeneficiario->ingreso_mensual or ""}}
                 </td>
                 <td>
-                    <!--<strong>Asegurado?:</strong><br>-->
-                    {{Form::display($solicitud->personaBeneficiario,'ind_asegurado',3)}}
-                    {{--$solicitud->personaBeneficiario->ind_asegurado or ""--}}
+                    <strong>Asegurado?:</strong><br>
+                    {{$solicitud->personaBeneficiario->ind_asegurado ? "Si":"No"}}
                 </td>
             </tr>
             @if ($solicitud->personaBeneficiario->ind_asegurado)

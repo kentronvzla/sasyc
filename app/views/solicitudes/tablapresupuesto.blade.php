@@ -22,10 +22,10 @@
             @foreach($solicitud->presupuestos as $resultado)
                 <tr>
                     <td width=140 height=15 valign="middle">
-                        {{$resultado->requerimiento->nombre}}
+                        {{$resultado->requerimiento->nombre }}
                     </td>
                     <td width=170 valign="middle">
-                        {{$resultado->beneficiario->nombre}} 
+                        {{$resultado->beneficiario->nombre or ""}} 
                     </td>
                     <td width=70 valign="middle" ALIGN=CENTER>
                         {{$resultado->cantidad}} 
