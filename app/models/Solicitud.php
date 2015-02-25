@@ -174,10 +174,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     ];
     protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion',
         'fecha_aprobacion', 'fecha_cierre'];
-
     public static $tipo_procesamientos = [
-        'P'=>'Punto de Cuenta',
-        'M'=>'Memo',
+        'P' => 'Punto de Cuenta',
+        'M' => 'Memo',
     ];
 
     protected function getPrettyFields() {
@@ -205,7 +204,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'observaciones' => 'Observaciones',
             'moneda' => 'Moneda',
             'estatus' => 'Estatus',
-            'estatus_display'=>'Estatus',
+            'estatus_display' => 'Estatus',
             'usuario_asignacion_id' => 'Analista',
             'usuario_autorizacion_id' => 'Autorizado por',
             'fecha_solicitud' => 'Fecha de solicitud',
@@ -417,6 +416,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         });
         Bitacora::registrar('Se registró la solicitud.', $model->id);
     }
+
     ////
     public function getTableFields() {
         return [
@@ -447,13 +447,13 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function scopeAplicarFiltro($query, $filtro) {
         if (isset($filtro['estatus'])) {
-            if(is_array($filtro['estatus'])){
+            if (is_array($filtro['estatus'])) {
                 $query->whereIn('estatus', $filtro['estatus']);
-            }else{
+            } else {
                 $query->whereEstatus($filtro['estatus']);
             }
         }
-        if(isset($filtro['solo_asignadas'])){
+        if (isset($filtro['solo_asignadas'])) {
             $query->whereUsuarioAsignacionId(\Cartalyst\Sentry\Facades\Laravel\Sentry::getUser()->id);
         }
         return $query;
@@ -461,11 +461,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function scopeEagerLoad($query) {
         return $query->with('organismo')
-            ->with('personaSolicitante')
-            ->with('personaBeneficiario')
-            ->with('usuarioAutorizacion')
-            ->with('usuarioAsignacion')
-            ->with('area.tipoAyuda');
+                        ->with('personaSolicitante')
+                        ->with('personaBeneficiario')
+                        ->with('usuarioAutorizacion')
+                        ->with('usuarioAsignacion')
+                        ->with('area.tipoAyuda');
     }
 
     public function afterValidate() {
@@ -501,8 +501,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save();
             Bitacora::registrar("Se asignó la solicitud al analista: " .
-                $this->usuarioAsignacion->nombre . ', autorizado por: ' .
-                $this->usuarioAutorizacion->nombre, $this->id);
+                    $this->usuarioAsignacion->nombre . ', autorizado por: ' .
+                    $this->usuarioAutorizacion->nombre, $this->id);
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELD']);
     }
@@ -543,8 +543,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return $mensajes;
     }
 
-    public function anular($nota){
-        if($this->estatus=="ELA" || $this->estatus=="REF"){
+    public function anular($nota) {
+        if ($this->estatus == "ELA" || $this->estatus == "REF") {
             $this->estatus = "ANU";
             $this->save();
             Bitacora::registrar($nota, $this->id);
@@ -554,8 +554,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
-    public function aceptarAsignacion($num_proc){
-        if($this->puedeAceptarAsignacion()){
+    public function aceptarAsignacion($num_proc) {
+        if ($this->puedeAceptarAsignacion()) {
             $this->estatus = "ACA";
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
             Bitacora::registrar('El analista aceptó la solicitud', $this->id);
@@ -566,40 +566,40 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
-    public function configurarPresupuesto($num_proc, $salvar = true){
+    public function configurarPresupuesto($num_proc, $salvar = true) {
         $monto_maximo = Configuracion::get('monto_maximo_memo');
         $monto_presupuesto = $this->presupuestos()->sum('monto');
         //Tipo es M
-        if($monto_maximo>$monto_presupuesto){
+        if ($monto_maximo > $monto_presupuesto) {
             $this->tipo_proc = "M";
-        }else{
+        } else {
             $this->tipo_proc = "P";
         }
         $secuencia_auto = Configuracion::get('ind_secuencia_automatica');
-        if($secuencia_auto=="Si" && $this->tipo_proc=="M"){
+        if ($secuencia_auto == "Si" && $this->tipo_proc == "M") {
             $proximo = Configuracion::get('secuencia_memo_presupuesto');
             $this->num_proc = $proximo;
-            if($salvar){
-                Configuracion::set('secuencia_memo_presupuesto', $proximo+1);
+            if ($salvar) {
+                Configuracion::set('secuencia_memo_presupuesto', $proximo + 1);
             }
-        }else if($secuencia_auto=="Si"){
+        } else if ($secuencia_auto == "Si") {
             $proximo = Configuracion::get('secuencia_memo_punto_cuenta');
-            if($salvar){
-                Configuracion::set('secuencia_memo_punto_cuenta', $proximo+1);
+            if ($salvar) {
+                Configuracion::set('secuencia_memo_punto_cuenta', $proximo + 1);
             }
             $this->num_proc = $proximo;
-        }else if($num_proc!=""){
+        } else if ($num_proc != "") {
             $this->num_proc = $num_proc;
-        }else if($salvar){
+        } else if ($salvar) {
             $this->addError('num_proc', "Debe indicar el número de proceso");
         }
-        if(!$this->hasErrors() && $salvar){
+        if (!$this->hasErrors() && $salvar) {
             $this->save();
         }
     }
 
-    public function devolverAsignacion(){
-        if($this->puedeDevolverAsignacion()){
+    public function devolverAsignacion() {
+        if ($this->puedeDevolverAsignacion()) {
             $this->estatus = "EAA";
             $this->fecha_aceptacion = null;
             $this->tipo_proc = null;
@@ -612,8 +612,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
-    public function solicitarAprobacion(){
-        if($this->puedeSolicitarAprobacion()){
+    public function solicitarAprobacion() {
+        if ($this->puedeSolicitarAprobacion()) {
             $descripcion = "jeje";
             \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
             $this->estatus = 'EAP';
@@ -625,50 +625,51 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
-    public function puedeAceptarAsignacion(){
+    public function puedeAceptarAsignacion() {
         return $this->estatus == "EAA";
     }
 
-    public function puedeDevolverAsignacion(){
+    public function puedeDevolverAsignacion() {
         return $this->estatus == "ACA";
     }
 
-    public function puedeSolicitarAprobacion(){
+    public function puedeSolicitarAprobacion() {
         return $this->estatus == "ACA";
     }
 
-    public function puedeCerrar(){
+    public function puedeCerrar() {
         return $this->estatus == "APR";
     }
 
-    public function puedeModificar(){
-        return $this->estatus == "ELA" || $this->estatus == "REF";
+    public function puedeModificar() {
+        $arr = ['ELA', 'REF', 'ELD', 'EAA', 'ACA', 'EAP'];
+        return in_array($this->estatus, $arr);
     }
 
-    public function reglasInforme(){
+    public function reglasInforme() {
         $this->rules = [
-            'tipo_vivienda_id'=>'required|integer',
-            'tenencia_id'=>'required|integer',
+            'tipo_vivienda_id' => 'required|integer',
+            'tenencia_id' => 'required|integer',
         ];
     }
+
     ////////////////////////////////////////////////////////////////////////
-    public function cerrar ()
-    {
-        if($this->puedeCerrar()){
-           $this->estatus = "CER";
-           $this->save(); 
-           return true; 
+    public function cerrar() {
+        if ($this->puedeCerrar()) {
+            $this->estatus = "CER";
+            $this->save();
+            return true;
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
         return false;
     }
 
-    public function getTipoProcForAttribute(){
-        if ($this->tipo_proc != null){
+    public function getTipoProcForAttribute() {
+        if ($this->tipo_proc != null) {
             return static::$tipo_procesamientos[$this->tipo_proc];
-        }
-        else {
-          return "";
+        } else {
+            return "";
         }
     }
+
 }
