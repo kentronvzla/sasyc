@@ -60,6 +60,14 @@ class Departamento extends BaseModel implements SimpleTableInterface {
         return $this->belongsTo('Usuario');
     }
 
+    /**
+     * Define una relación pertenece a Usuario
+     * @return Usuario
+     */
+    public function usuarios() {
+        return $this->hasMany('Usuario');
+    }
+
     public function getTableFields() {
         return [
             'supervisor->nombre', 'nombre'

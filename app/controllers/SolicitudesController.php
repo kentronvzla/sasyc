@@ -16,11 +16,15 @@ class SolicitudesController extends BaseController {
     public function getIndex() {
         $data['solicitudes'] = Solicitud::ordenar()
                 ->eagerLoad()
-                ->aplicarFiltro(Input::all())
-                ->paginate(30);
+                ->aplicarFiltro(Input::all());
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
             $data['solicitud'] = new Solicitud();
+            if($data['campo']=='usuario'){
+                $usuario = Usuario::getLogged();
+                $data['solicitudes']->aplicarFiltro(['departamento_id'=>$usuario->departamento_id]);
+                $data['analistas'] = $usuario->getCompaneros();
+            }
         } else if(Input::has('anulando')){
             $data['anulando'] = true;
         } else if(Input::has('cerrar')){
@@ -28,6 +32,7 @@ class SolicitudesController extends BaseController {
         } else if(Input::has('solo_asignadas')){
             $data['solo_asignadas'] = true;
         }
+        $data['solicitudes'] = $data['solicitudes']->paginate(10);
         return View::make('solicitudes.index', $data);
     }
 
