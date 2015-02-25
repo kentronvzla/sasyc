@@ -137,7 +137,9 @@ class Usuario extends BaseModel implements SimpleTableInterface {
     }
 
     public function getCompaneros(){
-        return array_merge([''=>'Seleccione'], $this->departamento->usuarios->lists('nombre','id'));
+        $analistas=$this->departamento->usuarios->lists('nombre','id');
+        $analistas[""]="Seleccione";
+        return $analistas;
     }
 
 }

@@ -504,8 +504,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save();
             Bitacora::registrar("Se asignó la solicitud al analista: " .
-                $this->usuarioAsignacion->nombre . ', autorizado por: ' .
-                $this->usuarioAutorizacion->nombre, $this->id);
+                $this->usuarioAsignacion->nombre, $this->id);
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELD']);
     }
