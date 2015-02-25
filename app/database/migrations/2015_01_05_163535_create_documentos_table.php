@@ -14,8 +14,8 @@ class CreateDocumentosTable extends Migration {
         Schema::connection('oracle')->create('documentos', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('solicitud_id', false, true)->length(14);
-
             $table->integer('beneficiario_id', false, true)->length(14)->nullable();
+
             $table->string('ccosto', 10)->nullable();
             $table->string('cod_acc_int', 7)->nullable();
             $table->string('moneda', 3)->nullable();

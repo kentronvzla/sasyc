@@ -26,9 +26,8 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
     'richardcasa' => ['richarrieta-PC'],
-    'local' => array('LENOVO-MJ83Y16', 'LENOVO-MJ83W43'),
-    'test' => array('APPWEBDESA'),
-    'nadin' => ['foropenal']
+    'local' => array('LENOVO-MJ83W43','LENOVO-MJ83Y16'),
+    'test' => array('APPWEBDESA')
         )
 );
 

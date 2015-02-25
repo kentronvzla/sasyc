@@ -493,10 +493,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELA']);
     }
 
-    public function asignarAnalista($encargado_id, $autorizador_id) {
+    public function asignarAnalista($encargado_id) {
         if ($this->estatus == "ELD") {
             $this->usuario_asignacion_id = $encargado_id;
-            $this->usuario_autorizacion_id = $autorizador_id;
             $this->estatus = "EAA";
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save();
@@ -515,7 +514,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         }
         $rules = [
             'departamento_id' => 'required_if:campo,departamento',
-            'usuario_autorizacion_id' => 'required_if:campo,usuario',
             'usuario_asignacion_id' => 'required_if:campo,usuario',
             'campo' => 'required',
         ];
@@ -532,7 +530,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 });
             } else if ($values['campo'] == "usuario") {
                 $solicitudes->each(function($solicitud) use ($values, $mensajes) {
-                    $solicitud->asignarAnalista($values['usuario_asignacion_id'], $values['usuario_autorizacion_id']);
+                    $solicitud->asignarAnalista($values['usuario_asignacion_id']);
                     //si salieron errores hacemos un merge
                     $mensajes->errors->merge($solicitud->errors);
                 });

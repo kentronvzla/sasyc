@@ -19,13 +19,23 @@ return array(
     'connections' => array(
         'pgsql' => array(
             'driver' => 'pgsql',
-            'host' => 'localhost',
+            'host' => 'appwebdesa.kentron.com.ve',
             'database' => 'sasyc_prueba',
             'username' => 'sasyc',
             'password' => 'sasyc',
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
+        ),
+        'oracle' => array(
+            'driver' => 'oracle',
+            'host' => 'appweb',
+            'port' => '1521',
+            'database' => 'prueba',
+            'username' => 'sasyc',
+            'password' => 'sasyc',
+            'charset' => 'AL32UTF8',
+            'prefix' => '',
         ),
     ),
 );

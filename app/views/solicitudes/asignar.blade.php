@@ -10,8 +10,7 @@
             @if($campo=="departamento")
             {{Form::btInput($solicitud, 'departamento_id')}}
             @elseif($campo=="usuario")
-            {{Form::btInput($solicitud, 'usuario_asignacion_id',6, 'select',[],$analistas)}}
-            {{Form::btInput($solicitud, 'usuario_autorizacion_id',6)}}
+            {{Form::btInput($solicitud, 'usuario_asignacion_id', 12, 'select',[],$analistas)}}
             @endif
         </div>
         @include('templates.bootstrap.submit', ['nomostrar'=>true, 'nombreSubmit'=>'Asignar'])

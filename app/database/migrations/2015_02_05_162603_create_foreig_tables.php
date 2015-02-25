@@ -19,11 +19,6 @@ class CreateForeigTables extends Migration {
             $table->foreign('usuario_id')->references('id')->on('users');
         });
         
-        Schema::connection('oracle')->table('documentos', function(Blueprint $table) {
-            $table->index('solicitud_id');
-            //$table->foreign('solicitud_id')->references('id')->on('solicitudes');
-        });
-        
         /*nuevas agregadas--luego borro este comentario*/
         Schema::table('areas', function(Blueprint $table) {
             $table->index('tipo_ayuda_id');
@@ -65,18 +60,22 @@ class CreateForeigTables extends Migration {
             $table->foreign('parroquia_id')->references('id')->on('parroquias');
         });
 
-        Schema::connection('oracle')->table('presupuestos', function(Blueprint $table) {
-            $table->index('beneficiario_id');
-            //$table->foreign('beneficiario_id')->references('numbenef')->on('doc.beneficiarios');
+        Schema::connection('oracle')->table('documentos', function(Blueprint $table) {
+            $table->index('solicitud_id');
 
             $table->index('ccosto');
-            //$table->foreign('ccosto')->references('ccosto')->on('ppto.cents_costo');
+            $table->foreign('ccosto')->references('ccosto')->on('ppto.cents_costo');
+        });
 
-            $table->index('cod_acc_int');
-            //$table->foreign('cod_acc_int')->references('codaccint')->on('ppto.acc_int');
+        Schema::connection('oracle')->table('presupuestos', function(Blueprint $table) {
+            $table->index('beneficiario_id');
+            $table->foreign('beneficiario_id')->references('numbenef')->on('doc.beneficiarios');
+
+            $table->index('ccosto');
+            $table->foreign('ccosto')->references('ccosto')->on('ppto.cents_costo');
 
             $table->index('cod_item');
-            //$table->foreign('cod_item')->references('coditem')->on('cat.item_cat');
+            $table->foreign('cod_item')->references('coditem')->on('cat.item_cat');
 
             $table->index('documento_id');
             $table->foreign('documento_id')->references('id')->on('documentos');
@@ -144,12 +143,7 @@ class CreateForeigTables extends Migration {
             $table->dropForeign('bitacoras_usuario_id_foreign');
             $table->dropIndex('bitacoras_usuario_id_index');
         });
-        
-        Schema::table('documentos', function(Blueprint $table) {
-            $table->dropForeign('documentos_solicitud_id_foreign');
-            $table->dropIndex('documentos_solicitud_id_index');
-        });
-        
+
          /*nuevas agregadas--luego borro este comentario*/
         Schema::table('areas', function(Blueprint $table) {
             $table->dropForeign('areas_tipo_ayuda_id_foreign');
