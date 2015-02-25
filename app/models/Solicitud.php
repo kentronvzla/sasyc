@@ -483,10 +483,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if ($this->estatus == "ELA") {
             $this->departamento_id = $departamento_id;
             $this->estatus = "ELD";
-            $this->beneficiario_json = $this->personaBeneficiario->toJson();
-            if (is_object($this->personaSolicitante)) {
-                $this->solicitante_json = $this->personaSolicitante->toJson();
-            }
+
             //despues que se asigna el modelo retorna lo que esta en BD.
             $this->total_ingresos = tm($this->total_ingresos);
             $this->memo_id = $memo->id;
@@ -619,12 +616,32 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $descripcion = "jeje";
             \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
             $this->estatus = 'EAP';
+            $this->beneficiario_json = json_encode($this->personaBeneficiario->toArray());
+            if (is_object($this->personaSolicitante)) {
+                $this->solicitante_json = json_encode($this->personaSolicitante->toArray());
+            }
             $this->save();
             Bitacora::registrar('Se solicito la aprobacion de lasolicitud correctamente', $this->id);
             return true;
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
         return false;
+    }
+
+    public function getBeneficiario(){
+        if($this->puedeModificar()){
+            return $this->personaBeneficiario;
+        }else{
+            return new Persona(json_decode($this->beneficiario_json));
+        }
+    }
+
+    public function getSolicitante(){
+        if($this->puedeModificar()){
+            return $this->personaSolicitante;
+        }else{
+            return new Persona(json_decode($this->solicitante_json));
+        }
     }
 
     public function puedeAceptarAsignacion() {

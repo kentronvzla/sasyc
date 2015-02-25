@@ -29,29 +29,29 @@
     <tr>
         <td style="background-color: #fff">
             <div class="row">
-                {{Form::display($solicitud->personaBeneficiario,'nombre',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'apellido',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'ci',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'sexo',3)}}
+                {{Form::display($beneficiario,'nombre',3)}}
+                {{Form::display($beneficiario,'apellido',3)}}
+                {{Form::display($beneficiario,'ci',3)}}
+                {{Form::display($beneficiario,'sexo',3)}}
             </div>
             <div class="row">
-                {{Form::display($solicitud->personaBeneficiario,'estadoCivil->nombre',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'fecha_nacimiento',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'edad',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'ind_trabaja',3)}}
+                {{Form::display($beneficiario,'estadoCivil->nombre',3)}}
+                {{Form::display($beneficiario,'fecha_nacimiento',3)}}
+                {{Form::display($beneficiario,'edad',3)}}
+                {{Form::display($beneficiario,'ind_trabaja',3)}}
             </div>
             <div class="row">
-                {{Form::display($solicitud->personaBeneficiario,'ocupacion',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'nivelAcademico->nombre',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'ingreso_mensual',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'ind_asegurado',3)}}
+                {{Form::display($beneficiario,'ocupacion',3)}}
+                {{Form::display($beneficiario,'nivelAcademico->nombre',3)}}
+                {{Form::display($beneficiario,'ingreso_mensual',3)}}
+                {{Form::display($beneficiario,'ind_asegurado',3)}}
             </div>
             <div class="row">
-                @if ($solicitud->personaBeneficiario->ind_asegurado)
-                    {{Form::display($solicitud->personaBeneficiario,'empresa_seguro',3)}}
-                    {{Form::display($solicitud->personaBeneficiario,'cobertura',3)}}
+                @if ($beneficiario->ind_asegurado)
+                    {{Form::display($beneficiario,'empresa_seguro',3)}}
+                    {{Form::display($beneficiario,'cobertura',3)}}
                 @endif
-                    {{Form::display($solicitud->personaBeneficiario,'otro_apoyo',3)}}
+                    {{Form::display($beneficiario,'otro_apoyo',3)}}
             </div>                        
         </td>
     </tr>
@@ -63,17 +63,17 @@
     <tr>
         <td style="background-color: #fff">
             <div class="row">
-                {{Form::display($solicitud->personaBeneficiario,'parroquia->nombre',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'parroquia->municipio->nombre',3)}}
+                {{Form::display($beneficiario,'parroquia->nombre',3)}}
+                {{Form::display($beneficiario,'parroquia->municipio->nombre',3)}}
                 <!---------------------detalle para indicae el nombre de un municipio-->
-                {{--Form::display($solicitud->personaBeneficiario,'parroquia->municipio->estado->nombre',3)--}}
-                {{Form::display($solicitud->personaBeneficiario,'telefono_fijo',3)}}
+                {{Form::display($beneficiario,'parroquia->municipio->estado->nombre',3)}}
+                {{Form::display($beneficiario,'telefono_fijo',3)}}
             </div>
             <div class="row">
-                {{Form::display($solicitud->personaBeneficiario,'zona_sector',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'calle_avenida',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'apto_casa',3)}}
-                {{Form::display($solicitud->personaBeneficiario,'telefono_celular',3)}}
+                {{Form::display($beneficiario,'zona_sector',3)}}
+                {{Form::display($beneficiario,'calle_avenida',3)}}
+                {{Form::display($beneficiario,'apto_casa',3)}}
+                {{Form::display($beneficiario,'telefono_celular',3)}}
             </div>
         </td>
     </tr>
@@ -84,8 +84,6 @@
     </tr>
     <tr>
         <td style="background-color: #fff">
-            {{--HTML::simpleTable($solicitud->presupuestos, 'Oracle\Presupuesto')--}}
-            @include('solicitudes.tablapresupuesto')
         </td>
     </tr>
 </table>

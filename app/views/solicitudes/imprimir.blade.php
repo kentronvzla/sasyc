@@ -39,8 +39,6 @@
         </table>
     </div>
     <hr width="100%"> 
-    <!------------------------------------------------------------------------->
-    <!--<div><h5>Solicitud</h5></div>-->
     <strong>Solicitud</strong>
     <div class="cuerpo">
        <table width="100%" border="0" cellpadding="10" cellspacing="10">
@@ -87,40 +85,38 @@
        </table>
     </div><br>
     <hr width="100%">
-   <!------------------------------------------------------------------------->
-   <!--<div class="cuerpo"><h5>Beneficiario</h5></div>-->
    <strong>Beneficiario</strong>
    <div class="cuerpo">
        <table width="100%" border="0" cellpadding="10" cellspacing="10">
             <tr>
                 <td width=150>
                     <strong>Nombre:</strong><br>
-                    {{$solicitud->personaBeneficiario->nombre or ""}}
+                    {{$beneficiario->nombre or ""}}
                 </td>
                 <td width=150>
                     <strong>Apellido</strong><br>
-                    {{$solicitud->personaBeneficiario->apellido or ""}}
+                    {{$beneficiario->apellido or ""}}
                 </td>
                 <td width=150>
                     <strong>Cedula:</strong><br>
-                    {{$solicitud->personaBeneficiario->ci or ""}}
+                    {{$beneficiario->ci or ""}}
                 </td>
                 <td width=120>
                     <strong>Sexo:</strong><br>
-                    {{$solicitud->personaBeneficiario->sexo or ""}}
+                    {{$beneficiario->sexo or ""}}
                 </td>
             </tr>
-            <tr><!--Revisar esdat0 civil (mas niveles)---no fecha, edad--------------->
+            <tr>
                 <td>
                     <strong>Estado Civil:</strong><br>
                 </td>
                 <td>
                     <strong>Fecha de Nacimiento:</strong><br>
-                    {{$solicitud->personaBeneficiario->fecha_nacimiento or ""}}
+                    {{$beneficiario->fecha_nacimiento!=null ? $beneficiario->fecha_nacimiento->format('d/m/Y'):""}}
                 </td>
                 <td>
                     <strong>Edad:</strong><br>
-                    {{$solicitud->personaBeneficiario->edad or ""}}
+                    {{$beneficiario->edad or ""}}
                 </td>
                 <td>
                     <strong>Trabaja?</strong><br>
@@ -130,33 +126,33 @@
             <tr>
                 <td>
                     <strong>Ocupacion:</strong><br>
-                    {{$solicitud->personaBeneficiario->ocupacion or ""}}
+                    {{$beneficiario->ocupacion or ""}}
                 </td>
                 <td>
                     <strong>Nivel Academico:</strong><br>
                 </td>
                 <td>
                     <strong>Ingreso Mensual:</strong><br>
-                    {{$solicitud->personaBeneficiario->ingreso_mensual or ""}}
+                    {{$beneficiario->ingreso_mensual or ""}}
                 </td>
                 <td>
                     <strong>Asegurado?:</strong><br>
                     {{$solicitud->personaBeneficiario->ind_asegurado ? "Si":"No"}}
                 </td>
             </tr>
-            @if ($solicitud->personaBeneficiario->ind_asegurado)
+            @if ($beneficiario->ind_asegurado)
                 <tr>
                     <td>
                         <strong>Empresa de Seguro:</strong><br>
-                        {{$solicitud->personaBeneficiario->empresa_seguro or ""}}
+                        {{$beneficiario->empresa_seguro or ""}}
                     </td>
                     <td>
                         <strong>Cobertura:</strong><br>
-                        {{$solicitud->personaBeneficiario->cobertura or ""}}
+                        {{$beneficiario->cobertura or ""}}
                     </td>
                     <td>
                         <strong>Otro Apoyo</strong><br>
-                        {{$solicitud->personaBeneficiario->otro_apoyo or ""}}
+                        {{$beneficiario->otro_apoyo or ""}}
                     </td>
                     <td></td>
                 </tr>
@@ -164,45 +160,44 @@
         </table>
     </div>
     <hr width="100%">
-    <!------------------------------------------------------------------------->
-     <!--<div class="cuerpo"><h5>Direccion</h5></div>-->
+
      <strong>Direccion</strong>
      <div class="cuerpo">
        <table width="100%" border="0" cellpadding="10" cellspacing="10">
             <tr>
                 <td width=150>
                     <strong>Parroquia:</strong><br>
-                    {{$solicitud->personaBeneficiario->parroquia->nombre or ""}}
+                    {{$beneficiario->parroquia->nombre or ""}}
                 </td>
                 <td width=150>
                     <strong>Municipio:</strong><br>
-                    {{$solicitud->personaBeneficiario->parroquia->municipio->nombre or ""}}
+                    {{$beneficiario->parroquia->municipio->nombre or ""}}
                 </td>
                 <td width=150>
                     <strong>Estado:</strong><br>
-                    {{$solicitud->personaBeneficiario->parroquia->municipio->estado->nombre or ""}}
+                    {{$beneficiario->parroquia->municipio->estado->nombre or ""}}
                 </td>
                 <td width=150>
                     <strong>Telefono Fijo:</strong><br>
-                    {{$solicitud->personaBeneficiario->telefono_fijo}}
+                    {{$beneficiario->telefono_fijo}}
                 </td>
             </tr>
             <tr>
                 <td>
                     <strong>Zona o Sector:</strong><br>
-                    {{$solicitud->personaBeneficiario->zona_sector or ""}}
+                    {{$beneficiario->zona_sector or ""}}
                 </td>
                 <td>
                     <strong>Calle o Avenida:</strong><br>
-                    {{$solicitud->personaBeneficiario->calle_avenida or ""}}
+                    {{$beneficiario->calle_avenida or ""}}
                 </td>
                 <td>
                     <strong>Apto/Casa Nro:</strong><br>
-                    {{$solicitud->personaBeneficiario->apto_casa or ""}}
+                    {{$beneficiario->apto_casa or ""}}
                 </td>
                 <td>
                     <strong>Telefono Celular:</strong><br>
-                    {{$solicitud->personaBeneficiario->telefono_celular or ""}}
+                    {{$beneficiario->telefono_celular or ""}}
                 </td>
             </tr>
        </table>

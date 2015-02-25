@@ -10,6 +10,8 @@ class SolicitudesController extends BaseController {
 
     public function getVer($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
+        $data['beneficiario'] = $data['solicitud']->getBeneficiario();
+        $data['solicitante'] = $data['solicitud']->getSolicitante();
         return View::make('solicitudes.planilla', $data);
     }
 
@@ -126,7 +128,8 @@ class SolicitudesController extends BaseController {
     public function getPlanilla($id, $store = false) {
         require_once(app_path('/ayudantes/report/html2pdf.class.php'));
         $data['solicitud'] = Solicitud::findOrFail($id);
-        $data['personaBeneficiario'] = $data['solicitud']->personaBeneficiario;
+        $data['beneficiario'] = $data['solicitud']->getBeneficiario();
+        $data['solicitante'] = $data['solicitud']->getSolicitante();
         $pdf = new HTML2PDF('P', 'letter', 'es');
         $pdf->pdf->SetDisplayMode('fullpage');
         try {
