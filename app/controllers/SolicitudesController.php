@@ -10,6 +10,8 @@ class SolicitudesController extends BaseController {
 
     public function getVer($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
+        $data['beneficiario'] = $data['solicitud']->getBeneficiario();
+        $data['solicitante'] = $data['solicitud']->getSolicitante();
         return View::make('solicitudes.planilla', $data);
     }
 

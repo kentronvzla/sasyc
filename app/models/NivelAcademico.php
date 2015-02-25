@@ -49,7 +49,7 @@ class NivelAcademico extends BaseModel implements SimpleTableInterface {
 
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
+            'nombre' => 'Nivel Académico',
             'orden' => 'Orden',
         ];
     }

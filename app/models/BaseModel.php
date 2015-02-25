@@ -299,6 +299,10 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
     public function getValueAt($key, $format = true) {
         $arr = explode('->', $key);
         switch (count($arr)) {
+            case 4:
+                if (isset($this->{$arr[0]}->{$arr[1]}->{$arr[2]}->{$arr[3]})) {
+                    return $this->{$arr[0]}->{$arr[1]}->{$arr[2]}->{$arr[3]};
+                }
             case 3:
                 if (isset($this->{$arr[0]}->{$arr[1]}->{$arr[2]})) {
                     return $this->{$arr[0]}->{$arr[1]}->{$arr[2]};
@@ -346,6 +350,9 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
     public function getDescription($attr) {
         $arr = explode('->', $attr);
         switch (count($arr)) {
+            case 4:
+                $obj = $this->{$arr[0]}()->getRelated()->{$arr[1]}()->getRelated()->{$arr[2]}()->getRelated();
+                return $obj->getPrettyFields()[$arr[3]];
             case 3:
                 $rel2 = str_replace('_id', '', $arr[1]);
                 $camelField = camel_case($rel2);
