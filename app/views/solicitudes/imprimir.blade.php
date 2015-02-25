@@ -39,8 +39,6 @@
         </table>
     </div>
     <hr width="100%"> 
-    <!------------------------------------------------------------------------->
-    <!--<div><h5>Solicitud</h5></div>-->
     <strong>Solicitud</strong>
     <div class="cuerpo">
        <table width="100%" border="0" cellpadding="10" cellspacing="10">
@@ -63,10 +61,9 @@
                <td width=390>
                    {{$solicitud->referente->nombre or ""}}
                </td>
-               <td>
-                   <!--<strong>Atencion Inmediata:</strong> <br>--> 
-                   {{--$solicitud->ind_inmediata or "No"--}}
-                   {{Form::display($solicitud,'ind_inmediata',3, true)}}
+               <td ALIGN=CENTER>
+                   <strong>Atencion Inmediata:</strong> <br>
+                   {{$solicitud->ind_inmediata ? "Si":"No"}}
                </td>
            </tr>
            @if ($solicitud->ind_inmediata)
@@ -88,8 +85,6 @@
        </table>
     </div><br>
     <hr width="100%">
-   <!------------------------------------------------------------------------->
-   <!--<div class="cuerpo"><h5>Beneficiario</h5></div>-->
    <strong>Beneficiario</strong>
    <div class="cuerpo">
        <table width="100%" border="0" cellpadding="10" cellspacing="10">
@@ -111,7 +106,7 @@
                     {{$beneficiario->sexo or ""}}
                 </td>
             </tr>
-            <tr><!--Revisar esdat0 civil (mas niveles)---no fecha, edad--------------->
+            <tr>
                 <td>
                     <strong>Estado Civil:</strong><br>
                 </td>
@@ -124,9 +119,8 @@
                     {{$beneficiario->edad or ""}}
                 </td>
                 <td>
-                    <!--<strong>Trabaja?</strong><br>-->
-                    {{--$beneficiario->ind_trabaja or ""--}}
-                    {{Form::display($beneficiario,'ind_trabaja',3)}}
+                    <strong>Trabaja?</strong><br>
+                    {{$solicitud->personaBeneficiario->ind_trabaja ? "Si":"No"}}
                 </td>
             </tr>
             <tr>
@@ -142,9 +136,8 @@
                     {{$beneficiario->ingreso_mensual or ""}}
                 </td>
                 <td>
-                    <!--<strong>Asegurado?:</strong><br>-->
-                    {{Form::display($beneficiario,'ind_asegurado',3)}}
-                    {{--$beneficiario->ind_asegurado or ""--}}
+                    <strong>Asegurado?:</strong><br>
+                    {{$solicitud->personaBeneficiario->ind_asegurado ? "Si":"No"}}
                 </td>
             </tr>
             @if ($beneficiario->ind_asegurado)
@@ -167,8 +160,7 @@
         </table>
     </div>
     <hr width="100%">
-    <!------------------------------------------------------------------------->
-     <!--<div class="cuerpo"><h5>Direccion</h5></div>-->
+
      <strong>Direccion</strong>
      <div class="cuerpo">
        <table width="100%" border="0" cellpadding="10" cellspacing="10">
