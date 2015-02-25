@@ -10,9 +10,6 @@
 | the console gets access to each of the command object instances.
 |
 */
-
-Artisan::add(new EmpaquetarApp());
-Artisan::add(new CambiarAmbiente());
 Artisan::add(new GenerarModelos());
 Artisan::add(new GenerarControladores());
 Artisan::add(new GenerarVistas());
