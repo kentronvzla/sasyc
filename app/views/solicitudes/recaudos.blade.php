@@ -11,7 +11,7 @@
 </div>
 @endif
 @if($recaudo->id!=0)
-    {{Form::display('id', $recaudo->id)}}     
+    {{Form::hidden('id', $recaudo->id)}}     
     <hr>
     <div class="row">
         {{Form::display($recaudo,'recaudo->descripcion')}}
