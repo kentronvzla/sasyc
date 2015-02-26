@@ -25,7 +25,7 @@
     @foreach($memo->solicitudes as $resultado)
     <tr>
         <td height=15 valign="middle" ALIGN=CENTER>
-
+            
         </td>
         <td valign="middle">
             {{$resultado->personaBeneficiario->nombre}}

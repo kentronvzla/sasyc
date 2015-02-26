@@ -1,18 +1,18 @@
 <div>
-    <p Align="center">
-        <strong>Informe Socioeconomico</strong>
+    <p>
+        <h3>Situacion fisico-ambiental</h3>
     </p>
     <div>
         <table border="0" cellpadding="10" cellspacing="0">
         <tr>
-            <td width= 250 height=20 align=center valign="middle" style="background: white;">
-                <strong>Tipo de vivienda</strong>
+            <td width= 250 height=20 align=center valign="middle" style="background: white; text-decoration: underline;" >
+                <strong>Vivienda</strong>
             </td>
             
-            <td width= 250 height=20 align=center valign="middle" style="background: white;">
-                <strong>Tipo de Tenencia</strong>
+            <td width= 250 height=20 align=center valign="middle" style="background: white; text-decoration: underline;">
+                <strong>Tenencia</strong>
             </td>
-            <td width= 250 height=20 align=center valign="middle" style="background: white;">
+            <td width= 250 height=20 align=center valign="middle" style="background: white; text-decoration: underline;">
                 <strong>Total Ingresos</strong>
             </td>
         </tr>
@@ -29,7 +29,8 @@
         </tr>
     </table>
     </div>
-    <br>
+    <hr width="100%">
+    <h3>Diagnostico Social</h3>
     <p>{{$solicitud->informe_social}}</p>
     
 </div>    
