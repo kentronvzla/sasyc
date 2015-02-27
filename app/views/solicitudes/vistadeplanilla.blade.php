@@ -55,7 +55,7 @@
                 </td>
                 <td style="width:180px;height: auto;">
                     <strong>Tipo ayuda:</strong>&nbsp;
-                    {{$solicitud->tipo_proc}}
+                    {{$solicitud->area->tipoAyuda->nombre}}
                 </td>
             </tr>
             <tr>
