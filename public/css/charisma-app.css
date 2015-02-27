@@ -696,3 +696,7 @@ ul.github-buttons li {
         padding: 0 20px;
     }
 }
+
+#contenedorCorrecto, #contenedorEspera, #contenedorError{
+    z-index: 9999;
+}
