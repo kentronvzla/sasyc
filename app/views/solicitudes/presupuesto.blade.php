@@ -13,15 +13,15 @@
 {{Form::hidden('id',$presupuesto->id)}}
 {{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">
-    {{Form::btInput($presupuesto,'requerimiento_id',8)}}
-    {{Form::btInput($presupuesto,'cantidad',4)}}
+    {{Form::btInput($presupuesto,'requerimiento_id',6)}}
+    {{Form::btInput($presupuesto,'cantidad',3)}}
+    {{Form::btInput($presupuesto,'monto',3)}}
 </div>
 <div class="row">
-    {{Form::btInput($presupuesto,'beneficiario_id',5)}}
+    {{Form::btInput($presupuesto,'beneficiario_id',9)}}
     <div class="col-md-3">
         <a id="btn-agregar-beneficiario" class="btn btn-danger">Agregar Beneficiario</a>
     </div>
-    {{Form::btInput($presupuesto,'monto',4)}}
 </div>
 <div id="agregar-beneficiario" style="display:none;">
     {{Form::hidden('ind_creando_benef',0,['id'=>'ind_creando_benef'])}}

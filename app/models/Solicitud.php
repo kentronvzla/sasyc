@@ -308,7 +308,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     public function tenencia() {
         return $this->belongsTo('Tenencia');
     }
-    
+
     /**
      * Define una relación pertenece a Departamento
      * @return Departamento
@@ -464,11 +464,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function scopeEagerLoad($query) {
         return $query->with('organismo')
-                        ->with('personaSolicitante')
-                        ->with('personaBeneficiario')
-                        ->with('usuarioAutorizacion')
-                        ->with('usuarioAsignacion')
-                        ->with('area.tipoAyuda');
+            ->with('personaSolicitante')
+            ->with('personaBeneficiario')
+            ->with('usuarioAutorizacion')
+            ->with('usuarioAsignacion')
+            ->with('area.tipoAyuda');
     }
 
     public function afterValidate() {
@@ -486,8 +486,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         } else if ($this->estatus == "ELA") {
             $this->departamento_id = $departamento_id;
             $this->estatus = "ELD";
-            //despues que se asigna el modelo retorna lo que esta en BD.
-            $this->total_ingresos = tm($this->total_ingresos);
             $this->memo_id = $memo->id;
             $this->save();
             Bitacora::registrar("Se asigno la solicitud al departamento: " . $this->departamento->nombre, $this->id);
@@ -629,6 +627,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             if (is_object($this->personaSolicitante)) {
                 $this->solicitante_json = json_encode($this->personaSolicitante->toArray());
             }
+            //despues que se asigna el modelo retorna lo que esta en BD.
+            $this->total_ingresos = tm($this->total_ingresos);
             $this->reglasSolicitudAprobacion();
             if($this->presupuestos()->count() && $this->save()){
                 Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $this->id);
