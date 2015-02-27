@@ -22,12 +22,14 @@ class CreateDocumentosTable extends Migration {
             $table->decimal('monto', 14, 2)->nullable();
             $table->string('dependencia',10)->nullable();
 
-            $table->string('tipo_doc', 5);
+            $table->string('tipo_doc', 5)->nullable();
             $table->string('descripcion', 1000);
             $table->date('fecha');
             $table->string('estatus', 3);
             $table->boolean('ind_reverso')->default(0);
             $table->string('mensaje', 1000)->nullable();
+            $table->integer('id_doc')->nullable()->length(14);
+            $table->string('referencia', 20)->nullable();
             $table->integer('version')->default(0);
         });
     }
