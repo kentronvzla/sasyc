@@ -621,7 +621,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if ($this->puedeSolicitarAprobacion() && $autorizador_id!='') {
             $descripcion = 'Caso N°: '.$this->id.' Beneficiario: '.$this->personaBeneficiario->nombre.' '.$this->personaBeneficiario->apellido.' C.I.:'.$this->personaBeneficiario->ci.' '.$this->descripcion;
             \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
-            $this->estatus = 'EAP';
+            $this->estatus = 'PPA';
             $this->usuario_autorizacion_id = $autorizador_id;
             $this->beneficiario_json = json_encode($this->personaBeneficiario->toArray());
             if (is_object($this->personaSolicitante)) {
@@ -677,7 +677,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function puedeModificar() {
-        $arr = ['ELA', 'REF', 'ELD', 'EAA', 'ACA', 'EAP'];
+        $arr = ['ELA', 'REF', 'ELD', 'EAA', 'ACA', 'PPA'];
         return in_array($this->estatus, $arr);
     }
 

@@ -49,9 +49,9 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
         'REF' => 'Referenciada',
         'EAA' => 'Esperando Aceptación del analista',
         'ACA' => 'Aceptada por el analista',
-        'EAP' => 'Esperando Aprobación',
+        'PPA' => 'Pendiente por Aprobación',
         //-----------------------------
-        'ACP' => 'Aceptada',
+        'APR' => 'Aprobado',
         'PEN' => 'Pendiente',
         'ANU'=>'Anulado',
         'CER'=>'Cerrado'
