@@ -20,6 +20,8 @@
         {{Form::btInput($recaudo,'fecha_vencimiento',6)}}
         {{Form::btInput($recaudo,'documento', 6,'file')}}
     </div>
+@else
+    {{$recaudo->id or "NAda"}}
     @include('templates.bootstrap.submit')
 @endif
 {{Form::close()}}
