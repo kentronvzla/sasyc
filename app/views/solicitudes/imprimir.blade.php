@@ -43,298 +43,304 @@
     <hr width="100%"> 
     <h3>Informe Social</h3>
     <div class="cuerpo">
-        <table width="100%" border="0" cellpadding="5" cellspacing="0">
+        <table border="0" cellpadding="5" cellspacing="0">
             <tr>
-                <td >
+                <td style="width: 80px;height: auto;">
                     <strong>Descripción:</strong>
                 </td> 
-                <td width=420>
+                <td style="width: 420px;height: auto;">
                     {{$solicitud->descripcion or ""}}
                 </td>
-                <td>
-                    <strong>Estatus:</strong>
+                <td style="width:180px;height: auto;">
+                    <strong>Estatus:</strong>&nbsp;
+                    {{$solicitud->estatus_display or ""}}
                 </td>
-                <td>{{$solicitud->estatus or ""}}</td>
             </tr>
             <tr>
-                <td>
+                <td style="width: 80px;height: auto;">
                     <strong>Referido por:</strong>
                 </td> 
-                <td width=420>
+                <td style="width: 420px;height: auto;">
                     {{$solicitud->referente->nombre or ""}}
                 </td>
-                <td>
-                    <strong>Tipo ayuda:</strong> 
+                <td style="width:180px;height: auto;">
+                    <strong>Tipo ayuda:</strong>&nbsp;
+                    {{$solicitud->tipo_proc}}
                 </td>
-                <td>{{$solicitud->tipo_proc or ""}}</td>
             </tr>
             <tr>
-                <td>
+                <td style="width: 80px;height: auto;">
                     <strong>Necesidad:</strong>
                 </td>
-                <td width=420>{{$solicitud->necesidad or ""}}</td>
-                <td><strong>Area::</strong></td>
-                <td>{{$solicitud->area->nombre or ""}}</td>
+                <td style="width: 420px;height: auto;">
+                    {{$solicitud->necesidad or ""}}
+                </td>
+                <td style="width: 180px;height: auto;">
+                    <strong>Area:</strong>&nbsp;
+                    {{$solicitud->area->nombre or ""}}
+                </td>
             </tr>
             <tr>
-                <td>
+                <td style="width: 80px;height: auto;">
                     <strong>Observación:</strong>
                 </td>
-                <td width=420>{{$solicitud->observaciones or ""}}</td>
-                <td><strong>Atencion inmediata:</strong></td>
-                <td>{{$solicitud->ind_inmediata ? "Si":"No"}}</td>
+                <td style="width: 420px;height: auto;">
+                    {{$solicitud->observaciones or ""}}
+                </td>
+                <td style="width: 180px;height: auto;">
+                    <strong>Atencion inmediata:</strong>&nbsp;
+                    {{$solicitud->ind_inmediata ? "Si":"No"}}
+                </td>
             </tr>
-        </table>
-        @if ($solicitud->ind_inmediata)
+        </table><br>
+         @if ($solicitud->ind_inmediata)
         <table width="100%" border="0" cellpadding="5" cellspacing="0">
             <tr>
-                <td width=170>
-                    <strong>Actividad</strong><br>a
+                <td style="width: 226px;height: auto;">
+                    <strong>Actividad:</strong>&nbsp;
                     {{$solicitud->actividad}}
                 </td> 
-                <td width=170>
-                    <strong>Referencia</strong>
+                <td style="width: 226px;height: auto;">
+                    <strong>Referencia:</strong>&nbsp;
                     {{$solicitud->referencia or ""}}
                 </td>
-                <td width=170>
-                    <strong>Acción tomada</strong><br>c
+                <td style="width: 228px;height: auto;">
+                    <strong>Acción tomada:</strong>&nbsp;
                     {{$solicitud->accion_tomada or ""}}
                 </td>
-                <td></td>
             </tr>
         </table>
         @endif
     </div><br>
     <hr width="100%">
+    <!------------------------------------------------------------------------->
     <h3>Datos personales del beneficiario</h3>
     <div class="cuerpo">
-        <table width="100%" border="0" cellpadding="10" cellspacing="10">
+        <table border="0" cellpadding="5" cellspacing="0">
             <tr>
-                <td width=150>
+                <td style="width: 160px;height: auto;">
                     <strong>Nombre: </strong>&nbsp;
                     {{$beneficiario->nombre or ""}}
                 </td>
-                <td width=150>
+                <td style="width: 200px;height: auto;">
                     <strong>Apellido: </strong>&nbsp;
                     {{$beneficiario->apellido or ""}}
                 </td>
-                <td width=150>
+                <td style="width: 220px;height: auto;">
                     <strong>Cedula: </strong>&nbsp;
                     {{$beneficiario->ci or ""}}
                 </td>
-                <td width=120>
+                <td style="width: 100px;height: auto;">
                     <strong>Sexo: </strong>&nbsp;
                     {{$beneficiario->sexo or ""}}
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="width: 160px;height: auto;">
                     <strong>Estado Civil:</strong><br>
                 </td>
-                <td>
+                <td style="width: 200px;height: auto;">
                     <strong>Fecha de Nacimiento:</strong>&nbsp;
                     {{$beneficiario->fecha_nacimiento!=null ? $beneficiario->fecha_nacimiento->format('d/m/Y'):""}}
                 </td>
-                <td>
+                <td style="width: 220px;height: auto;">
                     <strong>Edad:</strong>&nbsp;
                     {{$beneficiario->edad or ""}}
                 </td>
-                <td>
-                    <strong>Trabaja?</strong>&nbsp;
-                    {{$solicitud->personaBeneficiario->ind_trabaja ? "Si":"No"}}
+                <td style="width: 100px;height: auto;">
+                    <strong>Trabaja?:</strong>&nbsp;
+                    {{$solicitud->ind_trabaja ? "Si":"No"}}
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="width: 160px;height: auto;">
                     <strong>Ocupación:</strong>&nbsp;
                     {{$beneficiario->ocupacion or ""}}
                 </td>
-                <td>
-                    <strong>Nivel Académico:</strong>
+                <td style="width: 200px;height: auto;">
+                    <strong>Nivel Académico:</strong>&nbsp;
+                    {{$beneficiario->nivelAcademico->nombre}}
                 </td>
-                <td>
+                <td style="width: 220px;height: auto;">
                     <strong>Ingreso Mensual:</strong>&nbsp;
                     {{$beneficiario->ingreso_mensual or ""}}
                 </td>
-                <td>
+                <td style="width: 100px;height: auto;">
                     <strong>Asegurado?:</strong>&nbsp;
-                    {{$solicitud->personaBeneficiario->ind_asegurado ? "Si":"No"}}
+                    {{$beneficiario->ind_asegurado ? "Si":"No"}}
                 </td>
             </tr>
-
             <tr>
-                <td>
+                <td style="width: 160px;height: auto;">
                     <strong>Empresa de Seguro:</strong>&nbsp;
                     {{$beneficiario->empresa_seguro or ""}}
                 </td>
-                <td>
+                <td style="width: 200px;height: auto;">
                     <strong>Cobertura:</strong>&nbsp;
                     {{$beneficiario->cobertura or ""}}
                 </td>
-                <td>
-                    <strong>Otro Apoyo</strong>&nbsp;
+                <td style="width: 220px;height: auto;">
+                    <strong>Otro Apoyo:</strong>&nbsp;
                     {{$beneficiario->otro_apoyo or ""}}
                 </td>
-                <td></td>
+                <td style="width: 100px;height: auto;"></td>
             </tr>
-
         </table>
     </div>
     <h3>Dirección de habitacion</h3>
     <div class="cuerpo">
-        <table width="100%" border="0" cellpadding="10" cellspacing="10">
+        <table  border="0" cellpadding="5" cellspacing="0">
             <tr>
-                <td width=150>
-                    <strong>Parroquia:</strong>&nbsp;
-                    {{$beneficiario->parroquia->nombre or ""}}
-                </td>
-                <td width=150>
-                    <strong>Municipio:</strong>&nbsp;
-                    {{$beneficiario->parroquia->municipio->nombre or ""}}
-                </td>
-                <td width=150>
+                <td style="width: 180px;height: auto;">
                     <strong>Estado:</strong>&nbsp;
                     {{$beneficiario->parroquia->municipio->estado->nombre or ""}}
                 </td>
-                <td width=150>
-                    <strong>Teléfono Fijo:</strong>&nbsp;
+                <td style="width: 200px;height: auto;">
+                    <strong>Municipio:</strong>&nbsp;
+                    {{$beneficiario->parroquia->municipio->nombre or ""}}
+                </td>
+                <td style="width: 160px;height: auto;">
+                    <strong>Parroquia:</strong>&nbsp;
+                    {{$beneficiario->parroquia->nombre or ""}}
+                </td>
+                <td style="width: 140px;height: auto;">
+                    <strong>Tlf. Fijo:</strong>&nbsp;
                     {{$beneficiario->telefono_fijo}}
                 </td>
             </tr>
-            <tr>
-                <td>
+             <tr>
+                <td style="width: 160px;height: auto;">
                     <strong>Zona o Sector:</strong>&nbsp;
                     {{$beneficiario->zona_sector or ""}}
                 </td>
-                <td>
+                <td style="width: 200px;height: auto;">
                     <strong>Calle o Avenida:</strong>&nbsp;
                     {{$beneficiario->calle_avenida or ""}}
                 </td>
-                <td>
+                <td style="width: 180px;height: auto;">
                     <strong>Apto/Casa Nro:</strong>&nbsp;
                     {{$beneficiario->apto_casa or ""}}
                 </td>
-                <td>
-                    <strong>Teléfono Celular:</strong>&nbsp;
+                <td style="width: 140px;height: auto;">
+                    <strong>Tlf. Celular:</strong>&nbsp;
                     {{$beneficiario->telefono_celular or ""}}
                 </td>
             </tr>
         </table>
     </div>
     <hr width="100%">
-
-    <!----------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------->
     @if($solicitud->personaSolicitante->ci!=$beneficiario->ci)  
     <h3>Datos personales de solicitante</h3>
     <div class="cuerpo">
-        <table width="100%" border="0" cellpadding="10" cellspacing="10">
+        <table border="0" cellpadding="5" cellspacing="0">
             <tr>
-                <td width="25%">
-                    <strong>Nombre:</strong>&nbsp;
+                <td style="width: 160px;height: auto;">
+                    <strong>Nombre: </strong>&nbsp;
                     {{$solicitud->personaSolicitante->nombre or ""}}
                 </td>
-                <td width="25%">
-                    <strong>Apellido</strong>&nbsp;
+                <td style="width: 200px;height: auto;">
+                    <strong>Apellido: </strong>&nbsp;
                     {{$solicitud->personaSolicitante->apellido or ""}}
                 </td>
-                <td width="25%">
-                    <strong>Cedula:</strong>&nbsp;
+                <td style="width: 220px;height: auto;">
+                    <strong>Cedula: </strong>&nbsp;
                     {{$solicitud->personaSolicitante->ci or ""}}
                 </td>
-                <td width="25%">
-                    <strong>Sexo:</strong>&nbsp;
+                <td style="width: 100px;height: auto;">
+                    <strong>Sexo: </strong>&nbsp;
                     {{$solicitud->personaSolicitante->sexo or ""}}
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="width: 160px;height: auto;">
                     <strong>Estado Civil:</strong><br>
                 </td>
-                <td>
+                <td style="width: 200px;height: auto;">
                     <strong>Fecha de Nacimiento:</strong>&nbsp;
                     {{$solicitud->personaSolicitante->fecha_nacimiento!=null ? $beneficiario->fecha_nacimiento->format('d/m/Y'):""}}
                 </td>
-                <td>
+                <td style="width: 220px;height: auto;">
                     <strong>Edad:</strong>&nbsp;
                     {{$solicitud->personaSolicitante->edad or ""}}
                 </td>
-                <td>
-                    <strong>Trabaja?</strong>&nbsp;
-                    {{$solicitud->personaSolicitante->ind_trabaja ? "Si":"No"}}
+                <td style="width: 100px;height: auto;">
+                    <strong>Trabaja?:</strong>&nbsp;
+                    {{$solicitud->personaBeneficiario->ind_trabaja ? "Si":"No"}}
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="width: 160px;height: auto;">
                     <strong>Ocupación:</strong>&nbsp;
                     {{$solicitud->personaSolicitante->ocupacion or ""}}
                 </td>
-                <td>
+                <td style="width: 200px;height: auto;">
                     <strong>Nivel Académico:</strong>&nbsp;
+                    {{$solicitud->personaSolicitante->nivelAcademico->nombre}}
                 </td>
-                <td>
+                <td style="width: 220px;height: auto;">
                     <strong>Ingreso Mensual:</strong>&nbsp;
                     {{$solicitud->personaSolicitante->ingreso_mensual or ""}}
                 </td>
-                <td>
+                <td style="width: 100px;height: auto;">
                     <strong>Asegurado?:</strong>&nbsp;
-                    {{$solicitud->personaSolicitante->ind_asegurado ? "Si":"No"}}
+                    {{$solicitud->personaBeneficiario->ind_asegurado ? "Si":"No"}}
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="width: 160px;height: auto;">
                     <strong>Empresa de Seguro:</strong>&nbsp;
                     {{$solicitud->personaSolicitante->empresa_seguro or ""}}
                 </td>
-                <td>
+                <td style="width: 200px;height: auto;">
                     <strong>Cobertura:</strong>&nbsp;
                     {{$solicitud->personaSolicitante->cobertura or ""}}
                 </td>
-                <td>
-                    <strong>Otro Apoyo</strong>&nbsp;
+                <td style="width: 220px;height: auto;">
+                    <strong>Otro Apoyo:</strong>&nbsp;
                     {{$solicitud->personaSolicitante->otro_apoyo or ""}}
                 </td>
-                <td></td>
+                <td style="width: 100px;height: auto;"></td>
             </tr>
-
         </table>
     </div>
-    <h3>Dirección de habitación</h3>
+    <h3>Dirección de habitacion</h3>
     <div class="cuerpo">
-        <table width="100%" border="0" cellpadding="10" cellspacing="10">
+        <table  border="0" cellpadding="5" cellspacing="0">
             <tr>
-                <td width="25%">
-                    <strong>Parroquia:</strong>&nbsp;
-                    {{$beneficiario->parroquia->nombre or ""}}
-                </td>
-                <td width="25%">
-                    <strong>Municipio:</strong>&nbsp;
-                    {{$beneficiario->parroquia->municipio->nombre or ""}}
-                </td>
-                <td width="25%">
+                <td style="width: 180px;height: auto;">
                     <strong>Estado:</strong>&nbsp;
-                    {{$beneficiario->parroquia->municipio->estado->nombre or ""}}
+                    {{$solicitud->personaSolicitante->parroquia->municipio->estado->nombre or ""}}
                 </td>
-                <td width="25%">
-                    <strong>Teléfono Fijo:</strong>&nbsp;
-                    {{$beneficiario->telefono_fijo}}
+                <td style="width: 200px;height: auto;">
+                    <strong>Municipio:</strong>&nbsp;
+                    {{$solicitud->personaSolicitante->parroquia->municipio->nombre or ""}}
+                </td>
+                <td style="width: 160px;height: auto;">
+                    <strong>Parroquia:</strong>&nbsp;
+                    {{$solicitud->personaSolicitante->parroquia->nombre or ""}}
+                </td>
+                <td style="width: 140px;height: auto;">
+                    <strong>Tlf. Fijo:</strong>&nbsp;
+                    {{$solicitud->personaSolicitante->telefono_fijo}}
                 </td>
             </tr>
-            <tr>
-                <td>
+             <tr>
+                <td style="width: 160px;height: auto;">
                     <strong>Zona o Sector:</strong>&nbsp;
-                    {{$beneficiario->zona_sector or ""}}
+                    {{$solicitud->personaSolicitante->zona_sector or ""}}
                 </td>
-                <td>
+                <td style="width: 200px;height: auto;">
                     <strong>Calle o Avenida:</strong>&nbsp;
-                    {{$beneficiario->calle_avenida or ""}}
+                    {{$solicitud->personaSolicitante->calle_avenida or ""}}
                 </td>
-                <td>
+                <td style="width: 180px;height: auto;">
                     <strong>Apto/Casa Nro:</strong>&nbsp;
-                    {{$beneficiario->apto_casa or ""}}
+                    {{$solicitud->personaSolicitante->apto_casa or ""}}
                 </td>
-                <td>
-                    <strong>Teléfono Celular:</strong>&nbsp;
-                    {{$beneficiario->telefono_celular or ""}}
+                <td style="width: 140px;height: auto;">
+                    <strong>Tlf. Celular:</strong>&nbsp;
+                    {{$solicitud->personaSolicitante->telefono_celular or ""}}
                 </td>
             </tr>
         </table>
@@ -342,8 +348,7 @@
     <hr width="100%">
     @endif
 </page>
-<!------------------------------------------------------------------------->
-<page page backcolor="#FEFEFE" backtop="10mm" backbottom="10mm" backleft="10mm" backright="10mm" footer="date;heure;page">
+<page backcolor="#FEFEFE" backtop="10mm" backbottom="10mm" backleft="10mm" backright="10mm" footer="date;heure;page">
     <div class="cuerpo">
         <h3>Presupuesto</h3>
     </div>

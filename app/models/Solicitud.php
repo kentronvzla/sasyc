@@ -308,7 +308,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     public function tenencia() {
         return $this->belongsTo('Tenencia');
     }
-
+    
     /**
      * Define una relación pertenece a Departamento
      * @return Departamento
