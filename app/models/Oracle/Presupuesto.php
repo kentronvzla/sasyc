@@ -3,7 +3,7 @@
 class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \DecimalInterface {
 
     private static $estatusModificacion = [
-        'ELA', 'ELD', 'REF', 'EAA'
+        'ELA', 'ELD', 'REF', 'EAA','ACA'
     ];
     protected $sequence = "presupuestos_id_seq";
     public $timestamps = false;

@@ -143,11 +143,11 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         'twitter' => '',
         'ind_trabaja' => '',
         'ocupacion' => '',
-        'ingreso_mensual' => '',
+        'ingreso_mensual' => 'between:0.000,999999999998.99',
         'observaciones' => '',
         'ind_asegurado' => '',
         'empresa_seguro' => '',
-        'cobertura' => '',
+        'cobertura' => 'between:0.000,999999999998.99',
         'otro_apoyo' => '',
     ];
 

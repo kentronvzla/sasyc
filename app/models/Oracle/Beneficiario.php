@@ -79,7 +79,7 @@ class Beneficiario extends OracleBaseModel implements \SelectInterface {
 
     public function validate($model = null) {
         if (parent::validate($model)) {
-            $check = static::where('letraid', '=', $this->LETRAID)->where('numid', '=', $this->numid);
+            $check = static::where('letraid', '=', $this->letraid)->where('numid', '=', $this->numid);
             if (isset($this->numbenef)) {
                 $check->where('numbenef', '<>', $this->numbenef);
             }

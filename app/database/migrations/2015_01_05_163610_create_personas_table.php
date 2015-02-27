@@ -38,7 +38,7 @@ class CreatePersonasTable extends Migration {
             $table->string('observaciones', 1500)->nullable();
             $table->string('ind_asegurado')->default(0);
             $table->string('empresa_seguro', 100)->nullable();
-            $table->string('cobertura', 14, 2)->nullable();
+            $table->decimal('cobertura', 14, 2)->nullable();
             $table->string('otro_apoyo', 200)->nullable();
             $table->integer('version')->default(0);
             $table->timestamps();

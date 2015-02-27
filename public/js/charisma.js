@@ -109,16 +109,12 @@ $(document).ready(function () {
 
     //other things to do on document ready, separated for ajax calls
     docReady();
-});
 
-
-function docReady() {
-    $('select.advanced-select').select2();
-    $('.abrir-modal').unbind('click');
-    $('.abrir-modal').click(function(evt) {
+    //eventos delegados al document..
+    $(document).on('click', '.abrir-modal', function (evt) {
         evt.preventDefault();
         var url = $(this).attr('href');
-        $.get(url, function(data) {
+        $.get(url, function (data) {
             if ($("#divModal").is(':empty')) {
                 $("#divModal").html(data);
                 $("#divModal").modal('show');
@@ -127,43 +123,13 @@ function docReady() {
                 $("#divModal2").modal('show');
             }
         });
-        return false;
     });
 
-    $('[data-toggle="tooltip"]').tooltip({html: true});
-    $('.btn-reset').click(function () {
+    $(document).on('click', '.btn-reset', function () {
         $(this).closest('form').clearForm();
     });
-    $(".decimal-format").autoNumeric('init', {
-        aSep: ".",
-        aDec: ","
-    });
-    $(".decimal-format").css('text-align', 'right');
-    $('input, select, textarea').each(function () {
-        if ($(this).attr("data-tienetooltip") == undefined && $(this).attr('type') != "radio" && $(this).attr('type') != "hidden") {
-            $(this).attr("data-tienetooltip", 1);
-            $(this).tooltip({'trigger': 'focus hover', 'title': $(this).attr("placeholder")});
-        }
-        if ($(this).attr("data-tieneayuda") == undefined  && $(this).attr('type') != "hidden") {
-            $(this).attr("data-tieneayuda", 1);
-            $(this).hover(buscarAyuda);
-            $(this).focus(buscarAyuda);
-        }
-    });
-    $('.jqueryDatePicker').datepicker({
-        format: "dd/mm/yyyy",
-        todayBtn: "linked",
-        language: "es"
-    }).on('changeDate', function (ev) {
-        $(this).datepicker('hide');
-    });
 
-    /*$('select.has-select2').select2({
-     language: "es"
-     });*/
-    //select list
-    $('select[data-child]').unbind('change');
-    $('select[data-child]').change(function () {
+    $(document).on('change', 'select[data-child]', function () {
         if ($(this).val() == "") {
             return;
         }
@@ -198,6 +164,47 @@ function docReady() {
             }
         });
     });
+
+    $(document).on('submit', '.form-eliminar', function (e) {
+        e.preventDefault();
+        var form = this;
+        confirmarIntencion("¿Esta seguro que desea eliminar el elemento seleccionado?", function () {
+            $(form).unbind('submit');
+            $(form).submit();
+        });
+    });
+});
+
+
+function docReady() {
+    $('select.advanced-select').select2();
+
+    $('[data-toggle="tooltip"]').tooltip({html: true});
+
+    $(".decimal-format").autoNumeric('init', {
+        aSep: ".",
+        aDec: ","
+    });
+    $(".decimal-format").css('text-align', 'right');
+    $('input, select, textarea').each(function () {
+        if ($(this).attr("data-tienetooltip") == undefined && $(this).attr('type') != "radio" && $(this).attr('type') != "hidden") {
+            $(this).attr("data-tienetooltip", 1);
+            $(this).tooltip({'trigger': 'focus hover', 'title': $(this).attr("placeholder")});
+        }
+        if ($(this).attr("data-tieneayuda") == undefined  && $(this).attr('type') != "hidden") {
+            $(this).attr("data-tieneayuda", 1);
+            $(this).hover(buscarAyuda);
+            $(this).focus(buscarAyuda);
+        }
+    });
+    $('.jqueryDatePicker').datepicker({
+        format: "dd/mm/yyyy",
+        todayBtn: "linked",
+        language: "es"
+    }).on('changeDate', function (ev) {
+        $(this).datepicker('hide');
+    });
+
     //popover
     $('[data-toggle="popover"]').popover();
     //star rating
@@ -238,15 +245,6 @@ function docReady() {
         }
     });
 
-    $('.form-eliminar').unbind('submit');
-    $('.form-eliminar').submit(function (e) {
-        e.preventDefault();
-        var form = this;
-        confirmarIntencion("¿Esta seguro que desea eliminar el elemento seleccionado?", function () {
-            $(form).unbind('submit');
-            $(form).submit();
-        });
-    });
     $('.btn-volver').unbind('click');
     $('.btn-volver').click(function () {
         var urlAtras = location.href;
@@ -313,8 +311,8 @@ function docReady() {
         });
         e.preventDefault();
     });
-    $('button.glyphicon-pencil, a.glyphicon-pencil').unbind('click');
-    $('button.glyphicon-pencil, a.glyphicon-pencil').click(function (evt) {
+    $('button.glyphicon-pencil, a.glyphicon-pencil, button.fa-pencil, a.fa-pencil').unbind('click');
+    $('button.glyphicon-pencil, a.glyphicon-pencil, button.fa-pencil, a.fa-pencil').click(function (evt) {
         if ($(this).attr('href') == undefined) {
             evt.preventDefault();
         } else {
@@ -330,8 +328,8 @@ function docReady() {
             }
         });
     });
-    $('button.glyphicon-trash, a.glyphicon-trash').unbind('click');
-    $('button.glyphicon-trash, a.glyphicon-trash').click(function (evt) {
+    $('button.glyphicon-trash, a.glyphicon-trash, button.fa-trash, a.fa-trash').unbind('click');
+    $('button.glyphicon-trash, a.glyphicon-trash, button.fa-trash, a.fa-trash').click(function (evt) {
         if ($(this).attr('href') == undefined) {
             evt.preventDefault();
         } else {
