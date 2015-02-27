@@ -1,6 +1,6 @@
 <div class="modal-dialog" id="div-candidato-documentos">
     <div class="modal-content">
-        {{Form::open(array('url'=>'solicitudes/solicitaraprobacion'))}}
+        {{Form::open(array('url'=>'solicitudes/solicitaraprobacion', 'class'=>'saveajax'))}}
         {{Form::hidden('id', $solicitud->id)}}
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">

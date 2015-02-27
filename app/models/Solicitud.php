@@ -615,6 +615,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
+    private function reglasSolicitudAprobacion(){
+        $this->reglasInforme();
+    }
+
     public function solicitarAprobacion($autorizador_id) {
         if ($this->puedeSolicitarAprobacion() && $autorizador_id!='') {
             $descripcion = 'Caso N°: '.$this->id.' Beneficiario: '.$this->personaBeneficiario->nombre.' '.$this->personaBeneficiario->apellido.' C.I.:'.$this->personaBeneficiario->ci.' '.$this->descripcion;
@@ -625,11 +629,15 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             if (is_object($this->personaSolicitante)) {
                 $this->solicitante_json = json_encode($this->personaSolicitante->toArray());
             }
-            $this->save();
-            Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $this->id);
-            return true;
+            $this->reglasSolicitudAprobacion();
+            if($this->presupuestos()->count() && $this->save()){
+                Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $this->id);
+                return true;
+            }else if(!$this->hasErrors()){
+                $this->addError('presupuestos', 'La solicitud debe tener al menos un presupuesto cargado');
+            }
         }else if($autorizador_id==''){
-            $this->addError('estatus', 'Debes seleccionar el autorizador');
+            $this->addError('usuario_autorizacion_id', 'Debes seleccionar el autorizador');
         }else{
             $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
         }
@@ -681,6 +689,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $this->rules = [
             'tipo_vivienda_id' => 'required|integer',
             'tenencia_id' => 'required|integer',
+            'informe_social' => 'required',
         ];
     }
 
