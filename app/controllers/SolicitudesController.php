@@ -184,7 +184,7 @@ class SolicitudesController extends BaseController {
     public function postAceptarasignacion(){
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         if($solicitud->aceptarAsignacion(Input::get('num_proc'))){
-            return Redirect::to('solicitudes?solo_asignadas=true')->with('mensaje', 'Se aceptó la asignación de la solicitud: '.$solicitud->id.', correctamente');
+            return Redirect::to('solicitudes/modificar/'.$solicitud->id)->with('mensaje', 'Se aceptó la asignación de la solicitud: '.$solicitud->id.', correctamente');
         }
         return Redirect::to('solicitudes?solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
     }

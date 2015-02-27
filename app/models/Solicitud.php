@@ -486,8 +486,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         } else if ($this->estatus == "ELA") {
             $this->departamento_id = $departamento_id;
             $this->estatus = "ELD";
-            //despues que se asigna el modelo retorna lo que esta en BD.
-            $this->total_ingresos = tm($this->total_ingresos);
             $this->memo_id = $memo->id;
             $this->save();
             Bitacora::registrar("Se asigno la solicitud al departamento: " . $this->departamento->nombre, $this->id);
@@ -625,6 +623,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             if (is_object($this->personaSolicitante)) {
                 $this->solicitante_json = json_encode($this->personaSolicitante->toArray());
             }
+            //despues que se asigna el modelo retorna lo que esta en BD.
+            $this->total_ingresos = tm($this->total_ingresos);
             $this->save();
             Bitacora::registrar('Se solicito la aprobacion de lasolicitud correctamente', $this->id);
             return true;
