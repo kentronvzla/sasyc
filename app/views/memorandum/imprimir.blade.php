@@ -74,7 +74,8 @@
         <table width="100%" border="0" cellpadding="10" cellspacing="5">
             <tr>
                 <td width=670 ALIGN=CENTER>
-                    <strong>Listado de casos por fecha y codigo se anexan () expedientes</strong>
+                    <strong>Listado de casos por fecha y codigo se anexan 
+                        ({{$memo->solicitudes->count()}}) expedientes</strong>
                 </td>
             </tr>
         </table>

@@ -308,7 +308,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     public function tenencia() {
         return $this->belongsTo('Tenencia');
     }
-
+    
     /**
      * Define una relación pertenece a Departamento
      * @return Departamento
@@ -615,7 +615,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function solicitarAprobacion($autorizador_id) {
         if ($this->puedeSolicitarAprobacion() && $autorizador_id!='') {
-            $descripcion = 'Caso N°: '.$this->id.' Beneficiario: '.$this->personaBeneficiario->nombre.' '.$this->personaBeneficiario->nombre.' C.I.:'.$this->personaBeneficiario->ci.' '.$this->descripcion;
+            $descripcion = 'Caso N°: '.$this->id.' Beneficiario: '.$this->personaBeneficiario->nombre.' '.$this->personaBeneficiario->apellido.' C.I.:'.$this->personaBeneficiario->ci.' '.$this->descripcion;
             \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
             $this->estatus = 'EAP';
             $this->usuario_autorizacion_id = $autorizador_id;
@@ -626,7 +626,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             //despues que se asigna el modelo retorna lo que esta en BD.
             $this->total_ingresos = tm($this->total_ingresos);
             $this->save();
-            Bitacora::registrar('Se solicito la aprobacion de lasolicitud correctamente', $this->id);
+            Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $this->id);
             return true;
         }else if($autorizador_id==''){
             $this->addError('estatus', 'Debes seleccionar el autorizador');

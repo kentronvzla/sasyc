@@ -96,7 +96,8 @@
             <table width="100%" border="0" cellpadding="10" cellspacing="10">
                 <tr>
                     <td width=670 ALIGN=CENTER style="background: white;">
-                        <strong>Listado de casos por fecha y codigo</strong>
+                         <strong>Listado de casos por fecha y codigo se anexan 
+                        ({{$memo->solicitudes->count()}}) expedientes</strong>
                     </td>
                 </tr>
             </table>

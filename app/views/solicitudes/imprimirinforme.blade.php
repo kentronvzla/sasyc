@@ -1,3 +1,4 @@
+<br><br>
 <div class="cuerpo" style="position: center">
     <table width="100%" border="0" cellpadding="10" cellspacing="0">
         <tr>
@@ -8,10 +9,10 @@
                 <table width="100%" border="0" cellpadding="0" cellspacing="10">
                     <tr>
                         <td width=400 ALIGN=CENTER style="background: white;">
-                            <strong>Sistema de Atencion Social y Civil</strong>
+                            <strong>Sistema de Atención Social y Civil</strong>
                         </td>
                         <td width=150 ALIGN=CENTER style="background: white;">
-                            <strong>fecha de la solicitud: </strong>
+                            <strong>Fecha de la solicitud: </strong>
                             {{$solicitud->fecha_solicitud->format('d/m/Y')}}
                         </td>
                     </tr>
@@ -20,7 +21,7 @@
                             <strong>(SASYC)</strong>
                         </td>
                         <td width=150 ALIGN=CENTER style="background: white;">
-                            <strong>Numero de la solicitud: </strong>
+                            <strong>Número de la solicitud: </strong>
                             {{$solicitud->id or ""}}
                         </td>
                     </tr>
