@@ -31,7 +31,6 @@ class CreatePresupuestosTable extends Migration {
             $table->integer('cantidad')->nullable();
             $table->decimal('monto', 14, 2)->nullable();
             $table->integer('version')->default(0);
-            $table->timestamps();
         });
     }
 
