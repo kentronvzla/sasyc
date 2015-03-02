@@ -1,9 +1,6 @@
 <div class="col-xs-12 col-sm-{{$numCols}} col-md-{{$numCols}}">
     @if($inline)
-        <div class="row">
-            {{Form::label($params['id'], $params['placeholder'], ['class'=>'control-label col-md-2'])}}
-            <p class="col-md-10">{{$attrValue}}</p>
-        </div>
+        <b>{{$params['placeholder']}}:</b> {{$attrValue}}
     @else
         <div class="form-group">
             {{Form::label($params['id'], $params['placeholder'], ['class'=>'control-label'])}}

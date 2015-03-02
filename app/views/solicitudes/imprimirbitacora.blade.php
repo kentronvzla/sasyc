@@ -7,35 +7,7 @@
 </style>
 <page backcolor="#FEFEFE" backtop="10mm" backbottom="10mm" backleft="10mm" backright="10mm" footer="date;heure;page">
     <div class="cuerpo" style="position: center">
-        <table width="100%" border="0" cellpadding="10" cellspacing="0">
-            <tr>
-                <td>
-                    {{HTML::image('img/logoReporte.jpg');}}
-                </td>
-                <td width=600>
-                    <table width="100%" border="0" cellpadding="0" cellspacing="10">
-                        <tr>
-                            <td width=400 ALIGN=CENTER>
-                                <strong>Sistema de Atención Social y Civil</strong>
-                            </td>
-                            <td width=150 ALIGN=CENTER>
-                                <strong>Fecha de la solicitud: </strong>
-                                {{$solicitud->fecha_solicitud->format('d/m/Y')}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width=400 ALIGN=CENTER>
-                                <strong>(SASYC)</strong>
-                            </td>
-                            <td width=150>
-                                <strong>Número de la solicitud: </strong>
-                                {{$solicitud->id or ""}}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
+        @include('solicitudes.cabecerareporte')
     </div>
     <hr width="100%"> 
     <!----------------------------------------------------------------------------->
@@ -52,9 +24,9 @@
     <br>
     <!------------------------------------------------------------------------------>
     <div class="cuerpo" style="position: center">
-        <table width="100%" border="1" cellpadding="10" cellspacing="0">
-            <tr style=' background: gray;'>
-                <td width=530 height=25 ALIGN=CENTER style='font-size: 13px;' valign="middle">
+        <table width="100%" border="0" cellpadding="10" cellspacing="0">
+            <tr style=' background:#d8d8d8;'>
+                <td width=530 height=25 style='font-size: 13px;' valign="middle">
                     <strong>Descripción de Actividad</strong>
                 </td>
                 <td width=75 ALIGN=CENTER style='font-size: 13px;' valign="middle">
@@ -73,12 +45,10 @@
                     {{$resultado->fecha->format('d/m/Y')}}
                 </td>
                 <td ALIGN=CENTER valign="middle">
-                    {{$resultado->created_at->format('H:m a')}}
+                    {{$resultado->created_at->format('h:i a')}}
                 </td>
             </tr>
             @endforeach
         </table>
-    </div>
-                
-    
+    </div>    
 </page>

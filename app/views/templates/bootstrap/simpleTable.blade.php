@@ -1,4 +1,5 @@
-<table class="table table-striped responsive {{$datatable ?'jqueryTable':''}}">
+<div class="table-responsive">
+    <table class="table table-striped  {{$datatable ?'jqueryTable':''}}">
     <thead>
         <tr>
             @foreach($prettyFields as $col)
@@ -33,3 +34,4 @@
         @endforeach
     </tbody>
 </table>
+</div>
