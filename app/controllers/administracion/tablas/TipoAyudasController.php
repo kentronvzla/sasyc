@@ -15,6 +15,7 @@ namespace Administracion\Tablas;
  */
 class TipoAyudasController extends \Administracion\TablasBaseController {
 
+    protected static $eagerLoading = ['tipoAyuda'];
     public function getAreas($id) {
         $areas = \Area::getCombo($id);
         return \Response::json($areas);

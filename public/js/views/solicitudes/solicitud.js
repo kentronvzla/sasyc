@@ -149,13 +149,6 @@ function bitacoraAlarma(evt)
     mostrarOcultar(parent.find('input[name=ind_alarma]:checked').val() == 0, 'div-fecha-bitacora');
 }
 
-function solicitanteGuardado(data) {
-    var urlFormArr = $('#form-familiares').attr('action').split('/');
-    var beneficiario_id = urlFormArr[urlFormArr.length - 1];
-    $('#grupo-familiares').load(baseUrl + "personas/familiar/" + beneficiario_id);
-    grupoFamiliar(null);
-}
-
 function grupoFamiliar(data) {
     var solicitud_id = $('#form-solicitud').find('#id').val();
     $.get(baseUrl + 'solicitudes/modificar/' + solicitud_id, function (data) {

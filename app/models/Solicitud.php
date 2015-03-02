@@ -214,6 +214,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'informe_social' => 'Informe social',
             'total_ingresos' => 'Total de ingresos',
             'departamento_id' => 'Departamento',
+            'num_solicitud'=>'Número de Solicitud',
         ];
     }
 
@@ -364,7 +365,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function getTotalIngresosAttribute() {
         if (is_null($this->attributes['total_ingresos'])) {
-            return $this->personaBeneficiario->ingreso_mensual + $this->ingresoFamiliar();
+            return tf($this->personaBeneficiario->ingreso_mensual) + $this->ingresoFamiliar();
         }
         return $this->attributes['total_ingresos'];
     }
@@ -417,6 +418,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     ////
     public function getTableFields() {
         return [
+            'num_solicitud',
             'descripcion',
             'fecha_solicitud',
             'estatus'
@@ -469,15 +471,17 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function validate($model = null){
         if(parent::validate($model)){
-            dd("aqui toy");
-            $area_anterior = Area::find($this->getOriginal('area_id'));
-            //no se puede cambiar el tipo de ayuda de la solicitud
-            if($area_anterior->tipo_ayuda_id != $this->area->tipo_ayuda_id){
-                $this->addError('area->tipo_ayuda_id','No se puede cambiar el tipo de ayuda de la solicitud');
-                return false;
+            if(isset($this->id)){
+                $area_anterior = Area::find($this->getOriginal('area_id'));
+                //no se puede cambiar el tipo de ayuda de la solicitud
+                if($area_anterior->tipo_ayuda_id != $this->area->tipo_ayuda_id){
+                    $this->addError('area->tipo_ayuda_id','No se puede cambiar el tipo de ayuda de la solicitud');
+                    return false;
+                }
             }
             return true;
         }
+
         return false;
     }
 

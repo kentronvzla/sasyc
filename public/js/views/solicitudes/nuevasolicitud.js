@@ -1,6 +1,6 @@
 $(document).ajaxComplete(function () {
-    $(".glyphicon-arrow-down").unbind("click");
-    $(".glyphicon-arrow-down").click(usarPersona);
+    $(".fa-arrow-down").unbind("click");
+    $(".fa-arrow-down").click(usarPersona);
 });
 
 $(document).ready(function () {

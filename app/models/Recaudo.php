@@ -80,4 +80,10 @@ class Recaudo extends BaseModel implements SimpleTableInterface {
         return $this->belongsTo('TipoAyuda');
     }
 
+    public function getTableFields(){
+        return [
+            'nombre', 'descripcion', 'ind_obligatorio', 'ind_vence', 'ind_activo','tipoAyuda->nombre'
+        ];
+    }
+
 }

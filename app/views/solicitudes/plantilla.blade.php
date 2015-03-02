@@ -63,7 +63,7 @@
                             </div>
                             <div id="PanelTres" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    {{Form::open(['url'=>'personas/crear/'.$beneficiario->id.'/false','id'=>'form-persona','class'=>'saveajax','data-callback'=>'solicitanteGuardado'])}}
+                                    {{Form::open(['url'=>'personas/crear/'.$beneficiario->id.'/false','id'=>'form-persona','class'=>'saveajax','data-callback'=>'grupoFamiliar'])}}
                                     @include('solicitudes.solicitante')
                                     {{Form::close()}}
                                 </div>
