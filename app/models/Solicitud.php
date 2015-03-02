@@ -10,7 +10,6 @@
  * Solicitud
  *
  * @property integer $id
- * @property integer $ano
  * @property string $descripcion
  * @property integer $persona_beneficiario_id
  * @property integer $persona_solicitante_id
@@ -121,7 +120,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
      * @var array
      */
     protected $fillable = [
-        'ano', 'descripcion', 'persona_beneficiario_id', 'persona_solicitante_id',
+        'descripcion', 'persona_beneficiario_id', 'persona_solicitante_id',
         'area_id', 'referente_id', 'recepcion_id', 'organismo_id',
         'ind_mismo_benef', 'ind_inmediata', 'actividad', 'referencia',
         'accion_tomada', 'necesidad', 'tipo_proc', 'num_proc', 'facturas',
@@ -139,7 +138,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
      * @var array
      */
     protected $rules = [
-        'ano' => 'required|integer',
         'descripcion' => 'required',
         'persona_beneficiario_id' => 'integer',
         'persona_solicitante_id' => 'integer',
@@ -182,7 +180,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     protected function getPrettyFields() {
         return [
             'id' => 'Numero Solicitud',
-            'ano' => 'Año',
             'descripcion' => 'Descripción',
             'persona_beneficiario_id' => 'Beneficiario',
             'persona_solicitante_id' => 'Solicitante',
@@ -374,11 +371,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function getDefaultValues() {
         return [
-            'ano' => Carbon::now()->format('Y'),
             'fecha_solicitud' => Carbon::now(),
             'estatus' => 'ELA',
             'ind_mismo_benef' => false,
-            'moneda' => 'VEF'
+            'moneda' => 'VEF',
+            //'num_solicitud'=>$numero,
         ];
     }
 
@@ -420,7 +417,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     ////
     public function getTableFields() {
         return [
-            'ano',
             'descripcion',
             'fecha_solicitud',
             'estatus'

@@ -13,7 +13,6 @@ class CreateSolicitudesTable extends Migration {
     public function up() {
         Schema::create('solicitudes', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('ano');
             $table->string('descripcion', 2000);
             $table->integer('persona_beneficiario_id', false, true)->nullable();
             $table->integer('persona_solicitante_id', false, true)->nullable();

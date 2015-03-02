@@ -1,26 +1,21 @@
-<table width="100%" border="0" cellpadding="10" cellspacing="0">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
     <tr>
         <td>
             {{HTML::image('img/logoReporte.jpg');}}
         </td>
         <td width=600>
-            <table width="100%" border="0" cellpadding="0" cellspacing="10">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td width=400 ALIGN=CENTER style=' font-size: 14px;'>
-                        <strong>Sistema de Atención Social y Civil</strong>
+                    <td width=400 ALIGN=CENTER>
+                        <h3>SOLICITUD:&nbsp;
+                        {{$solicitud->id or ""}}</h3>
                     </td>
                     <td width=150 ALIGN=CENTER style=' font-size: 14px;'>
                         <strong>Fecha de la solicitud: </strong>
                         {{$solicitud->fecha_solicitud->format('d/m/Y')}}
-                    </td>
-                </tr>
-                <tr>
-                    <td width=400 ALIGN=CENTER style=' font-size: 14px;'>
-                        <strong>(SASYC)</strong>
-                    </td>
-                    <td width=150 ALIGN=CENTER style=' font-size: 14px;'>
-                        <strong>Número de la solicitud: </strong>
-                        {{$solicitud->id or ""}}
+                        <br>
+                        <strong>Estatus:</strong>&nbsp;
+                        {{$solicitud->estatus_display or ""}}
                     </td>
                 </tr>
             </table>
