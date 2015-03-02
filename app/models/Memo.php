@@ -43,7 +43,7 @@ class Memo extends BaseModel implements DefaultValuesInterface, SimpleTableInter
      * @var array
      */
     protected $fillable = [
-        'fecha', 'numero', 'origen_id', 'destino_id', 'asunto'
+        'fecha', 'numero', 'origen_id', 'destino_id', 'asunto','usuario_id'
     ];
 
     /**
@@ -59,6 +59,7 @@ class Memo extends BaseModel implements DefaultValuesInterface, SimpleTableInter
         'asunto' => 'required',
         'origen_id' => 'required',
         'destino_id' => 'required',
+        'usuario_id' => 'required',
     ];
     protected $dates = ['fecha'];
 
@@ -69,6 +70,7 @@ class Memo extends BaseModel implements DefaultValuesInterface, SimpleTableInter
             'asunto' => 'Asunto',
             'origen_id' => 'Origen',
             'destino_id' => 'Destino',
+            'usuario_id' => 'Usuario',
         ];
     }
 
@@ -91,6 +93,10 @@ class Memo extends BaseModel implements DefaultValuesInterface, SimpleTableInter
         return $this->belongsTo('Departamento');
     }
 
+    public function usuario(){
+        return $this->belongsTo('Usuario');
+    }
+
     public static function crear($values) {
         $memo = new Memo();
         $depto = Usuario::find(Sentry::getUser()->id)->departamento;
@@ -100,6 +106,7 @@ class Memo extends BaseModel implements DefaultValuesInterface, SimpleTableInter
         $numero++;
         $memo->numero = $numero;
         Configuracion::set('secuencia_memo', $numero);
+        $memo->usuario_id = Sentry::getUser()->id;
         $memo->save();
         return $memo;
     }
@@ -109,8 +116,9 @@ class Memo extends BaseModel implements DefaultValuesInterface, SimpleTableInter
             'numero', 
             'fecha', 
             'asunto', 
-            'origen->nombre', 
-            'destino->nombre'
+            'origen->nombre',
+            'destino->nombre',
+            'usuario->nombre',
         ];
     }
 

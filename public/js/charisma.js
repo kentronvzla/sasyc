@@ -165,14 +165,7 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('submit', '.form-eliminar', function (e) {
-        e.preventDefault();
-        var form = this;
-        confirmarIntencion("¿Esta seguro que desea eliminar el elemento seleccionado?", function () {
-            $(form).unbind('submit');
-            $(form).submit();
-        });
-    });
+
 });
 
 
@@ -243,6 +236,16 @@ function docReady() {
                 }
             });
         }
+    });
+
+    $('.form-eliminar').unbind('submit');
+    $('.form-eliminar').submit(function (e) {
+        e.preventDefault();
+        var form = this;
+        confirmarIntencion("¿Esta seguro que desea eliminar el elemento seleccionado?", function () {
+            $(form).unbind('submit');
+            $(form).submit();
+        });
     });
 
     $('.btn-volver').unbind('click');
