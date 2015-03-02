@@ -314,8 +314,8 @@ function docReady() {
         });
         e.preventDefault();
     });
-    $('button.glyphicon-pencil, a.glyphicon-pencil, button.fa-pencil, a.fa-pencil').unbind('click');
-    $('button.glyphicon-pencil, a.glyphicon-pencil, button.fa-pencil, a.fa-pencil').click(function (evt) {
+    $('button.glyphicon-pencil, a.glyphicon-pencil, button.fa-pencil, a.fa-pencil, .edit-trigger').unbind('click');
+    $('button.glyphicon-pencil, a.glyphicon-pencil, button.fa-pencil, a.fa-pencil, .edit-trigger').click(function (evt) {
         if ($(this).attr('href') == undefined) {
             evt.preventDefault();
         } else {

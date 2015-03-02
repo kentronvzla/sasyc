@@ -24,11 +24,11 @@ class BitacorasController extends BaseController {
         return View::make('solicitudes.bitacora', $data);
     }
 
-    public function deleteBitacora($id) {
-        $bitacora = Bitacora::findOrFail(Input::get('id'));
-        $bitacora->delete();
-        $data['mensaje'] = "Se eliminó la bitacora correctamente";
-        $data['vista'] = $this->getBitacora($id)->render();
-        return Response::json($data);
+    public function getAtendida($bitacora_id){
+        $data['bitacora'] = Bitacora::findOrFail($bitacora_id);
+        $data['bitacora']->atendida();
+        $data['solicitud'] = $data['bitacora']->solicitud;
+        $data['bitacoras'] = $data['solicitud']->bitacoras;
+        return View::make('solicitudes.bitacora', $data);
     }
 }

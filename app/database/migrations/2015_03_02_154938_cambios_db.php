@@ -27,6 +27,10 @@ class CambiosDb extends Migration {
             $table->index('tipo_ayuda_id');
             $table->foreign('tipo_ayuda_id')->references('id')->on('tipo_ayudas');
         });
+
+        Schema::table('bitacoras', function($table){
+            $table->boolean('atendida')->default(0);
+        });
 	}
 
 	/**

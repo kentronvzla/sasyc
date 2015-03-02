@@ -49,7 +49,7 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
      */
     protected $fillable = [
         'solicitud_id', 'fecha', 'nota', 'usuario_id',
-        'ind_activo', 'ind_alarma',
+        'ind_activo', 'ind_alarma','ind_atendida'
     ];
 
     /**
@@ -63,6 +63,7 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
         'solicitud_id' => 'required|integer',
         'fecha' => 'required_if:ind_alarma,1',
         'nota' => 'required',
+        'ind_atendida'=> 'required',
         'usuario_id' => 'required|integer',
         'ind_activo' => 'required',
         'ind_alarma' => 'required',
@@ -76,8 +77,9 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
             'fecha' => 'Fecha',
             'nota' => 'Notas',
             'usuario_id' => 'Usuario',
-            'ind_activo' => 'Activo?',
-            'ind_alarma' => 'Alarma?',
+            'ind_activo' => '¿Activo?',
+            'ind_alarma' => '¿Alarma?',
+            'ind_atendida' => '¿Atendida?',
         ];
     }
 
@@ -97,6 +99,7 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
             'usuario_id' => Sentry::getUser()->id,
             'ind_activo' => true,
             'ind_alarma' => false,
+            'ind_atendida' => false,
         ];
     }
 
@@ -124,6 +127,19 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
 
     public function getNotaforAttribute() {
         return $this->nota . '<br><small>' . $this->created_at->format('d/m/Y h:i a') . '</small>';
+    }
+
+    public function getVencidaAttribute(){
+        $hoy = \Carbon\Carbon::now();
+        if($hoy->gt($this->fecha) && $this->ind_alarma && !$this->ind_atendida){
+            return true;
+        }
+        return false;
+    }
+
+    public function atendida(){
+        $this->ind_atendida = true;
+        $this->save();
     }
 
     public static function registrar($mensaje, $solicitud_id) {
