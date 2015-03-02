@@ -24,8 +24,7 @@
                     {{$solicitud->descripcion or ""}}
                 </td>
                 <td style="width:180px;height: auto;">
-                    <strong>Estatus:</strong>&nbsp;
-                    {{$solicitud->estatus_display or ""}}
+                    
                 </td>
             </tr>
             <tr>
@@ -317,10 +316,8 @@
             </tr>
         </table>
     </div>
-    <hr width="100%">
     @endif
-</page>
-<page backcolor="#FEFEFE" backtop="10mm" backbottom="10mm" backleft="10mm" backright="10mm" footer="date;heure;page">
+
     <div class="cuerpo">
         <h3>Presupuesto</h3>
     </div>
@@ -328,9 +325,9 @@
     <br>
     <div class="cuerpo" style="position: center">
         @if($solicitud->presupuestos->count()>0)
-        @include('solicitudes.tablapresupuesto')
+            @include('solicitudes.tablapresupuesto')
         @else
-        <p> <strong>No existe presupuesto asociado a esta solicitud</strong> </p>
+            <p> <strong>No existe presupuesto asociado a esta solicitud</strong> </p>
         @endif
     </div>
 </page>
