@@ -407,7 +407,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function createdModel($model) {
-        $recaudos = Recaudo::whereIndActivo(true)->get();
+        $recaudos = Recaudo::whereIndActivo(true)->whereTipoAyudaId($this->area->tipo_ayuda_id)->get();
         $recaudos->each(function ($recaudo) use ($model) {
             $recSolicitud = new RecaudoSolicitud();
             $recSolicitud->solicitud()->associate($model);
@@ -471,10 +471,24 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             ->with('area.tipoAyuda');
     }
 
+    public function validate($model = null){
+        if(parent::validate($model)){
+            dd("aqui toy");
+            $area_anterior = Area::find($this->getOriginal('area_id'));
+            //no se puede cambiar el tipo de ayuda de la solicitud
+            if($area_anterior->tipo_ayuda_id != $this->area->tipo_ayuda_id){
+                $this->addError('area->tipo_ayuda_id','No se puede cambiar el tipo de ayuda de la solicitud');
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public function afterValidate() {
         if (is_object($this->organismo) && $this->organismo->ind_externo && $this->estatus != "ANU") {
-            $this->estatus = "REF";
-        } else if ($this->estatus == "REF") {
+            $this->estatus = "ART";
+        } else if ($this->estatus == "ART") {
             $this->estatus = "ELA";
         }
     }
@@ -545,7 +559,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function anular($nota) {
-        if ($this->estatus == "ELA" || $this->estatus == "REF") {
+        if ($this->estatus == "ELA" || $this->estatus == "ART") {
             $this->estatus = "ANU";
             $this->save();
             Bitacora::registrar($nota, $this->id);
@@ -677,7 +691,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function puedeModificar() {
-        $arr = ['ELA', 'REF', 'ELD', 'EAA', 'ACA', 'PPA'];
+        $arr = ['ELA', 'ART', 'ELD', 'EAA', 'ACA', 'PPA'];
         return in_array($this->estatus, $arr);
     }
 

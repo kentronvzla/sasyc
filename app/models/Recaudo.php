@@ -39,7 +39,7 @@ class Recaudo extends BaseModel implements SimpleTableInterface {
      * @var array
      */
     protected $fillable = [
-        'nombre', 'descripcion', 'ind_obligatorio', 'ind_vence', 'ind_activo',
+        'nombre', 'descripcion', 'ind_obligatorio', 'ind_vence', 'ind_activo','tipo_ayuda_id'
     ];
 
     /**
@@ -54,6 +54,7 @@ class Recaudo extends BaseModel implements SimpleTableInterface {
         'ind_obligatorio' => 'required',
         'ind_vence' => 'required',
         'ind_activo' => 'required',
+        'tipo_ayuda_id'=>'required',
     ];
 
     protected function getPrettyFields() {
@@ -63,11 +64,20 @@ class Recaudo extends BaseModel implements SimpleTableInterface {
             'ind_obligatorio' => 'Obligatorio',
             'ind_vence' => 'Vence',
             'ind_activo' => 'Activo',
+            'tipo_ayuda_id'=>'Tipo de Ayuda',
         ];
     }
 
     public function getPrettyName() {
         return "Recaudo";
+    }
+
+    /**
+     * Define una relación pertenece a TipoAyuda
+     * @return TipoAyuda
+     */
+    public function tipoAyuda() {
+        return $this->belongsTo('TipoAyuda');
     }
 
 }

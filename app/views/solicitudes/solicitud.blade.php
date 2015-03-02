@@ -6,6 +6,7 @@
         <h5>Estatus: <b>{{$solicitud->estatus_display}}</b></h5>
     </div>
 </div>
+@include('templates.errores')
 {{Form::hidden('id',$solicitud->id, ['id'=>'id'])}}
 {{Form::hidden('persona_beneficiario_id',$solicitud->persona_beneficiario_id, ['id'=>'persona_beneficiario_id'])}}
 {{Form::hidden('persona_solicitante_id',$solicitud->persona_solicitante_id, ['id'=>'persona_solicitante_id'])}}
