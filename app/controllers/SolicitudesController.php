@@ -16,8 +16,7 @@ class SolicitudesController extends BaseController {
     }
 
     public function getIndex() {
-        $data['solicitudes'] = Solicitud::ordenar()
-                ->eagerLoad()
+        $data['solicitudes'] = Solicitud::eagerLoad()
                 ->aplicarFiltro(Input::all());
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
@@ -35,6 +34,8 @@ class SolicitudesController extends BaseController {
             $data['solo_asignadas'] = true;
         }
         $data['solicitudes'] = $data['solicitudes']->paginate(10);
+        //se usa para el helper de busqueda
+        $data['persona'] = new Persona();
         return View::make('solicitudes.index', $data);
     }
 

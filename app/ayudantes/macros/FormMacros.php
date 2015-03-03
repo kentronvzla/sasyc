@@ -10,6 +10,13 @@ namespace Ayudantes\Macros;
 
 class FormBuilder extends \Illuminate\Html\FormBuilder {
 
+    protected $buscando = false;
+
+    public function busqueda($params){
+        $this->buscando = true;
+        return $this->open($params);
+    }
+
     public function multiselect($obj, $relation, $numCols = 12){
         $related = $obj->{$relation}()->getRelated();
         $data['options'] = call_user_func(array(get_class($related), 'getCombo'));
@@ -65,7 +72,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             $type = 'select';
             $options = $obj->getRelatedOptions($attrName);
             if (count($options) > 30) {
-                $data['params']['class'] = ' has-select2 ';
+                $data['params']['class'] = ' advanced-select ';
             }
         } else if ($obj->isDateField($attrName) && $type == "text") {
             $data['params']['class'] = 'jqueryDatePicker ';
@@ -89,18 +96,23 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         }
         $data['inputType'] = $type;
         $data['options'] = $options;
-        if ($type == "multiselect") {
-            unset($data['params']['required']);
-            $data['params']['multiple'] = "";
-            $data['params']['data-rel'] = "chosen";
-            $arr = $obj->{$data['params']['id']};
-            $data['attrValue'] = [];
-            foreach ($arr as $value) {
-                $data['attrValue'][] = $value->id;
-            }
-        }
         if ($type == "textarea") {
             $data['params']['rows'] = 4;
+        }
+        if($this->buscando){
+            unset($data['params']['required']);
+            if($type == 'select' && !isset($html['data-child'])){
+                $data['params']['multiple'] = 'multiple';
+                $data['params']['data-placeholder'] = $data['params']['placeholder'];
+                $data['params']['style'] = 'width: 100%;';
+                $data['inputType'] = 'multiselect';
+                $data['params']['class'] .= ' advanced-select ';
+                $data['attrName'] = $obj->getTable().'.'.$data['attrName'].'[]';
+                unset($data['options']['']);
+            }else{
+                $data['attrName'] = $obj->getTable().'.'.$data['attrName'];
+            }
+
         }
         return \View::make('templates.bootstrap.input', $data);
     }

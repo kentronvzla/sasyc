@@ -444,6 +444,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function scopeAplicarFiltro($query, $filtro) {
+        $query->ordenar()
+            ->leftJoin('personas','solicitudes.persona_beneficiario_id','=','personas.id')
+            ->select('solicitudes.*');
+
+        //filtros del menu..
         if (isset($filtro['estatus'])) {
             if (is_array($filtro['estatus'])) {
                 $query->whereIn('estatus', $filtro['estatus']);
@@ -452,10 +457,29 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             }
         }
         if (isset($filtro['solo_asignadas'])) {
-            $query->whereUsuarioAsignacionId(\Cartalyst\Sentry\Facades\Laravel\Sentry::getUser()->id);
+            $query->whereUsuarioAsignacionId(Sentry::getUser()->id);
         }
         if(isset($filtro['departamento_id'])){
             $query->whereDepartamentoId($filtro['departamento_id']);
+        }
+
+        //filtros de busqueda.
+        $campos = array_except($filtro, ['departamento_id', 'estatus','solo_asignadas']);
+        foreach($campos as $campo=>$valor){
+            if($valor!='' && count($valor)>0){
+                //laravel cambia el . por _ por eso se usa el replace
+                $campo = str_replace('personas_','personas.',$campo);
+                $campo = str_replace('solicitudes_','solicitudes.',$campo);
+                //arrays aplica whereIn, integer aplica =, strings aplica like %..%
+                if(is_array($valor)){
+                    $query->whereIn($campo, $valor);
+                }else if(is_numeric($valor)){
+                    $query->where($campo, $valor);
+                }else if(is_string($valor)){
+                    //Se usa i like para que sea insensible a mayusculas
+                    $query->where($campo, 'ILIKE', '%'.$valor.'%');
+                }
+            }
         }
         return $query;
     }
@@ -724,6 +748,12 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         } else {
             return "";
         }
+    }
+
+    public function scopeBuscar(array $campos){
+        $query = Solicitud::distinct()->ordenar()->leftJoin('personas as beneficiario','solicitudes.persona_beneficiario_id','=','beneficiario.id')
+            ->leftJoin('personas as solicitante','solicitudes.persona_solicitante_id','=','solicitante.id')->select('solicitudes.*');
+
     }
 
 }
