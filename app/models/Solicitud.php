@@ -371,12 +371,13 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function getDefaultValues() {
+        $numero=\Carbon\Carbon::now()->format('Y').'-'.  $this->numSolicitud();
         return [
             'fecha_solicitud' => Carbon::now(),
             'estatus' => 'ELA',
             'ind_mismo_benef' => false,
             'moneda' => 'VEF',
-            //'num_solicitud'=>$numero,
+            'num_solicitud'=>$numero,
         ];
     }
 
@@ -725,5 +726,12 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             return "";
         }
     }
-
+    
+    public function numSolicitud(){
+        $consulta=DB::table('solicitudes')
+            ->where(DB::raw('extract(year from created_at)'),'=',(int)\Carbon\Carbon::now()->format('y')) 
+            ->count();
+        
+        return $consulta+1;
+    }
 }

@@ -8,7 +8,9 @@
                 <tr>
                     <td width=400 ALIGN=CENTER>
                         <h3>SOLICITUD:&nbsp;
-                        {{$solicitud->id or ""}}</h3>
+                        {{--$solicitud->id or ""--}}
+                        {{$solicitud->num_solicitud or ""}}
+                        </h3>
                     </td>
                     <td width=150 ALIGN=CENTER style=' font-size: 14px;'>
                         <strong>Fecha de la solicitud: </strong>
