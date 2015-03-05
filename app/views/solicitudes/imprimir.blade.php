@@ -36,7 +36,7 @@
                 </td>
                 <td style="width:180px;height: auto;">
                     <strong>Tipo ayuda:</strong>&nbsp;
-                    {{$solicitud->area->tipoAyuda->nombre}}
+                    {{$solicitud->area->tipoAyuda->nombre or ""}}
                 </td>
             </tr>
             <tr>
@@ -69,7 +69,7 @@
             <tr>
                 <td style="width: 226px;height: auto;">
                     <strong>Actividad:</strong>&nbsp;
-                    {{$solicitud->actividad}}
+                    {{$solicitud->actividad or ""}}
                 </td> 
                 <td style="width: 226px;height: auto;">
                     <strong>Referencia:</strong>&nbsp;
@@ -130,7 +130,7 @@
                 </td>
                 <td style="width: 200px;height: auto;">
                     <strong>Nivel Académico:</strong>&nbsp;
-                    {{$beneficiario->nivelAcademico->nombre}}
+                    {{$beneficiario->nivelAcademico->nombre or ""}}
                 </td>
                 <td style="width: 220px;height: auto;">
                     <strong>Ingreso Mensual:</strong>&nbsp;
@@ -176,7 +176,7 @@
                 </td>
                 <td style="width: 140px;height: auto;">
                     <strong>Tlf. Fijo:</strong>&nbsp;
-                    {{$beneficiario->telefono_fijo}}
+                    {{$beneficiario->telefono_fijo or ""}}
                 </td>
             </tr>
              <tr>
@@ -247,7 +247,7 @@
                 </td>
                 <td style="width: 200px;height: auto;">
                     <strong>Nivel Académico:</strong>&nbsp;
-                    {{$solicitud->personaSolicitante->nivelAcademico->nombre}}
+                    {{$solicitud->personaSolicitante->nivelAcademico->nombre or ""}}
                 </td>
                 <td style="width: 220px;height: auto;">
                     <strong>Ingreso Mensual:</strong>&nbsp;
@@ -293,7 +293,7 @@
                 </td>
                 <td style="width: 140px;height: auto;">
                     <strong>Tlf. Fijo:</strong>&nbsp;
-                    {{$solicitud->personaSolicitante->telefono_fijo}}
+                    {{$solicitud->personaSolicitante->telefono_fijo or ""}}
                 </td>
             </tr>
              <tr>

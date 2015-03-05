@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('contenido')
     <div class="col-xs-12 col-sm-8 col-md-8">
+        <h3>Numero de solicitud:&nbsp;{{$solicitud->num_solicitud or ""}}</h3>
         <div class="panel-group" id="accordion">
             <div class="panel panel-danger">
                 <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#Panel">

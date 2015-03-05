@@ -8,7 +8,6 @@
                 <tr>
                     <td width=400 ALIGN=CENTER>
                         <h3>SOLICITUD:&nbsp;
-                        {{--$solicitud->id or ""--}}
                         {{$solicitud->num_solicitud or ""}}
                         </h3>
                     </td>
