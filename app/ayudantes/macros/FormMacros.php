@@ -73,6 +73,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             $options = $obj->getRelatedOptions($attrName);
             if (count($options) > 30) {
                 $data['params']['class'] = ' advanced-select ';
+                $data['params']['style'] = 'width: 100%;';
             }
         } else if ($obj->isDateField($attrName) && $type == "text") {
             $data['params']['class'] = 'jqueryDatePicker ';
@@ -103,7 +104,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             unset($data['params']['required']);
             if($type == 'select' && !isset($html['data-child'])){
                 $data['params']['multiple'] = 'multiple';
-                $data['params']['data-placeholder'] = $data['params']['placeholder'];
                 $data['params']['style'] = 'width: 100%;';
                 $data['inputType'] = 'multiselect';
                 $data['params']['class'] .= ' advanced-select ';
@@ -114,6 +114,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             }
 
         }
+        $data['params']['data-placeholder'] = $data['params']['placeholder'];
         return \View::make('templates.bootstrap.input', $data);
     }
 

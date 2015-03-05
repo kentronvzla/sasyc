@@ -18,7 +18,9 @@
     {{Form::btInput($presupuesto,'monto',3)}}
 </div>
 <div class="row">
-    {{Form::btInput($presupuesto,'beneficiario_id',9)}}
+    <div id="beneficiario-id-div">
+        {{Form::btInput($presupuesto,'beneficiario_id',9)}}
+    </div>
     <div class="col-md-3">
         <a id="btn-agregar-beneficiario" class="btn btn-danger">Agregar Beneficiario</a>
     </div>

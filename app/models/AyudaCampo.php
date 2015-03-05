@@ -61,7 +61,7 @@ class AyudaCampo extends BaseModel {
         return array(
             'formulario' => 'Formulario',
             'campo' => 'Campo',
-            'ayuda' => 'Documentacion',
+            'ayuda' => 'Documentación',
         );
     }
 

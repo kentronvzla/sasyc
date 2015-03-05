@@ -152,7 +152,10 @@ $(document).ready(function () {
                             ultimo = i;
                         }
                         cantidad++;
-                        selectChild.append("<option value='" + i + "'>" + value + "</option>");
+                        //Se quita la opcion enb blanco para cuando es multiselect
+                        if(i!='' || selectChild.attr('multiple')==undefined){
+                            selectChild.append("<option value='" + i + "'>" + value + "</option>");
+                        }
                     });
                     if (cantidad == 2) {
                         selectChild.val(ultimo);

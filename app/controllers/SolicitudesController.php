@@ -36,6 +36,7 @@ class SolicitudesController extends BaseController {
         $data['solicitudes'] = $data['solicitudes']->paginate(10);
         //se usa para el helper de busqueda
         $data['persona'] = new Persona();
+        $data['solicitud'] = new Solicitud();
         return View::make('solicitudes.index', $data);
     }
 

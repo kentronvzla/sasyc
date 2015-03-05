@@ -21,7 +21,25 @@
                         </div>
                         <div id="PanelSolicitud" class="panel-collapse collapse">
                             <div class="panel-body">
-
+                                <div class="row">
+                                    {{Form::btInput($solicitud,'num_solicitud',6)}}
+                                    {{Form::btInput($solicitud,'descripcion',6)}}
+                                </div>
+                                <div class="row">
+                                    {{Form::btInput($solicitud,'recepcion_id',6)}}
+                                    {{Form::btInput($solicitud,'organismo_id',6)}}
+                                </div>
+                                <div class="row">
+                                    {{Form::btInput($solicitud,'area->tipo_ayuda_id',6, 'text', ['data-url'=>'tipoAyudas/areas','data-child'=>'area_id'])}}
+                                    {{Form::btInput($solicitud,'area_id',6)}}
+                                </div>
+                                <div class="row">
+                                    {{Form::btInput($solicitud,'estatus',6,'select',[],BaseModel::$estatusArray)}}
+                                </div>
+                                <div class="row">
+                                    {{Form::btInput($solicitud,'created_at_desde',6)}}
+                                    {{Form::btInput($solicitud,'created_at_hasta',6)}}
+                                </div>
                             </div>
                         </div>
                     </div>

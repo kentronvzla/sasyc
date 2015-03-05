@@ -171,7 +171,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'total_ingresos' => '',
     ];
     protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion',
-        'fecha_aprobacion', 'fecha_cierre'];
+        'fecha_aprobacion', 'fecha_cierre','created_at'];
     public static $tipo_procesamientos = [
         'P' => 'Punto de Cuenta',
         'M' => 'Memo',
@@ -179,17 +179,17 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     protected function getPrettyFields() {
         return [
-            'id' => 'Numero Solicitud',
+            'id' => 'Número Solicitud',
             'descripcion' => 'Descripción',
             'persona_beneficiario_id' => 'Beneficiario',
             'persona_solicitante_id' => 'Solicitante',
-            'area_id' => 'Area',
+            'area_id' => 'Área',
             'referente_id' => 'Referido por',
             'recepcion_id' => 'Recepción',
             'organismo_id' => 'Procesado por',
-            'ind_mismo_benef' => 'Solicitante es el mismo Beneficiario?',
-            'ind_inmediata' => 'Atención inmediata?',
-            'ind_beneficiario_menor' => 'El beneficiario es menor de edad sin CI?',
+            'ind_mismo_benef' => '¿Solicitante es el mismo Beneficiario?',
+            'ind_inmediata' => '¿Atención inmediata?',
+            'ind_beneficiario_menor' => '¿El beneficiario es menor de edad sin CI?',
             'actividad' => 'Actividad',
             'referencia' => 'Referencia',
             'accion_tomada' => 'Acción Tomada',
@@ -215,6 +215,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'total_ingresos' => 'Total de ingresos',
             'departamento_id' => 'Departamento',
             'num_solicitud'=>'Número de Solicitud',
+            'created_at'=>'Fecha de registro',
+            'created_at_desde'=>'Fecha de registro desde',
+            'created_at_hasta'=>'Fecha de registro hasta',
         ];
     }
 
@@ -448,6 +451,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     public function scopeAplicarFiltro($query, $filtro) {
         $query->ordenar()
             ->leftJoin('personas','solicitudes.persona_beneficiario_id','=','personas.id')
+            ->leftJoin('areas','solicitudes.area_id','=','areas.id')
+            ->leftJoin('parroquias','personas.parroquia_id','=','parroquias.id')
+            ->leftJoin('municipios','parroquias.municipio_id','=','municipios.id')
             ->select('solicitudes.*');
 
         //filtros del menu..
@@ -468,12 +474,42 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         //filtros de busqueda.
         $campos = array_except($filtro, ['departamento_id', 'estatus','solo_asignadas']);
         foreach($campos as $campo=>$valor){
+            //se quitan espacios vacios del array.
+            if(is_array($valor)){
+                $valor = array_filter($valor);
+            }
             if($valor!='' && count($valor)>0){
                 //laravel cambia el . por _ por eso se usa el replace
                 $campo = str_replace('personas_','personas.',$campo);
                 $campo = str_replace('solicitudes_','solicitudes.',$campo);
-                //arrays aplica whereIn, integer aplica =, strings aplica like %..%
-                if(is_array($valor)){
+                //se verifica si hay que buscar en otras tablas
+                if(str_contains($campo, '->')){
+                    $arrayOps = explode('->', $campo);
+                    //relacion sencilla
+                    if(count($arrayOps)==2){
+                        $tabla = str_plural_spanish(explode('.',$arrayOps[0])[1]);
+                        $campo = $tabla.'.'.$arrayOps[1];
+                    }
+                    //relacion de dos niveles
+                    else if(count($arrayOps)==3){
+                        $tabla = str_plural_spanish($arrayOps[1]);
+                        $campo = $tabla.'.'.$arrayOps[2];
+                    }
+                }
+                //arrays aplica whereIn, integer aplica =, strings aplica like %..%, fechas aplica >= o <= y se convierten en carbon
+                try{
+                    $fecha = Carbon::createFromFormat('d/m/Y', $valor);
+                    $esfecha = true;
+                }catch (Exception $e){
+                    $esfecha = false;
+                }
+                if($esfecha){
+                    $operador = str_contains($campo,'_desde') ? '>=':'<=';
+                    $campo = str_replace('_desde','',$campo);
+                    $campo = str_replace('_hasta','',$campo);
+                    $query->where($campo,$operador,$fecha);
+                }
+                else if(is_array($valor)){
                     $query->whereIn($campo, $valor);
                 }else if(is_numeric($valor)){
                     $query->where($campo, $valor);
