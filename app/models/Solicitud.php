@@ -375,7 +375,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function getDefaultValues() {
         $numero=\Carbon\Carbon::now()->format('y').'-'.  $this->numSolicitud();
-        //$numero=$this->formatoNumSolicitud ($numero);
+        $numero=$this->formatoNumSolicitud ($numero);
         return [
             'fecha_solicitud' => Carbon::now(),
             'estatus' => 'ELA',
