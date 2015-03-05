@@ -47,19 +47,6 @@
                     <li><a href="#">Alarmas Pendientes</a></li>
                 </ul>
             </li>
-            <li class="dropdown">
-                <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Consulta <span
-                            class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">General</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Por Beneficio</a></li>
-                    <li><a href="#">Por Solicitud</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Control de Casos</a></li>
-                    <li><a href="#">Casos por proceso</a></li>
-                </ul>
-            </li>
         </ul>
     </div>
     @unless(Request::is('/'))

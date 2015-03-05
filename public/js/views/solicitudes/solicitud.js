@@ -160,8 +160,7 @@ function beneficiarioKerux() {
     $('#agregar-beneficiario').find('input, select').removeAttr('required');
     $('#btn-agregar-beneficiario').click(function () {
         var parent = $(this).closest('form');
-        $(parent).find('#beneficiario_id').removeAttr('required');
-        $(parent).find('#beneficiario_id').hide();
+        $(parent).find('#beneficiario-id-div').hide();
         $(this).hide();
         $('#agregar-beneficiario').show();
         $('#agregar-beneficiario').find('input, select').attr('required', 'required');
@@ -169,8 +168,7 @@ function beneficiarioKerux() {
     });
     $('#btn-seleccionar-beneficiario').click(function () {
         var parent = $(this).closest('form');
-        $(parent).find('#beneficiario_id').attr('required', 'required');
-        $(parent).find('#beneficiario_id').show();
+        $(parent).find('#beneficiario-id-div').show();
         $('#agregar-beneficiario').find('input, select').removeAttr('required');
         $('#btn-agregar-beneficiario').show();
         $('#agregar-beneficiario').hide();

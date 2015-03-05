@@ -2,16 +2,14 @@
 @section('contenido')
 <div class="col-xs-12 col-sm-3 col-md-3">
     <div class="panel panel-danger">
-        <div class="panel-heading">Versiones</div>
-        <ul class="list-group">
-
-        </ul>
-    </div>
-    <div class="panel panel-danger">
         <div class="panel-heading">Seguridad</div>
         <ul class="list-group">
-            <a href="{{url('administracion/seguridad/grupos')}}"><li class="list-group-item">Grupos</li></a>
-            <a href="{{url('administracion/seguridad/usuarios')}}"><li class="list-group-item">Usuarios</li></a>
+            <a href="{{url('administracion/seguridad/grupos')}}">
+                <li class="list-group-item">Grupos</li>
+            </a>
+            <a href="{{url('administracion/seguridad/usuarios')}}">
+                <li class="list-group-item">Usuarios</li>
+            </a>
             <a href="{{url('administracion/tablas/departamentos')}}">
                 <li class="list-group-item">Departamentos</li>
             </a>

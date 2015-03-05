@@ -64,7 +64,7 @@ class RecaudoSolicitud extends BaseModel implements DefaultValuesInterface, Simp
         return [
             'solicitud_id' => 'Solicitud',
             'recaudo_id' => 'Recaudo',
-            'ind_recibido' => 'Recibido?',
+            'ind_recibido' => '¿Recibido?',
             'fecha_vencimiento' => 'Fecha de vencimiento',
             'documento' => 'Documento',
             'documento_link' => 'Ver'

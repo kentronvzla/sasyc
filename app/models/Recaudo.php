@@ -62,8 +62,8 @@ class Recaudo extends BaseModel implements SimpleTableInterface {
             'nombre' => 'Nombre',
             'descripcion' => 'Descripción',
             'ind_obligatorio' => 'Obligatorio',
-            'ind_vence' => 'Vence',
-            'ind_activo' => 'Activo',
+            'ind_vence' => '¿Vence?',
+            'ind_activo' => '¿Activo?',
             'tipo_ayuda_id'=>'Tipo de Ayuda',
         ];
     }

@@ -51,7 +51,7 @@ class Organismo extends BaseModel implements SelectInterface, SimpleTableInterfa
     protected function getPrettyFields() {
         return [
             'nombre' => 'Nombre',
-            'ind_externo' => 'Externo?',
+            'ind_externo' => '¿Externo?',
         ];
     }
 

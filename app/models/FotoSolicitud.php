@@ -57,7 +57,7 @@ class FotoSolicitud extends BaseModel {
     protected function getPrettyFields() {
         return [
             'solicitud_id' => 'Solicitud',
-            'descripcion' => 'Descripcion',
+            'descripcion' => 'Descripción',
             'foto' => 'Foto',
             'ind_reporte' => '¿Usar en Reporte?',
         ];

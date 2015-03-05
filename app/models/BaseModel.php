@@ -43,7 +43,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
         '0' => 'No',
         '1' => 'Si'
     ];
-    protected static $estatusArray = [
+    public static $estatusArray = [
         'ELA' => 'Elaboración',
         'ELD' => 'Departamento Asignado',
         'ART' => 'Articulada',
@@ -392,6 +392,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
     }
 
     public function isDateField($field) {
+        $field = str_replace(['_desde','_hasta'],'',$field);
         return in_array($field, $this->dates);
     }
 
