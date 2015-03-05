@@ -8,7 +8,7 @@ class PersonasController extends BaseController {
 
     public function getBuscarcne($cedula){
         $curl = new AyudanteCurl();
-        $curl->enviarGet('http://www.cne.gob.ve/web/registro_electoral/ce.php?nacionalidad=V&cedula='.$cedula);
+        $curl->enviarGet('http://cne.gob.ve/web/registro_electoral/ce.php?nacionalidad=V&cedula='.$cedula);
         $test = strip_tags($curl->respuesta);
         $posNombre = strpos($test, "Nombre:");
         $test = substr($test, $posNombre);

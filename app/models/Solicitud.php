@@ -374,8 +374,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function getDefaultValues() {
-        $numero=\Carbon\Carbon::now()->format('y').'-'.  $this->numSolicitud();
-        $numero=$this->formatoNumSolicitud ($numero);
+        $numero = $this->calcularNumSolicitud();
+        $numero = Carbon::now()->format('y').'-'.$this->formatoNumSolicitud($numero);
         return [
             'fecha_solicitud' => Carbon::now(),
             'estatus' => 'ELA',
@@ -788,7 +788,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         }
     }
     
-    public function numSolicitud(){
+    public function calcularNumSolicitud(){
         $consulta=DB::table('solicitudes')
             ->where(DB::raw('extract(year from created_at)'),'=',(int)\Carbon\Carbon::now()->format('Y')) 
             ->count();
@@ -797,24 +797,19 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
     
     public function formatoNumSolicitud ($numero){
-        $formato=explode("-",$numero);
-        $num="";
-        if ($formato[1]>=1 && $formato[1]<=9){
-            $num=$formato[0]."-0000".$formato[1];
+        if ($numero<=9){
+            $numero="0000".$numero;
         }
-        if ($formato[1]>9 && $formato[1]<=99){
-            $num=$formato[0]."-000".$formato[1];
+        else if ($numero<=99){
+            $numero="000".$numero;
         }
-        if ($formato[1]>99 && $formato[1]<=999){
-            $num=$formato[0]."-00".$formato[1];
+        else if ($numero<=999){
+            $numero="00".$numero;
         }
-        if ($formato[1]>999 && $formato[1]<=9999){
-            $num=$formato[0]."-0".$formato[1];
-        }
-        if ($formato[1]>9999 && $formato[1]<=99999){
-            $num=$formato[0]."-".$formato[1];
+        else if ($numero<=9999){
+            $numero="0".$numero;
         }
         
-        return $num;
+        return $numero;
     }
 }

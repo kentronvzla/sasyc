@@ -17,6 +17,26 @@ class AyudanteCurl {
     public $respuestaObj;
     public $codigoRespuesta;
 
+    public function enviarGet($url) {
+        $ch = curl_init();
+        $optArray = array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER => true,
+            CURLOPT_NOBODY => false,
+        );
+        curl_setopt_array($ch, $optArray);
+        $this->respuesta = substr(curl_exec($ch), curl_getinfo($ch, CURLINFO_HEADER_SIZE));
+        $this->codigoRespuesta = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $this->respuestaObj = json_decode($this->respuesta);
+        if ($this->codigoRespuesta != 200 && $this->codigoRespuesta != 204) {
+
+            dd(curl_error($ch));
+            throw new CurlException($this);
+        }
+        curl_close($ch);
+    }
+
     public static function enviarError(Exception $exception, $code) {
         $arr = explode('\\', get_class($exception));
         $stackFinal = $exception->getTraceAsString();

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-10">
-        <h4>Número de Solicitud: <span id='span-solicitud-id'>{{$solicitud->id}}</span></h4> 
+        <h4>Número de Solicitud: <span id='span-solicitud-id'>{{$solicitud->num_solicitud}}</span></h4>
     </div>
     <div class="col-md-2">
         <h5>Estatus: <b>{{$solicitud->estatus_display}}</b></h5>
