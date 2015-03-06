@@ -7,6 +7,7 @@
         <div class="panel-body">
             @include('templates.errores')
             {{Form::open(array('url'=>'administracion/tablas/procesos'))}}
+            {{Form::concurrencia($proceso)}}
             <div class="row">
                 {{Form::hidden('id',$proceso->id)}}
                 {{Form::btInput($proceso, 'nombre', 6)}}

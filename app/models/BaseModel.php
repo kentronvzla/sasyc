@@ -61,6 +61,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
         parent::__construct($attributes);
         $this->errors = new \Illuminate\Support\MessageBag();
         $this->validator = \App::make('validator');
+        $this->manejaConcurrencia = true;
     }
 
     /**
@@ -194,15 +195,6 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
         return $this->errors;
     }
 
-    /**
-     * Set error message bag
-     *
-     * @var Illuminate\Support\MessageBag
-     */
-    protected function setErrors($errors) {
-        $this->errors = $errors;
-    }
-
     public static function findOrNew($str, $columns = Array()) {
         if ($str == "") {
             return new static();
@@ -230,12 +222,26 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
         }
         $v = $this->validator->make($this->attributes, $this->rules);
         $v->setAttributeNames($this->getPrettyFields());
-        if ($v->passes()) {
+        if ($v->passes() && $this->verificarConcurrencia()) {
             $this->afterValidate();
             return true;
         }
-        $this->setErrors($v->messages());
+        $this->errors->merge($v->messages());
         return false;
+    }
+
+    private function verificarConcurrencia(){
+        if($this->manejaConcurrencia && $this->id!=''){
+            $oldObject = self::findOrFail($this->id);
+            //si no pasan la version se asume que no se quiere validar la concurrencia
+            if($oldObject->version != Input::get('version', $oldObject->version)){
+                $this->addError('version','Otro usuario ya actualizó este registro. Porfavor refresque la página.');
+                return false;
+            }else{
+                $this->version++;
+            }
+        }
+        return true;
     }
 
     public static function getCampoCombo() {

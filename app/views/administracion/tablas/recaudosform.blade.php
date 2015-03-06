@@ -7,6 +7,7 @@
         <div class="panel-body">
             @include('templates.errores')
             {{Form::open(array('url'=>'administracion/tablas/recaudos'))}}
+            {{Form::concurrencia($recaudo)}}
             <div class="row">
                 {{Form::hidden('id',$recaudo->id)}}
                 {{Form::btInput($recaudo, 'nombre', 6)}}
