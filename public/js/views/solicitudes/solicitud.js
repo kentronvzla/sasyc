@@ -1,4 +1,4 @@
-$(document).ajaxComplete(function () {
+$(document).ajaxComplete(function (data) {
     $('[id=ind_alarma]').unbind('change');
     $('[id=ind_alarma]').each(function () {
         $(this).on('change', bitacoraAlarma);
@@ -43,28 +43,29 @@ $(document).ready(function () {
     });
     $('#gallery').photobox('a');
 
-    $('body').on('change', '#requerimiento_id', function(){
+    $('body').on('change', '#proceso_id', function(){
         var formulario = $(this).closest('form');
         if($(this).val()==""){
             return;
         }
-        $.get(baseUrl+'administracion/tablas/requerimientos/requerimiento/'+$(this).val(), function(data){
-
+        $.get(baseUrl+'administracion/tablas/procesos/proceso/'+$(this).val(), function(data){
             //Se ocultan todos para que sea mas facil trabajarlos
-            $(formulario).find('#beneficiario_id').hide().removeAttr('required');
-            $(formulario).find('#btn-agregar-beneficiario').hide().removeAttr('required');
+            $(formulario).find('#beneficiario-id-div').hide();
+            $(formulario).find('#btn-agregar-beneficiario').hide();
             $(formulario).find('#monto').hide().removeAttr('required');
             $(formulario).find('#cantidad').hide().removeAttr('required');
 
-            if(data.tipo_requerimiento.codigo=="OP"){
-                $(formulario).find('#beneficiario_id').show().attr('required',true);
+            if(data.ind_beneficiario){
+                $(formulario).find('#beneficiario-id-div').show();
                 $(formulario).find('#btn-agregar-beneficiario').show();
-                $(formulario).find('#monto').show().attr('required',true);
-                $(formulario).find('#cantidad').show().attr('required',true);
-            }else if(data.tipo_requerimiento.codigo=="ALM"){
-                $(formulario).find('#cantidad').show().attr('required',true);
-            }else if(data.tipo_requerimiento.codigo=="FDEL"){
-                $(formulario).find('#monto').show().attr('required',true);
+            }
+            if(data.ind_monto){
+                $(formulario).find('#monto').show();
+                $(formulario).find('#monto').attr('required',true);
+            }
+            if(data.ind_cantidad){
+                $(formulario).find('#cantidad').show();
+                $(formulario).find('#cantidad').attr('required',true);
             }
         });
     });

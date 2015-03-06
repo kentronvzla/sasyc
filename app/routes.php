@@ -28,8 +28,7 @@ Route::group(['before'=>'auth'], function(){
             Route::controller('departamentos', 'DepartamentosController');
             Route::controller('recepciones', 'RecepcionesController');
             Route::controller('personas', 'PersonasController');
-            Route::controller('claseRequerimientos', 'ClaseRequerimientosController');
-            Route::controller('claseRequerimientoRequerimientos', 'ClaseRequerimientoRequerimientosController');
+            Route::controller('procesos', 'ProcesosController');
             Route::controller('ayudaCampos', 'AyudaCamposController');
         });
         Route::get('', function(){

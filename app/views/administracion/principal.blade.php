@@ -63,14 +63,11 @@
             <a href="{{url('administracion/tablas/referentes')}}">
                 <li class="list-group-item">Referentes</li>
             </a>
-            <a href="{{url('administracion/tablas/claseRequerimientos')}}">
-                <li class="list-group-item">Clase de Requerimiento</li>
+            <a href="{{url('administracion/tablas/procesos')}}">
+                <li class="list-group-item">Procesos</li>
             </a>
             <a href="{{url('administracion/tablas/requerimientos')}}">
                 <li class="list-group-item">Requerimientos</li>
-            </a>
-            <a href="{{url('administracion/tablas/claseRequerimientoRequerimientos')}}">
-                <li class="list-group-item">Requerimientos y clases</li>
             </a>
             <a href="{{url('administracion/tablas/tenencias')}}">
                 <li class="list-group-item">Tenencias</li>

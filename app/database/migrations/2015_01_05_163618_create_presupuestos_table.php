@@ -15,7 +15,7 @@ class CreatePresupuestosTable extends Migration {
             $table->increments('id');
             $table->integer('solicitud_id', false, true);
             $table->integer('requerimiento_id', false, true);
-
+            $table->integer('proceso_id', false, true);
             //esto es para kerux
             $table->string('ccosto', 10)->nullable();//configuracion
             $table->string('cod_acc_int', 7)->nullable();//Tipo de ayuda

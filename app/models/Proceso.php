@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Description of ClaseRequerimiento
+ * Description of Proceso
  *
  * @author Nadin Yamani
  */
-class ClaseRequerimiento extends BaseModel {
+class Proceso extends BaseModel {
 
-    protected $table = "clase_requerimiento";
+    protected $table = "procesos";
 
     /**
      * Campos que se pueden llenar mediante el uso de mass-assignment
@@ -15,7 +15,7 @@ class ClaseRequerimiento extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre', 'tipo_doc',
+        'nombre', 'tipo_doc', 'ind_cantidad', 'ind_monto', 'ind_beneficiario',
     ];
 
     /**
@@ -26,17 +26,26 @@ class ClaseRequerimiento extends BaseModel {
      */
     protected $rules = [
         'nombre'=>'required',
-        'tipo_doc'=>'required|max:5',
+        'tipo_doc'=>'required',
+        'ind_cantidad'=>'required',
+        'ind_monto'=>'required',
+        'ind_beneficiario'=>'required',
     ];
 
     protected function getPrettyFields() {
         return [
-            'nombre'=>'Clase de requerimiento',
+            'nombre'=>'Proceso',
             'tipo_doc'=>'Tipo de documento',
+            'ind_cantidad'=>'¿Cantidad Obligatoria?',
+            'ind_monto'=>'¿Monto Obligatorio?',
+            'ind_beneficiario'=>'¿Beneficiario Obligatorio?',
         ];
     }
 
     public function getPrettyName() {
-        return "Clase de requerimiento";
+        return "Proceso";
     }
+
+
+
 }
