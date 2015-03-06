@@ -13,8 +13,8 @@ class CreateTipoRequerimientosTable extends Migration {
     public function up() {
         Schema::create('tipo_requerimientos', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('codigo', 4);
             $table->string('nombre', 100);
+            $table->text('descripcion')->nullable();
             $table->integer('version')->default(0);
             $table->timestamps();
         });

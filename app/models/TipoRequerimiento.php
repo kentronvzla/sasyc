@@ -31,7 +31,7 @@ class TipoRequerimiento extends BaseModel implements SimpleTableInterface {
      * @var array
      */
     protected $fillable = [
-        'codigo', 'nombre',
+        'nombre','descripcion',
     ];
 
     /**
@@ -41,13 +41,13 @@ class TipoRequerimiento extends BaseModel implements SimpleTableInterface {
      * @var array
      */
     protected $rules = [
-        'codigo'=>'required|unique:tipo_requerimientos',
         'nombre'=>'required',
+        'descripcion'=>'',
     ];
 
     protected function getPrettyFields() {
         return [
-            'codigo'=>'Código',
+            'descripcion'=>'Descripción',
             'nombre'=>'Tipo de requerimiento',
         ];
     }

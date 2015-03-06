@@ -19,7 +19,7 @@
         <div class="panel-heading">Tablas</div>
         <ul class="list-group">
             <a href="{{url('administracion/tablas/ayudaCampos')}}">
-                <li class="list-group-item">Documentacion</li>
+                <li class="list-group-item">Documentación</li>
             </a>
             <a href="{{url('administracion/tablas/tipoAyudas')}}">
                 <li class="list-group-item">Tipos de Ayuda</li>
@@ -63,8 +63,14 @@
             <a href="{{url('administracion/tablas/referentes')}}">
                 <li class="list-group-item">Referentes</li>
             </a>
+            <a href="{{url('administracion/tablas/claseRequerimientos')}}">
+                <li class="list-group-item">Clase de Requerimiento</li>
+            </a>
             <a href="{{url('administracion/tablas/requerimientos')}}">
                 <li class="list-group-item">Requerimientos</li>
+            </a>
+            <a href="{{url('administracion/tablas/claseRequerimientoRequerimientos')}}">
+                <li class="list-group-item">Requerimientos y clases</li>
             </a>
             <a href="{{url('administracion/tablas/tenencias')}}">
                 <li class="list-group-item">Tenencias</li>

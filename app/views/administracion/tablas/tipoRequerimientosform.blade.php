@@ -9,8 +9,8 @@
         {{Form::open(array('url'=>'administracion/tablas/tipoRequerimientos'))}}
         <div class="row">
             {{Form::hidden('id',$tipoRequerimiento->id)}}
-            {{Form::btInput($tipoRequerimiento, 'codigo', 6)}}
             {{Form::btInput($tipoRequerimiento, 'nombre', 6)}}
+            {{Form::btInput($tipoRequerimiento, 'descripcion', 6)}}
         </div>
         {{Form::submitBt()}}
         {{Form::close()}}
