@@ -7,6 +7,7 @@
     <div class="panel-body">
         @include('templates.errores')
         {{Form::open(array('url'=>'administracion/tablas/departamentos'))}}
+        {{Form::concurrencia($departamento)}}
         <div class="row">
             {{Form::hidden('id',$departamento->id)}}
             {{Form::btInput($departamento, 'nombre', 6)}}

@@ -42,8 +42,8 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         return \View::make('templates.bootstrap.display', $data);
     }
 
-    function concurrencia($obj) {
-        return \Form::hidden('version', Input::old('version', $obj->version));
+    public function concurrencia($obj) {
+        return $this->hidden('version', \Input::old('version', $obj->version));
     }
 
     public function btSelect($attrName, $values, $value, $numCols = 12, $required = true) {
@@ -61,7 +61,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
     }
 
     function btInput($obj, $attrName, $numCols = 12, $type = 'text'
-    , $html = [], $options = []) {
+        , $html = [], $options = []) {
         $data['params'] = $html;
         if (!isset($data['params']['class'])) {
             $data['params']['class'] = '';

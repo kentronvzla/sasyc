@@ -5,6 +5,7 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
     private static $estatusModificacion = [
         'ELA', 'ELD', 'REF', 'EAA','ACA'
     ];
+
     protected $sequence = "presupuestos_id_seq";
     public $timestamps = false;
     protected $table = "presupuestos";
@@ -15,7 +16,7 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
      * @var array
      */
     protected $fillable = [
-        'solicitud_id', 'requerimiento_id', 'beneficiario_id', 'cantidad', 'monto'
+        'solicitud_id', 'requerimiento_id','proceso_id', 'beneficiario_id', 'cantidad', 'monto'
     ];
 
     /**
@@ -27,6 +28,7 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
     protected $rules = [
         'solicitud_id' => 'required|integer',
         'requerimiento_id' => 'required|integer',
+        'proceso_id' => 'required|integer',
         //kerux
         'ccosto' => 'max:10',
         'cod_acc_int' => 'max:7',
@@ -36,16 +38,17 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
         'documento_id' => 'integer',
         'moneda' => 'max:3',
         'tipo_reng' => 'max:4',
-        'beneficiario_id' => 'required_if:codigo_requerimiento,OP|integer',
+        'beneficiario_id' => '',
         //fin kerux
-        'cantidad' => 'required_if:codigo_requerimiento,OP|required_if:codigo_requerimiento,ALM',
-        'monto' => 'required_if:codigo_requerimiento,OP|required_if:codigo_requerimiento,FDEL',
+        'cantidad' => '',
+        'monto' => '',
     ];
 
     protected function getPrettyFields() {
         return [
             'solicitud_id' => 'Solicitud',
             'requerimiento_id' => 'Requerimiento',
+            'proceso_id' => 'Proceso',
             //kerux
             'ccosto' => 'Centro de Costo',
             'cod_acc_int' => 'Código Acción Interna',
@@ -79,6 +82,10 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
      * Define una relación pertenece a Requerimiento
      * @return Requerimiento
      */
+    public function proceso() {
+        return $this->belongsTo('Proceso');
+    }
+
     public function requerimiento() {
         return $this->belongsTo('Requerimiento');
     }
@@ -91,13 +98,9 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
         return $this->belongsTo('Oracle\Documento');
     }
 
-    public function tipo_requerimiento_id() {
-        return $this->requerimiento->id;
-    }
-
     public function getTableFields() {
         return [
-            'requerimiento->nombre', 'beneficiario->nombre', 'cantidad', 'documento_id', 'documento->estatus', 'monto'
+            'requerimiento->nombre','proceso->nombre', 'beneficiario->nombre', 'cantidad', 'documento_id', 'documento->estatus', 'monto'
         ];
     }
 
@@ -111,23 +114,34 @@ class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \Dec
         if($this->puedeModificarEliminar()){
             //Se preparan los datos para guardarlos en oracle
             //Esto se hace para las validaciones de monto, cantidad y beneficiario, el required_if. NO QUITAR
-            $this->codigo_requerimiento = $this->requerimiento->tipoRequerimiento->codigo;
+
             $this->ccosto = \Configuracion::get('ccosto');
             $this->cod_acc_int = $this->solicitud->area->tipoAyuda->cod_acc_int;
             $this->cod_cta = $this->requerimiento->cod_cta;
             $this->cod_item = $this->requerimiento->cod_item;
             $this->desc_requerimiento = $this->requerimiento->nombre;
             $this->moneda = \Configuracion::get('moneda_presupuesto');
-            $this->tipo_reng = $this->requerimiento->tipoRequerimiento->codigo;
+            $this->tipo_reng = 'HOLA';//$this->requerimiento->tipoRequerimiento->nombre;
             return parent::savingModel($model);
         }
         $this->addError('estatus','No se puede modificar/crear el presupuesto. La solicitud no esta en el estatus correcto');
         return false;
     }
 
-    public function afterValidate(){
-        //se borra para que no trate de actualizarlo en base de datos.
-        unset($this->codigo_requerimiento);
+    public function validate($model = null){
+        if(parent::validate()){
+            $proceso = $this->proceso;
+            if($proceso->ind_beneficiario && $this->beneficiario_id==""){
+                $this->addError('beneficiario_id', 'El beneficiario es necesario');
+            }
+            if($proceso->ind_monto && $this->monto==""){
+                $this->addError('monto', 'El monto es necesario');
+            }
+            if($proceso->ind_cantidad && $this->cantidad=="") {
+                $this->addError('cantidad', 'La cantidad es necesaria');
+            }
+        }
+        return !$this->hasErrors();
     }
 
     public function setMontoAttribute($value) {

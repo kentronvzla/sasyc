@@ -19,7 +19,7 @@
         <div class="panel-heading">Tablas</div>
         <ul class="list-group">
             <a href="{{url('administracion/tablas/ayudaCampos')}}">
-                <li class="list-group-item">Documentacion</li>
+                <li class="list-group-item">Documentación</li>
             </a>
             <a href="{{url('administracion/tablas/tipoAyudas')}}">
                 <li class="list-group-item">Tipos de Ayuda</li>
@@ -62,6 +62,9 @@
             </a>
             <a href="{{url('administracion/tablas/referentes')}}">
                 <li class="list-group-item">Referentes</li>
+            </a>
+            <a href="{{url('administracion/tablas/procesos')}}">
+                <li class="list-group-item">Procesos</li>
             </a>
             <a href="{{url('administracion/tablas/requerimientos')}}">
                 <li class="list-group-item">Requerimientos</li>

@@ -2,11 +2,12 @@
 @section('contenido2')
 <div class="panel panel-danger">
     <div class="panel-heading">
-        @include('templates.tituloBarra',array('obj'=>@$usuario, 'titulo'=>'grupo'))
+        @include('templates.tituloBarra',array('obj'=>$usuario, 'titulo'=>'grupo'))
     </div>
     <div class="panel-body">
         @include('templates.errores')
         {{Form::open(array('url'=>'administracion/seguridad/usuarios'))}}
+        {{Form::concurrencia($usuario)}}
         <div class="row">
             {{Form::hidden('id',$usuario->id)}}
             {{Form::btInput($usuario, 'email', 6)}}

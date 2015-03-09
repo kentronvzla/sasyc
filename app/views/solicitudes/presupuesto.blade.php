@@ -13,7 +13,8 @@
 {{Form::hidden('id',$presupuesto->id)}}
 {{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">
-    {{Form::btInput($presupuesto,'requerimiento_id',6)}}
+    {{Form::btInput($presupuesto,'requerimiento_id',3)}}
+    {{Form::btInput($presupuesto,'proceso_id',3)}}
     {{Form::btInput($presupuesto,'cantidad',3)}}
     {{Form::btInput($presupuesto,'monto',3)}}
 </div>
@@ -52,6 +53,6 @@
 </div>
 @include('templates.bootstrap.submit')
 <script>
-    $('#requerimiento_id').trigger('change');
+    $('#proceso_id').trigger('change');
 </script>
 {{Form::close()}}

@@ -29,7 +29,7 @@ class CambiosDb extends Migration {
         });
 
         Schema::table('bitacoras', function($table){
-            $table->boolean('atendida')->default(0);
+            $table->boolean('ind_atendida')->default(0);
         });
 	}
 
