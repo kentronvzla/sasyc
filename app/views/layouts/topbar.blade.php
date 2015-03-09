@@ -44,7 +44,6 @@
                     <li>{{HTML::link('solicitudes?estatus=EAA&solo_asignadas=true','Mis Solicitudes (Aceptar Asignacion)')}}</li>
                     <li>{{HTML::link('solicitudes?estatus=ACA&solo_asignadas=true','Mis Solicitudes (Solicitar Aprobación)')}}</li>
                     <li class="divider"></li>
-                    <li>{{HTML::link('reportes','Reportes')}}</li>
                     <li class="divider"></li>
                     <li><a href="#">Alarmas Pendientes</a></li>
                 </ul>
@@ -54,6 +53,9 @@
                             class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li>{{HTML::link('reportes/nueva/','Estadisitcas de Solicitudes')}}</li>
+                    <li><a href="#">General</a></li>
+                    <li><a href="#">Casos Resueltos</a></li>
+                    <li><a href="#">Casos Pendientes</a></li>
                 </ul>
             </li>
         </ul>

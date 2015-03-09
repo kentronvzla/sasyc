@@ -6,8 +6,7 @@ class ReportesController extends BaseController {
         parent::__construct();
     }
     
-    public function getIndex(){
-        return View::make('reportes.reportes');
+    public function getNueva() {
+        return View::make("reportes.generar");
     }
-
 }
