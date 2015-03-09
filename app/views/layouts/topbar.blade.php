@@ -51,7 +51,7 @@
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Reportes <span
                             class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li>{{HTML::link('reportes/nueva/','Estadisitcas de Solicitudes')}}</li>
+                    <li>{{HTML::link('reportes/estadisticassolicitud','Estadisitcas de Solicitudes')}}</li>
                 </ul>
             </li>
         </ul>

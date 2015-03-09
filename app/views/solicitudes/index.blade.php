@@ -1,7 +1,28 @@
 @extends('layouts.master')
 @section('contenido')
     <div class="col-xs-12 col-sm-12 col-md-12">
-        @include('solicitudes.busqueda')
+        <div class="panel panel-danger">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#PanelBusqueda" href="#PanelBusqueda">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#PanelBusqueda" href="#PanelBusqueda">
+                        Búsqueda
+                    </a>
+                </h4>
+            </div>
+            <div id="PanelBusqueda" class="panel-collapse collapse">
+                <div class="panel-body">
+                    {{Form::busqueda(['url'=>'solicitudes','method'=>'GET'])}}
+                    @include('solicitudes.busqueda')
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+                            <a href="{{url('solicitudes')}}" class="btn btn-default btn-reset"><i class="glyphicon glyphicon-trash"></i> Cancelar</a>
+                        </div>
+                    </div>
+                    {{Form::close()}}
+                </div>
+            </div>
+        </div>
         <div class="panel panel-danger">
             <div class="panel-heading"><h4 class="panel-title">Solicitudes</h4></div>
             <div class="panel-body" id='solicitudes-lista'>
