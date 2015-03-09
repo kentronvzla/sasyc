@@ -29,7 +29,7 @@
                         <img src="../public/img/logoLogin.jpg">
                         <div class="form-group">
                             <label for="email">Usuario</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Correo">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Correo">
                         </div>
                         <div class="form-group">
                             <label for="password">Contraseña <a href="/sessions/forgot_password">(¿Olvidaste tu contraseña?)</a></label>

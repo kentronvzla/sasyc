@@ -7,6 +7,7 @@
     <div class="panel-body">
         @include('templates.errores')
         {{Form::open(array('url'=>'administracion/seguridad/grupos'))}}
+        {{Form::concurrencia($grupo)}}
         <div class="row">
             {{Form::hidden('id',$grupo->id)}}
             {{Form::btInput($grupo, 'name', 12)}}

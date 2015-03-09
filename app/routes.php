@@ -43,6 +43,7 @@ Route::group(['before'=>'auth'], function(){
     Route::controller('helpers', 'HelpersController');
     Route::controller('fotossolicitud', 'FotosSolicitudController');
     Route::controller('memorandum', 'MemosController');
+    Route::controller('reportes', 'ReportesController');
 });
 
 Route::controller('login','LoginController');
