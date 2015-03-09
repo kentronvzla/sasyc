@@ -15,20 +15,22 @@
                                 <br>Solicitante: {{$solicitud->personaSolicitante->nombre_completo}}
                                 <br><a href="#" data-toggle="tooltip" data-original-title="{{$solicitud->personaSolicitante->informacion_contacto}}">(Información de contacto)</a>
                             @endunless
+                            <br>Cedula:&nbsp;<b>{{$solicitud->personaSolicitante->ci}}</b>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             {{$solicitud->descripcion}} / {{$solicitud->necesidad}}
                             <br>{{$solicitud->area->tipoAyuda->nombre or ""}} / {{$solicitud->area->nombre or ""}}
                             <br>{{$solicitud->recepcion->nombre or ""}} / {{$solicitud->organismo->nombre or ""}}
+                            <br>Fecha Registro: <b>{{$solicitud->created_at->format('d/m/Y H:i')}}</b>
+                            <br>Ultima Actualización: <b>{{$solicitud->updated_at->format('d/m/Y H:i')}}</b>
+                            <br>Estatus: <b>{{$solicitud->estatus_display}}</b>
                         </div>
                         <div class="col-xs-12 col-sm-3 col-md-3">
                             Encargado: <b>{{$solicitud->usuarioAsignacion->nombre or "Sin Asignar"}}</b>
                             <br>¿Atención Inmediata?: <b>{{$solicitud->ind_inmediata ? "Si":"No"}}</b>
                             <br>Autorizado:<b>{{$solicitud->usuarioAutorizacion->nombre or "Sin Asignar"}}</b>
                             <br>Departamento: <b>{{$solicitud->departamento->nombre or "Sin Asignar"}}</b>
-                            <br>Fecha Registro: <b>{{$solicitud->created_at->format('d/m/Y H:i')}}</b>
-                            <br>Ultima Actualización: <b>{{$solicitud->updated_at->format('d/m/Y H:i')}}</b>
-                            <br>Estatus: <b>{{$solicitud->estatus_display}}</b>
+                            <br>Monto:<b>{{$solicitud->presupuestos->montofor or "Sin Asignar Presupuesto"}}</b>
                         </div>
                         <div class="col-xs-12 col-sm-2 col-md-2 text-right">
                             {{HTML::button('solicitudes/ver/'.$solicitud->id, 'search','Ver Solicitud')}}

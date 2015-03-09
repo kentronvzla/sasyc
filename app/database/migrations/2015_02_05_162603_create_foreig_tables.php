@@ -185,7 +185,7 @@ class CreateForeigTables extends Migration {
             $table->dropIndex('personas_parroquia_id_index');
         });
         
-        Schema::table('presupuestos', function(Blueprint $table) {
+        Schema::connection('oracle')->table('presupuestos', function(Blueprint $table) {
             $table->dropForeign('presupuestos_solicitud_id_foreign');
             $table->dropIndex('presupuestos_solicitud_id_index');
             
