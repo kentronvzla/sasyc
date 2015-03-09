@@ -28,9 +28,9 @@ trait EloquentExtensionTrait {
         }
         //arrays aplica whereIn, integer aplica =, strings aplica like %..%, fechas aplica >= o <= y se convierten en carbon
         try{
-            $fecha = Carbon::createFromFormat('d/m/Y', $valor);
+            $fecha = \Carbon::createFromFormat('d/m/Y', $valor);
             $esfecha = true;
-        }catch (Exception $e){
+        }catch (\Exception $e){
             $esfecha = false;
         }
         if($esfecha){

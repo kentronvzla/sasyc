@@ -11,7 +11,7 @@ class CreateDocumentosTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::connection('oracle')->create('documentos', function(Blueprint $table) {
+        Schema::create('documentos', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('solicitud_id', false, true)->length(14);
             $table->integer('beneficiario_id', false, true)->length(14)->nullable();
@@ -31,6 +31,8 @@ class CreateDocumentosTable extends Migration {
             $table->integer('id_doc')->nullable()->length(14);
             $table->string('referencia', 20)->nullable();
             $table->integer('version')->default(0);
+
+            $table->timestamps();
         });
     }
 

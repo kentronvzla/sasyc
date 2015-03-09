@@ -1,6 +1,5 @@
 <?php
 
-use Oracle\Presupuesto;
 use Oracle\Beneficiario;
 
 class PresupuestosController extends BaseController {

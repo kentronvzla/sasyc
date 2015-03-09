@@ -60,25 +60,12 @@ class CreateForeigTables extends Migration {
             $table->foreign('parroquia_id')->references('id')->on('parroquias');
         });
 
-        Schema::connection('oracle')->table('documentos', function(Blueprint $table) {
-            $table->index('solicitud_id');
+        Schema::table('documentos', function(Blueprint $table) {
 
-            $table->index('ccosto');
-            $table->foreign('ccosto')->references('ccosto')->on('ppto.cents_costo');
         });
 
-        Schema::connection('oracle')->table('presupuestos', function(Blueprint $table) {
-            $table->index('beneficiario_id');
-            $table->foreign('beneficiario_id')->references('numbenef')->on('doc.beneficiarios');
+        Schema::table('presupuestos', function(Blueprint $table) {
 
-            $table->index('ccosto');
-            $table->foreign('ccosto')->references('ccosto')->on('ppto.cents_costo');
-
-            $table->index('cod_item');
-            $table->foreign('cod_item')->references('coditem')->on('cat.item_cat');
-
-            $table->index('documento_id');
-            $table->foreign('documento_id')->references('id')->on('documentos');
         });
         
         Schema::table('recaudo_solicitud', function(Blueprint $table) {

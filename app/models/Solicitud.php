@@ -324,7 +324,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function presupuestos() {
-        return $this->hasMany('Oracle\Presupuesto');
+        return $this->hasMany('Presupuesto');
     }
 
     public function bitacoras() {
@@ -421,7 +421,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         Bitacora::registrar('Se registró la solicitud.', $model->id);
     }
 
-    ////
     public function getTableFields() {
         return [
             'num_solicitud',
@@ -446,15 +445,16 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function scopeOrdenar($query) {
-        return $query->orderBy('ind_inmediata', 'DESC')->orderBy('id','DESC');
+        return $query->orderBy('ind_inmediata', 'DESC')->orderBy('solicitudes.id','DESC');
     }
 
     public function scopeAplicarFiltro($query, $filtro) {
-        $query->ordenar()
-            ->leftJoin('personas','solicitudes.persona_beneficiario_id','=','personas.id')
+        $query->leftJoin('personas','solicitudes.persona_beneficiario_id','=','personas.id')
             ->leftJoin('areas','solicitudes.area_id','=','areas.id')
             ->leftJoin('parroquias','personas.parroquia_id','=','parroquias.id')
             ->leftJoin('municipios','parroquias.municipio_id','=','municipios.id')
+            ->leftJoin('presupuestos','presupuestos.solicitud_id','=','solicitudes.id')
+            ->distinct()
             ->select('solicitudes.*');
 
         //filtros del menu..
@@ -473,7 +473,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         }
 
         //filtros de busqueda.
-        $campos = array_except($filtro, ['departamento_id', 'estatus','solo_asignadas']);
+        $campos = array_except($filtro, ['departamento_id', 'estatus','solo_asignadas','_token']);
         foreach($campos as $campo=>$valor){
             //se quitan espacios vacios del array.
             if(is_array($valor)){

@@ -11,7 +11,7 @@ class CreatePresupuestosTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::connection('oracle')->create('presupuestos', function(Blueprint $table) {
+        Schema::create('presupuestos', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('solicitud_id', false, true);
             $table->integer('requerimiento_id', false, true);
@@ -31,6 +31,8 @@ class CreatePresupuestosTable extends Migration {
             $table->integer('cantidad')->nullable();
             $table->decimal('monto', 14, 2)->nullable();
             $table->integer('version')->default(0);
+
+            $table->timestamps();
         });
     }
 

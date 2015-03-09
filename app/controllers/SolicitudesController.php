@@ -1,7 +1,5 @@
 <?php
 
-use Oracle\Presupuesto;
-
 class SolicitudesController extends BaseController {
 
     public function __construct() {
@@ -17,7 +15,8 @@ class SolicitudesController extends BaseController {
 
     public function getIndex() {
         $data['solicitudes'] = Solicitud::eagerLoad()
-                ->aplicarFiltro(Input::all());
+            ->aplicarFiltro(Input::all())
+            ->ordenar();
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
             $data['solicitud'] = new Solicitud();
@@ -154,7 +153,7 @@ class SolicitudesController extends BaseController {
         $data['personaBeneficiario'] = $data['solicitud']->personaBeneficiario;
         return View::make('memorandun.memorandun',$data);
     }
-    
+
     public function getMemo($id, $store = false) {
         require_once(app_path('/ayudantes/report/html2pdf.class.php'));
         $data['solicitud'] = Solicitud::findOrFail($id);
@@ -222,7 +221,7 @@ class SolicitudesController extends BaseController {
         $data['bitacora'] = new Bitacora();
         return View::make('solicitudes.anular',$data);
     }
-    
+
     public function postAnular (){
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         if($solicitud->anular(Input::get('nota'))){
@@ -233,11 +232,11 @@ class SolicitudesController extends BaseController {
 
     public function getCerrar ($id){
         $data['solicitud'] = Solicitud::findOrFail($id);
-        $data['bitacora'] = new Bitacora();       
+        $data['bitacora'] = new Bitacora();
         return View::make('solicitudes.cerrar',$data);
-        
+
     }
-    
+
     public function postCerrar (){
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         if($solicitud->cerrar()){
@@ -245,8 +244,8 @@ class SolicitudesController extends BaseController {
         }
         return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&cerrar=true')->with('error', $solicitud->getErrors()->first());
     }
-    
-    
+
+
     public function getBitacora($id, $store = false) {
         require_once(app_path('/ayudantes/report/html2pdf.class.php'));
         $data['solicitud'] = Solicitud::findOrFail($id);
@@ -266,7 +265,7 @@ class SolicitudesController extends BaseController {
         }
         die();
     }
-    
+
     public function getInforme($id, $store = false) {
         require_once(app_path('/ayudantes/report/html2pdf.class.php'));
         $data['solicitud'] = Solicitud::findOrFail($id);
