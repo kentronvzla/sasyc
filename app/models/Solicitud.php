@@ -324,7 +324,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function presupuestos() {
-        return $this->hasMany('Oracle\Presupuesto');
+        return $this->hasMany('Presupuesto');
     }
 
     public function bitacoras() {
@@ -421,7 +421,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         Bitacora::registrar('Se registró la solicitud.', $model->id);
     }
 
-    ////
     public function getTableFields() {
         return [
             'num_solicitud',

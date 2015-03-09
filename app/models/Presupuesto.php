@@ -1,13 +1,11 @@
-<?php namespace Oracle;
+<?php
 
-class Presupuesto extends OracleBaseModel implements \SimpleTableInterface, \DecimalInterface {
+class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalInterface {
 
     private static $estatusModificacion = [
         'ELA', 'ELD', 'REF', 'EAA','ACA'
     ];
 
-    protected $sequence = "presupuestos_id_seq";
-    public $timestamps = false;
     protected $table = "presupuestos";
 
     /**
