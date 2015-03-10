@@ -483,6 +483,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 //laravel cambia el . por _ por eso se usa el replace
                 $campo = str_replace('personas_','personas.',$campo);
                 $campo = str_replace('solicitudes_','solicitudes.',$campo);
+                $campo = str_replace('presupuestos_','presupuestos.',$campo);
                 $query = $this->parseFilter($campo, $valor, $query);
             }
         }
@@ -778,5 +779,30 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         }
         
         return $numero;
+    }
+
+    public function getValorReporte($columna){
+        if(str_contains($columna, '.')){
+            $columna = explode('.',$columna)[1];
+        }
+        $valor = $this->{$columna};
+        switch($columna){
+            case "estado_id":
+                return Estado::find($valor)->nombre;
+            case "tipo_ayuda_id":
+                return TipoAyuda::find($valor)->nombre;
+            case "area_id":
+                return Area::find($valor)->nombre;
+            case "beneficiario_id":
+                return \Oracle\Beneficiario::find($valor)->nombre;
+            case "requerimiento_id":
+                return Requerimiento::find($valor)->nombre;
+            case "estatus":
+                return static::$estatusArray[$valor];
+            case "recepcion_id":
+                return Recepcion::find($valor)->nombre;
+            case "especial_mes":
+                return Solicitud::$array_meses[$valor];
+        }
     }
 }

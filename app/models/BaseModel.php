@@ -22,7 +22,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
     protected $rules = [];
     protected $manejaConcurrencia;
     protected $displayTable = [];
-
+    protected static $array_meses = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
     /**
      * Error message bag
      * @var Illuminate\Support\MessageBag

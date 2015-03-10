@@ -19,21 +19,33 @@
                                 </h4>
                             </div>
                             <div class="panel-body">
+                                <div id="contenedor-tablas">
+                                    <div class="row" id="plantilla-fila">
+                                        <div class="col-xs-12 col-md-3">
+                                            <div class="form-group">
+                                                {{Form::text('titulo_reporte[]', '', ['placeholder'=>'Título del reporte','class'=>'form-control'])}}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-3">
+                                            <div class="form-group">
+                                                {{Form::select('group_by_1[]', $columnas_agrupables, '', ['placeholder'=>'Agrupación 1','class'=>'form-control'])}}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-3">
+                                            <div class="form-group ">
+                                                {{Form::select('group_by_2[]', $columnas_agrupables, '', ['placeholder'=>'Agrupación 2','class'=>'form-control'])}}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-3">
+                                            <div class="form-group">
+                                                {{Form::select('group_by_3[]', $columnas_agrupables, '', ['placeholder'=>'Agrupación 3','class'=>'form-control'])}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-4">
-                                        <div class="form-group ">
-                                            {{Form::select('group_by_1[]', $columnas_agrupables, '', ['placeholder'=>'Agrupación 1','class'=>'form-control'])}}
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <div class="form-group ">
-                                            {{Form::select('group_by_2[]', $columnas_agrupables, '', ['placeholder'=>'Agrupación 2','class'=>'form-control'])}}
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <div class="form-group ">
-                                            {{Form::select('group_by_3[]', $columnas_agrupables, '', ['placeholder'=>'Agrupación 3','class'=>'form-control'])}}
-                                        </div>
+                                        <button type="button" id="agregar-tabla" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Agregar Otra Tabla</button>
                                     </div>
                                 </div>
                             </div>
@@ -50,3 +62,6 @@
     </div>
     {{Form::close()}}
 @stop
+@section('javascript')
+    {{HTML::script('js/views/reportes/estadisticassolicitud.js')}}
+@endsection
