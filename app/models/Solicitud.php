@@ -803,6 +803,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 return Recepcion::find($valor)->nombre;
             case "especial_mes":
                 return Solicitud::$array_meses[$valor];
+            case "sexo":
+                if($valor==''){
+                    return "No Seleccionado";
+                }
+                return Solicitud::$cmbsexo[$valor];
         }
     }
 }

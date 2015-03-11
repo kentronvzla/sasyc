@@ -11,6 +11,7 @@ class ReportesController extends BaseController {
         'presupuestos.requerimiento_id'=>'Requerimiento',
         'solicitudes.estatus'=>'Estatus',
         'solicitudes.recepcion_id'=>'Recepción',
+        'personas.sexo'=>'Sexo',
         'especial_mes'=>'Mes',
     ];
 
