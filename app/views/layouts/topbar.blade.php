@@ -52,10 +52,10 @@
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Reportes <span
                             class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li>{{HTML::link('reportes/nueva/','Estadisitcas de Solicitudes')}}</li>
-                    <li><a href="#">General</a></li>
-                    <li><a href="#">Casos Resueltos</a></li>
-                    <li><a href="#">Casos Pendientes</a></li>
+                    <li>{{HTML::link('reportes/general/','General')}}</li>
+                    <li>{{HTML::link('reportes/general/','Casos Resueltos')}}</li>
+                    <li>{{HTML::link('reportes/general/','Casos Pendientes')}}</li>
+                    <li>{{HTML::link('reportes/estadisticassolicitud/','Busqueda Agrupada')}}</li>
                 </ul>
             </li>
         </ul>
