@@ -33,6 +33,26 @@
                 </div>
             </div>
         </div>
+        <div class="panel panel-danger">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#PanelPresupuesto" href="#PanelPresupuesto">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#PanelPresupuesto" href="#PanelPresupuesto">
+                        Por Presupuesto
+                    </a>
+                </h4>
+            </div>
+            <div id="PanelPresupuesto" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        {{Form::btInput($presupuesto,'requerimiento_id',6)}}
+                        {{Form::btInput($presupuesto,'proceso_id',6)}}
+                    </div>
+                    <div class="row">
+                        {{Form::btInput($presupuesto,'beneficiario_id',12)}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
         <div class="panel panel-danger">

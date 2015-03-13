@@ -1,4 +1,4 @@
-@extends('reportes.pdf.master')
+@extends('reportes.html.'.Input::get('formato_reporte','pdf'))
 @section('reporte')
     @for($i=0;$i<$cantReportes;$i++)
         <h3>{{$titulo[$i]}}</h3>

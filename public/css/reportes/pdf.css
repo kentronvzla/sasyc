@@ -1,0 +1,28 @@
+.cuerpo {
+    font-family:  Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    text-align: left;
+}
+.titulo {
+    font-family:  Arial, Helvetica, sans-serif
+}
+.texto-negrita{
+    font-weight: bold;
+}
+.texto-centrado{
+    text-align: center;
+}
+.texto-derecha{
+    text-align: right;
+}
+.titulo-tabla{
+    height: auto;
+    padding: 3px;
+    border: 0.5px;
+    font-weight: bold;
+    background: #D8D8D8;
+}
+.fila-tabla{
+    height: auto;
+    padding: 2px;
+}

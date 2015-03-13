@@ -10,8 +10,8 @@ namespace ayudantes;
 
 class Reporte {
 
-    public function generar($vista, $data, $orientacion = 'P',$tipo = "PDF"){
-        if($tipo=="PDF"){
+    public function generar($vista, $data, $orientacion = 'P'){
+        if(\Input::get('formato_reporte','pdf')=="pdf"){
             return $this->generarPDF($vista, $data, $orientacion);
         }
         return $this->generarExcel($vista, $data);
@@ -22,7 +22,7 @@ class Reporte {
             $excel->sheet('Hoja 1', function($sheet) use ($vista, $data) {
                 $sheet->loadView($vista, $data);
             });
-        });
+        })->download('xls');
     }
 
     private function generarPDF($vista, $data, $orientacion){

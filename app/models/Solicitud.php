@@ -794,7 +794,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             case "area_id":
                 return Area::find($valor)->nombre;
             case "beneficiario_id":
-                return \Oracle\Beneficiario::find($valor)->nombre;
+                $benef = \Oracle\Beneficiario::find($valor);
+                if(is_null($benef)){
+                    return $valor;
+                }
+                return $benef->nombre;
             case "requerimiento_id":
                 return Requerimiento::find($valor)->nombre;
             case "estatus":
