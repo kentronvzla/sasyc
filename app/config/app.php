@@ -111,6 +111,7 @@ return array(
         'Barryvdh\Debugbar\ServiceProvider',
         'Ayudantes\Macros\HtmlServiceProvider',
         'yajra\Oci8\Oci8ServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
     ),
     /*
       |--------------------------------------------------------------------------
@@ -175,5 +176,6 @@ return array(
         'Carbon' => 'Carbon\Carbon',
         'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
     ),
 );

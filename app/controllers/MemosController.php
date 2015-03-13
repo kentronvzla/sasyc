@@ -2,7 +2,9 @@
 
 class MemosController extends BaseController
 {
-    public function __construct() {
+    private $reporte;
+    public function __construct(\ayudantes\Reporte $rep) {
+        $this->reporte = $rep;
         parent::__construct();
     }
     
@@ -17,23 +19,8 @@ class MemosController extends BaseController
     }
     
     public function getImprimir($id, $store = false) {
-      require_once(app_path('/ayudantes/report/html2pdf.class.php'));
         $data['memo'] = Memo::findOrFail($id);
-        $pdf = new HTML2PDF('P', 'letter', 'es');
-        $pdf->pdf->SetDisplayMode('fullpage');
-        try {
-            ob_clean();
-            $html = View::make('memorandum.imprimir', $data)->render();
-            $pdf->writeHTML($html);
-            if ($store) {
-                $pdf->Output(app_path('storage/temp/memorandum' . $id . '.pdf'), 'F');
-            } else {
-                $pdf->Output('memorandum.pdf');
-            }
-        } catch (HTML2PDF_exception $e) {
-            die($e . " :(");
-        }
-        die();
+        return $this->reporte->generar('solicitudes.imprimirinforme', $data);
     }
 }
 

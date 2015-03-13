@@ -16,7 +16,6 @@ class ReportesController extends BaseController {
     ];
 
     public function __construct() {
-        require_once(app_path('/ayudantes/report/html2pdf.class.php'));
         parent::__construct();
     }
 
@@ -27,7 +26,7 @@ class ReportesController extends BaseController {
         return View::make('reportes.estadisticassolicitud',$data);
     }
 
-    public function postEstadisticassolicitud(){
+    public function postEstadisticassolicitud(\ayudantes\Reporte $reporte){
         $data['cont'] = 0;
         $data['acum'] = 0;
         $data['anterior'] = "";
@@ -63,17 +62,7 @@ class ReportesController extends BaseController {
                 ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
                 ->get();
         }
-        $pdf = new HTML2PDF('P', 'letter', 'es');
-        $pdf->pdf->SetDisplayMode('fullpage');
-        try {
-            ob_clean();
-            $html = View::make('reportes.pdf.estadisticassolicitud', $data)->render();
-            $pdf->writeHTML($html);
-            $pdf->Output('estadisticassolicitud.pdf');
-        } catch (HTML2PDF_exception $e) {
-            die($e . " :(");
-        }
-        die();
+        return $reporte->generar('reportes.pdf.estadisticassolicitud', $data);
     }
 
 

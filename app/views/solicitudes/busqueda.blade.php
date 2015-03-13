@@ -24,6 +24,7 @@
                     </div>
                     <div class="row">
                         {{Form::btInput($solicitud,'estatus',6,'select',[],BaseModel::$estatusArray)}}
+                        {{Form::btInput($solicitud,'referente_id',6)}}
                     </div>
                     <div class="row">
                         {{Form::btInput($solicitud,'created_at_desde',6)}}

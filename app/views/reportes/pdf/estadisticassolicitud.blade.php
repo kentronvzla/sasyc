@@ -24,7 +24,7 @@
                 @endif
                 <tr>
                     @foreach($columnas[$i] as $key=>$columna)
-                        <td style="width: {{80/count($columnas)}}%;" class="fila-tabla">{{ $solicitud->getValorReporte($key) }}</td>
+                        <td style="width: {{80/count($columnas[$i])}}%;" class="fila-tabla">{{ $solicitud->getValorReporte($key) }}</td>
                     @endforeach
                     <td class="fila-tabla texto-derecha" style="width: 10%;">
                         {{$solicitud->cantidad}}
@@ -33,12 +33,12 @@
                         {{tm($solicitud->monto)}}
                     </td>
                 </tr>
-                <?php $cont++;$acum+=$solicitud->monto; ?>
+                <?php $cont+=$solicitud->cantidad;$acum+=$solicitud->monto; ?>
 
                 <?php $anterior = $solicitud->{$primera_columna[$i]}; ?>
             @endforeach
             <tfoot>
-            @if(count($columnas)>1)
+            @if(count($columnas[$i])>1)
                 <tr>
                     <th class="titulo-tabla" colspan="{{count($columnas[$i])}}">Total {{ $solicitud->getValorReporte($primera_columna[$i]) }}</th>
                     <th class="titulo-tabla texto-derecha">{{$cont}}</th>
@@ -47,7 +47,7 @@
             @endif
             <tr>
                 <th class="titulo-tabla" colspan="{{count($columnas[$i])}}">Total</th>
-                <th class="titulo-tabla texto-derecha">{{$solicitudes[$i]->count()}}</th>
+                <th class="titulo-tabla texto-derecha">{{$solicitudes[$i]->sum('cantidad')}}</th>
                 <th class="titulo-tabla texto-derecha">{{tm($solicitudes[$i]->sum('monto'))}}</th>
             </tr>
             </tfoot>
