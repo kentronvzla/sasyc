@@ -2,6 +2,8 @@
 
 class ReportesController extends BaseController {
 
+    private $reporte;
+
     private static $columnas_agrupables = [
         ''=>'Seleccione',
         'municipios.estado_id'=>'Estado',
@@ -15,7 +17,8 @@ class ReportesController extends BaseController {
         'especial_mes'=>'Mes',
     ];
 
-    public function __construct() {
+    public function __construct(\ayudantes\Reporte $reporte) {
+        $this->reporte = $reporte;
         parent::__construct();
     }
 
@@ -26,7 +29,7 @@ class ReportesController extends BaseController {
         return View::make('reportes.estadisticassolicitud',$data);
     }
 
-    public function postEstadisticassolicitud(\ayudantes\Reporte $reporte){
+    public function postEstadisticassolicitud(){
         $data['cont'] = 0;
         $data['acum'] = 0;
         $data['anterior'] = "";
@@ -62,7 +65,7 @@ class ReportesController extends BaseController {
                 ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
                 ->get();
         }
-        return $reporte->generar('reportes.pdf.estadisticassolicitud', $data);
+        return $this->reporte->generar('reportes.pdf.estadisticassolicitud', $data);
     }
 
 
