@@ -23,23 +23,24 @@
                                     <div class="row" id="plantilla-fila">
                                         <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
-                                                {{Form::select('group_by_1[]', $columnas_agrupables, '', ['placeholder'=>'Agrupación 1','class'=>'form-control'])}}
+                                                {{Form::select('order_by_1[]',$columnas_agrupables, '', ['placeholder'=>'Ordenar','class'=>'form-control'])}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!--<div class="row">
                                     <div class="col-xs-12 col-md-4">
                                         <button type="button" id="agregar-tabla" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Agregar Otra Tabla</button>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
-                        <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-file"></i> Generar Reporte</button>
+                   <div class="col-lg-12">
+                        <button class="btn btn-primary" type="submit" name="formato_reporte" value="pdf"><i class="fa fa-file-pdf-o"></i> Generar en PDF</button>
+                        <button class="btn btn-primary" type="submit" name="formato_reporte" value="xls"><i class="fa fa-file-excel-o"></i> Generar en Excel</button>
                     </div>
                 </div>
             </div>

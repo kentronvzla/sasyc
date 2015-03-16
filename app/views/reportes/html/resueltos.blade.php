@@ -1,4 +1,4 @@
-@extends('reportes.pdf.master')
+@extends('reportes.html.'.Input::get('formato_reporte','pdf'))
 @section('reporte')
     <h4 ALIGN=CENTER >  Relación de Casos Resueltos</h4>
     <table border="0" cellpadding="5" cellspacing="3">
