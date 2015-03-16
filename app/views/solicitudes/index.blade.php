@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             {{$solicitud->descripcion}} / {{$solicitud->necesidad}}
-                            <br>{{$solicitud->area->tipoAyuda->nombre or ""}} / {{$solicitud->area->nombre or ""}}
+                            <br><b>{{$solicitud->area->tipoAyuda->nombre or ""}} / {{$solicitud->area->nombre or ""}}</b>
                             <br>{{$solicitud->recepcion->nombre or ""}} / {{$solicitud->organismo->nombre or ""}}
                             <br>Fecha Registro: <b>{{$solicitud->created_at->format('d/m/Y H:i')}}</b>
                             <br>Ultima Actualización: <b>{{$solicitud->updated_at->format('d/m/Y H:i')}}</b>
@@ -56,10 +56,9 @@
                                Requerimiento: <b>{{$resultado->requerimiento->nombre or "Sin Asignar"}}</b>
                                <br>Beneficiario: <b>{{$resultado->beneficiario->nombre or "Sin Asignar"}}</b>
                                <br>Monto:<b>{{$resultado->monto or "Sin Asignar"}}</b>
-                               <hr>
+                               <br>
                             @endforeach
-                        </div>
-                        
+                        </div>                        
                         <div class="col-xs-12 col-sm-1 col-md-1 text-right">
                             {{HTML::button('solicitudes/ver/'.$solicitud->id, 'search','Ver Solicitud')}}
                             @if($solicitud->puedeModificar())
