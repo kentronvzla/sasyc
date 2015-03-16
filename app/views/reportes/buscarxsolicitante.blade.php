@@ -12,6 +12,10 @@
                 {{Form::btInput($persona, 'nombre', 6)}}
                 {{Form::btInput($persona, 'apellido', 6)}}
             </div>
+             <div class="row">
+                {{Form::btInput($persona, 'ci', 6)}}
+                {{Form::btInput($persona, 'sexo', 6)}}
+            </div>
         </div>
     </div>
 </div>

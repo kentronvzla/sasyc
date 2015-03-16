@@ -29,5 +29,16 @@
     }
 </style>
 <page backcolor="#FEFEFE" backtop="10mm" backbottom="10mm" backleft="10mm" backright="10mm" footer="date;heure;page">
+    <div>
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    {{HTML::image('img/logoReporte.jpg');}}
+                </td>
+                <td style="width: 450px;" ></td>
+                <td style="width: 300px;" ></td>
+            </tr>
+        </table>
+    </div>
     @yield('reporte')
 </page>

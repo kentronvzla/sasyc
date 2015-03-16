@@ -8,11 +8,9 @@
     </div>
     <div id="PanelFecha" class="panel-collapse collapse">
         <div class="panel-body">
-             <div class="row">
-               {{Form::btInput($solicitud,'fecha_solicitud',3)}}
-               {{Form::btInput($solicitud,'fecha_asignacion',3)}}
-               {{Form::btInput($solicitud,'fecha_aprobacion',3)}}
-               {{Form::btInput($solicitud,'fecha_cierre',3)}}
+            <div class="row">
+                {{Form::btInput($solicitud,'created_at_desde',6)}}
+                {{Form::btInput($solicitud,'created_at_hasta',6)}}
             </div>
         </div>
     </div>
