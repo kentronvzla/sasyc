@@ -32,7 +32,7 @@ class CreateClaseRequerimiento extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('clase_requerimiento');
+		Schema::drop('procesos');
 	}
 
 }

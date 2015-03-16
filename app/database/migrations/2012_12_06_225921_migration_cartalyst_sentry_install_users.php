@@ -39,6 +39,7 @@ class MigrationCartalystSentryInstallUsers extends Migration {
             $table->timestamp('last_login')->nullable();
             $table->string('persist_code')->nullable();
             $table->string('reset_password_code')->nullable();
+            $table->integer('version')->default(0);
             $table->timestamps();
 
             // We'll need to ensure that MySQL uses the InnoDB engine to
