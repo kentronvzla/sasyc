@@ -13,7 +13,7 @@
 App::before(function($request) {
     DB::beginTransaction();
     DB::connection('oracle')->beginTransaction();
-    DB::disableQueryLog();
+    //DB::disableQueryLog();
     Debugbar::disable();
 });
 

@@ -2,6 +2,8 @@
 
 class ReportesController extends BaseController {
 
+    private $reporte;
+
     private static $columnas_agrupables = [
         ''=>'Seleccione',
         'municipios.estado_id'=>'Estado',
@@ -15,8 +17,8 @@ class ReportesController extends BaseController {
         'especial_mes'=>'Mes',
     ];
 
-    public function __construct() {
-        require_once(app_path('/ayudantes/report/html2pdf.class.php'));
+    public function __construct(\ayudantes\Reporte $reporte) {
+        $this->reporte = $reporte;
         parent::__construct();
     }
    
@@ -24,6 +26,7 @@ class ReportesController extends BaseController {
         $data['columnas_agrupables'] = static::$columnas_agrupables;
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
+        $data['presupuesto'] = new Presupuesto();
         return View::make('reportes.estadisticassolicitud',$data);
     }
 
@@ -34,7 +37,7 @@ class ReportesController extends BaseController {
         $data['cantReportes'] = count(Input::get('group_by_1'));
         for($i=0;$i<$data['cantReportes'];$i++) {
             $data['titulo'][$i] = Input::get('titulo_reporte')[$i];
-            $data['solicitudes'][$i] = Solicitud::aplicarFiltro(Input::except(['group_by_1', 'group_by_2', 'group_by_3','titulo_reporte']));
+            $data['solicitudes'][$i] = Solicitud::aplicarFiltro(Input::except(['group_by_1', 'group_by_2', 'group_by_3','titulo_reporte','formato_reporte']));
             $data['columnas'][$i]  = [];
             $strSelect = '';
             //se aplican los group by
@@ -62,6 +65,7 @@ class ReportesController extends BaseController {
             $data['solicitudes'][$i] = $data['solicitudes'][$i]
                 ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
                 ->get();
+            dd(DB::getQueryLog());
         }
         $pdf = new HTML2PDF('L', 'letter', 'es');
         $pdf->pdf->SetDisplayMode('fullpage');
