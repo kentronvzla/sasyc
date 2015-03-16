@@ -44,6 +44,7 @@
                     <li>{{HTML::link('solicitudes?estatus=EAA&solo_asignadas=true','Mis Solicitudes (Aceptar Asignacion)')}}</li>
                     <li>{{HTML::link('solicitudes?estatus=ACA&solo_asignadas=true','Mis Solicitudes (Solicitar Aprobación)')}}</li>
                     <li class="divider"></li>
+                    <li class="divider"></li>
                     <li><a href="#">Alarmas Pendientes</a></li>
                 </ul>
             </li>
@@ -51,7 +52,10 @@
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Reportes <span
                             class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li>{{HTML::link('reportes/estadisticassolicitud','Estadisitcas de Solicitudes')}}</li>
+                    <li>{{--HTML::link('reportes/general/','Casos Generales')--}}</li>
+                    <li>{{HTML::link('reportes/resueltos/','Casos Resueltos')}}</li>
+                    <li>{{--HTML::link('reportes/pendientes/','Casos Pendientes')--}}</li>
+                    <li>{{HTML::link('reportes/estadisticassolicitud/','Busqueda Agrupada')}}</li>
                 </ul>
             </li>
         </ul>

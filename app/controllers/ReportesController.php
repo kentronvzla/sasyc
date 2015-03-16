@@ -21,7 +21,7 @@ class ReportesController extends BaseController {
         $this->reporte = $reporte;
         parent::__construct();
     }
-
+   
     public function getEstadisticassolicitud(){
         $data['columnas_agrupables'] = static::$columnas_agrupables;
         $data['solicitud'] = new Solicitud();
@@ -65,11 +65,24 @@ class ReportesController extends BaseController {
             $data['solicitudes'][$i] = $data['solicitudes'][$i]
                 ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
                 ->get();
-            dd(DB::getQueryLog());
         }
-        return $this->reporte->generar('reportes.html.estadisticassolicitud', $data);
+        return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
     }
-
-
-
+    
+    
+    public function getResueltos (){
+        $data['columnas_agrupables'] = static::$columnas_agrupables;
+        $data['solicitud'] = new Solicitud();
+        $data['persona'] = new Persona();
+        return View::make('reportes.resueltos',$data);
+        
+    }
+    
+    public function postResueltos(){
+        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::all());
+        $data['solicitudes'] = $data['solicitudes']->get();
+        return $this->reporte->generar('reportes.pdf.resueltos', $data, 'L');
+        
+    }
+    
 }
