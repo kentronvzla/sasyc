@@ -65,19 +65,8 @@ class ReportesController extends BaseController {
             $data['solicitudes'][$i] = $data['solicitudes'][$i]
                 ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
                 ->get();
-            dd(DB::getQueryLog());
         }
-        $pdf = new HTML2PDF('L', 'letter', 'es');
-        $pdf->pdf->SetDisplayMode('fullpage');
-        try {
-            ob_clean();
-            $html = View::make('reportes.pdf.estadisticassolicitud', $data)->render();
-            $pdf->writeHTML($html);
-            $pdf->Output('estadisticassolicitud.pdf');
-        } catch (HTML2PDF_exception $e) {
-            die($e . " :(");
-        }
-        die();
+        return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
     }
     
     
@@ -91,19 +80,8 @@ class ReportesController extends BaseController {
     
     public function postResueltos(){
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::all());
-       
         $data['solicitudes'] = $data['solicitudes']->get();
-        $pdf = new HTML2PDF('L', 'letter', 'es');
-        $pdf->pdf->SetDisplayMode('fullpage');
-        try {
-            ob_clean();
-            $html = View::make('reportes.pdf.resueltos', $data)->render();
-            $pdf->writeHTML($html);
-            $pdf->Output('resueltos.pdf');
-        } catch (HTML2PDF_exception $e) {
-            die($e . " :(");
-        }
-        die();
+        return $this->reporte->generar('reportes.pdf.resueltos', $data, 'L');
         
     }
     
