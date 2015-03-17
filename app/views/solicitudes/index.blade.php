@@ -52,7 +52,6 @@
                     <br>Encargado: <b>{{$solicitud->usuarioAsignacion->nombre or "Sin Asignar"}}</b>                                                 
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3">                   
-                    <br>
                     @if(count($solicitud->presupuestos)>0)
                     <b>Requerimiento: {{$solicitud->presupuestos[0]->requerimiento->nombre or "Sin Asignar"}}</b>
                     <div style="padding-left: 10px;">
