@@ -39,6 +39,7 @@
                     <br>Cedula: <b>{{$solicitud->personaSolicitante->ci}}</b><br>
                     <br>Solicitud: <b>{{$solicitud->num_solicitud}}</b><br>
                     <br>Referido por: <b>{{$solicitud->referente->nombre}}</b><br>
+                    <br>Estatus: <b>{{$solicitud->estatus_display}}</b>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     {{$solicitud->descripcion}} / {{$solicitud->necesidad}}
@@ -50,8 +51,7 @@
                     <br>Departamento: <b>{{$solicitud->departamento->nombre or "Sin Asignar"}}</b>
                     <br>Encargado: <b>{{$solicitud->usuarioAsignacion->nombre or "Sin Asignar"}}</b>                                                 
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    Estatus: <b>{{$solicitud->estatus_display}}</b>
+                <div class="col-xs-12 col-sm-3 col-md-3">                   
                     <br>
                     @if(count($solicitud->presupuestos)>0)
                     <b>Requerimiento: {{$solicitud->presupuestos[0]->requerimiento->nombre or "Sin Asignar"}}</b>
