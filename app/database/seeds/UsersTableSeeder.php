@@ -35,6 +35,13 @@ class UsersTableSeeder extends Seeder {
             'departamento_id'=>1,
             'activated' => true,
         ));
+        
+        Sentry::createUser(array(
+            'email' => 'elandaeta@kentron.com.ve',
+            'nombre' => 'Edgar Landaeta',
+            'password' => '123456',
+            'activated' => true,
+        ));        
     }
 
 }

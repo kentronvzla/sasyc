@@ -16,7 +16,15 @@ class ReportesController extends BaseController {
         'personas.sexo'=>'Sexo',
         'especial_mes'=>'Mes',
     ];
-
+      
+    private static $columnas_orden = [
+        ''=>'Seleccione',
+        'solicitudes.referente_id'=>'Referencia',
+        'presupuestos.beneficiario_id'=>'Beneficiario',
+        'presupuestos.requerimiento_id'=>'Requerimiento',
+        'solicitudes.estatus'=>'Estatus',
+    ];
+    
     public function __construct(\ayudantes\Reporte $reporte) {
         $this->reporte = $reporte;
         parent::__construct();
@@ -72,17 +80,23 @@ class ReportesController extends BaseController {
     
     public function getResueltos (){
         $data['columnas_agrupables'] = static::$columnas_agrupables;
+        //$data['columnas_orden '] = static::$columnas_orden;
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
+	$data['presupuesto'] = new Presupuesto();
         return View::make('reportes.resueltos',$data);
         
     }
     
     public function postResueltos(){
-        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::all());
-        $data['solicitudes'] = $data['solicitudes']->get();
-        return $this->reporte->generar('reportes.pdf.resueltos', $data, 'L');
         
+        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte'));
+        $data['solicitudes'] = $data['solicitudes']
+        //->where('estatus', '=','APR')
+        ->where('estatus', '=','ART')
+        ->orderBy('referencia','ASC')        
+        ->get();
+        return $this->reporte->generar('reportes.html.resueltos', $data, 'L');  
     }
     
 }
