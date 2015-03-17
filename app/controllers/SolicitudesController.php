@@ -229,5 +229,6 @@ class SolicitudesController extends BaseController {
         $data['solicitud'] = Solicitud::findOrFail($id);
         return $this->reporte->generar('solicitudes.imprimirinforme', $data);
     }
+    
     /* -------------------------------------- */
 }

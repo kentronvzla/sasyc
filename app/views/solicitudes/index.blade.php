@@ -52,7 +52,7 @@
                     <br>
                     <br>Estatus: <b>{{$solicitud->estatus_display}}</b>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="col-xs-12 col-sm-3 col-md-3">
                     @foreach($solicitud->presupuestos as $resultado)
                     <b>Requerimiento: {{$resultado->requerimiento->nombre or "Sin Asignar"}}</b>
                     @if($resultado->proceso->ind_beneficiario)
@@ -69,7 +69,7 @@
                     <br>
                     @endforeach
                 </div>                        
-                <div class="col-xs-12 col-sm-1 col-md-1 text-right">
+                <div class="col-xs-12 col-sm-2 col-md-2 text-right">
                     {{HTML::button('solicitudes/ver/'.$solicitud->id, 'search','Ver Solicitud')}}
                     @if($solicitud->puedeModificar())
                     {{HTML::button('solicitudes/modificar/'.$solicitud->id, 'pencil','Modificar Solicitud')}}
@@ -89,6 +89,7 @@
                     @if(isset($solo_asignadas) && $solicitud->puedeSolicitarAprobacion())
                     {{HTML::button('solicitudes/solicitaraprobacion/'.$solicitud->id, 'certificate','Solicitar Aprobación', true)}}
                     @endif
+                    {{HTML::button('solicitudes/ver/'.$solicitud->id, 'bitcoin','Bitacora')}}
                 </div>
             </div>
             @endforeach
