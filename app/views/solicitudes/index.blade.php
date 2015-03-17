@@ -48,26 +48,31 @@
                     <br>Fecha Registro: <b>{{$solicitud->created_at->format('d/m/Y H:i')}}</b>                    
                     <br>Autorizado: <b>{{$solicitud->usuarioAutorizacion->nombre or "Sin Asignar"}}</b>
                     <br>Departamento: <b>{{$solicitud->departamento->nombre or "Sin Asignar"}}</b>
-                    <br>Encargado: <b>{{$solicitud->usuarioAsignacion->nombre or "Sin Asignar"}}</b>                    
-                    <br>
-                    <br>Estatus: <b>{{$solicitud->estatus_display}}</b>
+                    <br>Encargado: <b>{{$solicitud->usuarioAsignacion->nombre or "Sin Asignar"}}</b>                                                 
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3">
-                    @foreach($solicitud->presupuestos as $resultado)
-                    <b>Requerimiento: {{$resultado->requerimiento->nombre or "Sin Asignar"}}</b>
-                    @if($resultado->proceso->ind_beneficiario)
-                    <br>&nbsp;&nbsp;&nbsp;&nbsp;Beneficiario: <b>{{$resultado->beneficiario->nombre or "Sin Asignar"}}</b>
-                    @endif
-                     @if($resultado->proceso->ind_cantidad)
-                    <br>&nbsp;&nbsp;&nbsp;&nbsp;Cantidad: <b>{{$resultado->cantidad or "Sin Asignar"}}</b>
-                    @endif
-                    @if($resultado->proceso->ind_monto)
-                    <br>&nbsp;&nbsp;&nbsp;&nbsp;Monto: <b>{{$resultado->monto or "Sin Asignar"}}</b>
-                    @endif
-                    <br>&nbsp;&nbsp;&nbsp;&nbsp;Estatus: <b>{{$resultado->documento->estatus or "Sin Generar"}}</b>
-                    <br>&nbsp;&nbsp;&nbsp;&nbsp;IdDoc: <b>{{$resultado->documento_id or "Sin Generar"}}</b>
+                    Estatus: <b>{{$solicitud->estatus_display}}</b>
                     <br>
-                    @endforeach
+                    @if(count($solicitud->presupuestos)>0)
+                    <b>Requerimiento: {{$solicitud->presupuestos[0]->requerimiento->nombre or "Sin Asignar"}}</b>
+                    <div style="padding-left: 10px;">
+                        @if($solicitud->presupuestos[0]->proceso->ind_beneficiario)
+                        Beneficiario: <b>{{$solicitud->presupuestos[0]->beneficiario->nombre or "Sin Asignar"}}</b>
+                        @endif
+                        @if($solicitud->presupuestos[0]->proceso->ind_cantidad)
+                        <br>Cantidad: <b>{{$solicitud->presupuestos[0]->cantidad or "Sin Asignar"}}</b>
+                        @endif
+                        @if($solicitud->presupuestos[0]->proceso->ind_monto)
+                        <br>Monto: <b>{{$solicitud->presupuestos[0]->monto or "Sin Asignar"}}</b>
+                        @endif
+                        <br>Estatus: <b>{{$solicitud->presupuestos[0]->documento->estatus or "Sin Generar"}}</b>
+                        <br>IdDoc: <b>{{$solicitud->presupuestos[0]->documento_id or "Sin Generar"}}</b>
+                        <br>
+                        @if(count($solicitud->presupuestos)>1)
+                        {{HTML::button('solicitudes/requerimientos/'.$solicitud->id, 'plus','Ver más', true)}}
+                        @endif
+                    </div>
+                    @endif
                 </div>                        
                 <div class="col-xs-12 col-sm-2 col-md-2 text-right">
                     {{HTML::button('solicitudes/ver/'.$solicitud->id, 'search','Ver Solicitud')}}
@@ -89,7 +94,7 @@
                     @if(isset($solo_asignadas) && $solicitud->puedeSolicitarAprobacion())
                     {{HTML::button('solicitudes/solicitaraprobacion/'.$solicitud->id, 'certificate','Solicitar Aprobación', true)}}
                     @endif
-                    {{HTML::button('solicitudes/ver/'.$solicitud->id, 'bitcoin','Bitacora')}}
+                    {{HTML::button('solicitudes/historial/'.$solicitud->id, 'bitcoin','Bitacora', true)}}
                 </div>
             </div>
             @endforeach

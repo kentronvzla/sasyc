@@ -28,11 +28,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--<div class="row">
-                                    <div class="col-xs-12 col-md-4">
-                                        <button type="button" id="agregar-tabla" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Agregar Otra Tabla</button>
-                                    </div>
-                                </div>-->
                             </div>
                         </div>
                     </div>
