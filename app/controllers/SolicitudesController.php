@@ -18,14 +18,14 @@ class SolicitudesController extends BaseController {
 
     public function getIndex() {
         $data['solicitudes'] = Solicitud::eagerLoad()
-            ->aplicarFiltro(Input::except(['asignar','']))
+            ->aplicarFiltro(Input::except(['asignar','solo_asignadas','']))
             ->ordenar();
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
             $data['solicitud'] = new Solicitud();
             if($data['campo']=='usuario'){
                 $usuario = Usuario::getLogged();
-                $data['solicitudes']->aplicarFiltro(['departamento_id'=>$usuario->departamento_id]);
+                $data['solicitudes']->whereDepartamentoId($usuario->departamento_id);
                 $data['analistas'] = $usuario->getCompaneros();
             }
         } else if(Input::has('anulando')){
