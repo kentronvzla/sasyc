@@ -45,13 +45,14 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
     ];
     public static $estatusArray = [
         'ELA' => 'Elaboración',
-        'ELD' => 'Departamento Asignado',
-        'ART' => 'Articulada',
-        'EAA' => 'Esperando Aceptación del analista',
+        'ART' => 'Articulada',        
+        'ELD' => 'Asignada a Departamento',
+        'EAA' => 'Asignada a Analista',
         'ACA' => 'Aceptada por el analista',
         'PPA' => 'Pendiente por Aprobación',
         //-----------------------------
         'APR' => 'Aprobado',
+        'DEV' => 'Devuelta por Kerux',
         'PEN' => 'Pendiente',
         'ANU'=>'Anulado',
         'CER'=>'Cerrado'

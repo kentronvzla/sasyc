@@ -15,6 +15,7 @@ class CreateConfiguracionTable extends Migration {
             $table->increments('id');
             $table->string("variable", 50);
             $table->string("valor", 100);
+            $table->integer('version')->default(0);
             $table->timestamps();
         });
     }

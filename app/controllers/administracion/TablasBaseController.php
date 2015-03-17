@@ -20,13 +20,13 @@ abstract class TablasBaseController extends \BaseController {
 
     public function getIndex() {
         if (count(static::$eagerLoading) == 0) {
-            $data[$this->getCollectionName()] = $this->executeFunction('all');
+            $data[$this->getCollectionName()] = $this->executeFunction('orderBy', 'id')->get();
         } else {
             $data[$this->getCollectionName()] = $this->executeFunction('with', static::$eagerLoading[0]);
             if (isset(static::$eagerLoading[1])) {
                 $data[$this->getCollectionName()] = $data[$this->getCollectionName()]->with(static::$eagerLoading[1]);
             }
-            $data[$this->getCollectionName()] = $data[$this->getCollectionName()]->get();
+            $data[$this->getCollectionName()] = $data[$this->getCollectionName()]->orderBy('id')->get();
         }
         return \View::make($this->getFolder(), $data);
     }

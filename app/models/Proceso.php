@@ -36,9 +36,9 @@ class Proceso extends BaseModel {
         return [
             'nombre'=>'Proceso',
             'tipo_doc'=>'Tipo de documento',
-            'ind_cantidad'=>'¿Cantidad Obligatoria?',
-            'ind_monto'=>'¿Monto Obligatorio?',
-            'ind_beneficiario'=>'¿Beneficiario Obligatorio?',
+            'ind_cantidad'=>'¿Solicita Cantidad?',
+            'ind_monto'=>'¿Solicita Monto?',
+            'ind_beneficiario'=>'¿Solicita Beneficiario?',
         ];
     }
 

@@ -13,7 +13,7 @@
 {{Form::hidden('ind_beneficiario_menor',$solicitud->ind_beneficiario_menor, ['id'=>'ind_beneficiario_menor'])}}
 {{Form::hidden('ind_mismo_benef',$solicitud->ind_mismo_benef, ['id'=>'ind_mismo_benef'])}}
 <div class="row">
-    {{Form::btInput($solicitud,'descripcion',12)}}
+    {{Form::btInput($solicitud,'descripcion',12,'textarea')}}
 </div>
 <div class="row">
     {{Form::btInput($solicitud,'ind_inmediata',6)}}
@@ -39,9 +39,9 @@
     {{Form::btInput($solicitud,'area_id',6)}}
 </div>
 <div class="row">
-    {{Form::btInput($solicitud,'necesidad')}}
+    {{Form::btInput($solicitud,'necesidad', 12,'textarea')}}
 </div>
 <div class="row">
-    {{Form::btInput($solicitud,'observaciones')}}
+    {{Form::btInput($solicitud,'observaciones', 12,'textarea')}}
 </div>
 @include('templates.bootstrap.submit',['nomostrar'=>true])

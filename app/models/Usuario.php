@@ -65,7 +65,7 @@ class Usuario extends BaseModel implements SimpleTableInterface {
         'email' => 'required|max:100',
         'password' => 'required',
         'nombre' => 'required',
-        'departamento_id' => ''
+        'departamento_id' => 'required'
     );
 
     /**
