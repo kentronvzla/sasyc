@@ -230,5 +230,13 @@ class SolicitudesController extends BaseController {
         return $this->reporte->generar('solicitudes.imprimirinforme', $data);
     }
     
+    public function getHistorial ($id, $store = false){
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        return View::make('solicitudes.historial', $data);
+    }
+    public function getRequerimientos($id, $store = false){
+        $data['solicitud'] = Solicitud::findOrFail($id);
+        return View::make('solicitudes.verrequerimientos', $data);
+    }
     /* -------------------------------------- */
 }

@@ -1,5 +1,5 @@
 <div class="row">
-    {{Form::display($solicitud,'id',6)}}
+    {{Form::display($solicitud,'num_solicitud',6)}}
     {{Form::display($solicitud,'estatus_display',6)}}
 </div>
 <div class="row">
