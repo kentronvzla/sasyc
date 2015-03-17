@@ -79,8 +79,8 @@ class ReportesController extends BaseController {
     
     
     public function getResueltos (){
-        $data['columnas_agrupables'] = static::$columnas_agrupables;
-        //$data['columnas_orden '] = static::$columnas_orden;
+        //$data['columnas_agrupables'] = static::$columnas_agrupables;
+        $data['columnas_orden'] = static::$columnas_orden;
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
 	$data['presupuesto'] = new Presupuesto();
