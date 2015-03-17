@@ -19,7 +19,7 @@ class CreateDepartamentosTable extends Migration {
         });
 
         Schema::table('users', function(Blueprint $table) {
-            $table->integer('departamento_id', false, true)->nullable();
+            $table->integer('departamento_id', false, true);
         });
     }
 

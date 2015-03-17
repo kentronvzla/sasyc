@@ -18,7 +18,7 @@ class SolicitudesController extends BaseController {
 
     public function getIndex() {
         $data['solicitudes'] = Solicitud::eagerLoad()
-            ->aplicarFiltro(Input::all())
+            ->aplicarFiltro(Input::except(['asignar','']))
             ->ordenar();
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');

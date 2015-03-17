@@ -12,9 +12,14 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
 
     protected $buscando = false;
 
+    public function open(array $options = array()){
+        $this->buscando = false;
+        return parent::open($options);
+    }
+
     public function busqueda($params){
         $this->buscando = true;
-        return $this->open($params);
+        return parent::open($params);
     }
 
     public function multiselect($obj, $relation, $numCols = 12){

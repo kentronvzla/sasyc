@@ -8,6 +8,7 @@ class UsersTableSeeder extends Seeder {
             'email' => 'nyamaui@kentron.com.ve',
             'nombre' => 'Nadin Yamaui',
             'password' => '123456',
+            'departamento_id'=>1,
             'activated' => true,
         ));
 
@@ -15,6 +16,7 @@ class UsersTableSeeder extends Seeder {
             'email' => 'rarrieta@kentron.com.ve',
             'nombre' => 'Richard Arrieta',
             'password' => '123456',
+            'departamento_id'=>1,
             'activated' => true,
         ));
 
@@ -22,6 +24,7 @@ class UsersTableSeeder extends Seeder {
             'email' => 'rurbina@kentron.com.ve',
             'nombre' => 'Roberto Urbina',
             'password' => '123456',
+            'departamento_id'=>1,
             'activated' => true,
         ));
         
@@ -29,6 +32,7 @@ class UsersTableSeeder extends Seeder {
             'email' => 'mmelicio@kentron.com.ve',
             'nombre' => 'Marvic Melicio',
             'password' => '123456',
+            'departamento_id'=>1,
             'activated' => true,
         ));
     }
