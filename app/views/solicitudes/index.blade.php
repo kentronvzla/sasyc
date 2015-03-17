@@ -30,7 +30,7 @@
             <div class="row filaLista marcar-solicitud">
                 {{Form::hidden('solicitudes[]', $solicitud->id)}}
                 <div class="col-xs-12 col-sm-3 col-md-3">
-                    <b>({{$solicitud->id}}) {{$solicitud->personaBeneficiario->nombre_completo}}</b>
+                    <b>{{$solicitud->personaBeneficiario->nombre_completo}}</b>
                     <br><a href="#" data-toggle="tooltip" data-original-title="{{$solicitud->personaBeneficiario->informacion_contacto}}">(Información de contacto)</a>
                     @unless($solicitud->ind_mismo_benef)
                     <br>Solicitante: {{$solicitud->personaSolicitante->nombre_completo}}
