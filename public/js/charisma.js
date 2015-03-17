@@ -30,6 +30,12 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
+    $('.autocompletado').each(function(){
+        var url = $(this).data('url');
+        $(this).typeahead({
+            ajax: baseUrl+url
+        });
+    });
     guardarAyudasNavegador();
     var msie = navigator.userAgent.match(/msie/i);
     $.browser = {};

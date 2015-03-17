@@ -121,7 +121,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
      * @var array
      */
     protected $fillable = [
-        'descripcion', 'persona_beneficiario_id', 'persona_solicitante_id',
+        'descripcion', 'persona_beneficiario_id', 'persona_solicitante_id','referente_externo',
         'area_id', 'referente_id', 'recepcion_id', 'organismo_id',
         'ind_mismo_benef', 'ind_inmediata', 'actividad', 'referencia',
         'accion_tomada', 'necesidad', 'tipo_proc', 'num_proc', 'facturas',
@@ -143,6 +143,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'persona_beneficiario_id' => 'integer',
         'persona_solicitante_id' => 'integer',
         'area_id' => 'required|integer',
+        'referente_externo' => 'required|max:100',
         'referente_id' => 'required|integer',
         'recepcion_id' => 'required|integer',
         'organismo_id' => 'required|integer',
@@ -186,6 +187,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'persona_solicitante_id' => 'Solicitante',
             'area_id' => 'Área',
             'referente_id' => 'Referido por',
+            'referente_externo' => 'Referente Externo',
             'recepcion_id' => 'Recepción',
             'organismo_id' => 'Procesado por',
             'ind_mismo_benef' => '¿Solicitante es el mismo Beneficiario?',

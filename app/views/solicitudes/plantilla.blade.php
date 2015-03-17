@@ -184,8 +184,7 @@
                     </div>
                     <div id="PanelBitacora" class="panel-collapse collapse">
                         <div class="panel-body">
-                           
-                            {{HTML::simpleTable($solicitud->bitacoras, 'Bitacora')}}
+                            @include('solicitudes.bitacora')
                         </div>
                     </div>
                 </div>

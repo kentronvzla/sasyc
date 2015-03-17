@@ -44,6 +44,7 @@ Route::group(['before'=>'auth'], function(){
     Route::controller('fotossolicitud', 'FotosSolicitudController');
     Route::controller('memorandum', 'MemosController');
     Route::controller('reportes', 'ReportesController');
+    Route::controller('autocompletar', 'AutocompletarController');
 });
 
 Route::controller('login','LoginController');
