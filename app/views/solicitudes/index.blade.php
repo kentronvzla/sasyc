@@ -34,9 +34,9 @@
                             <br><a href="#" data-toggle="tooltip" data-original-title="{{$solicitud->personaBeneficiario->informacion_contacto}}">(Información de contacto)</a>
                             @unless($solicitud->ind_mismo_benef)
                                 <br>Solicitante: {{$solicitud->personaSolicitante->nombre_completo}}
+                                <br>Cédula: <b>{{$solicitud->personaSolicitante->ci}}</b><br>
                                 <br><a href="#" data-toggle="tooltip" data-original-title="{{$solicitud->personaSolicitante->informacion_contacto}}">(Información de contacto)</a>
                             @endunless
-                            <br>Cedula: <b>{{$solicitud->personaSolicitante->ci}}</b><br>
                             <br>Solicitud: <b>{{$solicitud->num_solicitud}}</b><br>
                             <br>Referido por: <b>{{$solicitud->referente->nombre}}</b><br>
                             <br>Estatus: <b>{{$solicitud->estatus_display}}</b>
