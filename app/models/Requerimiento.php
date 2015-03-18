@@ -69,6 +69,7 @@ class Requerimiento extends BaseModel {
             'cod_cta' => 'Cuenta',
             'tipo_requerimiento_id' => 'Tipo de requerimiento',
             'tipo_ayuda_id' => 'Tipo de ayuda',
+            'procesos'=>'Procesos Aplicables',
         ];
     }
 
@@ -92,6 +93,9 @@ class Requerimiento extends BaseModel {
         return $this->belongsTo('TipoAyuda');
     }
 
+    public function procesos(){
+        return $this->belongsToMany('Proceso')->withTimestamps();
+    }
     public function getTableFields() {
         return [
             'nombre', 'tipoRequerimiento->nombre', 'tipoAyuda->nombre'

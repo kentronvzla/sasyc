@@ -10,4 +10,8 @@ namespace Administracion\Tablas;
 class RequerimientosController extends \Administracion\TablasBaseController {
 
     protected static $eagerLoading = ['tipoAyuda', 'tipoRequerimiento'];
+
+    public function afterPostIndex($variable){
+        $variable->procesos()->sync(\Input::get('procesos', []));
+    }
 }
