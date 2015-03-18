@@ -110,7 +110,7 @@
         @endif
         <hr width="100%">
         @if($solicitud->presupuestos->count()>0)
-            {{HTML::simpleTable($solicitud->presupuestos, 'Oracle\Presupuesto')}}
+            {{HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')}}
         @else
             <p> <strong>No existe presupuesto asociado a esta solicitud</strong> </p>
         @endif
