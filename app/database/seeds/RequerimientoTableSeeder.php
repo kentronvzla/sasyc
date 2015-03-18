@@ -80,7 +80,7 @@ class RequerimientoTableSeeder extends Seeder {
             'tipo_ayuda_id' => '1'));
         Requerimiento::create(array('nombre' => 'Block de raya, tamaño carta',
             'cod_item' => '000003-3',
-            'cod_item' => '401070600',
+            'cod_cta' => '401070600',
             'tipo_requerimiento_id' => '2',
             'descripcion' => 'Block',
             'tipo_ayuda_id' => '2'));

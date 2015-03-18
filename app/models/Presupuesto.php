@@ -110,16 +110,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
 
     public function savingModel($model){
         if($this->puedeModificarEliminar()){
-            //Se preparan los datos para guardarlos en oracle
-            //Esto se hace para las validaciones de monto, cantidad y beneficiario, el required_if. NO QUITAR
-
-            $this->ccosto = \Configuracion::get('ccosto');
-            $this->cod_acc_int = $this->solicitud->area->tipoAyuda->cod_acc_int;
-            $this->cod_cta = $this->requerimiento->cod_cta;
-            $this->cod_item = $this->requerimiento->cod_item;
-            $this->desc_requerimiento = $this->requerimiento->nombre;
             $this->moneda = \Configuracion::get('moneda_presupuesto');
-            $this->tipo_reng = 'HOLA';//$this->requerimiento->tipoRequerimiento->nombre;
             return parent::savingModel($model);
         }
         $this->addError('estatus','No se puede modificar/crear el presupuesto. La solicitud no esta en el estatus correcto');

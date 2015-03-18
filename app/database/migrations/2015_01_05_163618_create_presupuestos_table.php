@@ -17,14 +17,8 @@ class CreatePresupuestosTable extends Migration {
             $table->integer('requerimiento_id', false, true);
             $table->integer('proceso_id', false, true);
             //esto es para kerux
-            $table->string('ccosto', 10)->nullable();//configuracion
-            $table->string('cod_acc_int', 7)->nullable();//Tipo de ayuda
-            $table->string('cod_cta', 14)->nullable();//Requerimiento
-            $table->string('cod_item', 10)->nullable();//Requerimiento
-            $table->string('desc_requerimiento', 500)->nullable();//Nombre del requerimiento
             $table->integer('documento_id')->length(14)->nullable();//Lo pone kerux.
             $table->string('moneda', 3)->nullable();//Configuracion
-            $table->string('tipo_reng', 4)->nullable();//Requirimiento->TipoRequerimiento
             $table->integer('beneficiario_id', false, true)->length(14)->nullable();//Lo selecciona el usuario
             //fin de kerux
 

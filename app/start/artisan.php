@@ -13,3 +13,4 @@
 Artisan::add(new GenerarModelos());
 Artisan::add(new GenerarControladores());
 Artisan::add(new GenerarVistas());
+Artisan::add(new MigrarSasyc());

@@ -60,6 +60,26 @@ return array(
             'charset' => 'AL32UTF8',
             'prefix' => '',
         ),
+        'sasyc_viejo' => array(
+            'driver' => 'oracle',
+            'host' => 'appweb',
+            'port' => '1521',
+            'database' => 'prueba',
+            'username' => 'sasyc',
+            'password' => 'sasyc',
+            'charset' => 'AL32UTF8',
+            'prefix' => '',
+        ),
+        'migracion_sasyc' => array(
+            'driver' => 'pgsql',
+            'host' => 'appwebdesa.kentron.com.ve',
+            'database' => 'sasyc_migracion',
+            'username' => 'sasyc',
+            'password' => 'sasyc',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+        ),
     ),
     /*
       |--------------------------------------------------------------------------

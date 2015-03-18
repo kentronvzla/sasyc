@@ -40,6 +40,7 @@ class UsersTableSeeder extends Seeder {
             'email' => 'elandaeta@kentron.com.ve',
             'nombre' => 'Edgar Landaeta',
             'password' => '123456',
+            'departamento_id'=>1,
             'activated' => true,
         ));        
     }

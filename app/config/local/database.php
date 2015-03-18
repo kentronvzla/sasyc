@@ -17,16 +17,6 @@ return array(
      */
 
     'connections' => array(
-        'mysql' => array(
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'database' => 'sistemamedico',
-            'username' => 'nadinisis',
-            'password' => 'SistemaMedico2014',
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => '',
-        ),
         'pgsql' => array(
             'driver' => 'pgsql',
             'host' => 'appwebdesa.kentron.com.ve',

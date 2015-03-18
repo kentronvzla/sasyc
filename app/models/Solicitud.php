@@ -32,7 +32,6 @@
  * @property string $estatus
  * @property integer $usuario_asignacion_id
  * @property integer $usuario_autorizacion_id
- * @property \Carbon\Carbon $fecha_solicitud
  * @property \Carbon\Carbon $fecha_asignacion
  * @property \Carbon\Carbon $fecha_aceptacion
  * @property \Carbon\Carbon $fecha_aprobacion
@@ -126,7 +125,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'ind_mismo_benef', 'ind_inmediata', 'actividad', 'referencia',
         'accion_tomada', 'necesidad', 'tipo_proc', 'num_proc', 'facturas',
         'observaciones', 'moneda', 'estatus', 'usuario_asignacion_id',
-        'usuario_autorizacion_id', 'fecha_solicitud', 'fecha_asignacion',
+        'usuario_autorizacion_id', 'fecha_asignacion',
         'fecha_aceptacion', 'fecha_aprobacion', 'fecha_cierre', 'ind_beneficiario_menor',
         'tipo_vivienda_id', 'tenencia_id', 'informe_social', 'total_ingresos',
     ];
@@ -162,7 +161,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'estatus' => 'required',
         'usuario_asignacion_id' => 'integer',
         'usuario_autorizacion_id' => 'integer',
-        'fecha_solicitud' => 'required',
         'fecha_asignacion' => '',
         'fecha_aceptacion' => '',
         'fecha_aprobacion' => '',
@@ -172,7 +170,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'informe_social' => '',
         'total_ingresos' => '',
     ];
-    protected $dates = ['fecha_solicitud', 'fecha_asignacion', 'fecha_aceptacion',
+    protected $dates = ['fecha_asignacion', 'fecha_aceptacion',
         'fecha_aprobacion', 'fecha_cierre','created_at'];
     public static $tipo_procesamientos = [
         'P' => 'Punto de Cuenta',
@@ -207,7 +205,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'estatus_display' => 'Estatus',
             'usuario_asignacion_id' => 'Analista',
             'usuario_autorizacion_id' => 'Autorizado por',
-            'fecha_solicitud' => 'Fecha de solicitud',
             'fecha_asignacion' => 'Fecha de asignación',
             'fecha_aceptacion' => 'Fecha de aceptación',
             'fecha_aprobacion' => 'Fecha de aprobación',
@@ -380,7 +377,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $numero = $this->calcularNumSolicitud();
         $numero = Carbon::now()->format('y').'-'.$this->formatoNumSolicitud($numero);
         return [
-            'fecha_solicitud' => Carbon::now(),
             'estatus' => 'ELA',
             'ind_mismo_benef' => false,
             'moneda' => 'VEF',
@@ -427,7 +423,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return [
             'num_solicitud',
             'descripcion',
-            'fecha_solicitud',
+            'created_at',
             'estatus'
         ];
     }
