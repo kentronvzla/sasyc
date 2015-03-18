@@ -21,6 +21,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
      */
     protected $rules = [];
     protected $manejaConcurrencia;
+    protected $validarModelo = true;
     protected $displayTable = [];
     protected static $array_meses = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
     /**
@@ -158,7 +159,9 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
             $default = $model->getDefaultValues();
             $model->attributes = array_merge($default, $this->attributes);
         }
-        return $this->validate($model);
+        if($this->validarModelo){
+            return $this->validate($model);
+        }
     }
 
     /**
@@ -481,6 +484,14 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
 
     public function getEstatusDisplayAttribute() {
         return static::$estatusArray[$this->estatus];
+    }
+
+    public function desabilitarConcurrencia(){
+        $this->manejaConcurrencia = false;
+    }
+
+    public function desabilitarValidaciones(){
+        $this->validarModelo = false;
     }
 
     public abstract function getPrettyName();
