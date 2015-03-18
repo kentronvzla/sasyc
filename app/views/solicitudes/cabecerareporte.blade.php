@@ -13,7 +13,7 @@
                     </td>
                     <td width=150 ALIGN=CENTER style=' font-size: 14px;'>
                         <strong>Fecha de la solicitud: </strong>
-                        {{$solicitud->fecha_solicitud->format('d/m/Y')}}
+                        {{$solicitud->created_at->format('d/m/Y')}}
                         <br>
                         <strong>Estatus:</strong>&nbsp;
                         {{$solicitud->estatus_display or ""}}

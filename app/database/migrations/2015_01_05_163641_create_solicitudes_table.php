@@ -35,7 +35,6 @@ class CreateSolicitudesTable extends Migration {
             $table->string('estatus', 3);
             $table->integer('usuario_asignacion_id', false, true)->nullable();
             $table->integer('usuario_autorizacion_id', false, true)->nullable();
-            $table->date('fecha_solicitud');
             $table->date('fecha_asignacion')->nullable();
             $table->date('fecha_aceptacion')->nullable();
             $table->date('fecha_aprobacion')->nullable();
