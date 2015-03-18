@@ -104,10 +104,10 @@ class CreateForeigTables extends Migration {
             $table->foreign('organismo_id')->references('id')->on('organismos');
  
             $table->index('usuario_asignacion_id');
-            $table->foreign('usuario_asignacion_id')->references('id')->on('personas');
+            $table->foreign('usuario_asignacion_id')->references('id')->on('users');
             
             $table->index('usuario_autorizacion_id');
-            $table->foreign('usuario_autorizacion_id')->references('id')->on('personas');
+            $table->foreign('usuario_autorizacion_id')->references('id')->on('users');
         });
         
         Schema::table('fotos_solicitud', function(Blueprint $table) {
