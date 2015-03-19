@@ -45,7 +45,8 @@ class ReportesController extends BaseController {
         $data['cantReportes'] = count(Input::get('group_by_1'));
         for($i=0;$i<$data['cantReportes'];$i++) {
             $data['titulo'][$i] = Input::get('titulo_reporte')[$i];
-            $data['solicitudes'][$i] = Solicitud::aplicarFiltro(Input::except(['group_by_1', 'group_by_2', 'group_by_3','titulo_reporte','formato_reporte']));
+          
+           $data['solicitudes'][$i] = Solicitud::aplicarFiltro(Input::except(['group_by_1', 'group_by_2', 'group_by_3','titulo_reporte','formato_reporte']));
             $data['columnas'][$i]  = [];
             $strSelect = '';
             //se aplican los group by
@@ -79,7 +80,6 @@ class ReportesController extends BaseController {
     
     
     public function getResueltos (){
-        //$data['columnas_agrupables'] = static::$columnas_agrupables;
         $data['columnas_orden'] = static::$columnas_orden;
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
@@ -89,14 +89,34 @@ class ReportesController extends BaseController {
     }
     
     public function postResueltos(){
-        
-        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte'));
+        $columna ='referente_externo';
+        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte','order_by'));
         $data['solicitudes'] = $data['solicitudes']
-        //->where('estatus', '=','APR')
-        ->where('estatus', '=','ART')
-        ->orderBy('referencia','ASC')        
+        ->where('estatus', '=','ELA')
+        ->orwhere('estatus', '=','ART')
+        //como hago que llegue del combo a la variable        
+        ->orderBy($columna,'ASC')         
         ->get();
         return $this->reporte->generar('reportes.html.resueltos', $data, 'L');  
     }
+    
+     /*public function getPendientes (){
+        $data['columnas_orden'] = static::$columnas_orden;
+        $data['solicitud'] = new Solicitud();
+        $data['persona'] = new Persona();
+	$data['presupuesto'] = new Presupuesto();
+        return View::make('reportes.pendientes',$data);
+        
+    }
+    
+    public function postPendientes(){
+        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte'));
+        $data['solicitudes'] = $data['solicitudes']
+        ->where('estatus', '=','ELA')
+        //quiero volver una variable lo que va dentro del order by       
+        ->orderBy('referente_externo','ASC')       
+        ->get();
+        return $this->reporte->generar('reportes.html.pendientes', $data, 'L');  
+    }*/
     
 }

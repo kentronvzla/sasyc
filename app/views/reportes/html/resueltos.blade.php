@@ -1,6 +1,6 @@
 @extends('reportes.html.'.Input::get('formato_reporte','pdf'))
 @section('reporte')
-    <h4 ALIGN=CENTER >  Relación de Casos Resueltos</h4>
+    <h4 ALIGN=CENTER >Relación de Casos Resueltos</h4>
     <table border="0" cellpadding="5" cellspacing="3">
         <tr style=' background:#d8d8d8;'>
             <td style="width: 150px;height:auto; font-size: 13px;"  valign="middle">
@@ -10,7 +10,7 @@
                 <strong>Fecha</strong>
             </td>
             <td style="width: 80px;height: auto; font-size: 13px;" ALIGN=CENTER  valign="middle">
-                <strong>Solicitud</strong>
+                <strong># Caso</strong>
             </td> 
             <td style="width: 200px;height: auto; font-size: 13px;"  valign="middle">
                 <strong>Beneficiario</strong>
@@ -28,7 +28,7 @@
         @foreach($solicitudes as $resultado)
             <tr>
                 <td style="width: 150px;height:auto;">
-                    {{$resultado->referente->nombre}}
+                    {{$resultado->referente_externo}}
                 </td>
                 <td ALIGN=CENTER style="width: 80px;height:auto;">
                     {{$resultado->created_at->format('d/m/Y')}}
@@ -47,13 +47,13 @@
                     
                 </td>
                 <td ALIGN=right style="width: 150px;height:auto;">
-                   
+                   {{--$resultado->presupuestos->monto--}}
                 </td>
             </tr>
         @endforeach    
-        <tr style=' background: yellow;'>
+        <tr style=' background: lightcyan;'>
             <td style="width: 150px;height:auto; font-size: 13px;"  valign="middle">
-                <strong>Total</strong>
+                <strong>Total General</strong>
             </td> 
             <td style="width: 50px;height: auto; font-size: 13px;" ALIGN=CENTER  valign="middle">
                 
