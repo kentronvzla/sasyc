@@ -452,6 +452,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             ->leftJoin('parroquias','personas.parroquia_id','=','parroquias.id')
             ->leftJoin('municipios','parroquias.municipio_id','=','municipios.id')
             ->leftJoin('presupuestos','presupuestos.solicitud_id','=','solicitudes.id')
+            ->leftJoin('referentes','solicitudes.referente_id','=','referentes.id')    
             ->distinct()
             ->select('solicitudes.*');
 
@@ -482,6 +483,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 $campo = str_replace('personas_','personas.',$campo);
                 $campo = str_replace('solicitudes_','solicitudes.',$campo);
                 $campo = str_replace('presupuestos_','presupuestos.',$campo);
+                $campo = str_replace('referentes_','referentes.',$campo);
                 $query = $this->parseFilter($campo, $valor, $query);
             }
         }
