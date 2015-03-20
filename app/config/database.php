@@ -62,9 +62,9 @@ return array(
         ),
         'sasyc_viejo' => array(
             'driver' => 'oracle',
-            'host' => 'appweb',
+            'host' => 'localhost',
             'port' => '1521',
-            'database' => 'prueba',
+            'database' => 'xe',
             'username' => 'sasyc',
             'password' => 'sasyc',
             'charset' => 'AL32UTF8',
