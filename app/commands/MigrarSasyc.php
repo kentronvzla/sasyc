@@ -33,6 +33,7 @@ class MigrarSasyc extends Command {
      * @return mixed
      */
     public function fire() {
+        ini_set('max_execution_time',999999999);
         $this->resetearBD();
         DB::setDefaultConnection('migracion_sasyc');
         //Se inicia sesion, es requerido en algunos eventos..
@@ -41,7 +42,7 @@ class MigrarSasyc extends Command {
         $this->cargarTablaParentescos('personas_sasyc');
         $this->cargarTablaParentescos('personas_familia');
         $this->migrarPersonas();
-        $this->migrarFamiliares();
+        /*$this->migrarFamiliares();
         $this->migrarRequerimientos();
         $this->migrarAreas();
         $this->migrarRecaudos();
@@ -50,7 +51,7 @@ class MigrarSasyc extends Command {
         $this->migrarInformeSocioEconomico();
         $this->migrarBitacora();
         $this->migrarRecaudosSolicitud();
-        $this->migrarPresupuestos();
+        $this->migrarPresupuestos();*/
     }
 
     private function resetearBD(){
@@ -80,7 +81,11 @@ class MigrarSasyc extends Command {
             $existe = NivelAcademico::where('nombre','ILIKE',$nivel->nivelinstruccion)->count();
             if($existe==0){
                 $this->info("Creando ".$nivel->nivelinstruccion);
-                NivelAcademico::create(['nombre'=>$nivel->nivelinstruccion,'orden'=>$key]);
+                $nivelNuevo = new NivelAcademico();
+                $nivelNuevo->desabilitarValidaciones();
+                $nivelNuevo->nombre = $nivel->nivelinstruccion;
+                $nivelNuevo->orden = $key;
+                $nivelNuevo->save();
             }
         }
     }
@@ -110,129 +115,136 @@ class MigrarSasyc extends Command {
         $nacionalidades = [
             'E'=>2,
             'V'=>1,
+            ''=>1,
         ];
         $this->info("Migrando personas");
-        $personas = DB::connection('sasyc_viejo')->table('personas_sasyc')->get();
-        foreach($personas as $persona){
-            $personaNueva = new Persona();
-            //Esto es importante, como estamos forzando el id la concurrencia da error....
-            $personaNueva->desabilitarConcurrencia();
-            $personaNueva->desabilitarValidaciones();
-            $personaNueva->id = $persona->idpersona;
-            $personaNueva->nombre = $persona->nombre;
-            $personaNueva->apellido = $persona->apellido;
-            $personaNueva->tipo_nacionalidad_id = $nacionalidades[$persona->nacionalidad];
-            $personaNueva->ci = $persona->ci;
-            $personaNueva->sexo = $persona->sexo;
-            $personaNueva->estado_civil_id = $arrEstadoCivil[$persona->estadocivil];
-            $personaNueva->lugar_nacimiento = $persona->lugarnacimiento;
-            if($persona->fecnacimiento!=''){
-                $carbon = new Carbon($persona->fecnacimiento);
-                $personaNueva->fecha_nacimiento = $carbon->format('d/m/Y');
+        $this->getTable('personas_sasyc')->chunk(1000, function($personas) use ($nacionalidades, $arrEstadoCivil){
+            foreach($personas as $persona){
+                $personaNueva = new Persona();
+                //Esto es importante, como estamos forzando el id la concurrencia da error....
+                $personaNueva->desabilitarConcurrencia();
+                $personaNueva->desabilitarValidaciones();
+                $personaNueva->id = $persona->idpersona;
+                $personaNueva->nombre = $persona->nombre;
+                $personaNueva->apellido = $persona->apellido;
+                $personaNueva->tipo_nacionalidad_id = $nacionalidades[$persona->nacionalidad];
+                $personaNueva->ci = $persona->ci;
+                $personaNueva->sexo = $persona->sexo;
+                $personaNueva->estado_civil_id = $arrEstadoCivil[$persona->estadocivil];
+                $personaNueva->lugar_nacimiento = $persona->lugarnacimiento;
+                if($persona->fecnacimiento!=''){
+                    $carbon = new Carbon($persona->fecnacimiento);
+                    $personaNueva->fecha_nacimiento = $carbon->format('d/m/Y');
+                }
+                $personaNueva->nivelAcademico()->associate(NivelAcademico::where('nombre','ILIKE',$persona->nivelinstruccion)->first());
+                $personaNueva->zona_sector = $persona->zonasector;
+                $personaNueva->calle_avenida = $persona->calleavenida;
+                $personaNueva->apto_casa = $persona->aptocasa;
+                $personaNueva->telefono_fijo = $persona->telefono;
+                $personaNueva->telefono_celular = $persona->celular;
+                $personaNueva->telefono_otro = $persona->telefotros;
+                $personaNueva->ind_trabaja = $persona->trabaja == 'S';
+                $personaNueva->ocupacion = $persona->ocupacion;
+                $personaNueva->ingreso_mensual = $persona->ingresomensual;
+                $personaNueva->observaciones = $persona->observaciones;
+                $personaNueva->ind_asegurado = $persona->asegurado == 'S';
+                $personaNueva->empresa_seguro = $persona->empresaseguro;
+                $personaNueva->cobertura = $persona->cobertura;
+                $personaNueva->otro_apoyo = $persona->otroapoyo;
+                $personaNueva->save();
+                $this->info("Persona ".$persona->ci." se migro correctamente");
             }
-            $personaNueva->nivelAcademico()->associate(NivelAcademico::where('nombre','ILIKE',$persona->nivelinstruccion)->first());
-            $personaNueva->zona_sector = $persona->zonasector;
-            $personaNueva->calle_avenida = $persona->calleavenida;
-            $personaNueva->apto_casa = $persona->aptocasa;
-            $personaNueva->telefono_fijo = $persona->telefono;
-            $personaNueva->telefono_celular = $persona->celular;
-            $personaNueva->telefono_otro = $persona->telefotros;
-            $personaNueva->ind_trabaja = $persona->trabaja == 'S';
-            $personaNueva->ocupacion = $persona->ocupacion;
-            $personaNueva->ingreso_mensual = $persona->ingresomensual;
-            $personaNueva->observaciones = $persona->observaciones;
-            $personaNueva->ind_asegurado = $persona->asegurado == 'S';
-            $personaNueva->empresa_seguro = $persona->empresaseguro;
-            $personaNueva->cobertura = $persona->cobertura;
-            $personaNueva->otro_apoyo = $persona->otroapoyo;
-            $personaNueva->save();
-            $this->info("Persona ".$persona->ci." se migro correctamente");
-        }
+        });
     }
 
     private function migrarFamiliares(){
         $this->info("Migrando familiares");
-        $parientes = DB::connection('sasyc_viejo')->table('personas_familia')->get();
-        foreach($parientes as $pariente){
-            $this->info("Migrando ".$pariente->idbeneficiario.'->'.$pariente->idfamiliar);
-            $parentesco = Parentesco::where('nombre','ILIKE',$pariente->parentesco)->first();
-            $insert = [
-                'persona_beneficiario_id'=>$pariente->idbeneficiario,
-                'persona_familia_id'=>$pariente->idfamiliar,
-                'parentesco_id'=>$parentesco->id,
-                'created_at'=> new Carbon(),
-                'updated_at'=>new Carbon(),
-            ];
-            DB::table('familia_persona')->insert($insert);
-        }
+        $this->getTable('personas_familia')->chunk(1000, function($parientes){
+            foreach($parientes as $pariente){
+                $this->info("Migrando ".$pariente->idbeneficiario.'->'.$pariente->idfamiliar);
+                $parentesco = Parentesco::where('nombre','ILIKE',$pariente->parentesco)->first();
+                $insert = [
+                    'persona_beneficiario_id'=>$pariente->idbeneficiario,
+                    'persona_familia_id'=>$pariente->idfamiliar,
+                    'parentesco_id'=>$parentesco->id,
+                    'created_at'=> new Carbon(),
+                    'updated_at'=>new Carbon(),
+                ];
+                DB::table('familia_persona')->insert($insert);
+            }
+        });
     }
 
     private function migrarRequerimientos(){
         $this->info("Migrando requerimientos");
-        $requerimientos = DB::connection('sasyc_viejo')->table('requerimientos')->get();
-        foreach($requerimientos as $requerimiento){
-            $this->info("Migrando requerimiento: ".$requerimiento->codrequerimiento);
-            $requerimientoNuevo = new Requerimiento();
-            $requerimientoNuevo->desabilitarValidaciones();
-            $requerimientoNuevo->desabilitarConcurrencia();
-            $requerimientoNuevo->id = $requerimiento->codrequerimiento;
-            $requerimientoNuevo->nombre = $requerimiento->nombrequerimiento;
-            $requerimientoNuevo->cod_item = $requerimiento->coditem;
-            $requerimientoNuevo->cod_cta = $requerimiento->codcta;
-            $requerimientoNuevo->descripcion = $requerimiento->descrequerimiento;
-            $requerimientoNuevo->tipo_requerimiento_id = $requerimiento->tipo=='M' ? 2:1;
-            $requerimientoNuevo->tipo_ayuda_id = $requerimiento->codplancaso =='MED' ? 1:2;
-            $requerimientoNuevo->save();
-            $this->info("Requerimiento ".$requerimientoNuevo->nombre.' migrado');
-        }
+        $this->getTable('requerimientos')->chunk(1000, function($requerimientos){
+            foreach($requerimientos as $requerimiento){
+                $this->info("Migrando requerimiento: ".$requerimiento->codrequerimiento);
+                $requerimientoNuevo = new Requerimiento();
+                $requerimientoNuevo->desabilitarValidaciones();
+                $requerimientoNuevo->desabilitarConcurrencia();
+                $requerimientoNuevo->id = $requerimiento->codrequerimiento;
+                $requerimientoNuevo->nombre = $requerimiento->nombrequerimiento;
+                $requerimientoNuevo->cod_item = $requerimiento->coditem;
+                $requerimientoNuevo->cod_cta = $requerimiento->codcta;
+                $requerimientoNuevo->descripcion = $requerimiento->descrequerimiento;
+                $requerimientoNuevo->tipo_requerimiento_id = $requerimiento->tipo=='M' ? 2:1;
+                $requerimientoNuevo->tipo_ayuda_id = $requerimiento->codplancaso =='MED' ? 1:2;
+                $requerimientoNuevo->save();
+                $this->info("Requerimiento ".$requerimientoNuevo->nombre.' migrado');
+            }
+        });
     }
 
     private function migrarAreas(){
         $this->info("Migrando areas");
-        $areas = DB::connection('sasyc_viejo')->table('especialidad')->get();
-        foreach($areas as $area){
-            $this->info("Migrando area: ".$area->codespecialidad);
-            $areaNueva = new Area();
-            $areaNueva->desabilitarConcurrencia();
-            $areaNueva->desabilitarValidaciones();
-            $areaNueva->id = $area->codespecialidad;
-            $areaNueva->nombre = $area->nombespecialidad;
-            $areaNueva->descripcion = $area->descespecialidad;
-            $areaNueva->tipo_ayuda_id = 1;
-            $areaNueva->save();
-        }
+        $this->getTable('especialidad')->chunk(1000, function($areas){
+            foreach($areas as $area){
+                $this->info("Migrando area: ".$area->codespecialidad);
+                $areaNueva = new Area();
+                $areaNueva->desabilitarConcurrencia();
+                $areaNueva->desabilitarValidaciones();
+                $areaNueva->id = $area->codespecialidad;
+                $areaNueva->nombre = $area->nombespecialidad;
+                $areaNueva->descripcion = $area->descespecialidad;
+                $areaNueva->tipo_ayuda_id = 1;
+                $areaNueva->save();
+            }
+        });
     }
 
     private function migrarRecaudos(){
         $this->info("Migrando recaudos");
-        $recaudos = DB::connection('sasyc_viejo')->table('recaudos_sasyc')->get();
-        foreach($recaudos as $recaudo){
-            $this->info("Migrando recaudo: ".$recaudo->codrecaudo);
-            $recaudoNuevo = new Recaudo();
-            $recaudoNuevo->desabilitarConcurrencia();
-            $recaudoNuevo->desabilitarValidaciones();
-            $recaudoNuevo->id = $recaudo->codrecaudo;
-            $recaudoNuevo->nombre = $recaudo->nombrecaudo;
-            $recaudoNuevo->descripcion = $recaudo->descrecaudo;
-            $recaudoNuevo->ind_activo = $recaudo->indactivo == 'S';
-            $recaudoNuevo->ind_vence = $recaudo->indvence == 'S';
-            $recaudoNuevo->ind_obligatorio = $recaudo->indobligatorio == 'S';
-            $recaudoNuevo->save();
-        }
+        $this->getTable('recaudos_sasyc')->chunk(1000, function($recaudos){
+            foreach($recaudos as $recaudo){
+                $this->info("Migrando recaudo: ".$recaudo->codrecaudo);
+                $recaudoNuevo = new Recaudo();
+                $recaudoNuevo->desabilitarConcurrencia();
+                $recaudoNuevo->desabilitarValidaciones();
+                $recaudoNuevo->id = $recaudo->codrecaudo;
+                $recaudoNuevo->nombre = $recaudo->nombrecaudo;
+                $recaudoNuevo->descripcion = $recaudo->descrecaudo;
+                $recaudoNuevo->ind_activo = $recaudo->indactivo == 'S';
+                $recaudoNuevo->ind_vence = $recaudo->indvence == 'S';
+                $recaudoNuevo->ind_obligatorio = $recaudo->indobligatorio == 'S';
+                $recaudoNuevo->save();
+            }
+        });
     }
 
     private function migrarRecepciones(){
         $this->info("Migrando recepciones");
-        $recepciones = DB::connection('sasyc_viejo')->table('referencias')->get();
-        foreach($recepciones as $recepcion){
-            $this->info("Migrando recepcion: ".$recepcion->codreferidopor);
-            $recepcionNueva = new Recepcion();
-            $recepcionNueva->desabilitarConcurrencia();
-            $recepcionNueva->desabilitarValidaciones();
-            $recepcionNueva->id = $recepcion->codreferidopor;
-            $recepcionNueva->nombre = $recepcion->nombre;
-            $recepcionNueva->save();
-        }
+        $this->getTable('referencias')->chunk(1000, function($recepciones){
+            foreach($recepciones as $recepcion){
+                $this->info("Migrando recepcion: ".$recepcion->codreferidopor);
+                $recepcionNueva = new Recepcion();
+                $recepcionNueva->desabilitarConcurrencia();
+                $recepcionNueva->desabilitarValidaciones();
+                $recepcionNueva->id = $recepcion->codreferidopor;
+                $recepcionNueva->nombre = $recepcion->nombre;
+                $recepcionNueva->save();
+            }
+        });
     }
 
     private function migrarSolicitudes(){
@@ -244,50 +256,51 @@ class MigrarSasyc extends Command {
             'PEN'=>'ELA',
         ];
         $this->info("Migrando solicitudes");
-        $solicitudes = DB::connection('sasyc_viejo')->table('solicitud_sasyc')->get();
-        foreach($solicitudes as $solicitud){
-            $this->info("Migrando solicitud: ".$solicitud->numsol);
-            $solicitudNueva = new Solicitud();
-            $solicitudNueva->desabilitarConcurrencia();
-            $solicitudNueva->desabilitarValidaciones();
-            $solicitudNueva->id = $solicitud->idsolicitud;
-            $solicitudNueva->created_at = new \Carbon\Carbon($solicitud->fecsol);
-            $solicitudNueva->descripcion = $solicitud->desccaso;
-            $solicitudNueva->referente_id = 1;
-            $solicitudNueva->recepcion_id = $solicitud->codreferidopor;
-            $solicitudNueva->num_solicitud = $solicitud->numsol;
-            $solicitudNueva->ind_mismo_benef = $solicitud->indmismobenef=='S';
-            $solicitudNueva->persona_beneficiario_id = $solicitud->idbeneficiario;
-            $solicitudNueva->persona_solicitante_id = $solicitud->idsolicitante;
-            $solicitudNueva->observaciones = $solicitud->observaciones;
-            if($solicitud->fecasignacion!=''){
-                $carbon = new Carbon($solicitud->fecasignacion);
-                $solicitudNueva->fecha_asignacion = $carbon->format('d/m/Y');
-                $solicitudNueva->usuario_asignacion_id = 1;
+        $this->getTable('referencias')->chunk(1000, function($solicitudes) use ($arrayEstatus){
+            foreach($solicitudes as $solicitud){
+                $this->info("Migrando solicitud: ".$solicitud->numsol);
+                $solicitudNueva = new Solicitud();
+                $solicitudNueva->desabilitarConcurrencia();
+                $solicitudNueva->desabilitarValidaciones();
+                $solicitudNueva->id = $solicitud->idsolicitud;
+                $solicitudNueva->created_at = new \Carbon\Carbon($solicitud->fecsol);
+                $solicitudNueva->descripcion = $solicitud->desccaso;
+                $solicitudNueva->referente_id = 1;
+                $solicitudNueva->recepcion_id = $solicitud->codreferidopor;
+                $solicitudNueva->num_solicitud = $solicitud->numsol;
+                $solicitudNueva->ind_mismo_benef = $solicitud->indmismobenef=='S';
+                $solicitudNueva->persona_beneficiario_id = $solicitud->idbeneficiario;
+                $solicitudNueva->persona_solicitante_id = $solicitud->idsolicitante;
+                $solicitudNueva->observaciones = $solicitud->observaciones;
+                if($solicitud->fecasignacion!=''){
+                    $carbon = new Carbon($solicitud->fecasignacion);
+                    $solicitudNueva->fecha_asignacion = $carbon->format('d/m/Y');
+                    $solicitudNueva->usuario_asignacion_id = 1;
+                }
+                $solicitudNueva->ind_inmediata = $solicitud->prioridad > 0;
+                $solicitudNueva->estatus = $arrayEstatus[$solicitud->stssolicitud];
+                if($solicitud->fecapr!=''){
+                    $carbon = new Carbon($solicitud->fecapr);
+                    $solicitudNueva->fecha_aprobacion = $carbon->format('d/m/Y');
+                    $solicitudNueva->usuario_autorizacion_id = 1;
+                }
+                $solicitudNueva->area_id = $solicitud->codespecialidad;
+                $solicitudNueva->necesidad = $solicitud->diagnostico;
+                $solicitudNueva->organismo_id = 1;
+                $solicitudNueva->tipo_proc = $solicitud->tipoproc;
+                $solicitudNueva->num_proc = $solicitud->numproc;
+                if($solicitud->fecacp!=''){
+                    $carbon = new Carbon($solicitud->fecacp);
+                    $solicitudNueva->fecha_aceptacion = $carbon->format('d/m/Y');
+                }
+                $solicitudNueva->moneda = $solicitud->codmoneda;
+                if($solicitud->feccierre!=''){
+                    $carbon = new Carbon($solicitud->feccierre);
+                    $solicitudNueva->fecha_cierre = $carbon->format('d/m/Y');
+                }
+                $solicitudNueva->save();
             }
-            $solicitudNueva->ind_inmediata = $solicitud->prioridad > 0;
-            $solicitudNueva->estatus = $arrayEstatus[$solicitud->stssolicitud];
-            if($solicitud->fecapr!=''){
-                $carbon = new Carbon($solicitud->fecapr);
-                $solicitudNueva->fecha_aprobacion = $carbon->format('d/m/Y');
-                $solicitudNueva->usuario_autorizacion_id = 1;
-            }
-            $solicitudNueva->area_id = $solicitud->codespecialidad;
-            $solicitudNueva->necesidad = $solicitud->diagnostico;
-            $solicitudNueva->organismo_id = 1;
-            $solicitudNueva->tipo_proc = $solicitud->tipoproc;
-            $solicitudNueva->num_proc = $solicitud->numproc;
-            if($solicitud->fecacp!=''){
-                $carbon = new Carbon($solicitud->fecacp);
-                $solicitudNueva->fecha_aceptacion = $carbon->format('d/m/Y');
-            }
-            $solicitudNueva->moneda = $solicitud->codmoneda;
-            if($solicitud->feccierre!=''){
-                $carbon = new Carbon($solicitud->feccierre);
-                $solicitudNueva->fecha_cierre = $carbon->format('d/m/Y');
-            }
-            $solicitudNueva->save();
-        }
+        });
     }
 
     private function migrarInformeSocioEconomico(){
@@ -309,68 +322,76 @@ class MigrarSasyc extends Command {
             'I'=>7,
         ];
         $this->info("Migrando informes socio economicos");
-        $informes = DB::connection('sasyc_viejo')->table('inf_social')->get();
-        foreach($informes as $informe){
-            $this->info("Migrando informe de la solicitud: ".$informe->idsolicitud);
-            $solicitud = Solicitud::findOrFail($informe->idsolicitud);
-            $solicitud->desabilitarConcurrencia();
-            $solicitud->desabilitarValidaciones();
-            $solicitud->tipo_vivienda_id = $tipos[$informe->tipocasa];
-            $solicitud->tenencia_id = $tenencias[$informe->tipotenencia];
-            $solicitud->informe_social = $informe->observaciones;
-            $solicitud->total_ingresos = tm($informe->totalingresos);
-            $solicitud->save();
-        }
+        $this->getTable('inf_social')->chunk(1000, function($informes) use ($tipos, $tenencias){
+            foreach($informes as $informe){
+                $this->info("Migrando informe de la solicitud: ".$informe->idsolicitud);
+                $solicitud = Solicitud::findOrFail($informe->idsolicitud);
+                $solicitud->desabilitarConcurrencia();
+                $solicitud->desabilitarValidaciones();
+                $solicitud->tipo_vivienda_id = $tipos[$informe->tipocasa];
+                $solicitud->tenencia_id = $tenencias[$informe->tipotenencia];
+                $solicitud->informe_social = $informe->observaciones;
+                $solicitud->total_ingresos = tm($informe->totalingresos);
+                $solicitud->save();
+            }
+        });
     }
 
     private function migrarBitacora(){
         $this->info("Migrando bitacoras de la solicitud");
-        $bitacoras = DB::connection('sasyc_viejo')->table('bitacora_solicitud')->get();
-        foreach($bitacoras as $bitacora){
-            $this->info("Migrando bitacora: ".$bitacora->idnota);
-            $bitacoraNueva = new Bitacora();
-            $bitacoraNueva->solicitud_id = $bitacora->idsolicitud;
-            if($bitacoraNueva->fecnota!=''){
-                $carbon = new Carbon($bitacora->fecnota);
-                $bitacoraNueva->fecha = $carbon->format('d/m/Y');
+        $this->getTable('bitacora_solicitud')->chunk(1000, function($bitacoras){
+            foreach($bitacoras as $bitacora){
+                $this->info("Migrando bitacora: ".$bitacora->idnota);
+                $bitacoraNueva = new Bitacora();
+                $bitacoraNueva->solicitud_id = $bitacora->idsolicitud;
+                if($bitacoraNueva->fecnota!=''){
+                    $carbon = new Carbon($bitacora->fecnota);
+                    $bitacoraNueva->fecha = $carbon->format('d/m/Y');
+                }
+                $bitacoraNueva->nota = $bitacora->nota;
+                $bitacoraNueva->usuario_id = 1;
+                $bitacoraNueva->ind_activo = $bitacora->indactivo=='S';
+                $bitacoraNueva->ind_alarma = $bitacora->indalarma=='S';
+                $bitacoraNueva->save();
             }
-            $bitacoraNueva->nota = $bitacora->nota;
-            $bitacoraNueva->usuario_id = 1;
-            $bitacoraNueva->ind_activo = $bitacora->indactivo=='S';
-            $bitacoraNueva->ind_alarma = $bitacora->indalarma=='S';
-            $bitacoraNueva->save();
-        }
+        });
     }
 
     private function migrarRecaudosSolicitud(){
         $this->info("Migrando recaudos de la solicitud");
-        $recaudos = DB::connection('sasyc_viejo')->table('recaudos_solicitud')->get();
-        foreach($recaudos as $recaudo){
-            $this->info("Migrando recaudo de la solicitud: ".$recaudo->codrecaudo);
-            $recaudoNuevo = new RecaudoSolicitud();
-            $recaudoNuevo->recaudo_id = $recaudo->codrecaudo;
-            $recaudoNuevo->solicitud_id = $recaudo->idsolicitud;
-            $recaudoNuevo->ind_recibido = $recaudo->indrecibido=='S';
-            if($recaudo->fecvencimiento!=''){
-                $carbon = new Carbon($recaudo->fecvencimiento);
-                $recaudoNuevo->fecha_vencimiento = $carbon->format('d/m/Y');
+        $this->getTable('recaudos_solicitud')->chunk(1000, function($recaudos){
+            foreach($recaudos as $recaudo){
+                $this->info("Migrando recaudo de la solicitud: ".$recaudo->codrecaudo);
+                $recaudoNuevo = new RecaudoSolicitud();
+                $recaudoNuevo->recaudo_id = $recaudo->codrecaudo;
+                $recaudoNuevo->solicitud_id = $recaudo->idsolicitud;
+                $recaudoNuevo->ind_recibido = $recaudo->indrecibido=='S';
+                if($recaudo->fecvencimiento!=''){
+                    $carbon = new Carbon($recaudo->fecvencimiento);
+                    $recaudoNuevo->fecha_vencimiento = $carbon->format('d/m/Y');
+                }
+                $recaudoNuevo->save();
             }
-            $recaudoNuevo->save();
-        }
+        });
     }
 
     private function migrarPresupuestos(){
         $this->info("Migrando presupuestos");
-        $presupuestos = DB::connection('sasyc_viejo')->table('ppto_solicitud')->get();
-        foreach($presupuestos as $presupuesto){
-            $this->info("Migrando presupuesto de la solicitud: ".$presupuesto->idppto);
-            $presupuestoNuevo = new Presupuesto();
-            $presupuestoNuevo->solicitud_id = $presupuesto->idsolicitud;
-            $presupuestoNuevo->requerimiento_id = $presupuesto->codrequerimiento;
-            $presupuestoNuevo->beneficiario_id = $presupuesto->numbenef;
-            $presupuestoNuevo->monto = $presupuesto->monto;
-            $presupuestoNuevo->cantidad = $presupuesto->cantidad;
-            $presupuestoNuevo->save();
-        }
+        $this->getTable('recaudos_solicitud')->chunk(1000, function($presupuestos){
+            foreach($presupuestos as $presupuesto){
+                $this->info("Migrando presupuesto de la solicitud: ".$presupuesto->idppto);
+                $presupuestoNuevo = new Presupuesto();
+                $presupuestoNuevo->solicitud_id = $presupuesto->idsolicitud;
+                $presupuestoNuevo->requerimiento_id = $presupuesto->codrequerimiento;
+                $presupuestoNuevo->beneficiario_id = $presupuesto->numbenef;
+                $presupuestoNuevo->monto = $presupuesto->monto;
+                $presupuestoNuevo->cantidad = $presupuesto->cantidad;
+                $presupuestoNuevo->save();
+            }
+        });
+    }
+
+    private function getTable($table){
+        return DB::connection('sasyc_viejo')->table($table);
     }
 }
