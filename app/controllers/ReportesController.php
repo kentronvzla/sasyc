@@ -18,14 +18,13 @@ class ReportesController extends BaseController {
     private static $columnas_orden = [
         '' => 'Seleccione',
         'solicitudes.referente_externo' => 'Referencia',
-        'presupuestos.requerimientos.nombre' => 'Tratamiento',
     ];
     
     private static $columnas_orden_1 = [
         '' => 'Seleccione',
         'solicitudes.referente_externo' => 'Referencia',
         'solicitudes.estatus' => 'Estatus',
-        'requerimientos.nombre' => 'Tratamiento',
+        //'requerimientos.nombre' => 'Tratamiento',
     ];
 
 
@@ -109,6 +108,7 @@ class ReportesController extends BaseController {
     }
 
     public function getPendientes (){
+        
       $data['columnas_orden'] = static::$columnas_orden_1;
       $data['solicitud'] = new Solicitud();
       $data['persona'] = new Persona();
@@ -120,15 +120,16 @@ class ReportesController extends BaseController {
       public function postPendientes(){
       $columna = Input::get('order_by');
       $data['total']= 0;
+      $data['cantReportes'] = count(Input::get('order_by'));
       $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
       $data['solicitudes'] = $data['solicitudes']
       ->orderBy($columna, 'ASC')
       ->get();
       $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
       
-      return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
+      //return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
       
-      //echo $this->parametro_de_orden($data,(explode('.', $columna)[1]))[0];
+      echo $this->parametro_de_orden($data,(explode('.', $columna)[1]))[0];
       } 
       
      private function parametro_de_orden ($data, $columna){

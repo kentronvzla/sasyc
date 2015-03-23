@@ -71,8 +71,8 @@
                             <li>{{HTML::link('solicitudes/planilla/'.$solicitud->id, 'Planilla', ['target'=>'_blank'])}}</li>
                             <li>{{HTML::link('solicitudes/informe/'.$solicitud->id, 'Informe Socioeconomico', ['target'=>'_blank'])}}</li>
                             <li>{{HTML::link('solicitudes/bitacora/'.$solicitud->id, 'Bitacora', ['target'=>'_blank'])}}</li>
-                            @unless(is_null($solicitud->memo_id))
-                                <li>{{--HTML::link('memorandum/imprimir/'.$solicitud->memo_id, 'Memorandum', ['target'=>'_blank'])--}}</li>
+                            @unless(is_null($solicitud->tipo_proc))
+                                <li>{{HTML::link('reportes/puntomemo/'.$solicitud->memo_id, 'Punto / Memo', ['target'=>'_blank'])}}</li>
                             @endunless
                         </ul>
                     </div>

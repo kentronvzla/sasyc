@@ -23,7 +23,9 @@
                         {{Form::btInput($solicitud,'area_id',6)}}
                     </div>
                     <div class="row">
+                        @if (!isset($valor))
                         {{Form::btInput($solicitud,'estatus',6,'select',[],BaseModel::$estatusArray)}}
+                        @endif
                         {{Form::btInput($solicitud,'referente_id',6)}}
                     </div>
                     <div class="row">
