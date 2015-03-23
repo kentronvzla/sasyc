@@ -25,32 +25,59 @@
                 <strong>Monto</strong>
             </td>
         </tr>
+        <!------------------------------------------->
+        <?php $contador=0; $subtotal=0; ?>
+        <!------------------------------------------->
         @foreach($solicitudes as $resultado)
-            <tr>
-                <td style="width: 140px;height:auto;">
-                    {{$resultado->referente_externo}}
-                </td>
-                <td ALIGN=CENTER style="width: 50px;height:auto;">
-                    {{$resultado->created_at->format('d/m/Y')}}
-                </td>
-                <td ALIGN=CENTER style="width: 80px;height:auto;">
-                    {{$resultado->num_solicitud}}
-                </td>
-                <td style="width: 170px;height:auto;"> 
-                    {{$resultado->personaBeneficiario->nombre}}&nbsp;
-                    {{$resultado->personaBeneficiario->apellido}}
-                </td>
-                <td style="width: 130px;height:auto;">
-                    
-                </td>
-                <td ALIGN=CENTER style="width: 130px;height:auto;">
-                    
-                </td>
-                <td ALIGN=right style="width: 130px;height:auto;">
-                   {{--$resultado->presupuestos->monto--}}
-                </td>
-            </tr>
+            @foreach($resultado->presupuestos as $key=>$presupuesto)
+                <tr>
+                    <td style="width: 140px;height:auto;">
+                        {{$presupuesto->solicitud->referente_externo}}
+                    </td>
+                    <td ALIGN=CENTER style="width: 50px;height:auto;">
+                        {{$presupuesto->solicitud->created_at->format('d/m/Y')}}
+                    </td>
+                    <td ALIGN=CENTER style="width: 80px;height:auto;">
+                        {{$presupuesto->solicitud->num_solicitud}}
+                    </td>
+                    <td style="width: 170px;height:auto;"> 
+                        {{$presupuesto->solicitud->personaBeneficiario->nombre}}&nbsp;
+                        {{$presupuesto->solicitud->personaBeneficiario->apellido}}
+                    </td>
+                    <td style="width: 130px;height:auto;">
+                        {{$presupuesto->requerimiento->nombre}}
+                    </td>
+                    <td ALIGN=CENTER style="width: 130px;height:auto;">
+                        {{$presupuesto->solicitud->estatus_display}}
+                    </td>
+                    <td ALIGN=right style="width: 130px;height:auto;">
+                       {{$presupuesto->monto_for}}
+                    </td>
+                </tr>
+                <?php 
+                    $total += $presupuesto->monto;
+                    $subtotal+=$presupuesto->monto;
+                ?>
+                <!------------------------------------------->
+                @if($presupuesto->monto_for != null)
+                    @if(($parametro[$contador]!= $parametro[$contador+1]))
+                    <tr style="background: yellow;">
+                        <td><strong>Total</strong></td><td></td><td></td><td></td>
+                        <td></td><td></td>
+                        <td valign="middle" ALIGN=right>{{tm($subtotal)}}</td>
+                    </tr> <?php $contador++;  $subtotal=0; ?>         
+                    @endif
+                @endif
+                <!------------------------------------------->
+            @endforeach 
         @endforeach    
+        <!------------------------------------------->
+        <tr style="background: yellow;">
+           <td><strong>Total</strong></td><td></td><td></td><td></td>
+           <td></td><td></td>
+           <td valign="middle" ALIGN=right>{{tm($subtotal)}}</td>
+       </tr>
+       <!------------------------------------------->
         <tr style=' background: lightcyan;'>
             <td style="width: 140px;height:auto; font-size: 13px;"  valign="middle">
                 <strong>Total General</strong>
@@ -71,7 +98,7 @@
                 
             </td>
             <td style="width: 130px;height: auto; font-size: 13px;"  valign="middle" ALIGN=right>
-                <strong>187.173,00</strong>
+                <strong>{{tm($total)}}</strong>
             </td>
         </tr>
     </table>

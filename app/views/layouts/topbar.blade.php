@@ -54,7 +54,7 @@
                 <ul class="dropdown-menu" role="menu">
                     <li>{{--HTML::link('reportes/general/','Casos Generales')--}}</li>
                     <li>{{HTML::link('reportes/resueltos/','Casos Resueltos')}}</li>
-                    <li>{{--HTML::link('reportes/pendientes/','Casos Pendientes')--}}</li>
+                    <li>{{HTML::link('reportes/pendientes/','Casos Pendientes')}}</li>
                     <li>{{HTML::link('reportes/estadisticassolicitud/','Busqueda Agrupada')}}</li>
                 </ul>
             </li>

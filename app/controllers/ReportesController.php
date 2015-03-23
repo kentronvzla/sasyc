@@ -18,9 +18,16 @@ class ReportesController extends BaseController {
     private static $columnas_orden = [
         '' => 'Seleccione',
         'solicitudes.referente_externo' => 'Referencia',
-        'solicitudes.requerimiento_id' => 'Requerimiento',
-            //''=>'Mes y Año',
+        'presupuestos.requerimientos.nombre' => 'Tratamiento',
     ];
+    
+    private static $columnas_orden_1 = [
+        '' => 'Seleccione',
+        'solicitudes.referente_externo' => 'Referencia',
+        'solicitudes.estatus' => 'Estatus',
+        'requerimientos.nombre' => 'Tratamiento',
+    ];
+
 
     public function __construct(\ayudantes\Reporte $reporte) {
         $this->reporte = $reporte;
@@ -86,6 +93,8 @@ class ReportesController extends BaseController {
     public function postResueltos() {
         $columna = Input::get('order_by');
         $data['total']= 0;
+        $data['anterior'] = "";
+        $data['cantReportes'] = count(Input::get('order_by'));
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
         $data['solicitudes'] = $data['solicitudes']
                 ->where(function($query) {
@@ -93,11 +102,14 @@ class ReportesController extends BaseController {
                 })
                 ->orderBy($columna, 'ASC')
                 ->get();
+        
+        $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
+                
         return $this->reporte->generar('reportes.html.resueltos', $data, 'L');
     }
 
-    /* public function getPendientes (){
-      $data['columnas_orden'] = static::$columnas_orden;
+    public function getPendientes (){
+      $data['columnas_orden'] = static::$columnas_orden_1;
       $data['solicitud'] = new Solicitud();
       $data['persona'] = new Persona();
       $data['presupuesto'] = new Presupuesto();
@@ -106,12 +118,38 @@ class ReportesController extends BaseController {
       }
 
       public function postPendientes(){
-      $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte'));
+      $columna = Input::get('order_by');
+      $data['total']= 0;
+      $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
       $data['solicitudes'] = $data['solicitudes']
-      ->where('estatus', '=','ELA')
-      //quiero volver una variable lo que va dentro del order by
-      ->orderBy('referente_externo','ASC')
+      ->orderBy($columna, 'ASC')
       ->get();
+      $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
+      
       return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
-      } */
+      
+      //echo $this->parametro_de_orden($data,(explode('.', $columna)[1]))[0];
+      } 
+      
+     private function parametro_de_orden ($data, $columna){
+         $contador=0; 
+         $arreglo []=array();
+        foreach ( $data['solicitudes'] as $resultado){
+          foreach ($resultado->presupuestos as $key=>$presupuesto){ 
+             if ($columna=="referente_externo"){
+                 $arreglo[$contador]= $presupuesto->solicitud->referente_externo; 
+             } 
+             if ($columna=="estatus"){
+                 $arreglo[$contador]= $presupuesto->solicitud->estatus;
+             }
+              if ($columna=="requerimiento"){
+                 $arreglo[$contador]= $presupuesto->solicitud->requerimiento;
+             }
+             $contador++;
+          }
+        }
+        
+        return $arreglo;
+    } 
+              
 }
