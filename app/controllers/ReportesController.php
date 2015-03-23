@@ -127,9 +127,9 @@ class ReportesController extends BaseController {
       ->get();
       $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
       
-      //return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
+      return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
       
-      echo $this->parametro_de_orden($data,(explode('.', $columna)[1]))[0];
+      //echo $this->parametro_de_orden($data,(explode('.', $columna)[1]))[0];
       } 
       
      private function parametro_de_orden ($data, $columna){
