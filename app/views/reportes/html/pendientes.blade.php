@@ -1,6 +1,7 @@
 @extends('reportes.html.'.Input::get('formato_reporte','pdf'))
 @section('reporte')
 <?php $i=1; ?>
+<br><br><br>
     <h4 ALIGN=CENTER >Relación de Casos Pendientes</h4>
      <table width="100%" border="0" cellpadding="10" cellspacing="3">
             <tr style=' background:#d8d8d8;'>

@@ -128,10 +128,14 @@ class ReportesController extends BaseController {
       $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
       
       return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
-      
-      //echo $this->parametro_de_orden($data,(explode('.', $columna)[1]))[0];
       } 
       
+    public function getPuntomemo ($id){
+       $data['solicitud'] = Solicitud::findOrFail($id);
+       //return $this->reporte->generar('reportes.html.punto', $data, 'P');
+       return $this->reporte->generar('reportes.html.memo', $data, 'P');
+    }  
+    //-------------------------------------------------------------------------------------
      private function parametro_de_orden ($data, $columna){
          $contador=0; 
          $arreglo []=array();
