@@ -15,7 +15,9 @@
                     </tr>
                     <tr>
                         <td>
-                            <strong>2- Fecha:&nbsp;25/02/2015</strong>
+                            <strong>
+                                2- Fecha:&nbsp;{{$solicitud->created_at->format('d/m/Y')}}
+                            </strong>
                         </td>
                     </tr>
                 </table>
@@ -65,38 +67,14 @@
         </tr>
         <tr>
             <td style="width: 690px; height: auto;" valign="middle">
-                <p align="justify">
-                    Se somete a la consideración y aprobación del Presidente de la Fundación 
-                    Pueblo Sobrerano, el otorgamiento de ayuda económica
-                    solicitada al <strong> presidente de la republica Bolivariana de 
-                    Venezuela </strong> por <strong>José Asael Vergara Vargas </strong>
-                    de <strong>58 </strong> años de edad, titular de la cédula de 
-                    identidad <strong>N#: 5.001.841 </strong>, por la cantidad de 
-                    <strong>TRECIENTOS OCHENTA Y SIETE MIL CUATRENTA Y NUEVE BOLÍVARES CON
-                    04 CÉNTIMOS ( BS387.049,04) </strong> a favor de su madre <strong>Esperanza
-                    Arteaga de Vergara </strong> de <strong>77 </strong> años de edad, titular
-                    de la cédula de identidad <strong>N#: 2.134.774</strong>, quien en virtud del
-                    analisis de la documentación  presentada por parte de las Direcciones de 
-                    Bienestar Social y de Administración, presenta diagnóstico 
-                    <strong>Estenosisi valvular Aórtica sintomática</strong> y requiere ayuda
-                    económica para material quirúrgico.
-                    
-                    
-                   De allí que, en vista de las condiciones socio-económicas del solicitante y 
-                   de la disponibilidad presupuestaria correspondiente, se recomienda la aprobación
-                   para otorgar la ayuda económica, por la cantidad de; <strong>TRECIENTOS OCHENTA Y 
-                   SIETE MIL CUARENTA Y NUEVE BOLÍVARES CON 04 CENTIMOS (837.049,04)</strong>. El cheuqe 
-                   esta emitido a favor de <strong>Servimedic soluciones cardiovasculares S.A</strong> 
-                </p><br>
+                @include('reportes.html.puntocuerpo')<br>
             </td>
         </tr>
         <tr>
             <td style="width: 690px; height: auto;" valign="middle">
                 <strong>Observaciones:&nbsp;</strong>
                 <p align="justify">
-                    Se procesa la ayuda económica de acuerdo con l;a recomendacó
-                    del Presidente de la FPS. Posee cobertura de Bs. 600.000 por 
-                    seguros mercantil que utilizará para costear la intervención quirúrgica.
+                    {{$solicitud->observaciones or "No se existe texto adjunto."}}
                 </p>
             </td>
         </tr>
@@ -105,7 +83,9 @@
     <table width="100%" border="1" cellpadding="10" cellspacing="0">
         <tr style=' background:#d8d8d8;'>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
-                <strong>6- Presentado por: Direccion de Bienestar Social</strong>
+                <strong>
+                    6- Presentado por: Direccion de {{$solicitud->departamento->nombre or "No se cargo el texto"}}
+                </strong>
             </td>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
                 <strong>7- Revisado por: Direccion de Administración</strong>

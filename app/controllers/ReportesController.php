@@ -97,7 +97,8 @@ class ReportesController extends BaseController {
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
         $data['solicitudes'] = $data['solicitudes']
                 ->where(function($query) {
-                    $query->where('estatus', '=', 'ELA')->orWhere('estatus', '=', 'ART');
+                    /*$query->where('estatus', '=', 'ELA')->orWhere('estatus', '=', 'ART');*/
+                    $query->where('estatus', '=', 'APR');
                 })
                 ->orderBy($columna, 'ASC')
                 ->get();
@@ -132,9 +133,19 @@ class ReportesController extends BaseController {
       
     public function getPuntomemo ($id){
        $data['solicitud'] = Solicitud::findOrFail($id);
-       //return $this->reporte->generar('reportes.html.punto', $data, 'P');
-       return $this->reporte->generar('reportes.html.memo', $data, 'P');
+       $data['edadS']=$data['solicitud']->personaSolicitante->fecha_nacimiento
+               ->format('y')-(int)\Carbon\Carbon::now()->format('y');
+       $data['edadB']=$data['solicitud']->personaSolicitante->fecha_nacimiento
+               ->format('y')-(int)\Carbon\Carbon::now()->format('y');
+       
+       if ($data['solicitud']->tipo_proc=='prb1'){
+           return $this->reporte->generar('reportes.html.punto', $data, 'P');
+       }
+       elseif ($data['solicitud']->tipo_proc=='prb2') {
+           return $this->reporte->generar('reportes.html.memo', $data, 'P');
+       }  
     }  
+    
     //-------------------------------------------------------------------------------------
      private function parametro_de_orden ($data, $columna){
          $contador=0; 
