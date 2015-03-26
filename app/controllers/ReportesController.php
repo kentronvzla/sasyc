@@ -134,16 +134,16 @@ class ReportesController extends BaseController {
     public function getPuntomemo ($id){
        $data['solicitud'] = Solicitud::findOrFail($id);
        $data['edadS']=$data['solicitud']->personaSolicitante->fecha_nacimiento
-               ->format('y')-(int)\Carbon\Carbon::now()->format('y');
-       $data['edadB']=$data['solicitud']->personaSolicitante->fecha_nacimiento
-               ->format('y')-(int)\Carbon\Carbon::now()->format('y');
+               ->format('y')-((int)\Carbon\Carbon::now()->format('y'));
+       $data['edadB']=$data['solicitud']->personaBeneficiario->fecha_nacimiento
+               ->format('y')-((int)\Carbon\Carbon::now()->format('y'));
        
        if ($data['solicitud']->tipo_proc=='prb1'){
            return $this->reporte->generar('reportes.html.punto', $data, 'P');
        }
        elseif ($data['solicitud']->tipo_proc=='prb2') {
            return $this->reporte->generar('reportes.html.memo', $data, 'P');
-       }  
+       }
     }  
     
     //-------------------------------------------------------------------------------------

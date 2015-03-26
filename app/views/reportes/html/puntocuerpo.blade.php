@@ -74,7 +74,7 @@
         analisis de la documentación  presentada por parte de las Direcciones de 
         &nbsp;{{$solicitud->departamento->nombre}}&nbsp; y de Administración, 
         necesita recursos para cubrir la necesidad 
-        y/o tratar la siguiente necesidad a continuacion:&nbsp;
+        y/o tratar la siguiente necesidad:
         <strong>&nbsp;{{$solicitud->necesidad}}&nbsp;</strong>. En tal sentido, la ayuda
         económica va dirigida a cubrir gastos inherentes a los siguientes requerimientos y/o 
         necesidades;

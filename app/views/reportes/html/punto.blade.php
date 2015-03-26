@@ -66,7 +66,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 690px; height: auto;" valign="middle">
+            <td style="width: 690px; height: auto;" valign="middle" >
                 @include('reportes.html.puntocuerpo')<br>
             </td>
         </tr>

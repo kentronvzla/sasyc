@@ -48,36 +48,10 @@
     </table>
     <br><br>
     <table width="100%" border="0" cellpadding="10" cellspacing="0">
-        <tr>
-            <td>
-                <p align="justify">
-                    Tengo el honor de dirigirme a usted en la oportunidad de saludarle
-                    y a lavez remitirle los recaudos del ciudadano(a) 
-                    <strong>Maria Auristela moya Gonzáles</strong> de 60 años de edad, 
-                    titular de la cédula de identidad <strong>N# 6077279</strong>;
-                    quien solicita ayuda económica de tratamiento médico a favor de su
-                    hijo(a) <strong>Jhoanna Marina Rivas Moya</strong>, de 40 años de edad,
-                    titular de la cédula de identidad <strong>N# 11990670</strong>, por la 
-                    cantidad <strong>SIETE MIl DOSCIENTOS NOVENTA BOLÍVARES (Bs 7290,00)</strong>,
-                    en virtud que presenta diagnóstico <strong>SÍNDROME EPILÉPTICO GENERALIZADO.</strong>                    
-                </p><br>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p align="center">
-                    Se agradece emitir cheque por la cantidad de:<br>
-                    <strong>SIETE MIL DOSCIENTOS NOVENTA BOLÍVARES (Bs 7290,00)</strong><br>
-                    A nombre o razón social de <strong>Farmacia Tabban C.A</strong><br><br>
-                    Sin otro particular al cual hacer referencia, se despide de usted.<br>
-                    Atentamente,<br><br>
-                    <strong>1ER.TTE. Evelyn Cárdenas<br>Dirección de bienestar Social</strong>
-                </p><br>
-            </td>
-        </tr>
+        @include('reportes.html.memocuerpo')
         <tr>
             <td style="width: 580px; height: auto; font-size: 14px;" valign="middle" >
-                <strong>Solicitud N#: 15-00005</strong><br>
+                <strong>Solicitud N#:&nbsp;{{$solicitud->num_solicitud}}</strong><br>
                 EC/AP
             </td>
         </tr>
