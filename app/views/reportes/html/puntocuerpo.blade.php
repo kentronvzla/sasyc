@@ -84,7 +84,7 @@
         @endforeach
         <br><br>
 
-        De allí que, en vista de las condiciones socio-económicas del solicitante y 
+       De las necesidades presentes y en vista de las condiciones socio-económicas del solicitante y 
        de la disponibilidad presupuestaria correspondiente, se recomienda la aprobación
        para otorgar la ayuda económica, por la cantidad de; <strong>Valor en texto (837.049,04)</strong>. El cheuqe 
        esta emitido a favor de:&nbsp; 

@@ -132,13 +132,14 @@ class ReportesController extends BaseController {
       } 
       
     public function getPuntomemo ($id){
-       $data['solicitud'] = Solicitud::findOrFail($id);
-       $data['edadS']=$data['solicitud']->personaSolicitante->fecha_nacimiento
-               ->format('y')-((int)\Carbon\Carbon::now()->format('y'));
-       $data['edadB']=$data['solicitud']->personaBeneficiario->fecha_nacimiento
-               ->format('y')-((int)\Carbon\Carbon::now()->format('y'));
-       
-       if ($data['solicitud']->tipo_proc=='prb1'){
+       $data['solicitud'] = Solicitud::findOrFail($id);           
+      
+      $data['edadS']=(((int)$data['solicitud']->personaSolicitante->fecha_nacimiento
+           ->format('Y'))-((int)\Carbon\Carbon::now()->format('Y')))*(-1);
+      $data['edadB']=(((int)$data['solicitud']->personaBeneficiario->fecha_nacimiento
+           ->format('Y'))-((int)\Carbon\Carbon::now()->format('Y')))*(-1);
+      
+      if ($data['solicitud']->tipo_proc=='prb1'){
            return $this->reporte->generar('reportes.html.punto', $data, 'P');
        }
        elseif ($data['solicitud']->tipo_proc=='prb2') {
@@ -147,7 +148,18 @@ class ReportesController extends BaseController {
     }  
     
     //-------------------------------------------------------------------------------------
-     private function parametro_de_orden ($data, $columna){
+     
+    
+   /* private function edad ($edad){
+         if ($edad != null or $edad!=" " or $edad!=""){
+             return true;
+         }
+         if ($edad == null or $edad==" " or $edad!=""){
+             return false;
+         }
+     }*/
+     
+    private function parametro_de_orden ($data, $columna){
          $contador=0; 
          $arreglo []=array();
         foreach ( $data['solicitudes'] as $resultado){
