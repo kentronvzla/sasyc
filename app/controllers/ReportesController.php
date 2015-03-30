@@ -29,6 +29,7 @@ class ReportesController extends BaseController {
 
 
     public function __construct(\ayudantes\Reporte $reporte) {
+        require_once '../public/EnLetras.php';
         $this->reporte = $reporte;
         parent::__construct();
     }
@@ -132,19 +133,37 @@ class ReportesController extends BaseController {
       } 
       
     public function getPuntomemo ($id){
-       $data['solicitud'] = Solicitud::findOrFail($id);           
-      
-      $data['edadS']=(((int)$data['solicitud']->personaSolicitante->fecha_nacimiento
+        $total=0;
+        $data['solicitud'] = Solicitud::findOrFail($id);    
+        foreach($data['solicitud'] ->presupuestos as $resultado){
+          $total=$total+$resultado->monto;  
+        }
+        // se transforma la edad del beneficiario y solicitante
+        $data['edadS']=(((int)$data['solicitud']->personaSolicitante->fecha_nacimiento
            ->format('Y'))-((int)\Carbon\Carbon::now()->format('Y')))*(-1);
-      $data['edadB']=(((int)$data['solicitud']->personaBeneficiario->fecha_nacimiento
+        $data['edadB']=(((int)$data['solicitud']->personaBeneficiario->fecha_nacimiento
            ->format('Y'))-((int)\Carbon\Carbon::now()->format('Y')))*(-1);
-      
-      if ($data['solicitud']->tipo_proc=='prb1'){
-           return $this->reporte->generar('reportes.html.punto', $data, 'P');
-       }
-       elseif ($data['solicitud']->tipo_proc=='prb2') {
-           return $this->reporte->generar('reportes.html.memo', $data, 'P');
-       }
+        
+        // se convierte el monto a valor en letra
+        $V=new EnLetras();
+        $valor=explode(".",$total);
+        if (count($valor)>1){
+        $con=strtoupper($V->ValorEnLetras($valor[0]," Bsf Con "));
+        $data['montoASCII']=$con.strtoupper($V->ValorEnLetras($valor[1]," Centimos"))." ( Bsf. ".$total." )";
+        } 
+        else {
+            $data['montoASCII']=strtoupper($V->ValorEnLetras($valor[0]," Bsf"))." ( Bsf. ".$total." )";
+        }
+        
+        // se pide el reporte
+        if ($data['solicitud']->tipo_proc=='prb1'){
+             return $this->reporte->generar('reportes.html.punto', $data, 'P');
+         }
+         elseif ($data['solicitud']->tipo_proc=='prb2') {
+             return $this->reporte->generar('reportes.html.memo', $data, 'P');
+         }
+        
+        //echo $total."<br>".$data['montoASCII'];
     }  
     
     //-------------------------------------------------------------------------------------

@@ -28,7 +28,7 @@
                 titular de la cédula de identidad 
                 <strong>N#&nbsp;{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, 
                 por la 
-                cantidad <strong>valor a texto(Bs 7290,00)</strong>,
+                cantidad <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>,
                 en virtud de cubrir los gastos ante; 
                 <strong>
                     @foreach($solicitud->presupuestos as $resultado)
@@ -42,7 +42,7 @@
         <td>
             <p align="center">
                 Se agradece emitir cheque por la cantidad de:<br>
-                <strong>valor en texto (Bs 7290,00)</strong><br>
+                <strong>&nbsp;{{$montoASCII}}&nbsp;</strong><br>
                 A nombre o razón social de 
                 @foreach($solicitud->presupuestos as $resultado)
                     <strong>{{$resultado->beneficiario->nombre }},&nbsp;</strong>
@@ -75,7 +75,7 @@
                 quien solicita ayuda económica para cubrir gastos ante la necesidad y/o
                 tratamiento de:&nbsp;{{$solicitud->necesidad}}&nbsp; a favor si mismo, 
                 por la 
-                cantidad <strong>valor a texto(Bs 7290,00)</strong>,
+                cantidad <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>,
                 en virtud de cubrir los gastos ante; 
                 <strong>
                     @foreach($solicitud->presupuestos as $resultado)
@@ -89,7 +89,7 @@
         <td>
             <p align="center">
                 Se agradece emitir cheque por la cantidad de:<br>
-                <strong>valor en texto (Bs 7290,00)</strong><br>
+                <strong>&nbsp;{{$montoASCII}}&nbsp;</strong><br>
                 A nombre o razón social de 
                 @foreach($solicitud->presupuestos as $resultado)
                     <strong>{{--$resultado->beneficiario->nombre--}},&nbsp;</strong>
