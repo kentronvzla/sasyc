@@ -67,8 +67,10 @@
                     $subtotal+=$presupuesto->monto;
                 ?>
                 <!------------------------------------------->
+                <?php $cuenta=0; ?>
                 @if($presupuesto->monto_for != null)
                     @if(($parametro[$contador]!= $parametro[$contador+1]))
+                    
                         <tr style="background: #CCC;">
                             <td style="width: 40px;height:auto;" valign="middle" ALIGN=center>
                                 <strong>Total</strong>
@@ -82,12 +84,16 @@
                             <td valign="middle" ALIGN=right style="width: 130px;height:auto;" valign="middle" ALIGN=right>
                                 {{tm($subtotal)}}
                             </td>
-                        </tr> <?php $contador++;  $subtotal=0; ?>         
+                        </tr> 
+                        <?php $contador++; $subtotal=0; ?>         
                     @endif
+                    <?php if($cuenta<=count($parametro)){
+                        $cuenta++;
+                    } ?>
                 @endif
-                <?php $i++; ?>
                 <!------------------------------------------->
             @endforeach 
+            <?php $i++; ?>
         @endforeach    
         <!------------------------------------------->
         <tr style="background: #CCC;">
@@ -132,4 +138,5 @@
             </td>
         </tr>
     </table>
+    <?php echo $contador."<br>".count($parametro); ?>
 @endsection

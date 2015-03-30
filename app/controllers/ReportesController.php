@@ -18,6 +18,7 @@ class ReportesController extends BaseController {
     private static $columnas_orden = [
         '' => 'Seleccione',
         'solicitudes.referente_externo' => 'Referencia',
+        //'requerimiento.nombre'=>'Tratamiento',
     ];
     
     private static $columnas_orden_1 = [
@@ -98,7 +99,7 @@ class ReportesController extends BaseController {
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
         $data['solicitudes'] = $data['solicitudes']
                 ->where(function($query) {
-                    /*$query->where('estatus', '=', 'ELA')->orWhere('estatus', '=', 'ART');*/
+                    //$query->where('estatus', '=', 'ELA')->orWhere('estatus', '=', 'ART');
                     $query->where('estatus', '=', 'APR');
                 })
                 ->orderBy($columna, 'ASC')
@@ -107,6 +108,7 @@ class ReportesController extends BaseController {
         $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
                 
         return $this->reporte->generar('reportes.html.resueltos', $data, 'L');
+        //echo $columna;            
     }
 
     public function getPendientes (){
@@ -125,11 +127,17 @@ class ReportesController extends BaseController {
       $data['cantReportes'] = count(Input::get('order_by'));
       $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
       $data['solicitudes'] = $data['solicitudes']
+              /*->where(function($query) {
+                    $query->where('estatus', '=', 'ELA')->orWhere('estatus', '=', 'ART');
+                    //$query->where('estatus', '=', 'APR');
+                })*/
       ->orderBy($columna, 'ASC')
       ->get();
       $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
-      
+
       return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
+      
+     
       } 
       
     public function getPuntomemo ($id){
@@ -189,13 +197,12 @@ class ReportesController extends BaseController {
              if ($columna=="estatus"){
                  $arreglo[$contador]= $presupuesto->solicitud->estatus;
              }
-              if ($columna=="requerimiento"){
+              if ($columna=="nombre"){
                  $arreglo[$contador]= $presupuesto->solicitud->requerimiento;
              }
              $contador++;
           }
         }
-        
         return $arreglo;
     } 
               
