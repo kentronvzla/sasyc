@@ -68,7 +68,7 @@
             ?>
             <!------------------------------------------->
             @if($presupuesto->monto_for != null)
-                @if(($parametro[$contador]!= $parametro[$contador+1]))
+                
                 <tr style="background: #CCC;">
                     <td style="width: 40px;height:auto; font-size: 13px;">
                     <strong>Total</strong>
@@ -76,7 +76,7 @@
                     <td></td><td></td><td></td>
                     <td valign="middle" ALIGN=right>{{tm($subtotal)}}</td>
                 </tr> <?php $contador++;  $subtotal=0; ?>         
-                @endif
+                
             @endif
             <?php $i++; ?>
             <!------------------------------------------->
@@ -84,12 +84,12 @@
         
     @endforeach  
     <!------------------------------------------->
-     <tr style="background: #CCC;">
+    <!-- <tr style="background: #CCC;">
          <td style="width: 40px;height:auto; font-size: 13px;">
          <strong>Total</strong></td><td></td><td></td><td></td>
         <td></td><td></td><td></td>
-        <td valign="middle" ALIGN=right>{{tm($subtotal)}}</td>
-    </tr>
+        <td valign="middle" ALIGN=right>{{--tm($subtotal)--}}</td>
+    </tr>-->
     <!------------------------------------------->
     <tr style=' background: #CCC;'>
         <td valign="middle" ALIGN=center style="width: 40px;height:auto; font-size: 13px;">

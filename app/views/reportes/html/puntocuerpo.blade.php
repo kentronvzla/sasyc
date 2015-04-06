@@ -9,7 +9,7 @@
             {{$solicitud->personaSolicitante->apellido}}&nbsp;
         </strong>
         de 
-        <strong>{{$edadS}}</strong> 
+        <strong>{{$solicitud->personaSolicitante->fecha_nacimiento->age}}</strong> 
         años de edad, titular de la cédula de 
         identidad 
         <strong>N#:&nbsp;{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, por la cantidad de 
@@ -21,7 +21,7 @@
             {{$solicitud->personaSolicitante->apellido}}&nbsp;
         </strong> 
         de 
-        <strong>{{$edadB}}</strong> 
+        <strong>{{$solicitud->personaBeneficiario->fecha_nacimiento->age}}</strong> 
         años de edad, titular
         de la cédula de identidad 
         <strong>N#:&nbsp;{{$solicitud->personaBeneficiario->ci}}</strong>, 
@@ -41,10 +41,14 @@
 
        De allí que, en vista de las condiciones socio-económicas del solicitante y 
        de la disponibilidad presupuestaria correspondiente, se recomienda la aprobación
-       para otorgar la ayuda económica, por la cantidad de; <strong>valor en texto (837.049,04)</strong>. El cheuqe 
-       esta emitido a favor de:&nbsp; 
+       para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>
+       . El cheuqe
+       esta emitido a favor de:<br>
         @foreach($solicitud->presupuestos as $resultado)
-            <strong>{{$resultado->beneficiario->nombre }},&nbsp;</strong>
+            <strong>
+                {{$resultado->beneficiario->nombre}} por&nbsp;
+                {{$resultado->montoapr}}<br>
+            </strong>
         @endforeach 
         
     </p>
@@ -59,7 +63,7 @@
             {{$solicitud->personaSolicitante->apellido}}&nbsp;
         </strong>
         de 
-        <strong>{{$edadS}}</strong> 
+        <strong>{{$solicitud->personaSolicitante->fecha_nacimiento->age}}</strong> 
         años de edad, titular de la cédula de 
         identidad 
         <strong>N#:&nbsp;{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, 
@@ -67,7 +71,7 @@
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
         a favor del si mismo, que en virtud del
         analisis de la documentación  presentada por parte de las Direcciones de 
-        &nbsp;{{$solicitud->departamento->nombre}}&nbsp; y de Administración, 
+        &nbsp;{{--$solicitud->departamento->nombre--}}&nbsp; y de Administración, 
         necesita recursos para cubrir la necesidad 
         y/o tratar la siguiente necesidad:
         <strong>&nbsp;{{$solicitud->necesidad}}&nbsp;</strong>. En tal sentido, la ayuda
@@ -81,10 +85,13 @@
 
        De las necesidades presentes y en vista de las condiciones socio-económicas del solicitante y 
        de la disponibilidad presupuestaria correspondiente, se recomienda la aprobación
-       para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>. El cheuqe 
-       esta emitido a favor de:&nbsp; 
-       @foreach($solicitud->presupuestos as $resultado)
-            <strong>{{$resultado->beneficiario->nombre }},&nbsp;</strong>
-       @endforeach 
+       para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>. El cheuqe 
+       esta emitido a favor de:<br><br>
+        @foreach($solicitud->presupuestos as $resultado)
+            <strong>
+                {{$resultado->beneficiario->nombre}} por&nbsp;
+                {{$resultado->montoapr}}<br>
+            </strong>
+        @endforeach 
     </p>
 @endif
