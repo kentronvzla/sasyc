@@ -60,6 +60,14 @@ class ConfiguracionSeeder extends Seeder {
             'variable' => 'monto_maximo_memo',
             'valor' => 5000,
         ));
+        Configuracion::create(array(
+            'variable' => 'presidente',
+            'valor' => 'MY Antonio José Pérez Suárez',
+        ));
+        Configuracion::create(array(
+            'variable' => 'coordinador',
+            'valor' => 'CAP Jose Holberg Zambrano González',
+        ));
     }
 
 }
