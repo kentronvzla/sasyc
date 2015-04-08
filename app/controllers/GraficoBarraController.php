@@ -1,9 +1,11 @@
-<?php namespace Estacionamiento\Http\Controllers;
+<?php 
 
 class GraficoBarraController extends Controller{
 
     public function getGraficar() {
-        return view('chart');
+        //echo 'chart';
+        return View::make('graficos.chart');
+    // return view('chart');
     }
     
     public function getDataano(){

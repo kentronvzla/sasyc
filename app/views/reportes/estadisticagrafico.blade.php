@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('contenido')
-    {{Form::busqueda(['url'=>'reportes/estadisticagrafico','method'=>'POST'])}}
+    {{Form::busqueda(['url'=>'graficos/graficar','method'=>'POST'])}}
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="panel panel-danger">
             <div class="panel-heading">
