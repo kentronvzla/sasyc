@@ -13,9 +13,11 @@
         {{HTML::style('css/jquery.noty.min.css')}}
         {{HTML::style('css/noty_theme_default.min.css')}}
         {{HTML::style('css/estilo_sasyc.css')}}
+        
 
         <!--JS-->
         {{HTML::script('bower_components/jquery/jquery.min.js')}}
+        
     </head>
     <body>
         <noscript>
@@ -98,6 +100,7 @@
         {{HTML::script('js/i18n/select2.es.js')}}
         {{HTML::style('css/font-awesome.min.css')}}
         {{HTML::script('js/typeahead.min.js')}}
+        
         <div class="modal fade" id="modalConfirmacion">
             <div class="modal-dialog">
                 <div class="modal-content">

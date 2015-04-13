@@ -1,5 +1,4 @@
 <?php
-
 class ReportesController extends BaseController {
 
     private $reporte;
@@ -108,8 +107,7 @@ class ReportesController extends BaseController {
         
         $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
                 
-        return $this->reporte->generar('reportes.html.resueltos', $data, 'L');
-        //echo $columna;            
+        return $this->reporte->generar('reportes.html.resueltos', $data, 'L');           
     }
 
     public function getPendientes (){
@@ -194,7 +192,7 @@ class ReportesController extends BaseController {
         return $arreglo;
     } 
     
-    public function getEstadisticasgrafico() {
+    /*public function getEstadisticasgrafico() {
         $data['columnas_agrupables'] = static::$columnas_agrupables;
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
@@ -243,6 +241,6 @@ class ReportesController extends BaseController {
         
       
         //return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
-    }
+    }*/
               
 }

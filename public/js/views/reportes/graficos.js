@@ -5,6 +5,8 @@ $(document).ready(function () {
 
 function graficoAno(){
     $.ajax({
+
+       // url: "http://localhost/sasyc/public/graficos/dataano",
         url: "http://localhost/Estacionamientos/public/graficos/dataano",
         method: 'get',
         success: function (datos) {
@@ -28,6 +30,7 @@ function graficoAno(){
 
 function graficoArea(){
     $.ajax({
+        //url: "http://localhost/sasyc/public/graficos/dataarea",
         url: "http://localhost/Estacionamientos/public/graficos/dataarea",
         method: 'get',
         success: function (datos) {

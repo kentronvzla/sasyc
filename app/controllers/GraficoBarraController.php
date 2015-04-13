@@ -1,11 +1,33 @@
 <?php 
 
 class GraficoBarraController extends Controller{
-
+    
+    private static $columnas_agrupables = [
+        '' => 'Seleccione',
+        'municipios.estado_id' => 'Estado',
+        'areas.tipo_ayuda_id' => 'Tipo de ayuda',
+        'solicitudes.area_id' => 'Área',
+        'presupuestos.beneficiario_id' => 'Beneficiario',
+        'presupuestos.requerimiento_id' => 'Requerimiento',
+        'solicitudes.estatus' => 'Estatus',
+        'solicitudes.recepcion_id' => 'Recepción',
+        'personas.sexo' => 'Sexo',
+        'especial_mes' => 'Mes',
+    ];
+    
     public function getGraficar() {
-        //echo 'chart';
+        //echo "control metodo getGraficar";
         return View::make('graficos.chart');
-    // return view('chart');
+       
+    }
+    
+    public function getFormulario() {
+        $data['columnas_agrupables'] = static::$columnas_agrupables;
+        $data['solicitud'] = new Solicitud();
+        $data['persona'] = new Persona();
+        $data['presupuesto'] = new Presupuesto();
+        return View::make('reportes.estadisticassolicitud', $data);
+       
     }
     
     public function getDataano(){
