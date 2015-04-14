@@ -15,6 +15,7 @@ class CreateDepartamentosTable extends Migration {
             $table->increments('id');
             $table->integer('supervisor_id', false, true);
             $table->string('nombre', 100);
+            $table->integer('version')->default(0);
             $table->timestamps();
         });
 
