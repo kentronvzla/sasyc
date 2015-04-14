@@ -3,14 +3,14 @@
         <td>
             <p align="justify">
                 Tengo el honor de dirigirme a usted en la oportunidad de saludarle
-                y a lavez remitirle los recaudos del ciudadano(a) 
+                y a la vez remitirle los recaudos del ciudadano(a) 
                 <strong>
                     &nbsp;{{$solicitud->personaSolicitante->nombre}}&nbsp;
                     {{$solicitud->personaSolicitante->apellido}}&nbsp;
                 </strong> 
-                de 
-               <!-- {{--$edadS--}}-->
-                años de edad, 
+                de&nbsp; 
+                {{$solicitud->personaSolicitante->fecha_nacimiento->age}}
+                &nbsp;años de edad, 
                 titular de la cédula de identidad 
                 <strong>
                     N#&nbsp;{{$solicitud->personaSolicitante->ci}}&nbsp;
@@ -22,9 +22,9 @@
                     {{$solicitud->personaBeneficiario->nombre}}&nbsp;
                     {{$solicitud->personaBeneficiario->apellido}}&nbsp;
                 </strong> 
-                de 
-                <!--&nbsp;{{--$edadB--}}&nbsp;-->
-                años de edad,
+                de &nbsp; 
+                {{$solicitud->personaBeneficiario->fecha_nacimiento->age}}
+                &nbsp;años de edad,
                 titular de la cédula de identidad 
                 <strong>N#&nbsp;{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, 
                 por la 
@@ -32,7 +32,13 @@
                 en virtud de cubrir los gastos ante; 
                 <strong>
                     @foreach($solicitud->presupuestos as $resultado)
-                        {{$resultado->requerimiento->nombre }},&nbsp;
+                        {@if ($resultado->beneficiario_id != null)
+                            <strong>
+                                &nbsp;&nbsp;-&nbsp;
+                                {{$resultado->beneficiario->nombre}}
+                                &nbsp;
+                            </strong>
+                         @endif
                     @endforeach
                 </strong>                    
             </p><br>
@@ -45,7 +51,7 @@
                 <strong>&nbsp;{{$montoASCII}}&nbsp;</strong><br>
                 A nombre o razón social de 
                 @foreach($solicitud->presupuestos as $resultado)
-                    <strong>{{$resultado->beneficiario->nombre }},&nbsp;</strong>
+                    <strong>{{$resultado->beneficiario->nombre}},&nbsp;</strong>
                 @endforeach <br><br>
 
                 Sin otro particular al cual hacer referencia, se despide de usted.<br>
@@ -65,21 +71,22 @@
                     &nbsp;{{$solicitud->personaSolicitante->nombre}}&nbsp;
                     {{$solicitud->personaSolicitante->apellido}}&nbsp;
                 </strong> 
-                de 
-                <!--{{--$edadS--}}-->
-                años de edad, 
+                <!--de&nbsp; 
+                {{--$solicitud->personaBeneficiario->fecha_nacimiento->age--}}
+                &nbsp;años de edad,--> 
                 titular de la cédula de identidad 
                 <strong>
                     N#&nbsp;{{$solicitud->personaSolicitante->ci}}&nbsp;
                 </strong>;
                 quien solicita ayuda económica para cubrir gastos ante la necesidad y/o
-                tratamiento de:&nbsp;{{$solicitud->necesidad}}&nbsp; a favor si mismo, 
+                tratamiento de:&nbsp;{{$solicitud->necesidad}}&nbsp; a favor si mismo(a), 
                 por la 
                 cantidad <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>,
-                en virtud de cubrir los gastos ante; 
+                en virtud de cubrir los gastos por:<br><br> 
                 <strong>
                     @foreach($solicitud->presupuestos as $resultado)
-                        {{--$resultado->requerimiento->nombre--}},&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;{{$resultado->requerimiento->nombre}}.
+                    &nbsp;<br>
                     @endforeach
                 </strong>                    
             </p><br>
@@ -87,18 +94,23 @@
     </tr>
     <tr>
         <td>
-            <p align="center">
-                Se agradece emitir cheque por la cantidad de:<br>
-                <strong>&nbsp;{{$montoASCII}}&nbsp;</strong><br>
-                A nombre o razón social de 
+            <p  align="justify">
+                Se agradece emitir cheque por la cantidad de:
+                <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>
+                a nombre o razón social de:<br><br> 
                 @foreach($solicitud->presupuestos as $resultado)
-                    <strong>{{--$resultado->beneficiario->nombre--}},&nbsp;</strong>
+                    @if ($resultado->beneficiario_id != null)
+                         <strong>
+                            {{$resultado->beneficiario->nombre}} por&nbsp;
+                            {{$resultado->montoapr}}<br>
+                        </strong>
+                    @endif
                 @endforeach <br><br>
 
                 Sin otro particular al cual hacer referencia, se despide de usted.<br>
-                Atentamente,<br><br>
+                Atentamente:
 
-                <strong>1ER.TTE. Evelyn Cárdenas<br>Dirección de bienestar Social</strong>
+                <strong>1ER.TTE. Evelyn Cárdenas Dirección de bienestar Social</strong>
             </p><br>
         </td>
     </tr>

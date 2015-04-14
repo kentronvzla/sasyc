@@ -40,6 +40,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
         //fin kerux
         'cantidad' => '',
         'monto' => '',
+        'montoapr' => 'Monto por aprobar',
     ];
 
     protected function getPrettyFields() {
@@ -61,6 +62,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
             'cantidad' => 'Cantidad',
             'monto' => 'Monto',
             'montofor' => 'Monto',
+            'montoapr' => 'Monto por aprobar',
         ];
     }
 

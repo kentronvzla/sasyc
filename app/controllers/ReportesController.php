@@ -1,5 +1,4 @@
 <?php
-
 class ReportesController extends BaseController {
 
     private $reporte;
@@ -80,6 +79,7 @@ class ReportesController extends BaseController {
                     ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
                     ->get();
         }
+        
         return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
     }
 
@@ -99,16 +99,15 @@ class ReportesController extends BaseController {
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
         $data['solicitudes'] = $data['solicitudes']
                 ->where(function($query) {
-                    //$query->where('estatus', '=', 'ELA')->orWhere('estatus', '=', 'ART');
-                    $query->where('estatus', '=', 'APR');
+                    $query->where('estatus', '=', 'ELA')->orWhere('estatus', '=', 'ART');
+                   // $query->where('estatus', '=', 'APR');
                 })
                 ->orderBy($columna, 'ASC')
                 ->get();
         
         $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
                 
-        return $this->reporte->generar('reportes.html.resueltos', $data, 'L');
-        //echo $columna;            
+        return $this->reporte->generar('reportes.html.resueltos', $data, 'L');           
     }
 
     public function getPendientes (){
@@ -127,41 +126,26 @@ class ReportesController extends BaseController {
       $data['cantReportes'] = count(Input::get('order_by'));
       $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
       $data['solicitudes'] = $data['solicitudes']
-              /*->where(function($query) {
-                    $query->where('estatus', '=', 'ELA')->orWhere('estatus', '=', 'ART');
-                    //$query->where('estatus', '=', 'APR');
-                })*/
       ->orderBy($columna, 'ASC')
       ->get();
       $data['parametro']=$this->parametro_de_orden($data,(explode('.', $columna)[1]));
-
+      
       return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
       
      
       } 
       
     public function getPuntomemo ($id){
-        $total=0;
+        $total1=0;
+        $total2=0;
         $data['solicitud'] = Solicitud::findOrFail($id);    
         foreach($data['solicitud'] ->presupuestos as $resultado){
-          $total=$total+$resultado->monto;  
-        }
-        // se transforma la edad del beneficiario y solicitante
-        $data['edadS']=(((int)$data['solicitud']->personaSolicitante->fecha_nacimiento
-           ->format('Y'))-((int)\Carbon\Carbon::now()->format('Y')))*(-1);
-        $data['edadB']=(((int)$data['solicitud']->personaBeneficiario->fecha_nacimiento
-           ->format('Y'))-((int)\Carbon\Carbon::now()->format('Y')))*(-1);
-        
-        // se convierte el monto a valor en letra
-        $V=new EnLetras();
-        $valor=explode(".",$total);
-        if (count($valor)>1){
-        $con=strtoupper($V->ValorEnLetras($valor[0]," Bsf Con "));
-        $data['montoASCII']=$con.strtoupper($V->ValorEnLetras($valor[1]," Centimos"))." ( Bsf. ".$total." )";
+          $total1=$total1+$resultado->monto;  
+          $total2=$total2+$resultado->montoapr;  
         } 
-        else {
-            $data['montoASCII']=strtoupper($V->ValorEnLetras($valor[0]," Bsf"))." ( Bsf. ".$total." )";
-        }
+        
+        $data['montoASCII']=$this->montos_punto_memo ($total1);
+        $data['montoASCIIapr']=$this->montos_punto_memo ($total2);
         
         // se pide el reporte
         if ($data['solicitud']->tipo_proc=='prb1'){
@@ -171,21 +155,23 @@ class ReportesController extends BaseController {
              return $this->reporte->generar('reportes.html.memo', $data, 'P');
          }
         
-        //echo $total."<br>".$data['montoASCII'];
+        //echo $data['montoASCII']."<br>".$data['montoASCIIapr'];
     }  
     
-    //-------------------------------------------------------------------------------------
-     
+    private function montos_punto_memo ($monto){
+         // se convierte el monto a valor en letra
+        $V=new EnLetras();
+        $valor=explode(".",$monto);
+        if (count($valor)>1){
+            $con=strtoupper($V->ValorEnLetras($valor[0]," Bsf Con "));
+            return $con.strtoupper($V->ValorEnLetras($valor[1]," Centimos"))." ( Bsf. ".$monto." )";
+        } 
+        else {
+            return strtoupper($V->ValorEnLetras($valor[0]," Bsf"))." ( Bsf. ".$monto." )";
+        }
+    }
     
-   /* private function edad ($edad){
-         if ($edad != null or $edad!=" " or $edad!=""){
-             return true;
-         }
-         if ($edad == null or $edad==" " or $edad!=""){
-             return false;
-         }
-     }*/
-     
+    //-------------------------------------------------------------------------------------     
     private function parametro_de_orden ($data, $columna){
          $contador=0; 
          $arreglo []=array();
@@ -205,5 +191,56 @@ class ReportesController extends BaseController {
         }
         return $arreglo;
     } 
+    
+    /*public function getEstadisticasgrafico() {
+        $data['columnas_agrupables'] = static::$columnas_agrupables;
+        $data['solicitud'] = new Solicitud();
+        $data['persona'] = new Persona();
+        $data['presupuesto'] = new Presupuesto();
+        
+        return View::make('reportes.estadisticagrafico', $data);
+    }
+    
+     public function postEstadisticagrafico() {
+        $data['cont'] = 0;
+        $data['acum'] = 0;
+        $data['anterior'] = "";
+        $data['cantReportes'] = count(Input::get('group_by_1'));
+        for ($i = 0; $i < $data['cantReportes']; $i++) {
+            $data['titulo'][$i] = Input::get('titulo_reporte')[$i];
+
+            $data['solicitudes'][$i] = Solicitud::aplicarFiltro(Input::except(['group_by_1', 'group_by_2', 'group_by_3', 'titulo_reporte', 'formato_reporte']));
+            $data['columnas'][$i] = [];
+            $strSelect = '';
+            //se aplican los group by
+            for ($j = 1; $j <= 3; $j++) {
+                $columna = Input::get('group_by_' . $j, '')[$i];
+                if (!empty($columna)) {
+                    if ($columna == 'especial_mes') {
+                        $strSelect .= 'extract(month from solicitudes.created_at) as especial_mes, ';
+                    } else {
+                        $strSelect .= $columna . ', ';
+                    }
+                    $data['columnas'][$i][$columna] = static::$columnas_agrupables[$columna];
+                    $data['solicitudes'][$i]->groupBy($columna);
+                    $data['solicitudes'][$i]->orderBy($columna);
+                    //se debe ordenar por la primera columna.
+                    if ($j == 1) {
+                        if (str_contains($columna, '.')) {
+                            $data['primera_columna'][$i] = explode('.', $columna)[1];
+                        } else {
+                            $data['primera_columna'][$i] = $columna;
+                        }
+                    }
+                }
+            }
+            $data['solicitudes'][$i] = $data['solicitudes'][$i]
+                    ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
+                    ->get();
+        }
+        
+      
+        //return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
+    }*/
               
 }

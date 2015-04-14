@@ -19,6 +19,9 @@
     {{Form::btInput($presupuesto,'monto',3)}}
 </div>
 <div class="row">
+ {{Form::btInput($presupuesto,'montoapr',12)}}   
+</div>
+<div class="row">
     <div id="beneficiario-id-div">
         {{Form::btInput($presupuesto,'beneficiario_id',9)}}
     </div>

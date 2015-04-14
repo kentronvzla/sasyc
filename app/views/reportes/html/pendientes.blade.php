@@ -31,13 +31,14 @@
                 </td>
             </tr>
         <!------------------------------------------->
-        <?php $contador=0; $subtotal=0; ?>
+        <?php $contador=0; $subtotal=0; $n_caso=1; ?>
         <!------------------------------------------->
         @foreach($solicitudes as $resultado)
             @foreach($resultado->presupuestos as $key=>$presupuesto)
                 <tr>
                     <td style="width: 40px;height:auto;" valign="middle" ALIGN=center>
-                        <strong>{{$i}}</strong>
+                        <strong>{{$n_caso}}</strong>
+                        <?php $n_caso++;?>
                     </td>
                     <td style="width: 140px;height:auto;" >
                         {{$presupuesto->solicitud->referente_externo}}
@@ -70,7 +71,6 @@
                 <?php $cuenta=0; ?>
                 @if($presupuesto->monto_for != null)
                     @if(($parametro[$contador]!= $parametro[$contador+1]))
-                    
                         <tr style="background: #CCC;">
                             <td style="width: 40px;height:auto;" valign="middle" ALIGN=center>
                                 <strong>Total</strong>
@@ -87,9 +87,9 @@
                         </tr> 
                         <?php $contador++; $subtotal=0; ?>         
                     @endif
-                    <?php if($cuenta<=count($parametro)){
+                    <?php /*if($cuenta<=count($parametro)){
                         $cuenta++;
-                    } ?>
+                    } */?>
                 @endif
                 <!------------------------------------------->
             @endforeach 
@@ -113,7 +113,8 @@
        <!------------------------------------------->
         <tr style=' background: #CCC;'>
             <td style="width: 40px;height:auto;" valign="middle" ALIGN=center>
-                <strong>{{$i-1}}</strong>
+                <!--<strong>{{--$i-1--}}</strong>-->
+                <strong>{{$n_caso-1}}</strong>
             </td>
             <td style="width: 140px;height:auto; font-size: 13px;"  valign="middle">
                 <strong>Monto Total General</strong>
@@ -138,5 +139,5 @@
             </td>
         </tr>
     </table>
-    <?php echo $contador."<br>".count($parametro); ?>
+    <?php //echo $contador."<br>".count($parametro); ?>
 @endsection
