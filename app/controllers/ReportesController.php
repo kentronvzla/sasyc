@@ -17,14 +17,12 @@ class ReportesController extends BaseController {
     private static $columnas_orden = [
         '' => 'Seleccione',
         'solicitudes.referente_externo' => 'Referencia',
-        //'requerimiento.nombre'=>'Tratamiento',
     ];
     
     private static $columnas_orden_1 = [
         '' => 'Seleccione',
         'solicitudes.referente_externo' => 'Referencia',
         'solicitudes.estatus' => 'Estatus',
-        //'requerimientos.nombre' => 'Tratamiento',
     ];
 
 
@@ -80,7 +78,15 @@ class ReportesController extends BaseController {
                     ->get();
         }
         
-        return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
+        if(\Input::get('formato_reporte','vista')=="vista"){
+            return $this->getGraficar($data);
+            /*$data['solicitudes'][$i]
+                    ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
+                    ->get()*/
+        }
+        else{
+            return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
+        }
     }
 
     public function getResueltos() {
@@ -192,55 +198,59 @@ class ReportesController extends BaseController {
         return $arreglo;
     } 
     
-    /*public function getEstadisticasgrafico() {
+    ////////////////////////////////////////////////////////////////////////
+    ////////////////// probar seccion de graficos//////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    private function getGraficar($data) {
+        return View::make('graficos.chart', $data);
+       
+    }
+    
+    public function getFormgrafica() {
+        
         $data['columnas_agrupables'] = static::$columnas_agrupables;
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
         $data['presupuesto'] = new Presupuesto();
-        
-        return View::make('reportes.estadisticagrafico', $data);
+        return View::make('graficos.estadisticagrafico', $data);
+       
     }
     
-     public function postEstadisticagrafico() {
-        $data['cont'] = 0;
-        $data['acum'] = 0;
-        $data['anterior'] = "";
-        $data['cantReportes'] = count(Input::get('group_by_1'));
-        for ($i = 0; $i < $data['cantReportes']; $i++) {
-            $data['titulo'][$i] = Input::get('titulo_reporte')[$i];
-
-            $data['solicitudes'][$i] = Solicitud::aplicarFiltro(Input::except(['group_by_1', 'group_by_2', 'group_by_3', 'titulo_reporte', 'formato_reporte']));
-            $data['columnas'][$i] = [];
-            $strSelect = '';
-            //se aplican los group by
-            for ($j = 1; $j <= 3; $j++) {
-                $columna = Input::get('group_by_' . $j, '')[$i];
-                if (!empty($columna)) {
-                    if ($columna == 'especial_mes') {
-                        $strSelect .= 'extract(month from solicitudes.created_at) as especial_mes, ';
-                    } else {
-                        $strSelect .= $columna . ', ';
-                    }
-                    $data['columnas'][$i][$columna] = static::$columnas_agrupables[$columna];
-                    $data['solicitudes'][$i]->groupBy($columna);
-                    $data['solicitudes'][$i]->orderBy($columna);
-                    //se debe ordenar por la primera columna.
-                    if ($j == 1) {
-                        if (str_contains($columna, '.')) {
-                            $data['primera_columna'][$i] = explode('.', $columna)[1];
-                        } else {
-                            $data['primera_columna'][$i] = $columna;
-                        }
-                    }
-                }
-            }
-            $data['solicitudes'][$i] = $data['solicitudes'][$i]
-                    ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-                    ->get();
-        }
+    public function getDatagrafico(){
         
-      
-        //return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
-    }*/
-              
+        /* Ejemplo con data de DB
+        $range = CarbonCarbon::now()->subDays(30);
+
+        $stats = DB::table('orders')
+          ->where('created_at', '>=', $range)
+          ->groupBy('date')
+          ->orderBy('date', 'ASC')
+          ->get([
+            DB::raw('Date(created_at) as date'),
+            DB::raw('COUNT(*) as value')
+          ])
+          ->toJSON();
+         */
+        $array[0] = new \stdClass();
+        $array[0]->ano = '2014';
+        $array[0]->casos = 5246; 
+        $array[0]->montos = 101212;         
+        
+        $array[1] = new \stdClass();
+        $array[1]->ano = '2014';
+        $array[1]->casos = 2021; 
+        $array[1]->montos = 201100; 
+        
+        $array[2] = new \stdClass();
+        $array[2]->ano = '2016';
+        $array[2]->casos = 3230; 
+        $array[2]->montos = 301100; 
+        
+        $array[3] = new \stdClass();
+        $array[3]->ano = '2017';
+        $array[3]->casos = 4423; 
+        $array[3]->montos = 452400;          
+        
+        return Response::json($array);
+    }
 }

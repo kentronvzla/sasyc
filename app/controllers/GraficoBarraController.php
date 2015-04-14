@@ -1,6 +1,7 @@
 <?php 
 
 class GraficoBarraController extends Controller{
+     
     
     private static $columnas_agrupables = [
         '' => 'Seleccione',
@@ -26,7 +27,7 @@ class GraficoBarraController extends Controller{
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
         $data['presupuesto'] = new Presupuesto();
-        return View::make('reportes.estadisticassolicitud', $data);
+        return View::make('graficos.estadisticagrafico', $data);
        
     }
     
@@ -65,7 +66,7 @@ class GraficoBarraController extends Controller{
         $array[3]->casos = 4423; 
         $array[3]->montos = 452400;          
         
-        return response()->json($array);
+        return Response::json($array);
     }
 
     public function getDataarea(){
@@ -93,7 +94,7 @@ class GraficoBarraController extends Controller{
         $array[5]->exp = 'Gastro';
         $array[5]->casos = 23; 
         $array[5]->montos = 2400;        
-        return response()->json($array);
+        return Response::json($array);
     }
 
 }
