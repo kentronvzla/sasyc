@@ -85,7 +85,7 @@
                                 {{tm($subtotal)}}
                             </td>
                         </tr> 
-                        <?php $contador++; $subtotal=0; ?>         
+                        <?php /*$contador++; $subtotal=0; */?>         
                     @endif
                     <?php /*if($cuenta<=count($parametro)){
                         $cuenta++;
@@ -94,9 +94,18 @@
                 <!------------------------------------------->
             @endforeach 
             <?php $i++; ?>
+            @if(@$subtotal!=0)
+            <tr style="background: #CCC;">
+              <td style="width: 40px;height:auto; font-size: 13px;">
+              <strong>Total</strong></td><td></td><td></td><td></td>
+              <td></td><td></td><td></td>
+              <td valign="middle" ALIGN=right>{{tm($subtotal)}}</td>
+            </tr>
+            @endif    
+                <?php $contador++; $subtotal=0; ?> 
         @endforeach    
         <!------------------------------------------->
-        <tr style="background: #CCC;">
+        <!--<tr style="background: #CCC;">
             <td style="width: 40px;height:auto;" valign="middle" ALIGN=center>
                 <strong>Total</strong>
             </td>
@@ -107,13 +116,12 @@
            <td style="width: 130px;height:auto;"></td>
            <td style="width: 130px;height:auto;"></td>
            <td valign="middle" ALIGN=right style="width: 130px;height:auto;" valign="middle" ALIGN=right>
-               {{tm($subtotal)}}
+               {{--tm($subtotal)--}}
            </td>
-       </tr>
+       </tr>-->
        <!------------------------------------------->
         <tr style=' background: #CCC;'>
             <td style="width: 40px;height:auto;" valign="middle" ALIGN=center>
-                <!--<strong>{{--$i-1--}}</strong>-->
                 <strong>{{$n_caso-1}}</strong>
             </td>
             <td style="width: 140px;height:auto; font-size: 13px;"  valign="middle">

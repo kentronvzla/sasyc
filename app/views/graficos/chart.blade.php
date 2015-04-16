@@ -1,6 +1,46 @@
 @extends('layouts.master')
 @section('contenido')
-{{Form::busqueda(['url'=>'reportes/estadisticassolicitud','method'=>'POST'])}}
+{{Form::busqueda(['url'=>'reportes/graficar','method'=>'POST'])}}
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Búsqueda
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    Indicar columna para agrupar 
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div id="contenedor-tablas">
+                                    <div class="row" id="plantilla-fila">
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                                {{Form::select('group_by_1[]', $columnas_agrupables, '', ['placeholder'=>'Agrupación 1','class'=>'form-control','required'])}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary" type="submit" name="formato_reporte" value="vista"><i class="fa fa-file-excel-o"></i> Generar en Grafico</button>
+                        <!--<button type="button" class="btn btn-primary grafico" name="formato_reporte" ><i class="glyphicon glyphicon-search"></i> Generar gráfico</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----------------------------------------------------------------------->
     <div class="col-xs-12 col-sm-12 col-md-12">
             <head>
                 <link href='../css/morris.css' rel='stylesheet'>
@@ -14,7 +54,7 @@
             </head>
             <body>           
                 <div class="navbar navbar-default" role="navigation" style="background: white; border-color: white;">
-                    <div id="chartano" style="height: 250px;"></div>
+                    <div id="chartgrupo" style="height: 250px;"></div>
                 </div>
 
                 <div class="morris-hover morris-default-style" style="left: 0px; top: 173px;">
@@ -25,21 +65,6 @@
                     </div>                
                 </div>
             </body>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="panel panel-danger">
-                <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelPlanilla">
-                    <h4 class="panel-title">
-                        <center>Obtener tabla de datos aquí</center>
-                    </h4>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12"><br>
-                        <button class="btn btn-primary" type="submit" name="formato_reporte" value="pdf"><i class="fa fa-file-pdf-o"></i> Generar en PDF</button>
-                        <button class="btn btn-primary" type="submit" name="formato_reporte" value="xls"><i class="fa fa-file-excel-o"></i> Generar en Excel</button>
-                    </div>
-                </div>
-        </div>
     </div>
 {{Form::close()}}
 @endsection

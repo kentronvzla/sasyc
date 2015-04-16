@@ -1,4 +1,4 @@
-@extends('layouts.master')
+  @extends('layouts.master')
 @section('contenido')
     {{Form::busqueda(['url'=>'reportes/estadisticassolicitud','method'=>'POST'])}}
     <div class="col-xs-12 col-sm-12 col-md-12">
