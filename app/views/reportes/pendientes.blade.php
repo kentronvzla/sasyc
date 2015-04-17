@@ -23,7 +23,7 @@
                                     <div class="row" id="plantilla-fila">
                                         <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
-                                                {{Form::select('order_by',$columnas_orden, '', ['placeholder'=>'Ordenar','class'=>'form-control'])}}
+                                                {{Form::select('order_by',$columnas_orden, '', ['placeholder'=>'Ordenar','class'=>'form-control','required'])}}
                                             </div>
                                         </div>
                                     </div>

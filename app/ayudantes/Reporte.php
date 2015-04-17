@@ -8,13 +8,15 @@
 
 namespace ayudantes;
 
-class Reporte {
+class Reporte{
 
     public function generar($vista, $data, $orientacion = 'P'){
         if(\Input::get('formato_reporte','pdf')=="pdf"){
             return $this->generarPDF($vista, $data, $orientacion);
         }
+
         return $this->generarExcel($vista, $data);
+    
     }
 
     private function generarExcel($vista, $data){
@@ -39,4 +41,5 @@ class Reporte {
         }
         die();
     }
+
 }
