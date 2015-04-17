@@ -16,7 +16,7 @@ function grafico(){
                 // the chart.
                 data: datos,
                 // The name of the data record attribute that contains x-values.
-                xkey: 'grupo',
+                xkey: 'especial_mes',
                 // A list of names of data record attributes that contain y-values.
                 ykeys: ['cantidad', 'monto'],
                 // Labels for the ykeys -- will be displayed when you hover over the

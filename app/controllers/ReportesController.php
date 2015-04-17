@@ -38,7 +38,6 @@ class ReportesController extends BaseController {
         $data['presupuesto'] = new Presupuesto();
         return View::make('reportes.estadisticassolicitud', $data);
     }
-
     public function postEstadisticassolicitud() {
         $data['cont'] = 0;
         $data['acum'] = 0;
@@ -72,16 +71,16 @@ class ReportesController extends BaseController {
                     }
                 }
             }
-            $data['solicitudes'][$i] = $data['solicitudes'][$i]
+           /*$data['solicitudes'][$i] = $data['solicitudes'][$i]
                     ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-                    ->get();
+                    ->get();*/
             
-            /*dd($data['solicitudes'][$i]
+           dd($data['solicitudes'][$i]
                             ->selectRaw($strSelect .' SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-                            ->get()->toJSON()); */   
+                            ->get()->toJSON()); 
         }
 
-        return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
+        //return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
     }
 
     public function getResueltos() {
@@ -166,8 +165,7 @@ class ReportesController extends BaseController {
             return strtoupper($V->ValorEnLetras($valor[0], " Bsf")) . " ( Bsf. " . $monto . " )";
         }
     }
-
-    //-------------------------------------------------------------------------------------     
+   
     private function parametro_de_orden($data, $columna) {
         $contador = 0;
         $arreglo [] = array();
@@ -187,58 +185,44 @@ class ReportesController extends BaseController {
         }
         return $arreglo;
     }
-
-    public function postGraficar() {
+    /*-------------------------------------------------------------------------*/
+    public function getGraficar() {
         $data['columnas_agrupables'] = static::$columnas_agrupables;
-        return View::make('graficos.chart', $data);
+        return View::make('graficos.buscargrafico', $data);
     }
-
-    public function getFormgrafica() {
-
-        $data['columnas_agrupables'] = static::$columnas_agrupables;
-        $data['solicitud'] = new Solicitud();
-        $data['persona'] = new Persona();
-        $data['presupuesto'] = new Presupuesto();
-        return View::make('graficos.estadisticagrafico', $data);
-    }
-
+    
     public function postDatos() {
-        $data['cont'] = 0;
-        $data['acum'] = 0;
-        $data['anterior'] = "";
+   //public function getDatos() {    
         $data['cantReportes'] = count(Input::get('group_by_1'));
-        
+
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except(['group_by_1', 'formato_reporte']));
         $data['columnas'] = [];
         $strSelect = '';
         //se aplican los group by
-            $columna = Input::get('group_by_1');
-            if (!empty($columna)) {
-                if ($columna == 'especial_mes') {
-                    $strSelect .= 'extract(month from solicitudes.created_at) as especial_mes as grupo, ';
-                } else {
-                    $strSelect .= $columna . 'as grupo, ';
-                }
-                $data['columnas'][$columna] = static::$columnas_agrupables[$columna];
-                $data['solicitudes']->groupBy($columna);
-                
-               
-                $data['solicitudes']->orderBy($columna);
-                //se debe ordenar por la primera columna.
-                if (str_contains($columna, '.')) {
-                    $data['primera_columna'] = explode('.', $columna)[0];
-                } else {
-                    $data['primera_columna'] = $columna;
-                }
-               
-            }     
-          
-            $data['solicitudes'] = $data['solicitudes']
-                            ->selectRaw($strSelect .' SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-                            ->get(); 
-            
-            return Response::json($data['solicitudes']);
+        $columna = Input::get('group_by_1');
+        if (!empty($columna)) {
+            if ($columna == 'especial_mes') {
+                $strSelect .= 'extract(month from solicitudes.created_at) as especial_mes, ';
+            } else {
+                $strSelect .= $columna . ',';
+            }
+            $data['columnas'][$columna] = static::$columnas_agrupables[$columna];
+            $data['solicitudes']->groupBy($columna);
+            $data['solicitudes']->orderBy($columna);
+            //se debe ordenar por la primera columna.
+            if (str_contains($columna, '.')) {
+                $data['primera_columna'] = explode('.', $columna);
+            } else {
+                $data['primera_columna'] = $columna;
+            }
 
+        }     
+
+        $data['solicitudes'] = $data['solicitudes']
+                        ->selectRaw($strSelect .' SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
+                        ->get();
+
+        return Response::json($data['solicitudes']); 
         }
        
 }

@@ -204,7 +204,7 @@ class SolicitudesController extends BaseController {
         return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true')->with('error', $solicitud->getErrors()->first());
     }
 
-    public function getCerrar ($id){
+    public function getCerrar ($id){ 
         $data['solicitud'] = Solicitud::findOrFail($id);
         $data['bitacora'] = new Bitacora();
         return View::make('solicitudes.cerrar',$data);
@@ -212,6 +212,7 @@ class SolicitudesController extends BaseController {
     }
 
     public function postCerrar (){
+        //echo'metodo cerrar';
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         if($solicitud->cerrar()){
             return Redirect::to('solicitudes')->with('mensaje', 'Se cerro la solicitud: '.$solicitud->id.', correctamente');
