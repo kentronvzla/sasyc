@@ -741,7 +741,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         ];
     }
 
-    ////////////////////////////////////////////////////////////////////////
     public function cerrar() {
         if ($this->puedeCerrar()) {
             $this->estatus = "CER";

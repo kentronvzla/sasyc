@@ -3,7 +3,6 @@
 class ReportesController extends BaseController {
 
     private $reporte;
-
     private static $columnas_agrupables = [
         '' => 'Seleccione',
         'estados.estado_id' => 'Estado',
@@ -15,19 +14,17 @@ class ReportesController extends BaseController {
         'personas.sexo' => 'Sexo',
         'especial_mes' => 'Mes',
     ];
-
     private static $columnas_descripciones = [
-	        '' => 'Seleccione',
-	        'estados.estado_id' => 'estados.nombre',
-	        'areas.tipo_ayuda_id' => 'tipo_ayudas.nombre',
-	        'solicitudes.area_id' => 'areas.nombre',
-	        'presupuestos.requerimiento_id' => 'requerimientos.nombre',
-	        'solicitudes.estatus' => 'solicitudes.estatus',
-	        'solicitudes.recepcion_id' => 'recepciones.nombre',
-	        'personas.sexo' => 'personas.sexo',
-	        'especial_mes' => 'extract(month from solicitudes.created_at)',
+        '' => 'Seleccione',
+        'estados.estado_id' => 'estados.nombre',
+        'areas.tipo_ayuda_id' => 'tipo_ayudas.nombre',
+        'solicitudes.area_id' => 'areas.nombre',
+        'presupuestos.requerimiento_id' => 'requerimientos.nombre',
+        'solicitudes.estatus' => 'solicitudes.estatus',
+        'solicitudes.recepcion_id' => 'recepciones.nombre',
+        'personas.sexo' => 'personas.sexo',
+        'especial_mes' => 'extract(month from solicitudes.created_at)',
     ];
-
     private static $columnas_orden = [
         '' => 'Seleccione',
         'solicitudes.referente_externo' => 'Referencia',
@@ -51,6 +48,7 @@ class ReportesController extends BaseController {
         $data['presupuesto'] = new Presupuesto();
         return View::make('reportes.estadisticassolicitud', $data);
     }
+
     public function postEstadisticassolicitud() {
         $data['cont'] = 0;
         $data['acum'] = 0;
@@ -84,12 +82,12 @@ class ReportesController extends BaseController {
                     }
                 }
             }
-           /*$data['solicitudes'][$i] = $data['solicitudes'][$i]
-                    ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-                    ->get();*/
+            /* $data['solicitudes'][$i] = $data['solicitudes'][$i]
+              ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
+              ->get(); */
 
-           dd($data['solicitudes'][$i]
-                            ->selectRaw($strSelect .' SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
+            dd($data['solicitudes'][$i]
+                            ->selectRaw($strSelect . ' SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
                             ->get()->toJSON());
         }
 
@@ -202,7 +200,7 @@ class ReportesController extends BaseController {
     public function getGraficar() {
         $data['columnas_agrupables'] = static::$columnas_agrupables;
         $data['solicitud'] = new Solicitud();
-		$data['persona'] = new Persona();
+        $data['persona'] = new Persona();
         $data['presupuesto'] = new Presupuesto();
         return View::make('graficos.buscargrafico', $data);
     }
@@ -233,14 +231,12 @@ class ReportesController extends BaseController {
             } else {
                 $data['primera_columna'] = $columna;
             }
-
         }
 
         $data['solicitudes'] = $data['solicitudes']
-                        ->selectRaw($descripciones .' as grupo, SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-                        ->get();
+                ->selectRaw($descripciones . ' as grupo, SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
+                ->get();
 
         return Response::json($data['solicitudes']);
-        }
-
+    }
 }
