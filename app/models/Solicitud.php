@@ -451,8 +451,12 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             ->leftJoin('areas','solicitudes.area_id','=','areas.id')
             ->leftJoin('parroquias','personas.parroquia_id','=','parroquias.id')
             ->leftJoin('municipios','parroquias.municipio_id','=','municipios.id')
-            ->leftJoin('presupuestos','presupuestos.solicitud_id','=','solicitudes.id')  
-            ->leftJoin('referentes','solicitudes.referente_id','=','referentes.id')                       
+            ->leftJoin('estados','municipios.estado_id','=','estados.id')
+            ->leftJoin('presupuestos','presupuestos.solicitud_id','=','solicitudes.id')
+            ->leftJoin('referentes','solicitudes.referente_id','=','referentes.id')
+            ->leftJoin('tipo_ayudas','areas.tipo_ayuda_id','=','tipo_ayudas.id')
+            ->leftJoin('recepciones','solicitudes.recepcion_id','=','recepciones.id')
+            ->leftJoin('requerimientos','presupuestos.requerimiento_id','=','requerimientos.id')
             ->distinct()
             ->select('solicitudes.*');
 
@@ -755,15 +759,15 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             return "";
         }
     }
-    
+
     public function calcularNumSolicitud(){
         $consulta=DB::table('solicitudes')
-            ->where(DB::raw('extract(year from created_at)'),'=',(int)\Carbon\Carbon::now()->format('Y')) 
+            ->where(DB::raw('extract(year from created_at)'),'=',(int)\Carbon\Carbon::now()->format('Y'))
             ->count();
-        
+
         return $consulta+1;
     }
-    
+
     public function formatoNumSolicitud ($numero){
         if ($numero<=9){
             $numero="0000".$numero;
@@ -777,7 +781,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         else if ($numero<=9999){
             $numero="0".$numero;
         }
-        
+
         return $numero;
     }
 

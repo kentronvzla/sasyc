@@ -13,11 +13,12 @@
         {{HTML::style('css/jquery.noty.min.css')}}
         {{HTML::style('css/noty_theme_default.min.css')}}
         {{HTML::style('css/estilo_sasyc.css')}}
-        
+        {{HTML::style('css/morris.css')}}
+
 
         <!--JS-->
         {{HTML::script('bower_components/jquery/jquery.min.js')}}
-        
+
     </head>
     <body>
         <noscript>
@@ -54,7 +55,7 @@
         </div>
         @if(Request::is('/'))
         {{HTML::image('img/logo_fps.jpg', 'Logo FPS', ['class'=>'img-responsive'])}}
-        @endif        
+        @endif
         <footer class="footer">
             <div class="container">
                 <div class="row">
@@ -85,7 +86,7 @@
         {{HTML::script('js/datatables.bootstrap.min.js')}}
 
         {{HTML::style('css/datatables.bootstrap.min.css')}}
-        {{HTML::style('css/datatables.min.css')}}        
+        {{HTML::style('css/datatables.min.css')}}
 
         {{HTML::style('css/datepicker.min.css')}}
         {{HTML::script('js/datepicker.min.js')}}
@@ -100,7 +101,7 @@
         {{HTML::script('js/i18n/select2.es.js')}}
         {{HTML::style('css/font-awesome.min.css')}}
         {{HTML::script('js/typeahead.min.js')}}
-        
+
         <div class="modal fade" id="modalConfirmacion">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -120,7 +121,7 @@
         </div>
         <div class="modal fade" id="divModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
         <div class="modal fade" id="divModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-        
+
         @if(Session::has('mensaje'))
         <script>
             $(document).ready(function () {
