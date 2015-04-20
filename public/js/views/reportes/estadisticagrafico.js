@@ -5,7 +5,7 @@ $(document).ready(function () {
 function grafico(evt){
     var parent = $(evt.target).closest('.row').parent();
     var variables = parent.find('input, select').serialize();
-    $("chartgrupo").empty();
+    $("#chartgrupo").empty();
     $.ajax({    
         url: baseUrl + "reportes/datos",
         data: variables,

@@ -5,6 +5,19 @@ class ReportesController extends BaseController {
     private $reporte;
     private static $columnas_agrupables = [
         '' => 'Seleccione',
+        'municipios.estado_id' => 'Estado',
+        'areas.tipo_ayuda_id' => 'Tipo de ayuda',
+        'solicitudes.area_id' => 'Área',
+        'presupuestos.beneficiario_id' => 'Beneficiario',
+        'presupuestos.requerimiento_id' => 'Requerimiento',
+        'solicitudes.estatus' => 'Estatus',
+        'solicitudes.recepcion_id' => 'Recepcion',
+        'personas.sexo' => 'Sexo',
+        'especial_mes' => 'Mes',
+    ];
+    
+    private static $columnas_agrupables_grafico = [
+        '' => 'Seleccione',
         'estados.estado_id' => 'Estado',
         'areas.tipo_ayuda_id' => 'Tipo de ayuda',
         'solicitudes.area_id' => 'Área',
@@ -14,6 +27,7 @@ class ReportesController extends BaseController {
         'personas.sexo' => 'Sexo',
         'especial_mes' => 'Mes',
     ];
+        
     private static $columnas_descripciones = [
         '' => 'Seleccione',
         'estados.estado_id' => 'estados.nombre',
@@ -84,14 +98,14 @@ class ReportesController extends BaseController {
             }
             /* $data['solicitudes'][$i] = $data['solicitudes'][$i]
               ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-              ->get(); */
+              ->get(); 
 
             dd($data['solicitudes'][$i]
                             ->selectRaw($strSelect . ' SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-                            ->get()->toJSON());
+                            ->get()->toJSON());*/
         }
 
-        //return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
+        return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
     }
 
     public function getResueltos() {
@@ -197,31 +211,23 @@ class ReportesController extends BaseController {
         return $arreglo;
     }
 
-    public function getGraficar() {
-        $data['columnas_agrupables'] = static::$columnas_agrupables;
+    public function getEstadisticasgrafico() {
+        $data['columnas_agrupables'] = static::$columnas_agrupables_grafico;
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
         $data['presupuesto'] = new Presupuesto();
-        return View::make('graficos.buscargrafico', $data);
+        return View::make('graficos.estadisticagrafico', $data);
     }
 
     public function postDatos() {
-
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except(['group_by', 'formato_reporte']));
         $data['columnas'] = [];
         $strSelect = '';
         //se aplican los group by
         $columna = Input::get('group_by');
         if (!empty($columna)) {
-            //if ($columna == 'especial_mes') {
-            //    $strSelect .= 'extract(month from solicitudes.created_at) as grupo,';
-            //} else {
-            //    $strSelect .= $columna . ' as grupo,';
-            //}
-            $data['columnas'][$columna] = static::$columnas_agrupables[$columna];
+            $data['columnas'][$columna] = static::$columnas_agrupables_grafico[$columna];
             $descripciones = static::$columnas_descripciones[$columna];
-            //$data['solicitudes']->groupBy($columna);
-
             $data['solicitudes']->groupBy('grupo');
             $data['solicitudes']->orderBy('grupo');
 

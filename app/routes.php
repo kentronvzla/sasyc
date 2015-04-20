@@ -45,7 +45,6 @@ Route::group(['before'=>'auth'], function(){
     Route::controller('memorandum', 'MemosController');
     Route::controller('reportes', 'ReportesController');
     Route::controller('autocompletar', 'AutocompletarController');
-   //Route::controller('graficos', 'GraficoBarraController'); /////////
 });
 
 Route::controller('login','LoginController');

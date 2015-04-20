@@ -55,7 +55,7 @@
                     <li>{{HTML::link('reportes/resueltos/','Casos Resueltos')}}</li>
                     <li>{{HTML::link('reportes/pendientes/','Casos Pendientes')}}</li>
                     <li>{{HTML::link('reportes/estadisticassolicitud/','Busqueda Agrupada')}}</li>
-                   <li>{{HTML::link('reportes/graficar/','Graficas Estadisticas')}}</li>
+                   <li>{{HTML::link('reportes/estadisticasgrafico/','Graficas Estadisticas')}}</li>
                 </ul>
             </li>
         </ul>
