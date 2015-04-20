@@ -18,7 +18,7 @@ class SolicitudesController extends BaseController {
 
     public function getIndex() {
         $data['solicitudes'] = Solicitud::eagerLoad()
-            ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','']))
+            ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','cerrar','anulando','']))
             ->ordenar();
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
@@ -208,18 +208,15 @@ class SolicitudesController extends BaseController {
         $data['solicitud'] = Solicitud::findOrFail($id);
         $data['bitacora'] = new Bitacora();
         return View::make('solicitudes.cerrar',$data);
-
     }
 
     public function postCerrar (){
-        //echo'metodo cerrar';
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         if($solicitud->cerrar()){
             return Redirect::to('solicitudes')->with('mensaje', 'Se cerro la solicitud: '.$solicitud->id.', correctamente');
         }
         return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&cerrar=true')->with('error', $solicitud->getErrors()->first());
-    }
-
+     }
 
     public function getBitacora($id, $store = false) {
         $data['solicitud'] = Solicitud::findOrFail($id);

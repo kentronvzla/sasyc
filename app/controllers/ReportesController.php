@@ -221,8 +221,10 @@ class ReportesController extends BaseController {
         $data['solicitudes'] = $data['solicitudes']
                         ->selectRaw($strSelect .' SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
                         ->get();
-
-        return Response::json($data['solicitudes']); 
+        if (count(Input::get('group_by_1'))>0){
+            return Response::json($data['solicitudes']); 
         }
+        
+    }
        
 }

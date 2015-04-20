@@ -24,12 +24,14 @@
                     {{$solicitud->tenencia->nombre or ""}}
                 </td>
                 <td width=250 height=20  align=center valign="middle" style="background: white;">
-                    {{$solicitud->total_ingresos_for}}
+                    {{--$solicitud->total_ingresos_for--}}
                 </td>
             </tr>
         </table>
     </div>
     <hr width="100%">
     <h3>Diagnostico Social</h3>
-    <p>{{$solicitud->informe_social}}</p>
+    <p>
+        {{--$solicitud->informe_social--}}
+    </p>
 </div>    
