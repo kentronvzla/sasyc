@@ -275,12 +275,12 @@
             "version": "v1.0.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/d11wtq/boris.git",
+                "url": "https://github.com/borisrepl/boris.git",
                 "reference": "125dd4e5752639af7678a22ea597115646d89c6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/d11wtq/boris/zipball/125dd4e5752639af7678a22ea597115646d89c6e",
+                "url": "https://api.github.com/repos/borisrepl/boris/zipball/125dd4e5752639af7678a22ea597115646d89c6e",
                 "reference": "125dd4e5752639af7678a22ea597115646d89c6e",
                 "shasum": ""
             },

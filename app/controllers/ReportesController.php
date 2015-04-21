@@ -96,13 +96,10 @@ class ReportesController extends BaseController {
                     }
                 }
             }
-            /* $data['solicitudes'][$i] = $data['solicitudes'][$i]
+              $data['solicitudes'][$i] = $data['solicitudes'][$i]
               ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
               ->get(); 
 
-            dd($data['solicitudes'][$i]
-                            ->selectRaw($strSelect . ' SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-                            ->get()->toJSON());*/
         }
 
         return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
