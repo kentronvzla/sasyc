@@ -121,8 +121,7 @@ class ReportesController extends BaseController {
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
         $data['solicitudes'] = $data['solicitudes']
                 ->where(function($query) {
-                    $query->where('estatus', '=', 'ELA')->orWhere('estatus', '=', 'ART');
-                    // $query->where('estatus', '=', 'APR');
+                     $query->where('estatus', '=', 'APR');
                 })
                 ->orderBy($columna, 'ASC')
                 ->get();
