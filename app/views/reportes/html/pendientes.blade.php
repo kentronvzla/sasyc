@@ -41,7 +41,7 @@
                         <?php $n_caso++;?>
                     </td>
                     <td style="width: 140px;height:auto;" >
-                        {{$presupuesto->solicitud->referente_externo}}
+                        {{$presupuesto->solicitud->referencia_externa}}
                     </td>
                     <td ALIGN=CENTER style="width: 50px;height:auto;">
                         {{$presupuesto->solicitud->created_at->format('d/m/Y')}}
