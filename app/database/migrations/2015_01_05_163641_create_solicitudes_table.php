@@ -25,6 +25,7 @@ class CreateSolicitudesTable extends Migration {
             $table->boolean('ind_beneficiario_menor')->default(0);
             $table->string('actividad', 2000)->nullable();
             $table->string('referencia', 2000)->nullable();
+            $table->string('referencia_externa',100)->nullable();            
             $table->string('accion_tomada', 2000)->nullable();
             $table->string('necesidad', 1500);
             $table->string('tipo_proc', 5)->nullable();
@@ -47,6 +48,7 @@ class CreateSolicitudesTable extends Migration {
             $table->decimal('total_ingresos', 14, 2)->nullable();
             $table->text('beneficiario_json')->nullable();
             $table->text('solicitante_json')->nullable();
+            $table->string('num_solicitud', 8)->nullable();
             $table->integer('version')->default(0)->nullable();
             $table->timestamps();
         });

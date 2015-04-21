@@ -19,6 +19,7 @@ class CreateBitacorasTable extends Migration {
             $table->integer('usuario_id', false, true);
             $table->boolean('ind_activo')->default(0);
             $table->boolean('ind_alarma')->default(0);
+            $table->boolean('ind_atendida')->default(0);            
             $table->integer('version')->default(0);
             $table->timestamps();
         });

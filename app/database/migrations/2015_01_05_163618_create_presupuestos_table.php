@@ -23,7 +23,8 @@ class CreatePresupuestosTable extends Migration {
             //fin de kerux
 
             $table->integer('cantidad')->nullable();
-            $table->decimal('monto', 14, 2)->nullable();            
+            $table->decimal('monto', 14, 2)->nullable(); 
+            $table->decimal('montoapr', 14, 2)->nullable();            
             $table->integer('version')->default(0);
 
             $table->timestamps();

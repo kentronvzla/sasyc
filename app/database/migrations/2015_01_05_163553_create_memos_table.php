@@ -18,6 +18,7 @@ class CreateMemosTable extends Migration {
             $table->string('asunto', 100);
             $table->integer('origen_id', false, true);
             $table->integer('destino_id', false, true);
+            $table->integer('usuario_id', false, true)->nullable();                       
             $table->integer('version')->default(0);
             $table->timestamps();
         });

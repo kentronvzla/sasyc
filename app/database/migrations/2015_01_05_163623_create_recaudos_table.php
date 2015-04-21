@@ -18,6 +18,7 @@ class CreateRecaudosTable extends Migration {
             $table->boolean('ind_obligatorio')->default(0);
             $table->boolean('ind_vence')->default(0);
             $table->boolean('ind_activo')->default(0);
+            $table->integer('tipo_ayuda_id', false, true)->nullable();            
             $table->integer('version')->default(0);
             $table->timestamps();
         });
