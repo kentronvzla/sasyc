@@ -12,6 +12,10 @@
             {{Form::hidden('id',$grupo->id)}}
             {{Form::btInput($grupo, 'name', 12)}}
         </div>
+        <div class="panel-heading">
+        @include('templates.tituloBarra',array('obj'=>@$grupo, 'titulo'=>'permisos de grupo'))
+        
+    </div>
         {{Form::submitBt()}}
         {{Form::close()}}
     </div>
