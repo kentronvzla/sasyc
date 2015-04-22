@@ -13,7 +13,7 @@
             @include('solicitudes.detalle_solicitud_modal')
             {{Form::btInput($solicitud, 'usuario_autorizacion_id')}}
             <h4>Presupuestos</h4>
-            {{HTML::simpleTable($solicitud->presupuestos, 'Oracle\Presupuesto')}}
+            {{HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')}}
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
