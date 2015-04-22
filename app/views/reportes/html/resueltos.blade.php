@@ -40,7 +40,7 @@
                 <strong>{{$i}}</strong>  
             </td>
                 <td style="width: 150px;height:auto;">
-                    {{$presupuesto->solicitud->referente_externo}}
+                    {{$presupuesto->solicitud->referencia_externa}}
                     
                 </td>
                 <td ALIGN=CENTER style="width: 50px;height:auto;">

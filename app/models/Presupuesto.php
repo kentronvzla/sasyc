@@ -14,7 +14,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
      * @var array
      */
     protected $fillable = [
-        'solicitud_id', 'requerimiento_id','proceso_id', 'beneficiario_id', 'cantidad', 'monto'
+        'solicitud_id', 'requerimiento_id','proceso_id', 'beneficiario_id', 'cantidad', 'monto', 'montoapr'
     ];
 
     /**
@@ -40,7 +40,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
         //fin kerux
         'cantidad' => '',
         'monto' => '',
-        'montoapr' => 'Monto por aprobar',
+        'montoapr' => '',
     ];
 
     protected function getPrettyFields() {
@@ -60,9 +60,10 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
             'beneficiario_id' => 'Beneficiario',
             //fin kerux
             'cantidad' => 'Cantidad',
-            'monto' => 'Monto',
+            'monto' => 'Mto. Solicitado',
             'montofor' => 'Monto',
-            'montoapr' => 'Monto por aprobar',
+            'montoapr' => 'Mto. Aprobado',
+            'montoaprfor' => 'Monto aprobado',
         ];
     }
 
@@ -100,13 +101,13 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
 
     public function getTableFields() {
         return [
-            'requerimiento->nombre','proceso->nombre', 'beneficiario->nombre', 'cantidad', 'documento_id', 'documento->estatus', 'monto'
+            'requerimiento->nombre','proceso->nombre', 'beneficiario->nombre', 'cantidad', 'documento_id', 'documento->estatus', 'montoapr'
         ];
     }
 
     public static function getDecimalFields() {
         return [
-            'monto'
+            'monto', 'montoapr'
         ];
     }
 
@@ -125,8 +126,13 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
             if($proceso->ind_beneficiario && $this->beneficiario_id==""){
                 $this->addError('beneficiario_id', 'El beneficiario es necesario');
             }
-            if($proceso->ind_monto && $this->monto==""){
+            if($proceso->ind_monto){
+                if($this->monto==""){            
                 $this->addError('monto', 'El monto es necesario');
+                }
+                if($this->monto==""){
+                $this->addError('montoapr', 'El monto aprobado es necesario');
+                }
             }
             if($proceso->ind_cantidad && $this->cantidad=="") {
                 $this->addError('cantidad', 'La cantidad es necesaria');
@@ -143,6 +149,14 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
         return tm($this->monto);
     }
 
+       public function setMontoaprAttribute($value) {
+        $this->attributes['montoapr'] = tf($value);
+    }
+
+    public function getMontoaprForAttribute() {
+        return tm($this->montoapr);
+    }
+    
     public function deletingModel($model){
         if($this->puedeModificarEliminar()){
             return true;

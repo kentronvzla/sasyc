@@ -41,11 +41,11 @@ class ReportesController extends BaseController {
     ];
     private static $columnas_orden = [
         '' => 'Seleccione',
-        'solicitudes.referente_externo' => 'Referencia',
+        'solicitudes.referencia_externa' => 'Referencia',
     ];
     private static $columnas_orden_1 = [
         '' => 'Seleccione',
-        'solicitudes.referente_externo' => 'Referencia',
+        'solicitudes.referencia_externa' => 'Referencia',
         'solicitudes.estatus' => 'Estatus',
     ];
 
@@ -192,8 +192,8 @@ class ReportesController extends BaseController {
         $arreglo [] = array();
         foreach ($data['solicitudes'] as $resultado) {
             foreach ($resultado->presupuestos as $key => $presupuesto) {
-                if ($columna == "referente_externo") {
-                    $arreglo[$contador] = $presupuesto->solicitud->referente_externo;
+                if ($columna == "referencia_externa") {
+                    $arreglo[$contador] = $presupuesto->solicitud->referencia_externa;
                 }
                 if ($columna == "estatus") {
                     $arreglo[$contador] = $presupuesto->solicitud->estatus;

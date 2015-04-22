@@ -18,7 +18,7 @@
 <div class="row">
     {{Form::btInput($solicitud,'ind_inmediata',4)}}
     {{Form::btInput($solicitud,'referente_id',4)}}
-    {{Form::btInput($solicitud,'referente_externo', 4, 'text', ['class'=>'autocompletado ','data-url'=>'autocompletar/solicitudes'])}}
+    {{Form::btInput($solicitud,'referencia_externa', 4, 'text', ['class'=>'autocompletado ','data-url'=>'autocompletar/solicitudes'])}}
 </div>
 <div id='div-inmediata'>
     <div class="row">
