@@ -85,7 +85,7 @@
 
        De las necesidades presentes y en vista de las condiciones socio-económicas del solicitante y 
        de la disponibilidad presupuestaria correspondiente, se recomienda la aprobación
-       para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>. El cheuqe 
+       para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>. El cheque 
        esta emitido a favor de:<br><br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>

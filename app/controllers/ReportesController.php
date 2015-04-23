@@ -26,6 +26,7 @@ class ReportesController extends BaseController {
         'solicitudes.recepcion_id' => 'Recepcion',
         'personas.sexo' => 'Sexo',
         'especial_mes' => 'Mes',
+        'especial_ano' => 'Año',
     ];
         
     private static $columnas_descripciones = [
@@ -37,15 +38,16 @@ class ReportesController extends BaseController {
         'solicitudes.estatus' => 'solicitudes.estatus',
         'solicitudes.recepcion_id' => 'recepciones.nombre',
         'personas.sexo' => 'personas.sexo',
-        'especial_mes' => 'extract(month from solicitudes.created_at)',
+        'especial_mes' => 'to_char(solicitudes.created_at,\'MM / YYYY\')',
+        'especial_ano' => 'extract(year from solicitudes.created_at)'
     ];
     private static $columnas_orden = [
         '' => 'Seleccione',
-        'solicitudes.referencia_externa' => 'Referencia',
+        'solicitudes.referencia_externa' => 'Referencia externa',
     ];
     private static $columnas_orden_1 = [
         '' => 'Seleccione',
-        'solicitudes.referencia_externa' => 'Referencia',
+        'solicitudes.referencia_externa' => 'Referencia externa',
         'solicitudes.estatus' => 'Estatus',
     ];
 
@@ -236,7 +238,7 @@ class ReportesController extends BaseController {
         }
 
         $data['solicitudes'] = $data['solicitudes']
-                ->selectRaw($descripciones . ' as grupo, SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
+                ->selectRaw($descripciones . ' as grupo, SUM(presupuestos.montoapr) as monto, COUNT(distinct solicitudes.id) as cantidad')
                 ->get();
 
         return Response::json($data['solicitudes']);
