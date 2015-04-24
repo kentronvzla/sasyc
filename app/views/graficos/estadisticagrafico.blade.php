@@ -34,7 +34,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-primary graficar_datos"><i class="glyphicon glyphicon-search"></i> Generar en Gráfico</button>
+                    <button type="button" class="btn btn-primary graficar_datos"> Generar en Gráfico</button>
                 </div>
             </div>
         </div>
