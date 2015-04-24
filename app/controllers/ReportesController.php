@@ -3,6 +3,8 @@
 class ReportesController extends BaseController {
 
     private $reporte;
+    Private $punto;
+    Private $memo;
     private static $columnas_agrupables = [
         '' => 'Seleccione',
         'municipios.estado_id' => 'Estado',
@@ -54,6 +56,8 @@ class ReportesController extends BaseController {
     public function __construct(\ayudantes\Reporte $reporte) {
         require_once '../public/EnLetras.php';
         $this->reporte = $reporte;
+        $this->memo='M';
+        $this->punto='P';
         parent::__construct();
     }
 
@@ -168,9 +172,9 @@ class ReportesController extends BaseController {
         $data['montoASCIIapr'] = $this->montos_punto_memo($total2);
 
         // se pide el reporte
-        if ($data['solicitud']->tipo_proc == 'prb1') {
+        if ($data['solicitud']->tipo_proc ==$this->punto) {
             return $this->reporte->generar('reportes.html.punto', $data, 'P');
-        } elseif ($data['solicitud']->tipo_proc == 'prb2') {
+        } elseif ($data['solicitud']->tipo_proc == $this->memo) {
             return $this->reporte->generar('reportes.html.memo', $data, 'P');
         }
 
