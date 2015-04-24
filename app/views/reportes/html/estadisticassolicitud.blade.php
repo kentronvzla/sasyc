@@ -1,4 +1,6 @@
+@extends('reportes.html.'.Input::get('formato_reporte','pdf'))
 @section('reporte')
+    <br><br><br>
     @for($i=0;$i<$cantReportes;$i++)
         <h3>{{$titulo[$i]}}</h3>
         <table width="100%" border="0" cellpadding="10" cellspacing="0">
