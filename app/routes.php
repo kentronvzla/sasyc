@@ -48,3 +48,5 @@ Route::group(['before'=>'auth'], function(){
 });
 
 Route::controller('login','LoginController');
+
+   

@@ -1,12 +1,15 @@
 var recargarDiv = false;
 $(document).bind("ajaxComplete", function () {
     agregarEventos();
+    
 });
 
+
 $(document).ready(function () {
-    agregarEventos();
+     agregarEventos();
     var current = location.href;
     $('a[href="'+current+'"]').children().addClass('active');
+    
 });
 
 function agregarEventos() {
@@ -16,21 +19,21 @@ function agregarEventos() {
 }
 
 function concederPermiso(idGrupo, permiso) {
-    getObject('administracion/grupo/concederpermiso?ID=' + idGrupo + '&PERMISO=' + permiso, function (data) {
+    getObject('administracion/seguridad/grupos/concederpermiso?ID=' + idGrupo + '&PERMISO=' + permiso, function (data) {
         mostrarMensaje(data.mensaje);
         if (recargarDiv == false) {
-            cargarDiv('administracion/grupo/modificar/' + idGrupo, 'divModal');
+            cargarDiv('administracion/seguridad/grupos/modificar/' + idGrupo, 'divModal');
         }
     }, "POST");
 }
 
 function concederPermisoPorGrupo(idAcordion, idGrupo) {
     recargarDiv = true;
-    $('#' + idAcordion).find('button').each(function (i, data) {
+    $('#' + idAcordion).find('button').each(function (idGrupo, data) {
         $(this).click();
     });
     recargarDiv = false;
-    cargarDiv('administracion/grupo/modificar/' + idGrupo, 'divModal');
+    cargarDiv('administracion/seguridad/grupos/modificar/' + idGrupo, 'divModal');
 }
 
 function denegarPermiso(idGrupo, permiso) {

@@ -21,7 +21,11 @@
                 {{Form::hidden('_method','DELETE')}}
                 {{Form::hidden('id',$object->id)}}
                 @if($hasEdit)
-                <a class="btn btn-primary btn-xs" href="{{$url}}/modificar/{{$object->id}}"><i class="fa fa-pencil"></i></a>
+                    @if($hasModal)
+                        <a class="btn btn-primary btn-xs abrir-modal" href="{{$url}}/modificar/{{$object->id}}" target="_blank"><i class="fa fa-pencil"></i></a>
+                    @else
+                        <a class="btn btn-primary btn-xs" href="{{$url}}/modificar/{{$object->id}}"><i class="fa fa-pencil"></i></a>
+                    @endif
                 @endif
                 @if($hasDelete)
                 <button type="submit" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></button>

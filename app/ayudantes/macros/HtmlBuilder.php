@@ -29,7 +29,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
         return \View::make('templates.bootstrap.simpleTable', $data);
     }
 
-    function tableModel($collection, $modelName, $hasDelete = true, $hasEdit = true, $hasAdd = true) {
+    function tableModel($collection, $modelName, $hasDelete = true, $hasEdit = true, $hasAdd = true, $hasModal = false) {
         $model = new $modelName();
         $data['prettyFields'] = $model->getPublicFields();
         $data['collection'] = $collection;
@@ -38,6 +38,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
         $data['hasEdit'] = $hasEdit;
         $data['hasDelete'] = $hasDelete;
         $data['hasAdd'] = $hasAdd;
+        $data['hasModal'] = $hasModal;
         if ($hasAdd) {
             $data['urlAdd'] = $data['url'] . '/modificar';
             $data['nombreAdd'] = $model->getPrettyName();
