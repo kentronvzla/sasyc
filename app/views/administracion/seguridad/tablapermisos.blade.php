@@ -1,5 +1,4 @@
 @foreach($permisos as $key=>$seccion)
-
 <div class="panel panel-default">
     <div class="panel-heading" data-toggle="collapse" data-parent="#acordion" href="#acordion{{$key}}{{$asignados}}">
         <h4 class="panel-title">
@@ -50,7 +49,7 @@
     </div>
 </div>
 @section('javascript')
-{{HTML::script('js/views/administracion/permisos.js')}}
+    {{HTML::script('js/views/administracion/permisos.js')}}
 @stop
 
 @endforeach

@@ -53,8 +53,8 @@ $(document).ready(function () {
             $(formulario).find('#beneficiario-id-div').hide();
             $(formulario).find('#btn-agregar-beneficiario').hide();
             $(formulario).find('#monto').hide().removeAttr('required');
-            $(formulario).find('#montoapr').hide().removeAttr('required');//*******
             $(formulario).find('#cantidad').hide().removeAttr('required');
+            $(formulario).find('#montoapr').hide().removeAttr('required');
             
             if(data.ind_beneficiario){
                 $(formulario).find('#beneficiario-id-div').show();

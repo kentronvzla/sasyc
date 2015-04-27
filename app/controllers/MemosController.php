@@ -20,7 +20,7 @@ class MemosController extends BaseController
     
     public function getImprimir($id, $store = false) {
         $data['memo'] = Memo::findOrFail($id);
-        return $this->reporte->generar('solicitudes.imprimirinforme', $data);
+        return $this->reporte->generar('memorandum.imprimir', $data);
     }
 }
 

@@ -13,12 +13,19 @@
 {{Form::hidden('id',$presupuesto->id)}}
 {{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">
-    {{Form::btInput($presupuesto,'requerimiento_id',4)}}
     {{Form::btInput($presupuesto,'proceso_id',3)}}
+    {{Form::btInput($presupuesto,'requerimiento_id',4)}}
     {{Form::btInput($presupuesto,'cantidad',1)}}
     {{Form::btInput($presupuesto,'monto',2)}}
     {{Form::btInput($presupuesto,'montoapr',2)}}    
 </div>
+<!--*************************************************************************-->
+<div class="row">
+    {{--Form::btInput($beneficiario,'parroquia->municipio->estado_id',4, 'text', ['data-url'=>'estados/municipios','data-child'=>'parroquia_municipio_id'])--}}
+    {{--Form::btInput($beneficiario,'parroquia->municipio_id',4, 'text', ['data-url'=>'municipios/parroquias','data-child'=>'parroquia_id'])--}}
+    {{--Form::btInput($beneficiario,'parroquia_id',4)--}}
+</div>
+<!--*************************************************************************-->
 <div class="row">
     <div id="beneficiario-id-div">
         {{Form::btInput($presupuesto,'beneficiario_id',9)}}
