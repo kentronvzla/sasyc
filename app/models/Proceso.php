@@ -45,7 +45,36 @@ class Proceso extends BaseModel {
     public function getPrettyName() {
         return "Proceso";
     }
-
-
+    
+    public static function getCombo($idrequerimiento = "", array $condiciones = []) {
+        //$procesos = Proceso::find((int) $idrequerimiento);
+        $procesos = Requerimiento::find((int) $idrequerimiento);
+        $retorno = array('' => 'Seleccione.');
+        if (is_object($procesos)) {
+            
+            $actividades = $procesos->procesos;
+            foreach ($actividades as $registro) {
+                $retorno[$registro->id] = $registro->nombre;
+            }
+        } else {
+            $retorno = array('' => 'Seleccione primero un tipo de proceso');
+        }
+        return $retorno;
+    }
+    /*
+     * public static function getCombo($idTipoAyuda = "", array $condiciones = []) {
+        $tipoAyuda = TipoAyuda::find((int) $idTipoAyuda);
+        $retorno = array('' => 'Seleccione.');
+        if (is_object($tipoAyuda)) {
+            $actividades = $tipoAyuda->areas;
+            foreach ($actividades as $registro) {
+                $retorno[$registro->id] = $registro->nombre;
+            }
+        } else {
+            $retorno = array('' => 'Seleccione primero un tipo de ayuda');
+        }
+        return $retorno;
+    }
+     */
 
 }
