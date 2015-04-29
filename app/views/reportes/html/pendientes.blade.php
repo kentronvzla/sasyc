@@ -46,7 +46,7 @@
     <!------------------------------------------->
     @foreach($solicitudes as $resultado)
     @if(@$totalref!=0)
-    @if(($referencia!= "") &&  ($referencia!= $resultado->referencia_externa))
+    @if(($referencia!= "") && ($referencia!= $resultado->referencia_externa))
     <?php $n_casoref = 1; ?> 
     <tr style="background: #CCC;">
         <td colspan="3">
@@ -71,10 +71,10 @@
         <?php
         $n_caso++;
         $n_casoref++;
-        $referencia = $resultado->referencia_externa;
+        $referencia = trim($resultado->referencia_externa);
         ?>         
         <td style="width: 140px;height:auto;" >
-            {{$resultado->referencia_externa}}
+            {{$referencia}}
         </td>
         <td ALIGN=CENTER style="width: 65px;height:auto;">
             {{$resultado->created_at->format('d/m/Y')}}
