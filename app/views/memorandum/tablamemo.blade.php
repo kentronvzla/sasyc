@@ -50,10 +50,10 @@
             <?php 
             $total=0;
            foreach ($resultado->presupuestos as $cantidad){
-               $total=$total+$cantidad->montoapr_for;
+               $total=$total+$cantidad->montoapr;
            }
            ?>
-            {{$total}}
+            {{tm($total)}}
         </td>
     </tr>
     @endforeach
