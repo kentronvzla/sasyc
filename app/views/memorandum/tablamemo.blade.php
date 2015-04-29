@@ -25,7 +25,11 @@
     @foreach($memo->solicitudes as $resultado)
     <tr>
         <td height=15 valign="middle" ALIGN=CENTER>
-           {{$resultado->num_solicitud}} 
+            <?php 
+            $caso=0;           
+            $caso +=1;
+           ?>
+            {{$caso}} 
         </td>
         <td valign="middle">
             {{$resultado->personaBeneficiario->nombre}}
@@ -37,7 +41,7 @@
             {{$resultado->personaBeneficiario->ci}}
         </td>
         <td ALIGN=CENTER valign="middle">
-            {{$resultado->id}}
+            {{$resultado->num_solicitud}}
         </td>
         <td valign="middle">
            {{$resultado->area->tipoAyuda->nombre}}
