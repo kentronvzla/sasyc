@@ -2,19 +2,28 @@
 
 class GruposController extends \Administracion\TablasBaseController {
 
+    protected static $nombreClase = "Grupo";
+    protected static $nombreColeccion = "grupos";
+    protected static $nombreVista = "grupo";
+    protected static $nombreVariable = "grupo";
+    protected static $nombreCarpeta = 'seguridad';
+   
     public function __construct() {
         parent::__construct();
     }
 
-    public function getModificar($id = null) {
+    public function getModificar($id=null) {
         $data['grupo'] = \Grupo::findOrNew($id);
+ 
         $permisosGlobales = \Grupo::$permisos;
+       
         try {
-            $sentryGroup = \Sentry::findGroupById($id);
+            
+            $sentryGroups = \Grupo::findGroupById($id);
         } catch (\Exception $ex) {
-            $sentryGroup = null;
+            $sentryGroups = null;
         }
-        if (is_object($sentryGroup)) {
+        if (is_object($sentryGroups)) {
             $data['permisos'] = array();
             foreach ($permisosGlobales as $key => $permiso) {
                 $data['permisos'][$key] = array(
@@ -22,7 +31,7 @@ class GruposController extends \Administracion\TablasBaseController {
                 );
                 $tiene = false;
                 foreach ($permiso as $per => $descripcion) {
-                    if ($sentryGroup->hasAccess($per)) {
+                    if ($sentryGroups->hasAccess($per)) {
                         $data['permisos'][$key][$per] = $descripcion;
                         $tiene = true;
                     }
@@ -38,23 +47,36 @@ class GruposController extends \Administracion\TablasBaseController {
         }
         return \View::make('administracion.seguridad.gruposform', $data);
     }
-
-    public function postConcederpermiso() {
-        $sentryGroup = Sentry::findGroupById(Input::get('ID'));
-        $permisos = $sentryGroup->getPermissions();
-        $permisos[Input::get('PERMISO')] = 1;
-        $sentryGroup->permissions = $permisos;
-        $sentryGroup->save();
-        return \Response::json(array('mensaje' => 'Se concedió el permiso correctamente.'));
+          
+    public function postConcederpermiso($idgrupo, $permiso) {
+     $grupo= \Grupo::findOrNew($idgrupo);
+      $permisosGlobales = \Grupo::$permisos;
+      $rol= $permisos[$permiso] = 1;
+      $roles=array($permiso=>$rol);
+      $json_string = json_encode($roles);
+      $grupo->permissions=$json_string;
+      $grupo->save();
+      
+      return \Response::json(array('mensaje' => 'Se concedió el permiso correctamente.'));
     }
 
-    public function postDenegarpermiso() {
-        $sentryGroup = Sentry::findGroupById(Input::get('ID'));
-        $permisos = $sentryGroup->getPermissions();
-        $permisos[Input::get('PERMISO')] = 0;
-        $sentryGroup->permissions = $permisos;
-        $sentryGroup->save();
-        return \Response::json(array('mensaje' => 'Se denegó el permiso correctamente.'));
+   
+    
+     public function postDenegarpermiso($idgrupo, $permiso) {
+      $grupo= \Grupo::findOrNew($idgrupo);
+      $permisosGlobales = \Grupo::$permisos;
+      $rol= $permisos[$permiso] = 0;
+      $roles=array($permiso=>$rol);
+      $json_string = json_encode($roles);
+      $grupo->permissions=$json_string;
+      $grupo->save();
+        return \Response::json(array('mensaje' => 'Se denego el permiso correctamente.'));
     }
-
+    
 }
+    
+    
+    
+    
+    
+

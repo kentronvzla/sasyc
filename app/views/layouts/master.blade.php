@@ -101,6 +101,7 @@
         {{HTML::script('js/i18n/select2.es.js')}}
         {{HTML::style('css/font-awesome.min.css')}}
         {{HTML::script('js/typeahead.min.js')}}
+        {{HTML::script('js/funcionesajax.js')}}
 
         <div class="modal fade" id="modalConfirmacion">
             <div class="modal-dialog">

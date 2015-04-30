@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cb41da4603d953fac96055eb914819f8",
+    "hash": "190040e95ec57a79c4a06a95f51a11fd",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1033,16 +1033,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "v1.3.3",
+            "version": "v1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "ec068d95b49ca23ee9952812ad4d07caeae961ed"
+                "reference": "2cf9b3be090aa3be5865a6f0c8b7eef069aacc4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/ec068d95b49ca23ee9952812ad4d07caeae961ed",
-                "reference": "ec068d95b49ca23ee9952812ad4d07caeae961ed",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/2cf9b3be090aa3be5865a6f0c8b7eef069aacc4b",
+                "reference": "2cf9b3be090aa3be5865a6f0c8b7eef069aacc4b",
                 "shasum": ""
             },
             "require": {
@@ -1096,7 +1096,7 @@
                 "import",
                 "laravel"
             ],
-            "time": "2015-03-19 13:40:13"
+            "time": "2015-04-23 17:51:05"
         },
         {
             "name": "maximebf/debugbar",
@@ -1320,16 +1320,16 @@
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tchwork/utf8.git",
-                "reference": "01f0ed1628db7794e2d4e336f55a09daef4248a5"
+                "reference": "7287a6fb2c46a66ac6bfbaf0e4975229b27efcba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tchwork/utf8/zipball/01f0ed1628db7794e2d4e336f55a09daef4248a5",
-                "reference": "01f0ed1628db7794e2d4e336f55a09daef4248a5",
+                "url": "https://api.github.com/repos/tchwork/utf8/zipball/7287a6fb2c46a66ac6bfbaf0e4975229b27efcba",
+                "reference": "7287a6fb2c46a66ac6bfbaf0e4975229b27efcba",
                 "shasum": ""
             },
             "require": {
@@ -1373,7 +1373,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2015-01-29 08:36:50"
+            "time": "2015-04-26 09:51:43"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -2718,16 +2718,16 @@
         },
         {
             "name": "yajra/laravel-oci8",
-            "version": "v2.1.8",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-oci8.git",
-                "reference": "ae550da87410312c4d206f5a5bd6324547d87df0"
+                "reference": "78d391f882e0f4bf5b361dfca6301e9262d7a248"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-oci8/zipball/ae550da87410312c4d206f5a5bd6324547d87df0",
-                "reference": "ae550da87410312c4d206f5a5bd6324547d87df0",
+                "url": "https://api.github.com/repos/yajra/laravel-oci8/zipball/78d391f882e0f4bf5b361dfca6301e9262d7a248",
+                "reference": "78d391f882e0f4bf5b361dfca6301e9262d7a248",
                 "shasum": ""
             },
             "require": {
@@ -2765,7 +2765,7 @@
                 "oracle",
                 "pdo_oci"
             ],
-            "time": "2015-03-17 06:54:53"
+            "time": "2015-04-25 02:13:37"
         },
         {
             "name": "yajra/laravel-pdo-via-oci8",

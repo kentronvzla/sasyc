@@ -3,28 +3,50 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 var recargarDiv = false;
-$(document).bind("ajaxComplete", function () {
-    agregarEventos();
-    
-});
 
 
-
-$(document).ready(function () {
-    alert ('ready');
-$('#conceder').click(concederPermiso);
-});
-
-function concederPermiso(idGrupo, permiso) {
-     alert ('conceder');
-    getObject('administracion/seguridad/grupos/Concederpermiso?ID=' + idGrupo + '&PERMISO=' + permiso, function (data) {
-        mostrarMensaje(data.mensaje);
-        if (recargarDiv == false) {
-            cargarDiv('administracion/seguridad/grupos/modificar/' + idGrupo, 'divModal');
+function concederPermiso(idgrupo, permiso) {
+    var url = 'administracion/seguridad/grupos/concederpermiso/'+idgrupo+'/'+permiso;
+    $.ajax({
+        type: "POST",
+        url: baseUrl + url,
+        cache: false,
+        dataType: 'json',
+        success: function(data) //Si se ejecuta correctamente
+        {
+            mostrarMensaje(data.mensaje);
+            recargarDiv = false;
+            cargarDiv('administracion/seguridad/grupos/modificar/' + idgrupo, 'divModal');
+        },
+        error: function(data)
+        {
+            if (data.status == 400) {
+                mostrarError(procesarErrores(data.responseJSON.errores));
+            }
         }
-    }, "POST");
+    });
 }
 
+function denegarPermiso(idgrupo, permiso) {
+    var url = 'administracion/seguridad/grupos/denegarpermiso/'+idgrupo+'/'+permiso;
+    $.ajax({
+        type: "POST",
+        url: baseUrl + url,
+        cache: false,
+        dataType: 'json',
+        success: function(data) //Si se ejecuta correctamente
+        {
+            mostrarMensaje(data.mensaje);
+            recargarDiv = false;
+            cargarDiv('administracion/seguridad/grupos/modificar/' + idgrupo, 'divModal');
+        },
+        error: function(data)
+        {
+            if (data.status == 400) {
+                mostrarError(procesarErrores(data.responseJSON.errores));
+            }
+        }
+    });
+}
 

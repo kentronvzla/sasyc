@@ -10,7 +10,8 @@
     "barryvdh/laravel-ide-helper": "*",
     "cartalyst/sentry": "2.1.*",
     "yajra/laravel-oci8": "*",
-    "maatwebsite/excel": "1.*"
+    "maatwebsite/excel": "1.*",
+    "cartalyst/sentry": "2.1.*"
   },
   "autoload": {
     "classmap": [

@@ -6,6 +6,9 @@
         {{HTML::tableModel($grupos, 'grupo', true, true, true, true)}}
     </div>
 </div>
-@stop           
+@stop    
+@section('javascript')
+{{HTML::script('js/views/administracion/permisos.js')}}
+@stop
 
  
