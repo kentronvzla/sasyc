@@ -13,7 +13,7 @@
 {{Form::hidden('id',$presupuesto->id)}}
 {{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">
-    {{Form::btInput($presupuesto,'requerimiento_id',4)}}
+    {{Form::btInput($presupuesto,'requerimiento_id',4,'text',['data-url'=>'requerimientos/procesos','data-child'=>'proceso_id'])}}
     {{Form::btInput($presupuesto,'proceso_id',3)}}
     {{Form::btInput($presupuesto,'cantidad',1)}}
     {{Form::btInput($presupuesto,'monto',2)}}

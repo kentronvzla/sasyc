@@ -59,10 +59,10 @@
     </body>
 </div>
 @section('javascript')
-{{HTML::script('js/morris.min.js')}}
-{{HTML::script('js/morris.js')}}
-{{HTML::script('js/raphael.min.js')}}
-{{HTML::script('js/views/reportes/estadisticagrafico.js')}}
+    {{HTML::script('js/morris.min.js')}}
+    {{HTML::script('js/morris.js')}}
+    {{HTML::script('js/raphael.min.js')}}
+    {{HTML::script('js/views/reportes/estadisticagrafico.js')}}
 @stop
 {{Form::close()}}
 @endsection

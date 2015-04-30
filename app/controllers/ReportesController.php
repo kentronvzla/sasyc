@@ -50,7 +50,6 @@ class ReportesController extends BaseController {
     private static $columnas_orden_1 = [
         '' => 'Seleccione',
         'solicitudes.referencia_externa' => 'Referencia externa',
-        'solicitudes.estatus' => 'Estatus',
     ];
 
     public function __construct(\ayudantes\Reporte $reporte) {
@@ -154,6 +153,7 @@ class ReportesController extends BaseController {
         $data['solicitudes'] = $data['solicitudes']
                 ->orderBy($columna, 'ASC')
                 ->get();
+        $data['orden'] = $columna;
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
 
         return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
