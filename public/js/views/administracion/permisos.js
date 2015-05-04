@@ -16,7 +16,7 @@ function concederPermiso(idgrupo, permiso) {
         success: function(data) //Si se ejecuta correctamente
         {
             mostrarMensaje(data.mensaje);
-            recargarDiv = false;
+          
             cargarDiv('administracion/seguridad/grupos/modificar/' + idgrupo, 'divModal');
         },
         error: function(data)
@@ -38,7 +38,7 @@ function denegarPermiso(idgrupo, permiso) {
         success: function(data) //Si se ejecuta correctamente
         {
             mostrarMensaje(data.mensaje);
-            recargarDiv = false;
+           
             cargarDiv('administracion/seguridad/grupos/modificar/' + idgrupo, 'divModal');
         },
         error: function(data)

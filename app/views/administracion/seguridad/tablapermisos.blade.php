@@ -44,8 +44,5 @@
         </div>
     </div>
 </div>
-@section('javascript')
-    {{HTML::script('js/views/administracion/permisos.js')}}
-@stop
 
 @endforeach

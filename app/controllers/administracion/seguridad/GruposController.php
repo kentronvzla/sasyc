@@ -2,17 +2,12 @@
 
 class GruposController extends \Administracion\TablasBaseController {
 
-    protected static $nombreClase = "Grupo";
-    protected static $nombreColeccion = "grupos";
-    protected static $nombreVista = "grupo";
-    protected static $nombreVariable = "grupo";
-    protected static $nombreCarpeta = 'seguridad';
    
     public function __construct() {
         parent::__construct();
     }
 
-    public function getModificar($id=null) {
+    public function getModificar($id= null) {
         $data['grupo'] = \Grupo::findOrNew($id);
  
         $permisosGlobales = \Grupo::$permisos;
@@ -56,9 +51,19 @@ class GruposController extends \Administracion\TablasBaseController {
       $json_string = json_encode($roles);
       $grupo->permissions=$json_string;
       $grupo->save();
-      
+     
       return \Response::json(array('mensaje' => 'Se concedió el permiso correctamente.'));
     }
+
+    
+//        public function postConcederpermiso() {
+//       $sentryGroup =\Sentry::findGroupById('id');
+//        $permisos = $sentryGroup->getPermissions();
+//        $permisos[Input::get('permiso')] = 1;
+//        $sentryGroup->permissions = $permisos;
+//        $sentryGroup->save();
+//        return \Response::json(array('mensaje' => 'Se denegó el permiso correctamente.'));
+//    }
 
    
     
