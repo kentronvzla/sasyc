@@ -94,7 +94,8 @@ class Requerimiento extends BaseModel {
     }
 
     public function procesos(){
-        return $this->belongsToMany('Proceso')->withTimestamps();
+        //return $this->belongsToMany('Proceso')->withTimestamps();
+        return $this->belongsToMany('Proceso');
     }
     public function getTableFields() {
         return [

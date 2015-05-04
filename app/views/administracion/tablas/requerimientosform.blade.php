@@ -22,7 +22,7 @@
                 {{Form::btInput($requerimiento, 'tipo_ayuda_id', 6)}}
             </div>
             <div class="row">
-                {{Form::multiselect($requerimiento, 'procesos', 6)}}
+                {{Form::multiselect($requerimiento, 'procesos', 12)}}
             </div>
             {{Form::submitBt()}}
             {{Form::close()}}
