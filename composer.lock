@@ -1033,16 +1033,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "v1.3.4",
+            "version": "v1.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "2cf9b3be090aa3be5865a6f0c8b7eef069aacc4b"
+                "reference": "c3fbdc9d7f8a02138b4cf05d34a2a0a2d8abfc93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/2cf9b3be090aa3be5865a6f0c8b7eef069aacc4b",
-                "reference": "2cf9b3be090aa3be5865a6f0c8b7eef069aacc4b",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/c3fbdc9d7f8a02138b4cf05d34a2a0a2d8abfc93",
+                "reference": "c3fbdc9d7f8a02138b4cf05d34a2a0a2d8abfc93",
                 "shasum": ""
             },
             "require": {
@@ -1096,7 +1096,7 @@
                 "import",
                 "laravel"
             ],
-            "time": "2015-04-23 17:51:05"
+            "time": "2015-05-02 18:59:31"
         },
         {
             "name": "maximebf/debugbar",
@@ -1426,16 +1426,16 @@
         },
         {
             "name": "phpoffice/phpexcel",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PHPExcel.git",
-                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b"
+                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
-                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
                 "shasum": ""
             },
             "require": {
@@ -1479,7 +1479,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2014-03-02 15:22:49"
+            "time": "2015-05-01 07:00:55"
         },
         {
             "name": "phpseclib/phpseclib",
