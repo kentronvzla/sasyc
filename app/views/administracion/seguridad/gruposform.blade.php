@@ -6,7 +6,7 @@
             <h4 class="modal-title" id="myModalLabel">Agregar/Modificar</h4>
         </div>
         {{Form::concurrencia(@$grupo)}}
-        {{Form::hidden('ID',@$grupo->id)}}
+        {{Form::hidden('idgrupo',@$grupo->id)}}
         <div class="modal-body">
             
             <div class="row">

@@ -48,6 +48,7 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
 
     public static $permisos = array(
        
+       
         'UsuariosController'=>array(
         'Descripcion' => 'Usuarios',
         'POST.administracion.seguridad.usuarios'=> 'Guardar Usuarios',

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var recargarDiv = false;
+
 
 
 function concederPermiso(idgrupo, permiso) {
@@ -28,6 +28,9 @@ function concederPermiso(idgrupo, permiso) {
     });
 }
 
+
+ 
+
 function denegarPermiso(idgrupo, permiso) {
     var url = 'administracion/seguridad/grupos/denegarpermiso/'+idgrupo+'/'+permiso;
     $.ajax({
@@ -48,5 +51,6 @@ function denegarPermiso(idgrupo, permiso) {
             }
         }
     });
-}
+   }
+
 
