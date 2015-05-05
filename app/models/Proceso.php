@@ -46,8 +46,7 @@ class Proceso extends BaseModel {
         return "Proceso";
     }
     
-    public static function getCombo($idrequerimiento = "", array $condiciones = []) {
-        //$procesos = Proceso::find((int) $idrequerimiento);
+    public static function getCombos($idrequerimiento = "", array $condiciones = []) {
         $procesos = Requerimiento::find((int) $idrequerimiento);
         $retorno = array('' => 'Seleccione.');
         if (is_object($procesos)) {
@@ -61,20 +60,5 @@ class Proceso extends BaseModel {
         }
         return $retorno;
     }
-    /*
-     * public static function getCombo($idTipoAyuda = "", array $condiciones = []) {
-        $tipoAyuda = TipoAyuda::find((int) $idTipoAyuda);
-        $retorno = array('' => 'Seleccione.');
-        if (is_object($tipoAyuda)) {
-            $actividades = $tipoAyuda->areas;
-            foreach ($actividades as $registro) {
-                $retorno[$registro->id] = $registro->nombre;
-            }
-        } else {
-            $retorno = array('' => 'Seleccione primero un tipo de ayuda');
-        }
-        return $retorno;
-    }
-     */
-
+    
 }

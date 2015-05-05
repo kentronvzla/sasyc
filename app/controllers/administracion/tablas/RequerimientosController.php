@@ -12,11 +12,11 @@ class RequerimientosController extends \Administracion\TablasBaseController {
     protected static $eagerLoading = ['tipoAyuda', 'tipoRequerimiento'];
 
     public function afterPostIndex($variable){
-        $variable->procesos()->sync(\Input::get('procesos', []));
+        $variable->procesos()->sync(\Input::all('procesos', []));
     }
     
-     public function getProcesos($id) {
-        $procesos = \Proceso::getCombo($id);
+    public function getProcesos($id) {
+        $procesos = \Proceso::getCombos($id);
         return \Response::json($procesos);
     }
 }
