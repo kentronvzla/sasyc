@@ -1,7 +1,13 @@
 <?php namespace Administracion\Seguridad;
 
 class GruposController extends \Administracion\TablasBaseController {
- 
+    protected static $nombreClase = "Grupo";
+    protected static $nombreColeccion = "grupos";
+    protected static $nombreVista = "grupo";
+    protected static $nombreVariable = "grupo";
+    protected static $nombreCarpeta = 'seguridad';
+
+  
 
     public function __construct() {
         parent::__construct();
@@ -44,6 +50,7 @@ class GruposController extends \Administracion\TablasBaseController {
         return \View::make('administracion.seguridad.gruposform', $data);
     }
 
+   
     
         public function postConcederpermiso($idgrupo, $permiso) {
         $sentryGroup = \Sentry::findGroupById($idgrupo);   
