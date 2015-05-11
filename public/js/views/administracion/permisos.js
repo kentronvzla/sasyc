@@ -92,7 +92,7 @@ function getObject(url, callback, method) {
 //    });
 //   }
 function denegarPermiso(idgrupo, permiso) {
-    getObject('administracion/seguridad/grupos/concederpermiso/'+idgrupo+'/'+permiso, function(data) {
+    getObject('administracion/seguridad/grupos/denegarpermiso/'+idgrupo+'/'+permiso, function(data) {
         mostrarMensaje(data.mensaje);
         if (recargarDiv == false) {
             cargarDiv('administracion/seguridad/grupos/modificar/' + idgrupo, 'divModal');
