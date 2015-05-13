@@ -1,0 +1,29 @@
+.texto-negrita-excel{
+    font-weight: bold;
+}
+.texto-centrado-excel{
+    text-align: center;
+}
+.texto-derecha-excel{
+    text-align: right;
+}
+.fondo-excel{
+    background: #D8D8D8; 
+}
+.fondo-inferior-excel{
+    background: #CCC; 
+}
+.titulo-celda-excel{
+    width: 20%;
+    font-weight: bold;
+    border: 1px solid #000;
+    background: #D8D8D8;
+    text-align: center;
+}
+.titulo-celda-compuesta{
+    font-weight: bold;
+    background: #D8D8D8;
+}
+.fila-tabla-excel{
+    padding: 2px;
+}
