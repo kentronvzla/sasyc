@@ -106,8 +106,12 @@ class ReportesController extends BaseController {
               ->get(); 
 
         }
+        if(Input::get('formato_reporte','pdf')=="pdf")
+            $vista='reportes.html.estadisticassolicitud';
+        else
+            $vista='reportes.html.estadisticassolicitud_excel';
 
-        return $this->reporte->generar('reportes.html.estadisticassolicitud', $data, 'L');
+        return $this->reporte->generar($vista, $data, 'L');
     }
 
     public function getResueltos() {
@@ -132,8 +136,12 @@ class ReportesController extends BaseController {
                 ->get();
 
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
+        if(Input::get('formato_reporte','pdf')=="pdf")
+            $vista='reportes.html.resueltos';
+        else
+            $vista='reportes.html.resueltos_excel';
 
-        return $this->reporte->generar('reportes.html.resueltos', $data, 'L');
+        return $this->reporte->generar($vista, $data, 'L');
     }
 
     public function getPendientes() {
@@ -155,8 +163,12 @@ class ReportesController extends BaseController {
                 ->get();
         $data['orden'] = $columna;
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
-
-        return $this->reporte->generar('reportes.html.pendientes', $data, 'L');
+        if(Input::get('formato_reporte','pdf')=="pdf")
+            $vista='reportes.html.pendientes';
+        else
+            $vista='reportes.html.pendientes_excel';
+        
+        return $this->reporte->generar($vista, $data, 'L');
     }
 
     public function getPuntomemo($id) {

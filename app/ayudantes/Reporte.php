@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Created by PhpStorm.
  * User: Nadin Yamani
@@ -7,7 +7,7 @@
  */
 
 namespace ayudantes;
-
+use Maatwebsite\Excel\Facades\Excel;
 class Reporte{
 
     public function generar($vista, $data, $orientacion = 'P'){
@@ -23,6 +23,7 @@ class Reporte{
         \Excel::create($vista, function($excel) use ($vista, $data) {
             $excel->sheet('Hoja 1', function($sheet) use ($vista, $data) {
                 $sheet->loadView($vista, $data);
+                //$sheet->getStyle('A:E')->getAlignment()->setWrapText(true);
             });
         })->download('xls');
     }

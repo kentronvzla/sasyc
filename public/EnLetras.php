@@ -233,5 +233,4 @@ class EnLetras {
     else {
         $con=strtoupper($V->ValorEnLetras($valor[0]," Bsf"));
     }
-    echo "<b>".$con."</b>";  */ 
-?> 
+    echo "<b>".$con."</b>";  */
