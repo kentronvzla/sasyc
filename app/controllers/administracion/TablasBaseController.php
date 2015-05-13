@@ -62,6 +62,7 @@ abstract class TablasBaseController extends \BaseController {
         }
         return Redirect::to($this->getFolder(false))->withErrors($var->getErrors());
     }
+    
 
     public function getModificar($id = 0) {
         $data[$this->getVarName()] = $this->executeFunction('findOrNew', $id);

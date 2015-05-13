@@ -47,64 +47,53 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
     
 
     public static $permisos = array(
-       
-       
-        'UsuariosController'=>array(
+     'UsuariosController'=>array(
         'Descripcion' => 'Usuarios',
         'POST.administracion.seguridad.usuarios'=> 'Guardar Usuarios',
         'GET.administracion.seguridad.usuarios'=> 'Ver Usuarios',
         'DELETE.administracion.seguridad.usuarios'=> 'Borrar Usuarios',
-        'GET.administracion.seguridad.usuarios.modificar'=> 'Modificar usuario',
-       
-),    
-        'GruposController'=>array(
+        'GET.administracion.seguridad.usuarios.modificar'=> 'Modificar usuario',      
+     ),    
+     'GruposController'=>array(
         'Descripcion' => 'Grupos',
         'GET.administracion.seguridad.grupos.modificar' => 'Modificar grupos',
         'POST.administracion.seguridad.grupos.concederpermiso'=> 'Conceder permisos a grupos',
         'POST.administracion.seguridad.grupos.denegarpermiso'=> 'Denegar permisos a grupos',
         'GET.administracion.seguridad.grupos'=> 'Ver permisos a grupos',
         'POST.administracion.seguridad.grupos'=> 'Guardar permisos a grupos',
-        'DELETE.administracion.seguridad.grupos' => 'Borrar permisos a grupos',
-     
-),
-        'TipoAyudasController'=>array(
+        'DELETE.administracion.seguridad.grupos' => 'Borrar permisos a grupos', 
+     ),
+     'TipoAyudasController'=>array(
         'Descripcion' => 'Ayudas',
         'GET.administracion.tablas.tipoAyudas.areas'=> 'Areas de ayuda',
         'GET.administracion.tablas.tipoAyudas'=> 'Ver tipo de Ayudas',
         'POST.administracion.tablas.tipoAyudas'=> 'Guardar tipo de Ayudas',
         'DELETE.administracion.tablas.tipoAyudas'=> 'Borrar ayudas',
         'GET.administracion.tablas.tipoAyudas.modificar'=> 'Modificar ayudas',
-    
-),
-            
-            
-        'EstadosController'=>array(
+     ),
+     'EstadosController'=>array(
         'Descripcion' => 'Estados',
         'GET.administracion.tablas.estados.municipios'=> 'Ver Municipios',
         'POST.administracion.tablas.estados'=> 'Guardar Estados',
         'DELETE.administracion.tablas.estados'=> 'Borrar Estados',
-        'GET.administracion.tablas.estados.modificar'=> 'Modificar Estados',
+        'GET.administracion.tablas.estados.modificar'=> 'Modificar Estados',      
+     ),            
         
-),            
-        
-        'MunicipiosController'=>array(
+     'MunicipiosController'=>array(
         'Descripcion' => 'Municipios',
         'GET.administracion.tablas.municipios.parroquias' => 'Ver Parroquias',
         'GET.administracion.tablas.municipios'=> 'Ver Municipios',
         'POST.administracion.tablas.municipios'=> 'Guardar Municipios',
         'DELETE.administracion.tablas.municipios'=> 'Borrar Municipios',
         'GET.administracion.tablas.municipios.modificar'=> 'Modificar Municipios',
-        
-),
-            
-        'AreasController'=>array(
+     ),
+     'AreasController'=>array(
         'Descripcion' => 'Areas',
         'GET.administracion.tablas.areas'=> 'Ver Areas',
         'POST.administracion.tablas.areas'=> 'Guardar Areas',
         'DELETE.administracion.tablas.areas'=> 'Borrar Areas',
-        'GET.administracion.tablas.areas.modificar' => 'Modificar Areas',
-        
-),   
+        'GET.administracion.tablas.areas.modificar' => 'Modificar Areas',       
+     ),   
         'ConfiguracionesController'=>array(
         'Descripcion' => 'Configuraciones',
         'GET.administracion.tablas.configuraciones'=> 'Ver Configuraciones',
@@ -362,7 +351,7 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
         'getIndex'=>'GET.login',
         'postIndex'=>'POST.login',
 ),
-            );
+);
     /**
      * Array clave valor que le asocia a un atributo del modelo una oración o una frase que describe al atributo.
      * Se usa para construir los mensajes de error.
@@ -391,4 +380,7 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
         return "name";
     }
 
+      public static function getPrimaryKey() {
+        return "id";
+    }
 }

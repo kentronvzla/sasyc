@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 var recargarDiv = false;
 
 
@@ -29,6 +24,7 @@ var recargarDiv = false;
 //}
 
 function concederPermiso(idgrupo, permiso) {
+   
     getObject('administracion/seguridad/grupos/concederpermiso/'+idgrupo+'/'+permiso, function(data) {
         mostrarMensaje(data.mensaje);
         if (recargarDiv == false) {
@@ -92,6 +88,7 @@ function getObject(url, callback, method) {
 //    });
 //   }
 function denegarPermiso(idgrupo, permiso) {
+    
     getObject('administracion/seguridad/grupos/denegarpermiso/'+idgrupo+'/'+permiso, function(data) {
         mostrarMensaje(data.mensaje);
         if (recargarDiv == false) {
@@ -109,4 +106,9 @@ function denegarPermisoPorGrupo(idAcordion, idgrupo) {
     });
     recargarDiv = false;
     cargarDiv('administracion/seguridad/grupos/modificar/' + idgrupo, 'divModal');
+}
+
+function guardarAjax(form) {
+    guardarFormulario(form, true);
+    return false;
 }
