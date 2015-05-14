@@ -47,6 +47,11 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
     
 
     public static $permisos = array(
+        'Super' => array(
+            'Descripcion' => 'Super Usuario.',
+            'superuser' => 'Puede acceder a cualquier sección',
+        ),
+        
      'UsuariosController'=>array(
         'Descripcion' => 'Usuarios',
         'POST.administracion.seguridad.usuarios'=> 'Guardar Usuarios',
@@ -264,22 +269,28 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
         'GET.administracion.tablas.ayudaCampos.modificar'=> 'Modificar Ayudas',
        
 ),
+        'AdministracionController' => array(
+            'Descripcion' => 'Administración',
+            'GET.administracion' => 'inicio',
+        ),
+        
         'SolicitudesController'=>array(
         'Descripcion' => 'Solicitudes',
         'GET.solicitudes.ver'=> 'Ver Solicitudes',
-        'GET.solicitudes'=>'getIndex',
+       // 'GET.solicitudes'=>'getIndex',
         'POST.solicitudes.modificar'=> 'Guardar Solicitudes',
         'GET.solicitudes.modificar'=> 'Modificar Solicitudes',
-        'GET.solicitudes.nueva'=> 'Ver Solicitudes Nuevas',
+        'GET.solicitudes.nueva'=> 'Nueva Solicitud',
         'POST.solicitudes.nueva'=> 'Guardar Solicitudes Nuevas',
-        'POST.solicitudes.asignar'=> 'Guardar Nuevas Solicitudes',
+        'POST.solicitudes.asignarsolicitudes'=> 'Asignar Solicitudes',
+        'POST.solicitudes.asignaranalista'=> 'Asignar Analista',
         'GET.solicitudes.planilla'=> 'Ver Planilla',
         'GET.solicitudes.vermemo'=> 'Ver Memo',
-        'GET.solicitudes.memo'=>'getMemo',
+       // 'GET.solicitudes.memo'=>'getMemo',
         'GET.solicitudes.aceptarasignacion'=> 'Aceptar Asignacion',
         'POST.solicitudes.aceptarasignacion'=> 'Guardar Asignacion',
-        'getDevolverasignacion'=>'GET.solicitudes.devolverasignacion',
-        'postDevolverasignacion'=>'POST.solicitudes.devolverasignacion',
+        //'getDevolverasignacion'=>'GET.solicitudes.devolverasignacion',
+       //'postDevolverasignacion'=>'POST.solicitudes.devolverasignacion',
         'GET.solicitudes.solicitaraprobacion'=> 'Solicitar Aprobacion',
         'POST.solicitudes.solicitaraprobacion'=> 'Guardar Aprobacion',
         'GET.solicitudes.anular'=> 'Anular Solicitud',
@@ -328,14 +339,14 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
 ),
         'ReportesController'=>array(
         'Descripcion' => 'Reportes',
-        'GET.reportes.estadisticassolicitud'=> 'Solicitud de Estadisticas',
+        'GET.reportes.estadisticassolicitud'=> 'Reporte Estadistica Agrupada',
         'POST.reportes.estadisticassolicitud'=> 'Guardad Estadisticas',
-        'GET.reportes.resueltos'=> 'Ver Resueltos',
+        'GET.reportes.resueltos'=> 'Reporte de Casos Resueltos',
         'POST.reportes.resueltos'=> 'Guardar Resueltos',
-        'GET.reportes.pendientes'=> 'Ver Pendientes',
+        'GET.reportes.pendientes'=> 'Reporte de Casos Pendientes',
         'POST.reportes.pendientes'=> 'Guardar Pendientes',
         'GET.reportes.puntomemo'=> 'Ver Punto Memo',
-        'GET.reportes.estadisticasgrafico'=> 'Ver Graficos',
+        'GET.reportes.estadisticasgrafico'=> 'Graficas Estadisticas',
         'POST.reportes.datos'=> 'Guardar Datos',
 ),
         'AutocompletarController'=>array(
