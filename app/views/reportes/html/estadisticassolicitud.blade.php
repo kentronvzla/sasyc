@@ -1,3 +1,8 @@
+<?php 
+//var_dump(count($solicitudes[0]));
+//exit();
+?>
+
 @extends('reportes.html.'.Input::get('formato_reporte','pdf'))
 @section('reporte')
     <br><br><br>
@@ -18,7 +23,7 @@
                 @foreach($solicitudes[$i] as $solicitud)
                     @if(count($columnas[$i])>1 && $anterior!=$solicitud->{$primera_columna[$i]})
                         <tr>
-                            <th class="titulo-tabla" colspan="{{count($columnas[$i])}}">Total {{ $solicitud->getValorReporte($primera_columna[$i]) }}</th>
+                            <th class="titulo-tabla" colspan="{{count($columnas[$i])}}">Total {{ $solicitud_anterior->getValorReporte($primera_columna[$i]) }}</th>
                             <th class="titulo-tabla texto-derecha">{{$cont}}</th>
                             <th class="titulo-tabla texto-derecha">{{tm($acum)}}</th>
                         </tr>
@@ -37,7 +42,7 @@
                     </tr>
                     <?php $cont+=$solicitud->cantidad;$acum+=$solicitud->monto; ?>
 
-                    <?php $anterior = $solicitud->{$primera_columna[$i]}; ?>
+                    <?php $anterior = $solicitud->{$primera_columna[$i]}; $solicitud_anterior = $solicitud; ?>
                 @endforeach
                 <tfoot>
                 @if(count($columnas[$i])>1)

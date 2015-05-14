@@ -1,9 +1,11 @@
 @extends('reportes.html.'.Input::get('formato_reporte','xls'))
 @section('reporte')
 @for($i=0;$i<$cantReportes;$i++)
-<h3>{{$titulo[$i]}}</h3>
 <table border="0" cellpadding="10" cellspacing="0">
     <thead>
+        <tr>
+            <th class="titulo-celda-excel" colspan="{{(count($columnas[$i]))+2}}">{{$titulo[$i]}}</th>
+        </tr>
         <tr>
             @foreach($columnas[$i] as $columna)
             <th style="width: {{80/count($columnas[$i])}}%;" class="titulo-celda-excel">{{$columna}}</th>
@@ -17,12 +19,13 @@
     @foreach($solicitudes[$i] as $solicitud)
     @if(count($columnas[$i])>1 && $anterior!=$solicitud->{$primera_columna[$i]})
     <tr>
-        <th class="titulo-celda-compuesta" colspan="{{count($columnas[$i])}}">Total {{ $solicitud->getValorReporte($primera_columna[$i]) }}</th>
+        <th class="titulo-celda-compuesta" colspan="{{count($columnas[$i])}}">Total {{ $solicitud_anterior->getValorReporte($primera_columna[$i]) }}</th>
         <th class="texto-derecha-excel fondo-excel">{{$cont}}</th>
         <th class="texto-derecha-excel fondo-excel">{{tm($acum)}}</th>
     </tr>
     <?php $cont = 0;
-    $acum = 0; ?>
+    $acum = 0;
+    ?>
     @endif
     <tr>
         @foreach($columnas[$i] as $key=>$columna)
@@ -36,9 +39,11 @@
         </td>
     </tr>
     <?php $cont+=$solicitud->cantidad;
-    $acum+=$solicitud->monto; ?>
+    $acum+=$solicitud->monto;
+    ?>
 
-<?php $anterior = $solicitud->{$primera_columna[$i]}; ?>
+<?php $anterior = $solicitud->{$primera_columna[$i]};
+$solicitud_anterior = $solicitud; ?>
     @endforeach
     <tfoot>
         @if(count($columnas[$i])>1)
@@ -57,7 +62,8 @@
     @endif
 </table>
 <?php $cont = 0;
-$acum = 0; ?>
+$acum = 0;
+?>
 <br>
 <br>
 @endfor
