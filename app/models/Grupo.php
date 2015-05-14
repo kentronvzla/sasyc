@@ -144,10 +144,6 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
         'POST.administracion.tablas.parroquias'=> 'Guardar Parroquias',
         'DELETE.administracion.tablas.parroquias'=> 'Borrar Parroquias',
         'GET.administracion.tablas.parroquias.modificar'=> 'Modificar Parroquias',
-        'GET.administracion.tablas.parroquias.folder',
-        'GET.administracion.tablas.parroquias.var-name',
-        'GET.administracion.tablas.parroquias.model-name',
-        'GET.administracion.tablas.parroquias.collection-name',
 ),
             
         'RecaudosController'=>array(
@@ -237,7 +233,7 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
         'DELETE.administracion.tablas.personas'=> 'Borrar Personas',
         'GET.administracion.tablas.personas.modificar'=> 'Modificar Personas',
         'GET.personas.buscarcne'=> 'Buscar Persona en CNE',
-        'getBuscarid'=>'GET.personas.buscarid',
+        'GET.personas.buscarid'=>'getBuscarid',
         'GET.personas.buscar'=> 'Buscar Personas',
         'POST.personas.crear'=> 'Crear Personas',
         'POST.personas.modificar'=> 'Modificar Personas',
@@ -271,7 +267,7 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
         'SolicitudesController'=>array(
         'Descripcion' => 'Solicitudes',
         'GET.solicitudes.ver'=> 'Ver Solicitudes',
-        'getIndex'=>'GET.solicitudes',
+        'GET.solicitudes'=>'getIndex',
         'POST.solicitudes.modificar'=> 'Guardar Solicitudes',
         'GET.solicitudes.modificar'=> 'Modificar Solicitudes',
         'GET.solicitudes.nueva'=> 'Ver Solicitudes Nuevas',
@@ -279,7 +275,7 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
         'POST.solicitudes.asignar'=> 'Guardar Nuevas Solicitudes',
         'GET.solicitudes.planilla'=> 'Ver Planilla',
         'GET.solicitudes.vermemo'=> 'Ver Memo',
-        'getMemo'=>'GET.solicitudes.memo',
+        'GET.solicitudes.memo'=>'getMemo',
         'GET.solicitudes.aceptarasignacion'=> 'Aceptar Asignacion',
         'POST.solicitudes.aceptarasignacion'=> 'Guardar Asignacion',
         'getDevolverasignacion'=>'GET.solicitudes.devolverasignacion',
@@ -326,7 +322,7 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
 ),
         'MemosController'=>array(
         'Descripcion' => 'Memos',
-        'getIndex'=>'GET.memorandum',
+        'GET.memorandum'=>'getIndex',
         'GET.memorandum.ver'=> 'Ver Memos',
         'GET.memorandum.imprimir'=> 'Imprimir Memos',
 ),
@@ -345,11 +341,6 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
         'AutocompletarController'=>array(
         'Descripcion' => 'Autocompletar',
         'GET.autocompletar.solicitudes'=> 'Ver Solicitudes',
-),
-        'LoginController'=>array(
-        'getLogout'=>'GET.login.logout',
-        'getIndex'=>'GET.login',
-        'postIndex'=>'POST.login',
 ),
 );
     /**

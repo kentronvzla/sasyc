@@ -25,9 +25,8 @@
                     </div> 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="panel-group" id='div-permisos-asignados'>
-                        <?php var_dump($permisos); ?>
-                        <!--@include('administracion.seguridad.tablapermisos',array('permisos'=>$permisos,'asignados'=>true))-->
+                    <div class="panel-group" id='div-permisos-asignados'>                        
+                        @include('administracion.seguridad.tablapermisos',array('permisos'=>$permisos,'asignados'=>true))
                     </div> 
                 </div>
             </div>

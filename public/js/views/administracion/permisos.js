@@ -24,7 +24,6 @@ var recargarDiv = false;
 //}
 
 function concederPermiso(idgrupo, permiso) {
-   
     getObject('administracion/seguridad/grupos/concederpermiso/'+idgrupo+'/'+permiso, function(data) {
         mostrarMensaje(data.mensaje);
         if (recargarDiv == false) {
@@ -35,7 +34,7 @@ function concederPermiso(idgrupo, permiso) {
 
 function concederPermisoPorGrupo(idAcordion, idgrupo) {
     recargarDiv = true;
-    $('#'+idAcordion).find('button').each(function (idgrupo,data){
+    $('#'+idAcordion).find('button').each(function (i,data){
         $(this).click();
     });
     recargarDiv = false;
@@ -101,7 +100,7 @@ function denegarPermiso(idgrupo, permiso) {
 
 function denegarPermisoPorGrupo(idAcordion, idgrupo) {
     recargarDiv = true;
-    $('#'+idAcordion).find('button').each(function (idgrupo,data){
+    $('#'+idAcordion).find('button').each(function (i,data){
         $(this).click();
     });
     recargarDiv = false;
