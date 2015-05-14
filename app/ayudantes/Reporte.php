@@ -20,7 +20,8 @@ class Reporte{
     }
 
     private function generarExcel($vista, $data){
-        \Excel::create($vista, function($excel) use ($vista, $data) {
+        $nom_reporte = $this->nombreReporte($vista);
+        \Excel::create($nom_reporte, function($excel) use ($vista, $data) {
             $excel->sheet('Hoja 1', function($sheet) use ($vista, $data) {
                 $sheet->loadView($vista, $data);
                 //$sheet->getStyle('A:E')->getAlignment()->setWrapText(true);
@@ -42,5 +43,13 @@ class Reporte{
         }
         die();
     }
-
+    
+    public function nombreReporte($vista){
+        $nom_reporte = str_ireplace("reportes.html.", "", $vista);
+        $nom_reporte = str_ireplace("_excel", "", $nom_reporte);
+        $nom_reporte = trim($nom_reporte);
+        $nom_reporte = ucfirst($nom_reporte);
+        $nom_reporte = "Reporte_".$nom_reporte;
+        return $nom_reporte;
+    }
 }
