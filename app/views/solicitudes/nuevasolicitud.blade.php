@@ -51,7 +51,9 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
+             @if(Usuario::puedeAcceder('POST.solicitudes.nueva'))
             <button type="button" class="btn btn-primary salvar-persona" style="display: none;"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>
+             @endif
         </div>
     </div>
     <div id="lista-solicitudesanteriores"></div>     
