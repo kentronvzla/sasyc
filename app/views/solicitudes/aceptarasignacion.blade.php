@@ -21,7 +21,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              @if(Usuario::puedeAcceder('GET.solicitudes.aceptarasignacion'))
             <button type="submit" class="btn btn-primary">Confirmar Aceptación</button>
+            @endif
         </div>
         {{Form::close()}}
     </div>

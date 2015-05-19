@@ -13,7 +13,9 @@
             {{Form::btInput($solicitud, 'usuario_asignacion_id', 12, 'select',[],$analistas)}}
             @endif
         </div>
+        @if(Usuario::puedeAcceder('POST.solicitudes.asignardepartamento'))
         @include('templates.bootstrap.submit', ['nomostrar'=>true, 'nombreSubmit'=>'Asignar'])
+        @endif
     </div>
 </div>
 {{Form::close()}}

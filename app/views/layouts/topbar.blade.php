@@ -38,27 +38,19 @@
                     @if(Usuario::puedeAcceder('GET.solicitudes.ver'))
                     <li>{{HTML::link('solicitudes','Solicitudes')}}</li>
                     @endif
-                    @if(Usuario::puedeAcceder('GET.solicitudes.cerrar'))
-                    <li>{{HTML::link('solicitudes?estatus[]=ELD&cerrar=true','Cerrar solicitud')}}</li>
-                    @endif
-                    @if(Usuario::puedeAcceder('GET.solicitudes.anular'))
-                    <li>{{HTML::link('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true','Anular solicitud')}}</li>
-                    @endif
+                    
                     <li class="divider"></li>
-                     @if(Usuario::puedeAcceder('GET.memorandum.ver'))
-                    <li>{{HTML::link('memorandum','Listar Memorandums')}}</li>
-                     @endif
-                    <li class="divider"></li>
-                    @if(Usuario::puedeAcceder('GET.administracion.tablas.departamentos'))
+                    @if(Usuario::puedeAcceder('POST.solicitudes.asignardepartamento'))
                     <li>{{HTML::link('solicitudes?estatus=ELA&asignar=departamento','Asignar a un Departamento')}}</li>
                     @endif
                     @if(Usuario::puedeAcceder('POST.solicitudes.asignaranalista'))
                     <li>{{HTML::link('solicitudes?estatus=ELD&asignar=usuario','Asignar a un Analista')}}</li>
                     @endif
                     <li class="divider"></li>
-                    @if(Usuario::puedeAcceder('POST.solicitudes.asignarsolicitudes'))
-                    <li>{{HTML::link('solicitudes?solo_asignadas=true','Mis Solicitudes')}}</li>
-                    @endif
+                     @if(Usuario::puedeAcceder('GET.memorandum.ver'))
+                    <li>{{HTML::link('memorandum','Listar Memorandums')}}</li>
+                     @endif
+                     <li class="divider"></li>
                     @if(Usuario::puedeAcceder('GET.solicitudes.aceptarasignacion'))
                     <li>{{HTML::link('solicitudes?estatus=EAA&solo_asignadas=true','Mis Solicitudes (Aceptar Asignacion)')}}</li>
                     @endif
@@ -66,6 +58,12 @@
                     <li>{{HTML::link('solicitudes?estatus=ACA&solo_asignadas=true','Mis Solicitudes (Solicitar Aprobación)')}}</li>
                     @endif
                     <li class="divider"></li>
+                    @if(Usuario::puedeAcceder('GET.solicitudes.cerrar'))
+                    <li>{{HTML::link('solicitudes?estatus[]=ELD&cerrar=true','Cerrar solicitud')}}</li>
+                    @endif
+                    @if(Usuario::puedeAcceder('GET.solicitudes.anular'))
+                    <li>{{HTML::link('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true','Anular solicitud')}}</li>
+                    @endif
                     <li class="divider"></li>
                     <li><a href="#">Alarmas Pendientes</a></li>
                 </ul>

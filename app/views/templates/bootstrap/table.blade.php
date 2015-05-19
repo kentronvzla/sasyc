@@ -39,4 +39,5 @@
 </table>
 @if($hasAdd)
 @include('templates.bootstrap.btnagregar',array('url'=>$urlAdd,'nombre'=>$nombreAdd))
+
 @endif

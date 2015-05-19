@@ -16,8 +16,10 @@
                     <td>{{$bit->getValueAt('ind_atendida')}}</td>
                     <td>
                         @if($bit->vencida)
-                            <a class="btn btn-primary btn-xs fa fa-check edit-trigger" title="Atendida" data-id="{{$bit->id}}" data-url="bitacoras/atendida"></a>
+                        @if(Usuario::puedeAcceder('GET.bitacoras.atendida'))
+                          <a class="btn btn-primary btn-xs fa fa-check edit-trigger" title="Atendida" data-id="{{$bit->id}}" data-url="bitacoras/atendida"></a>
                         @endif
+                          @endif
                     </td>
                 </tr>
             @endforeach

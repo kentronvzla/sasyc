@@ -16,7 +16,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+             @if(Usuario::puedeAcceder('GET.solicitudes.devolverasignacion'))
             <button type="submit" class="btn btn-primary">Confirmar Devolución</button>
+            @endif
         </div>
         {{Form::close()}}
     </div>
