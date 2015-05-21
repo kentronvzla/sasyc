@@ -250,10 +250,11 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
             'POST.solicitudes.asignaranalista' => 'Asignar Analista',
             'GET.solicitudes.cerrar' => 'Cerrar Solicitudes',
             'GET.solicitudes.anular' => 'Anular Solicitud',
-            
-//            'POST.solicitudes.nueva' => 'Guardar Solicitudes Nuevas',            
+            'GET.solicitudes.modificar' => 'Modificar Solicitudes',
+            'POST.solicitudes.nueva' => 'Guardar Solicitudes Nuevas',       
+                 
 //            'GET.solicitudes.ver' => 'Ver Solicitudes',            
-//            'GET.solicitudes.modificar' => 'Modificar Solicitudes',
+           
 //            'POST.solicitudes.modificar' => 'Guardar Solicitudes',            
 //            
 //            'POST.solicitudes.asignaranalista' => 'Asignar Analista',
@@ -263,9 +264,9 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
 //            'POST.solicitudes.aceptarasignacion' => 'Guardar Asignación',
 //            'GET.solicitudes.devolverasignacion' => 'Devolver Asignación',
 //            'POST.solicitudes.devolverasignacion' => 'Devolver Asignacion',
-//            'GET.solicitudes.solicitaraprobacion' => 'Solicitar Aprobacion',
+
 //            'POST.solicitudes.solicitaraprobacion' => 'Guardar Aprobacion',
-//            'GET.solicitudes.anular' => 'Anular Solicitud',
+//           
 //            'POST.solicitudes.anular' => 'Confirmar Anulación de Solicitud',
 //            
 //            'POST.solicitudes.cerrar' => 'Confirmar Cierre de Solicitud',

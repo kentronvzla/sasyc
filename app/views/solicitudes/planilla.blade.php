@@ -65,7 +65,9 @@
                 <div class="text-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown">
+                             @if(Usuario::puedeAcceder('GET.solicitudes.planilla'))
                             <span class="glyphicon glyphicon-print"></span> Imprimir <span class="caret"></span>
+                            @endif
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li>{{HTML::link('solicitudes/planilla/'.$solicitud->id, 'Planilla', ['target'=>'_blank'])}}</li>

@@ -122,7 +122,9 @@
                 <div class="text-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown">
+                             @if(Usuario::puedeAcceder('GET.memorandum.imprimir'))
                             <span class="glyphicon glyphicon-print"></span> Imprimir <span class="caret"></span>
+                             @endif
                         </button>
                         <ul class="dropdown-menu" role="menu">
                              <li><a href="{{url('memorandum/imprimir/'.$memo->id)}}">Memorandum</a></li>
