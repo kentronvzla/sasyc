@@ -16,9 +16,7 @@ class GruposTableSeeder extends Seeder {
             'name' => 'Autorizador'
         ));
 
-        Sentry::createGroup(array(
-            'name' => 'Administrador'
-        ));
+        Sentry::createGroup(array('name' => 'Administrador'));
     }
+
 }
-    

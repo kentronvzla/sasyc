@@ -2718,23 +2718,23 @@
         },
         {
             "name": "yajra/laravel-oci8",
-            "version": "v2.2.0",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-oci8.git",
-                "reference": "78d391f882e0f4bf5b361dfca6301e9262d7a248"
+                "reference": "699625899d51f6444122e620a199702842225b16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-oci8/zipball/78d391f882e0f4bf5b361dfca6301e9262d7a248",
-                "reference": "78d391f882e0f4bf5b361dfca6301e9262d7a248",
+                "url": "https://api.github.com/repos/yajra/laravel-oci8/zipball/699625899d51f6444122e620a199702842225b16",
+                "reference": "699625899d51f6444122e620a199702842225b16",
                 "shasum": ""
             },
             "require": {
                 "illuminate/database": "~4.2|~5.0",
                 "illuminate/support": "~4.2|~5.0",
                 "php": ">=5.4",
-                "yajra/laravel-pdo-via-oci8": "~0.10"
+                "yajra/laravel-pdo-via-oci8": "~0.12"
             },
             "require-dev": {
                 "mockery/mockery": "0.9.*",
@@ -2765,20 +2765,20 @@
                 "oracle",
                 "pdo_oci"
             ],
-            "time": "2015-04-25 02:13:37"
+            "time": "2015-05-22 02:23:24"
         },
         {
             "name": "yajra/laravel-pdo-via-oci8",
-            "version": "0.11.0",
+            "version": "0.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/pdo-via-oci8.git",
-                "reference": "d0e62e6abc2ca039060cfe92024e07733331edc9"
+                "reference": "72675ed544664bec43b28b9151bad6ac39ffad49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/pdo-via-oci8/zipball/d0e62e6abc2ca039060cfe92024e07733331edc9",
-                "reference": "d0e62e6abc2ca039060cfe92024e07733331edc9",
+                "url": "https://api.github.com/repos/yajra/pdo-via-oci8/zipball/72675ed544664bec43b28b9151bad6ac39ffad49",
+                "reference": "72675ed544664bec43b28b9151bad6ac39ffad49",
                 "shasum": ""
             },
             "require-dev": {
@@ -2801,7 +2801,7 @@
                 }
             ],
             "description": "PDO userspace driver proxying calls to PHP OCI8 driver",
-            "time": "2015-05-13 03:10:41"
+            "time": "2015-05-22 02:13:43"
         }
     ],
     "packages-dev": [],

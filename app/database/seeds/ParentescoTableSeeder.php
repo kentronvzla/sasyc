@@ -4,6 +4,7 @@ class ParentescoTableSeeder extends Seeder {
 
     public function run() {
         $parentescos = [
+            ['nombre' => 'Hijo', 'inverso' => 'Padre/Madre'],
             ['nombre' => 'Padre', 'inverso' => 'Hijo(a)'],
             ['nombre' => 'Madre', 'inverso' => 'Hijo(a)'],
             ['nombre' => 'Hermano(a)', 'inverso' => 'Hermano(a)'],

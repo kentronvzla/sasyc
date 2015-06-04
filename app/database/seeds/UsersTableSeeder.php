@@ -8,7 +8,7 @@ class UsersTableSeeder extends Seeder {
             'email' => 'nyamaui@kentron.com.ve',
             'nombre' => 'Nadin Yamaui',
             'password' => '123456',
-            'departamento_id'=>1,
+            'departamento_id' => 1,
             'activated' => true,
         ));
 
@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder {
             'email' => 'rarrieta@kentron.com.ve',
             'nombre' => 'Richard Arrieta',
             'password' => '123456',
-            'departamento_id'=>1,
+            'departamento_id' => 1,
             'activated' => true,
         ));
 
@@ -24,25 +24,32 @@ class UsersTableSeeder extends Seeder {
             'email' => 'rurbina@kentron.com.ve',
             'nombre' => 'Roberto Urbina',
             'password' => '123456',
-            'departamento_id'=>1,
+            'departamento_id' => 1,
             'activated' => true,
         ));
-        
+
         Sentry::createUser(array(
             'email' => 'mmelicio@kentron.com.ve',
             'nombre' => 'Marvic Melicio',
             'password' => '123456',
-            'departamento_id'=>1,
+            'departamento_id' => 1,
             'activated' => true,
         ));
-        
+
         Sentry::createUser(array(
-            'email' => 'elandaeta@kentron.com.ve',
-            'nombre' => 'Edgar Landaeta',
+            'email' => 'drobles@kentron.com.ve',
+            'nombre' => 'Dhaily Robles',
             'password' => '123456',
-            'departamento_id'=>1,
+            'departamento_id' => 1,
             'activated' => true,
-        ));        
+        ));
+        Sentry::createUser(array(
+            'email' => 'rvalle@kentron.com.ve',
+            'nombre' => 'Reysmer Valle',
+            'password' => '123456',
+            'departamento_id' => 1,
+            'activated' => true,
+        ));
     }
 
 }
