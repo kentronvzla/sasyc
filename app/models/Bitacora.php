@@ -149,4 +149,5 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
         return $bitacora->save();
     }
 
+    
 }

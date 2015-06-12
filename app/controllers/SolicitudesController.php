@@ -18,7 +18,7 @@ class SolicitudesController extends BaseController {
 
     public function getIndex() {
         $data['solicitudes'] = Solicitud::eagerLoad()
-            ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','cerrar','anulando','']))
+            ->aplicarFiltro(Input::except(['asignar','reasignar','solo_asignadas','page','cerrar','anulando','']))
             ->ordenar();
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
@@ -28,7 +28,14 @@ class SolicitudesController extends BaseController {
                 $data['solicitudes']->whereDepartamentoId($usuario->departamento_id);
                 $data['analistas'] = $usuario->getCompaneros();
             }
-        } else if(Input::has('anulando')){
+    }else if (Input::has('reasignar')) 
+            $data['campo'] = Input::get('reasignar');
+            $data['solicitud'] = new Solicitud();
+            if($data['campo']=='usuario'){
+                $usuario = Usuario::getLogged();
+               $data['solicitudes']->whereDepartamentoId($usuario->departamento_id);
+                $data['analistas'] = $usuario->getCompaneros();
+            }else if(Input::has('anulando')){
             $data['anulando'] = true;
         } else if(Input::has('cerrar')){
             $data['cerrar'] = true;
@@ -41,6 +48,7 @@ class SolicitudesController extends BaseController {
         $data['solicitud'] = new Solicitud();
         $data['presupuesto'] = new Presupuesto();
         return View::make('solicitudes.index', $data);
+    
     }
 
     public function postModificar() {
@@ -128,6 +136,14 @@ class SolicitudesController extends BaseController {
         return Response::json(['mensaje' => 'Se asignaron las solicitudes correctamente']);
     }
 
+     public function postReasignar() {
+        $resultado = Solicitud::reasignar(Input::all());
+        if ($resultado->hasErrors()) {
+            return Response::json(['errores' => $resultado->getErrors()], 400);
+        }
+        return Response::json(['mensaje' => 'Se asignaron las solicitudes correctamente']);
+    }
+   
     /* --------------------------------------------------------------------*/
 
     public function getPlanilla($id, $store = false) {

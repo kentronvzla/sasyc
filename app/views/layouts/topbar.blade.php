@@ -40,11 +40,14 @@
                     @endif
                     
                     <li class="divider"></li>
-                    @if(Usuario::puedeAcceder('POST.solicitudes.asignardepartamento'))
+                    @if(Usuario::puedeAcceder('GET.solicitudes.asignardepartamento'))
                     <li>{{HTML::link('solicitudes?estatus=ELA&asignar=departamento','Asignar a un Departamento')}}</li>
                     @endif
-                    @if(Usuario::puedeAcceder('POST.solicitudes.asignaranalista'))
+                    @if(Usuario::puedeAcceder('GET.solicitudes.asignaranalista'))
                     <li>{{HTML::link('solicitudes?estatus=ELD&asignar=usuario','Asignar a un Analista')}}</li>
+                    @endif
+                    @if(Usuario::puedeAcceder('GET.solicitudes.reasignaranalista'))
+                    <li>{{HTML::link('solicitudes?estatus=EAA&reasignar=usuario','Reasignar a un Analista')}}</li>
                     @endif
                     <li class="divider"></li>
                      @if(Usuario::puedeAcceder('GET.memorandum.ver'))

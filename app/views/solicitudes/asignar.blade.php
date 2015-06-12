@@ -1,4 +1,4 @@
-{{Form::open(['url'=>'solicitudes/asignar', 'class'=>'saveajax','data-callback'=>'asignado'])}}
+{{Form::open(['url'=>'solicitudes/reasignar', 'class'=>'saveajax','data-callback'=>'asignado'])}}
 <div class="panel panel-danger">
     <div class="panel-heading"><h4 class="panel-title">Asignar solicitudes seleccionadas</h4></div>
     <div class="panel-body">
@@ -13,7 +13,7 @@
             {{Form::btInput($solicitud, 'usuario_asignacion_id', 12, 'select',[],$analistas)}}
             @endif
         </div>
-        @if(Usuario::puedeAcceder('POST.solicitudes.asignardepartamento'))
+        @if(Usuario::puedeAcceder('POST.solicitudes.reasignaranalista'))
         @include('templates.bootstrap.submit', ['nomostrar'=>true, 'nombreSubmit'=>'Asignar'])
         @endif
     </div>
