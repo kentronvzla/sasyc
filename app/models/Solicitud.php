@@ -696,7 +696,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if($this->puedeModificar()){
             return $this->personaBeneficiario;
         }else{
-            return new Persona(json_decode($this->beneficiario_json));
+            if(!isset($this->beneficiario_json)){
+                return $this->personaBeneficiario;
+            }else{
+                return new Persona(json_decode($this->beneficiario_json));
+            }
         }
     }
 
@@ -704,7 +708,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if($this->puedeModificar()){
             return $this->personaSolicitante;
         }else{
-            return new Persona(json_decode($this->solicitante_json));
+            if(!isset($this->solicitante_json)){
+                return $this->personaSolicitante;
+            }else{
+                return new Persona(json_decode($this->solicitante_json));
+            }
         }
     }
 
