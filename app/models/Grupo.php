@@ -258,8 +258,8 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
            
 //            'POST.solicitudes.modificar' => 'Guardar Solicitudes',            
 //            
-            'POST.solicitudes.asignar' => 'Asignar Departamento/Analista',
-            'POST.solicitudes.reasignaranalista' => 'Reasignar Analista'
+            'POST.solicitudes.asignar' => 'Asignar Departamento/Analista/ Reasignar Analista',
+//            'POST.solicitudes.reasignaranalista' => 'Reasignar Analista'
 //            'GET.solicitudes.planilla' => 'Ver Planilla',
 //            'GET.solicitudes.vermemo' => 'Ver Memo',
 //            

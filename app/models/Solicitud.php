@@ -142,7 +142,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'persona_beneficiario_id' => 'integer',
         'persona_solicitante_id' => 'integer',
         'area_id' => 'required|integer',
-        'referencia_externa' => 'required|max:100',
+        'referencia_externa' => ' ',
         'referente_id' => 'required|integer',
         'recepcion_id' => 'required|integer',
         'organismo_id' => 'required|integer',
@@ -549,25 +549,31 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->estatus = "EAA";
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save(); 
-            Bitacora::registrar("Se asignó la solicitud al analista: " .
-                $this->usuarioAsignacion->nombre, $this->id);
-        }else{
-            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus '  . static::$estatusArray['ELD']);
-        }
-    }
-    
-     public function reasignarAnalista($encargado_id) {
-        if ($this->estatus == "EAA") {
-            $this->usuario_asignacion_id = $encargado_id;
+            Bitacora::registrar("Se asignó la solicitud al analista: " .$this->usuarioAsignacion->nombre, $this->id);
+        }else if ($this->estatus == "EAA") {
+              $this->usuario_asignacion_id = $encargado_id;
             $this->estatus = "EAA";
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save(); 
-            Bitacora::registra("Se reasignó la solicitud al analista: " .
-                $this->usuarioAsignacion->nombre, $this->id);
+            Bitacora::registrar("Se reasignó la solicitud al analista: " . $this->usuarioAsignacion->nombre, $this->id);
        }else{
-            $this->addError('estatus','La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['EAA']);
+            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus '  . static::$estatusArray['ELD']);
         }
+        
     }
+    
+//     public function reasignarAnalista($encargado_id) {
+//        if ($this->estatus == "EAA") {
+//            $this->usuario_asignacion_id = $encargado_id;
+//            $this->estatus = "EAA";
+//            $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
+//            $this->save(); 
+//            Bitacora::registra("Se reasignó la solicitud al analista: " .
+//                $this->usuarioAsignacion->nombre, $this->id);
+//       }else{
+//            $this->addError('estatus','La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['EAA']);
+//        }
+//    }
     
     public static function asignar(array $values) {
         //se usa para los message bags
@@ -605,34 +611,34 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return $mensajes;
     }
     
-    public static function reasignar(array $values) {
-        //se usa para los message bags
-       $mensajes = new Solicitud();
-        if (!isset($values['solicitudes'])) {
-            $mensajes->addError('solicitudes', 'Debes seleccionar al menos una solicitud');
-            return $mensajes;
-        }
-        $rules = [
-           // 'departamento_id' => 'required_if:campo,departamento',
-            'usuario_asignacion_id' => 'required_if:campo,usuario',
-            'campo' => 'required',
-        ];
-        $validator = Validator::make(Input::all(), $rules);
-        $validator->setAttributeNames($mensajes->getPrettyFields());
-        if ($validator->passes()) {
-            $solicitudes = Solicitud::findMany($values['solicitudes']);
-            if ($values['campo'] == "usuarios") {
-                $solicitudes->each(function($solicitud) use ($values, $mensajes) {
-                    $solicitud->reasignarAnalista($values['usuario_asignacion_id']);
-                    //si salieron errores hacemos un merge
-                    $mensajes->errors->merge($solicitud->errors);
-                });
-            }
-        }else{
-            $mensajes->setErrors($validator->messages());
-        }
-        return $mensajes;
-    }
+//    public static function reasignar(array $values) {
+//        //se usa para los message bags
+//       $mensajes = new Solicitud();
+//        if (!isset($values['solicitudes'])) {
+//            $mensajes->addError('solicitudes', 'Debes seleccionar al menos una solicitud');
+//            return $mensajes;
+//        }
+//        $rules = [
+//           // 'departamento_id' => 'required_if:campo,departamento',
+//            'usuario_asignacion_id' => 'required_if:campo,usuario',
+//            'campo' => 'required',
+//        ];
+//        $validator = Validator::make(Input::all(), $rules);
+//        $validator->setAttributeNames($mensajes->getPrettyFields());
+//        if ($validator->passes()) {
+//            $solicitudes = Solicitud::findMany($values['solicitudes']);
+//            if ($values['campo'] == "usuarios") {
+//                $solicitudes->each(function($solicitud) use ($values, $mensajes) {
+//                    $solicitud->reasignarAnalista($values['usuario_asignacion_id']);
+//                    //si salieron errores hacemos un merge
+//                    $mensajes->errors->merge($solicitud->errors);
+//                });
+//            }
+//        }else{
+//            $mensajes->setErrors($validator->messages());
+//        }
+//        return $mensajes;
+//    }
     
     
     

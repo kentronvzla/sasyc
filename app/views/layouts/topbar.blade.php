@@ -47,7 +47,7 @@
                     <li>{{HTML::link('solicitudes?estatus=ELD&asignar=usuario','Asignar a un Analista')}}</li>
                     @endif
                     @if(Usuario::puedeAcceder('GET.solicitudes.reasignaranalista'))
-                    <li>{{HTML::link('solicitudes?estatus=EAA&reasignar=usuario','Reasignar a un Analista')}}</li>
+                    <li>{{HTML::link('solicitudes?estatus=EAA&asignar=usuario','Reasignar a un Analista')}}</li>
                     @endif
                     <li class="divider"></li>
                      @if(Usuario::puedeAcceder('GET.memorandum.ver'))
