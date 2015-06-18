@@ -62,14 +62,14 @@
                         <strong>Para:</strong>
                     </td>
                     <td width=500 style="background: white;">
-                        {{$memo->destino->nombre or "No se encontro departamento"}}
+                        {{$memos->destino->nombre or "No se encontro departamento"}}
                     </td>
                 </tr>
                 <tr><td style="background: white;">
                         <strong>De:</strong>
                     </td>
                     <td style="background: white;">
-                        {{$memo->origen->nombre or "No se encontro departamento"}}
+                        {{$memos->origen->nombre or "No se encontro departamento"}}
                     </td>
                 </tr>
                 <tr>
@@ -77,7 +77,7 @@
                         <strong>Asunto:</strong>
                     </td>
                     <td style="background: white;">
-                        {{$memo->asunto}}
+                        {{$memos->asunto}}
                     </td>
                 </tr>
                 <tr>
@@ -85,7 +85,7 @@
                         <strong>Fecha:</strong>
                     </td>
                     <td style="background: white;">
-                        {{$memo->fecha->format('d/m/Y')}}
+                        {{$memos->fecha->format('d/m/Y')}}
                     </td>
                 </tr>
             </table>
@@ -97,7 +97,7 @@
                 <tr>
                     <td width=670 ALIGN=CENTER style="background: white;">
                          <strong>Listado de casos por fecha y codigo se anexan 
-                        ({{$memo->solicitudes->count()}}) expedientes</strong>
+                        ({{$memos->solicitudes->count()}}) expedientes</strong>
                     </td>
                 </tr>
             </table>
@@ -127,7 +127,7 @@
                              @endif
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                             <li><a href="{{url('memorandum/imprimir/'.$memo->id)}}">Memorandum</a></li>
+                             <li><a href="{{url('memorandum/imprimir/'.$memos->id)}}">Memorandum</a></li>
                         </ul>
                     </div>
                 </div>

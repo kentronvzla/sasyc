@@ -22,7 +22,7 @@
             <strong>Monto</strong>
         </td>
     </tr>
-    @foreach($memo->solicitudes as $resultado)
+    @foreach($memos->solicitudes as $resultado)
     <tr>
         <td height=15 valign="middle" ALIGN=CENTER>
             <?php 
