@@ -52,19 +52,19 @@
    <div class="cuerpo" style="position: center">
         <table width="100%" border="0" cellpadding="10" cellspacing="5">
             <tr><td width=170><strong>Para:</strong></td>
-                <td width=500>{{$memo->destino->nombre or "No se encontro departamento"}}</td>
+                <td width=500>{{$memos->destino->nombre or "No se encontro departamento"}}</td>
             </tr>
             <tr><td><strong>De:</strong></td>
-                <td>{{$memo->origen->nombre or "No se encontro departamento"}}</td>
+                <td>{{$memos->origen->nombre or "No se encontro departamento"}}</td>
             </tr>
             <tr><td><strong>Asunto:</strong></td>
-                <td>{{$memo->asunto}}</td>
+                <td>{{$memos->asunto}}</td>
             </tr>
             <tr><td><strong>Fecha:</strong></td>
-                <td>{{$memo->fecha->format('d/m/Y')}}</td>
+                <td>{{$memos->fecha->format('d/m/Y')}}</td>
             </tr>
              <tr><td><strong>N° de Memorandum: </strong></td>
-                <td>{{$memo->numero}}</td>
+                <td>{{$memos->numero}}</td>
             </tr>
         </table>
     </div>
@@ -75,7 +75,7 @@
             <tr>
                 <td width=670 ALIGN=CENTER>
                     <strong>Listado de casos por fecha y codigo se anexan 
-                        ({{$memo->solicitudes->count()}}) expedientes</strong>
+                        ({{$memos->solicitudes->count()}}) expedientes</strong>
                 </td>
             </tr>
         </table>

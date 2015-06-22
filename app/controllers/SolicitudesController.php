@@ -128,14 +128,6 @@ class SolicitudesController extends BaseController {
         }
         return Response::json(['mensaje' => 'Se asignaron las solicitudes correctamente']);
     }
-
-//     public function postReasignar() {
-//        $resultado = Solicitud::reasignar(Input::all());
-//        if ($resultado->hasErrors()) {
-//            return Response::json(['errores' => $resultado->getErrors()], 400);
-//        }
-//        return Response::json(['mensaje' => 'Se asignaron las solicitudes correctamente']);
-//    }
    
     /* --------------------------------------------------------------------*/
 
