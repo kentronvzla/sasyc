@@ -89,6 +89,15 @@
                     @endif
                 </ul>
             </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Documentos<span
+                            class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    @if(Usuario::puedeAcceder('GET.documentos.ver'))
+                    <li>{{HTML::link('documentos','Consulta de Documentos')}}</li>
+                    @endif
+                </ul>
+            </li>
         </ul>
     </div>
     @unless(Request::is('/'))
