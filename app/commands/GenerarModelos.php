@@ -123,7 +123,7 @@ class GenerarModelos extends Command {
     }
 
     private function generarHasMany($tables) {
-        
+
     }
 
 }

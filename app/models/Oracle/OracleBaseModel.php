@@ -18,11 +18,14 @@ abstract class OracleBaseModel extends \BaseModel {
     protected $sequence = "";
     public $timestamps = false;
     protected $connection = 'oracle';
+    protected $usesequence = true;
 
     public function creatingModel($model) {
         unset($this->id);
-        $sequence = \DB::connection($this->connection)->getSequence();
-        $model->{$model->primaryKey} = $sequence->nextValue($model->sequence);
+        if($model->usesequence){
+            $sequence = \DB::connection($this->connection)->getSequence();
+            $model->{$model->primaryKey} = $sequence->nextValue($model->sequence);
+        }
         return true;
     }
 
