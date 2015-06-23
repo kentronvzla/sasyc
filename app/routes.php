@@ -30,6 +30,7 @@ Route::group(['before'=>'auth'], function(){
             Route::controller('personas', 'PersonasController');
             Route::controller('procesos', 'ProcesosController');
             Route::controller('ayudaCampos', 'AyudaCamposController');
+            Route::controller('tipoDocumento', 'TipoEventosController');
         });
         Route::get('', function(){
             return View::make('administracion.principal');
@@ -44,6 +45,7 @@ Route::group(['before'=>'auth'], function(){
     Route::controller('fotossolicitud', 'FotosSolicitudController');
     Route::controller('memorandum', 'MemosController');
     Route::controller('reportes', 'ReportesController');
+    Route::controller('documentos', 'DocumentossasycesController');
     Route::controller('autocompletar', 'AutocompletarController');
 });
 
