@@ -5,42 +5,46 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 namespace Oracle;
+
 /**
  * Description of TipoEvento
  *
  * @author Dhaily Robles
  */
-class TipoEvento extends OracleBaseModel {
-    
+class TipoEvento extends OracleBaseModel implements SimpleTableInterface {
+
 //    protected $primaryKey = null;
 //    public $incrementing = false;
 //    protected $sequence = null;
 //    protected $usesequence = false;
-    
-    protected $fillable = ['tipodoc','destipodoc','codruta', 'tipodoccref', 'indrefdoc', 'tipoevento'];
-    
+
+    protected $fillable = ['tipodoc', 'destipodoc', 'codruta', 'tipodoccref', 'indrefdoc', 'tipoevento'];
     protected $table = "V_EVENTOSASYC";
-    
     protected $rules = [
         'tipodoc' => '',
         'destipodoc' => '',
         'codruta' => '',
         'tipodoccref' => '',
         'indrefdoc' => '',
-        'tipoevento' => '',  
+        'tipoevento' => '',
     ];
-    
+
     protected function getPrettyFields() {
         return array();
     }
 
     public function getPrettyName() {
-        
+        return [
+            'tipodoc' => 'Tipo de documento',
+            'destipodoc' => 'Descripción',
+            'codruta' => 'Ruta',
+            'tipoevento' => 'Tipo de evento'
+        ];
     }
+
 //    public function tipoevento() {
 //        return $this->hasMany('Defeventosasyc');
 //    }
-
 }
-
