@@ -13,7 +13,7 @@ namespace Oracle;
  *
  * @author Dhaily Robles
  */
-class TipoEvento extends OracleBaseModel implements SimpleTableInterface {
+class TipoEvento extends OracleBaseModel {
 
 //    protected $primaryKey = null;
 //    public $incrementing = false;
@@ -21,7 +21,7 @@ class TipoEvento extends OracleBaseModel implements SimpleTableInterface {
 //    protected $usesequence = false;
 
     protected $fillable = ['tipodoc', 'destipodoc', 'codruta', 'tipodoccref', 'indrefdoc', 'tipoevento'];
-    protected $table = "V_EVENTOSASYC";
+    protected $table = "v_eventosasyc";
     protected $rules = [
         'tipodoc' => '',
         'destipodoc' => '',
@@ -40,6 +40,8 @@ class TipoEvento extends OracleBaseModel implements SimpleTableInterface {
             'tipodoc' => 'Tipo de documento',
             'destipodoc' => 'Descripción',
             'codruta' => 'Ruta',
+            'tipodoccref' => '',
+            'indrefdoc' => '',
             'tipoevento' => 'Tipo de evento'
         ];
     }
