@@ -4,6 +4,48 @@
  * Description of Documentossasyc
  *
  * @author Nadin Yamani
+ * @property integer $id 
+ * @property integer $documento_id 
+ * @property string $tipo_doc 
+ * @property string $tipo_evento 
+ * @property string $descripcion 
+ * @property string $fecha 
+ * @property string $estatus 
+ * @property integer $solicitud 
+ * @property string $ref_doc 
+ * @property integer $num_op 
+ * @property string $mensaje 
+ * @property integer $id_doc_ref 
+ * @property boolean $ind_aprueba_auto 
+ * @property boolean $ind_doc_ext 
+ * @property boolean $ind_ctas_adic 
+ * @property boolean $ind_reng_adic 
+ * @property boolean $ind_detcomp_adic 
+ * @property integer $version 
+ * @property \Carbon\Carbon $created_at 
+ * @property \Carbon\Carbon $updated_at 
+ * @property-read \Documento $documento 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereDocumentoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereTipoDoc($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereTipoEvento($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereDescripcion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereFecha($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereEstatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereSolicitud($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereRefDoc($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereNumOp($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereMensaje($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereIdDocRef($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereIndApruebaAuto($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereIndDocExt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereIndCtasAdic($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereIndRengAdic($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereIndDetcompAdic($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Documentossasyc whereUpdatedAt($value)
  */
 class Documentossasyc extends BaseModel {
 

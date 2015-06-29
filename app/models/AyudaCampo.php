@@ -17,6 +17,17 @@
  * @method static \Illuminate\Database\Query\Builder|\AyudaCampos whereUpdatedAt($value)
  * @property integer $VERSION
  * @method static \Illuminate\Database\Query\Builder|\AyudaCampos whereVERSION($value)
+ * @property integer $id 
+ * @property string $formulario 
+ * @property string $campo 
+ * @property string $ayuda 
+ * @property integer $version 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\AyudaCampo whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\AyudaCampo whereFormulario($value)
+ * @method static \Illuminate\Database\Query\Builder|\AyudaCampo whereCampo($value)
+ * @method static \Illuminate\Database\Query\Builder|\AyudaCampo whereAyuda($value)
+ * @method static \Illuminate\Database\Query\Builder|\AyudaCampo whereVersion($value)
  */
 class AyudaCampo extends BaseModel {
 

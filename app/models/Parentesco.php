@@ -19,8 +19,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereUpdatedAt($value)
- * @property string $inverso 
- * @property-read mixed $estatus_display 
+ * @property string $inverso
+ * @property-read mixed $estatus_display
  * @method static \Illuminate\Database\Query\Builder|\Parentesco whereInverso($value)
  */
 class Parentesco extends BaseModel implements SimpleTableInterface {

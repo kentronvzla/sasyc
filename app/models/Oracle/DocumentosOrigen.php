@@ -11,6 +11,7 @@ namespace Oracle;
  * Description of DocumentosOrigen
  *
  * @author Reysmer Valle
+ * @property-read mixed $estatus_display 
  */
 class DocumentosOrigen extends OracleBaseModel {
     

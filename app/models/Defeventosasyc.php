@@ -4,6 +4,29 @@
  * Description of Defeventosasyc
  *
  * @author Nadin Yamani
+ * @property integer $id 
+ * @property string $tipo_doc 
+ * @property string $tipo_evento 
+ * @property boolean $ind_aprueba_auto 
+ * @property boolean $ind_doc_ext 
+ * @property boolean $ind_ctas_adic 
+ * @property boolean $ind_reng_adic 
+ * @property boolean $ind_detcomp_adic 
+ * @property integer $version 
+ * @property \Carbon\Carbon $created_at 
+ * @property \Carbon\Carbon $updated_at 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereTipoDoc($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereTipoEvento($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereIndApruebaAuto($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereIndDocExt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereIndCtasAdic($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereIndRengAdic($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereIndDetcompAdic($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereUpdatedAt($value)
  */
 class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
 

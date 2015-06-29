@@ -6,9 +6,9 @@
 <table class="table table-striped bootstrap-datatable jqueryTable responsive">
     <thead>
         <tr>
-            <th>Tipo Documento</th>
+             <th>Tipo Documento</th>
              <th>Descripcion</th>
-             <th>Ruta</th>
+             <th>Ruta</th> 
              <th>Tipo de Evento</th>
              <th>Acciones</th>
         </tr>
@@ -20,18 +20,20 @@
             <td>{{$eventos->desctipodoc}}</td>
             <td>{{$eventos->codruta}}</td>
             <td>{{$eventos->tipoevento}}</td>
-            
+             
+            <td> <a class="btn btn-primary btn-xs" href="{{$url}}/modifica/{{$eventos->tipodoc}}/{{$eventos->tipoevento}}"><i class="fa fa-pencil"></i></a></td>
         </tr>
         @endforeach
-        
-        
-        
-        
-        
+    
         
     </tbody>
    
 </table>
-        </div>
+<div class="row">
+    <div class="col-lg-12">
+        <a href="{{$url}}/nuevo" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Agregar Tipo de Documento</a>
+    </div>
+</div>
+    </div>
 </div>
 @stop

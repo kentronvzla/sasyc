@@ -108,6 +108,11 @@
  * @method static \Solicitud ordenar()
  * @method static \Solicitud aplicarFiltro($filtro)
  * @method static \Solicitud eagerLoad()
+ * @property string $referencia_externa 
+ * @property string $num_solicitud 
+ * @property-read mixed $tipo_proc_for 
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferenciaExterna($value)
+ * @method static \Illuminate\Database\Query\Builder|\Solicitud whereNumSolicitud($value)
  */
 class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface, DecimalInterface {
 

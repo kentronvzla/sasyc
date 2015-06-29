@@ -6,6 +6,7 @@ Route::group(['before'=>'auth'], function(){
         Route::group(array('prefix' => 'seguridad', 'namespace' => 'Seguridad'), function() {
             Route::controller('usuarios', 'UsuariosController');
             Route::controller('grupos', 'GruposController');
+             
         });
         Route::group(array('prefix' => 'tablas', 'namespace' => 'Tablas'), function() {
             Route::controller('tipoAyudas', 'TipoAyudasController');
@@ -31,6 +32,7 @@ Route::group(['before'=>'auth'], function(){
             Route::controller('personas', 'PersonasController');
             Route::controller('procesos', 'ProcesosController');
             Route::controller('ayudaCampos', 'AyudaCamposController');
+          
             
         });
         Route::get('', function(){
@@ -48,6 +50,8 @@ Route::group(['before'=>'auth'], function(){
     Route::controller('reportes', 'ReportesController');
     Route::controller('documentos', 'DocumentossasycesController');
     Route::controller('autocompletar', 'AutocompletarController');
+   
+    
 });
 
 Route::controller('login','LoginController');

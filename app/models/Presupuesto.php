@@ -1,5 +1,45 @@
 <?php
 
+/**
+ * Presupuesto
+ *
+ * @property integer $id 
+ * @property integer $solicitud_id 
+ * @property integer $requerimiento_id 
+ * @property integer $proceso_id 
+ * @property integer $documento_id 
+ * @property string $moneda 
+ * @property integer $beneficiario_id 
+ * @property integer $cantidad 
+ * @property float $monto 
+ * @property float $montoapr 
+ * @property integer $version 
+ * @property \Carbon\Carbon $created_at 
+ * @property \Carbon\Carbon $updated_at 
+ * @property string $sts 
+ * @property-read \Solicitud $solicitud 
+ * @property-read \Proceso $proceso 
+ * @property-read \Requerimiento $requerimiento 
+ * @property-read \Oracle\Beneficiario $beneficiario 
+ * @property-read \Oracle\Documento $documento 
+ * @property-read mixed $monto_for 
+ * @property-read mixed $montoapr_for 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereSolicitudId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereRequerimientoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereProcesoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereDocumentoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereMoneda($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereBeneficiarioId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCantidad($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereMonto($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereMontoapr($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereSts($value)
+ */
 class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalInterface {
 
     private static $estatusModificacion = [
