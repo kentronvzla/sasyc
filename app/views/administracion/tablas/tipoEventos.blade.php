@@ -3,6 +3,7 @@
 <div class="panel panel-danger">
 <div class="panel-heading">Tipo de Documentos Registrados en el Sistema</div>
     <div class="panel-body">
+         
 <table class="table table-striped bootstrap-datatable jqueryTable responsive">
     <thead>
         <tr>
@@ -13,6 +14,7 @@
              <th>Acciones</th>
         </tr>
     </thead>
+   
     <tbody>
         <tr>
              @foreach ($tipoeventos as $eventos)
@@ -23,17 +25,18 @@
              
             <td> <a class="btn btn-primary btn-xs" href="{{$url}}/modifica/{{$eventos->tipodoc}}/{{$eventos->tipoevento}}"><i class="fa fa-pencil"></i></a></td>
         </tr>
+        
+        
+        
         @endforeach
+      
     
         
     </tbody>
    
 </table>
-<div class="row">
-    <div class="col-lg-12">
-        <a href="{{$url}}/nuevo" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Agregar Tipo de Documento</a>
+
+          
     </div>
-</div>
-    </div>
-</div>
+</div> 
 @stop

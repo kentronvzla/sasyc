@@ -13,7 +13,7 @@ class TipoEventosController extends \Administracion\TablasBaseController {
         parent::__construct();
     }
 
-//    protected static $eagerLoading = ['defeventosasyces'];
+   protected static $eagerLoading = ['defeventosasyc'];
 
     public function getIndex() {
         $data['tipoeventos'] = \Oracle\TipoEvento::all();
@@ -23,6 +23,10 @@ class TipoEventosController extends \Administracion\TablasBaseController {
     }
 
     public function getModifica($tipo_doc, $tipo_evento) {
+//        dump($tipo_doc);
+//        dump($tipo_evento);
+//exit();
+       
         
         $tipoeven = \Defeventosasyc::whereTipoDoc($tipo_doc)->whereTipoEvento($tipo_evento)->get();
 
@@ -33,14 +37,19 @@ class TipoEventosController extends \Administracion\TablasBaseController {
        return \View::make('administracion.tablas.tipoEventosform', $data);
            
         }else{ 
-            return \Response::json(['mensaje' => 'Este Documento no esta Configurado']);
+            
+           $data['tipoeventos'] = \Defeventosasyc::create(array('tipo_doc' => $tipo_doc, 'tipo_evento'=>$tipo_evento));
+              dump($data);
+            return \View::make('administracion.tablas.creardocumento', $data);
         }
 
-        
+            
     }
-        public function getnuevo() {
-        $data['nuevo'] = true;
-        $data['tipodocumento'] = new \Defeventosasyc();
-        return \View::make('administracion.tablas.tipoEventosform', $data);
-}
+ 
+public function insertUser() {
+	$tipo_doc = e(Input::get('tipo_doc')); 
+	$tipo_evento = e(Input::get('tipo_evento'));
+	DB::insert('INSERT INTO defeventosasyc (`tipo_doc`,`tipo_evento`) VALUES (?,?)', array($tipo_doc, $tipo_evento));
+	return $this->showUsers();
+} 
 }
