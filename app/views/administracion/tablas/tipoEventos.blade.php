@@ -25,13 +25,9 @@
              
             <td> <a class="btn btn-primary btn-xs" href="{{$url}}/modifica/{{$eventos->tipodoc}}/{{$eventos->tipoevento}}"><i class="fa fa-pencil"></i></a></td>
         </tr>
-        
-        
-        
+
         @endforeach
-      
-    
-        
+ 
     </tbody>
    
 </table>

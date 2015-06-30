@@ -7,17 +7,25 @@
  */
 class DefeventosasycesController extends \Administracion\TablasBaseController {
     
-    public function __construct() {
-        parent::__construct();
-    }
+ 
     
-   public function getTipoEventos($tipodoc) {
-        $eventos = \Oracle\TipoEvento::getCombo($tipodoc);
-        return \Response::json($eventos);
+ public function postIndex() {
+     
+       $evento = \Defeventosasyc::findOrNew(\Input::get('id'));
+       $data = \Input::all();
+       if ($evento->isValid($data))
+        {
+            $var= 'Tipo de Documento';
+            $evento->fill($data);
+            $evento->save();
+            return \Redirect::to(('administracion/tablas/tipoEventos'))
+                            ->with('mensaje', 'Se guardo el ' . $var
+                                    .' correctamente.');
+        }
+        else
+        {
+            return \Redirect::back()->withInput()
+                            ->withErrors($evento->getErrors());
+         }
+        }
     }
-
-       public function tipoevento() {
-        return $this->belongsTo('\oracle\TipoEvento');
-    }
-
-}

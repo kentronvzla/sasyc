@@ -30,6 +30,7 @@
  */
 class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
 
+    
     protected $table = "defeventosasyc";
 
     /**
@@ -48,27 +49,29 @@ class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
      * @var array
      */
     protected $rules = [
-        'tipo_doc'=>'required', 
-'tipo_evento'=>'required', 
-'ind_aprueba_auto'=>'required', 
-'ind_doc_ext'=>'required', 
-'ind_ctas_adic'=>'required', 
-'ind_reng_adic'=>'required', 
-'ind_detcomp_adic'=>'required', 
-'version'=>'required|integer', 
+       
+            'tipo_doc'=>'required', 
+            'tipo_evento'=>'required', 
+            'ind_aprueba_auto'=>'required', 
+            'ind_doc_ext'=>'required', 
+            'ind_ctas_adic'=>'required', 
+            'ind_reng_adic'=>'required', 
+            'ind_detcomp_adic'=>'required', 
+            'version'=>'required|integer', 
 
     ];
     
     protected function getPrettyFields() {
         return [
+             
             'tipo_doc'=>'tipo_doc', 
-'tipo_evento'=>'tipo_evento', 
-'ind_aprueba_auto'=>'ind_aprueba_auto', 
-'ind_doc_ext'=>'ind_doc_ext', 
-'ind_ctas_adic'=>'ind_ctas_adic', 
-'ind_reng_adic'=>'ind_reng_adic', 
-'ind_detcomp_adic'=>'ind_detcomp_adic', 
-'version'=>'version', 
+            'tipo_evento'=>'tipo_evento', 
+            'ind_aprueba_auto'=>'Aprobacion Automatica', 
+            'ind_doc_ext'=>'Documento Externo', 
+            'ind_ctas_adic'=>'Cuentas Adicionales', 
+            'ind_reng_adic'=>'ind_reng_adic', 
+            'ind_detcomp_adic'=>'ind_detcomp_adic', 
+            'version'=>'Version', 
 
         ];
     }
@@ -77,6 +80,26 @@ class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
         return "defeventosasyc";
     }
 
-    
+     public function TipoEvento() {
+        return $this->hasMany('\Oracle\TipoEvento');
+    }
 
+     public function isValid($data)
+    {
+        $rules = [
+        'tipo_doc'=>'required', 
+        'tipo_evento'=>'required', 
+          ];
+        
+        $validator = Validator::make($data, $rules);
+        
+        if ($validator->passes())
+        {
+            return true;
+        }
+        
+        $this->errors = $validator->errors();
+        
+        return false;
+    }
 }
