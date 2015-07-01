@@ -12,7 +12,7 @@ class RequerimientosController extends \Administracion\TablasBaseController {
     protected static $eagerLoading = ['tipoAyuda', 'tipoRequerimiento'];
 
     public function afterPostIndex($variable){
-        $variable->procesos()->sync(\Input::all('procesos', []));
+        $variable->procesos()->sync(\Input::get('procesos', []));
     }
     
     public function getProcesos($id) {
