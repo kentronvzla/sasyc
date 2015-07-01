@@ -3,25 +3,25 @@
 /**
  * Usuario
  *
- * @property integer $id 
- * @property string $email 
- * @property string $password 
- * @property string $nombre 
- * @property boolean $activated 
- * @property string $activation_code 
- * @property string $activated_at 
- * @property string $last_login 
- * @property string $persist_code 
- * @property string $reset_password_code 
- * @property \Carbon\Carbon $created_at 
- * @property \Carbon\Carbon $updated_at 
- * @property integer $departamento_id 
- * @property-read mixed $activatedfor 
- * @property-read \Departamento $departamento 
- * @property-read \Illuminate\Database\Eloquent\Collection|\Grupo[] $grupos 
- * @property-read mixed $nombregrupo 
- * @property-read mixed $idgrupo 
- * @property-read mixed $estatus_display 
+ * @property integer $id
+ * @property string $email
+ * @property string $password
+ * @property string $nombre
+ * @property boolean $activated
+ * @property string $activation_code
+ * @property string $activated_at
+ * @property string $last_login
+ * @property string $persist_code
+ * @property string $reset_password_code
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property integer $departamento_id
+ * @property-read mixed $activatedfor
+ * @property-read \Departamento $departamento
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Grupo[] $grupos
+ * @property-read mixed $nombregrupo
+ * @property-read mixed $idgrupo
+ * @property-read mixed $estatus_display
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\Usuario wherePassword($value)
@@ -35,6 +35,9 @@
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereDepartamentoId($value)
+ * @property integer $version 
+ * @property-read mixed $grupos_display 
+ * @method static \Illuminate\Database\Query\Builder|\Usuario whereVersion($value)
  */
 class Usuario extends BaseModel implements SimpleTableInterface {
 

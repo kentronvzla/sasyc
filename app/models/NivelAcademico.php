@@ -21,7 +21,7 @@
  * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\NivelAcademico whereUpdatedAt($value)
- * @property-read mixed $estatus_display 
+ * @property-read mixed $estatus_display
  */
 class NivelAcademico extends BaseModel implements SimpleTableInterface {
 

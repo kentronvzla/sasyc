@@ -12,7 +12,8 @@ namespace Oracle;
  * Description of RengSumAdic
  *
  * @author Reysmer Valle
- * @property-read mixed $id 
+ * @property-read mixed $id
+ * @property-read mixed $estatus_display 
  */
 class RengSumAdic extends OracleBaseModel {
 

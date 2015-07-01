@@ -20,7 +20,7 @@
  * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\EstadoCivil whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\Persona[] $personas
- * @property-read mixed $estatus_display 
+ * @property-read mixed $estatus_display
  */
 class EstadoCivil extends BaseModel implements SimpleTableInterface{
 

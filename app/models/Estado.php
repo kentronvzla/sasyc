@@ -19,8 +19,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Estado whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Estado whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Estado whereUpdatedAt($value)
- * @property-read \Illuminate\Database\Eloquent\Collection|\Municipio[] $municipios 
- * @property-read mixed $estatus_display 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Municipio[] $municipios
+ * @property-read mixed $estatus_display
  */
 class Estado extends BaseModel implements SimpleTableInterface{
 

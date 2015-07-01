@@ -88,10 +88,10 @@
  * @property-read \Illuminate\Database\Eloquent\Collection|\Solicitud[] $solicitudes
  * @property-read mixed $edad
  * @property-read mixed $documento
- * @property-read mixed $nombre_completo 
- * @property-read mixed $informacion_contacto 
- * @property-read mixed $ingreso_mensual_for 
- * @property-read mixed $estatus_display 
+ * @property-read mixed $nombre_completo
+ * @property-read mixed $informacion_contacto
+ * @property-read mixed $ingreso_mensual_for
+ * @property-read mixed $estatus_display
  */
 class Persona extends BaseModel implements SimpleTableInterface, DecimalInterface, DefaultValuesInterface {
 

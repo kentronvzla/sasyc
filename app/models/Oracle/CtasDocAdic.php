@@ -10,6 +10,7 @@ namespace Oracle;
  * Description of CtasDocAdic
  *
  * @author Reysmer Valle
+ * @property-read mixed $estatus_display 
  */
 class CtasDocAdic extends OracleBaseModel {
     

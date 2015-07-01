@@ -75,6 +75,9 @@
             <a href="{{url('administracion/tablas/tipoNacionalidades')}}">
                 <li class="list-group-item">Nacionalidades</li>
             </a>
+            <a href="{{url('administracion/tablas/tipoEventos')}}">
+                <li class="list-group-item">Tipo de Documentos</li>
+            </a>
             <a href="{{url('administracion/tablas/tipoRequerimientos')}}">
                 <li class="list-group-item">Tipos de Requerimiento</li>
             </a>

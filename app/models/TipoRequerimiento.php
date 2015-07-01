@@ -20,6 +20,8 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereUpdatedAt($value)
  * @property-read mixed $estatus_display
+ * @property string $descripcion 
+ * @method static \Illuminate\Database\Query\Builder|\TipoRequerimiento whereDescripcion($value)
  */
 class TipoRequerimiento extends BaseModel implements SimpleTableInterface {
 

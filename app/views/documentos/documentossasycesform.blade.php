@@ -1,0 +1,129 @@
+@extends('layouts.master')
+@section('contenido')
+<div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-12 col-sm-8 col-md-8">
+    <!------------------------------------------------------>    
+       <table class="table table-bordered" border="0">
+            <tr>
+                <td class="danger">
+                    <center><strong>Vista de Documento</strong></center>
+                </td>
+            </tr>
+        </table>
+    <br>
+    <!------------------------------------------------------>
+        <div class="cuerpo" style="position: center">
+            <table width="100%" border="0" cellpadding="10" cellspacing="5">
+                <tr>
+                <td style="background: white;">
+                    {{HTML::image('img/logoReporte.jpg')}}
+                </td>
+                </tr>
+                <tr>
+                    <td style="background: white;">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                               <strong>
+                                   <center>Republica Bolivariana de Venezuela</center>
+                               </strong>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                 <tr>
+                    <td style="background: white;">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                               <strong>
+                                   <center>Ministerio del poder Popular del Despacho de la Presidencia</center>
+                               </strong>   
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                  <tr>
+                    <td style="background: white;">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <strong>
+                                    <center>Fundacion pueblo Soberano</center>
+                                </strong>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!------------------------------------------------------>
+        <br>
+        <div class="cuerpo" style="position: center">
+            <table width="100%" border="0" cellpadding="10" cellspacing="5">
+                <tr><td width=170 style="background: white;">
+                        <strong>Documento Numero:</strong>
+                    </td>
+                    <td width=500 style="background: white;">
+                        {{$documentossasyces->documento_id}}
+                    </td>
+                </tr>
+                <tr><td style="background: white;">
+                        <strong>Tipo de Documento:</strong>
+                    </td>
+                    <td style="background: white;">
+                        {{$documentossasyces->tipo_doc}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background: white;">
+                        <strong>Evento:</strong>
+                    </td>
+                    <td style="background: white;">
+                        {{$documentossasyces->tipo_evento}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background: white;">
+                        <strong>Fecha:</strong>
+                    </td>
+                    <td style="background: white;">
+                        {{$documentossasyces->fecha}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!------------------------------------------------------>
+        <br>
+    
+        <!------------------------------------------------------>
+        <br>
+        <div class="cuerpo" style="position: center">
+             @include('documentos.tabladoc')
+        </div>
+    </div>
+ <!------------------------------------------------------------------------------------->   
+    <div class="col-xs-12 col-sm-4 col-md-4 hidden-xs">
+        <div class="panel panel-danger">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelPlanilla">
+                <h4 class="panel-title">
+                    Documento
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div id="contenedorBarraCarga">
+                </div>
+                <div class="text-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-lg dropdown-toggle" data-toggle="dropdown">
+                             @if(Usuario::puedeAcceder('GET.memorandum.imprimir'))
+                            <span class="glyphicon glyphicon-print"></span> Imprimir <span class="caret"></span>
+                             @endif
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                             <li><a href="{{url('documentos/imprimir/'.$documentossasyces->id)}}">Documento</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@stop

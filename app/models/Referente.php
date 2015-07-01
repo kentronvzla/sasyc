@@ -21,7 +21,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Referente whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Referente whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Referente whereUpdatedAt($value)
- * @property-read mixed $estatus_display 
+ * @property-read mixed $estatus_display
  */
 class Referente extends BaseModel implements SimpleTableInterface {
 

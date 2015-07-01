@@ -25,13 +25,17 @@
  * @method static \Illuminate\Database\Query\Builder|\Memo whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Memo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Memo whereUpdatedAt($value)
- * @property string $asunto 
- * @property integer $origen_id 
- * @property integer $destino_id 
- * @property-read mixed $estatus_display 
+ * @property string $asunto
+ * @property integer $origen_id
+ * @property integer $destino_id
+ * @property-read mixed $estatus_display
  * @method static \Illuminate\Database\Query\Builder|\Memo whereAsunto($value)
  * @method static \Illuminate\Database\Query\Builder|\Memo whereOrigenId($value)
  * @method static \Illuminate\Database\Query\Builder|\Memo whereDestinoId($value)
+ * @property integer $usuario_id 
+ * @property-read \Usuario $usuario 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Solicitud[] $solicitudes 
+ * @method static \Illuminate\Database\Query\Builder|\Memo whereUsuarioId($value)
  */
 class Memo extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {
 

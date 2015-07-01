@@ -10,16 +10,16 @@
  * Description of FotosSolicitud
  *
  * @author Nadin Yamani
- * @property integer $id 
- * @property integer $solicitud_id 
- * @property string $descripcion 
- * @property string $foto 
- * @property boolean $ind_reporte 
- * @property \Carbon\Carbon $created_at 
- * @property \Carbon\Carbon $updated_at 
- * @property-read \Solicitud $solicitud 
- * @property-read mixed $url 
- * @property-read mixed $estatus_display 
+ * @property integer $id
+ * @property integer $solicitud_id
+ * @property string $descripcion
+ * @property string $foto
+ * @property boolean $ind_reporte
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Solicitud $solicitud
+ * @property-read mixed $url
+ * @property-read mixed $estatus_display
  * @method static \Illuminate\Database\Query\Builder|\FotoSolicitud whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\FotoSolicitud whereSolicitudId($value)
  * @method static \Illuminate\Database\Query\Builder|\FotoSolicitud whereDescripcion($value)
