@@ -24,7 +24,7 @@
             <td align='center'>{{$eventos->codruta}}</td>
             <td align='center'>{{$eventos->tipoevento}}</td>
             
-           <?php $seleccion =(explode(',', $evento)); dump($seleccion); $configuracion = ((in_array($eventos->tipodoc, $seleccion))==true) ? "SI" : "NO"; ?>
+           <?php $configuracion = ((in_array($eventos->tipodoc, $evento))==true) ? "SI" : "NO"; ?>
             <td align='center'>{{$configuracion}}</td>
              
             <td align="center"> <a class="btn btn-primary btn-xs" href="{{$url}}/modifica/{{$eventos->tipodoc}}/{{$eventos->tipoevento}}"><i class="fa fa-pencil"></i></a></td>

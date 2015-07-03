@@ -11,8 +11,10 @@
         {{Form::concurrencia($evento)}}
         <div class="row">
             {{Form::hidden('id',$evento->id)}}
-            {{Form::btInput($evento, 'tipo_doc', 4)}}
-            {{Form::btInput($evento, 'tipo_evento', 4)}}
+            <div class="col-xs-12 col-md">
+            <h3>Tipo de Documento:&nbsp;{{$evento->tipo_doc}}</h3>
+            <h3>Tipo de Evento:&nbsp;{{$evento->tipo_evento}}</h3>
+            </div>
             {{Form::btInput($evento, 'ind_aprueba_auto', 4)}}
             {{Form::btInput($evento, 'ind_doc_ext', 4)}}
             {{Form::btInput($evento, 'ind_ctas_adic', 4)}}
