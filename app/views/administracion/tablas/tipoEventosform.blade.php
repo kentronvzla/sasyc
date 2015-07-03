@@ -14,9 +14,13 @@
             <div class="col-xs-12 col-md">
             <h3>Tipo de Documento:&nbsp;{{$evento->tipo_doc}}</h3>
             <h3>Tipo de Evento:&nbsp;{{$evento->tipo_evento}}</h3>
+
             </div>
+            
+             {{Form::hidden('tipo_doc',$evento->tipo_doc)}}
+             {{Form::hidden('tipo_evento',$evento->tipo_evento)}}
             {{Form::btInput($evento, 'ind_aprueba_auto', 4)}}
-            {{Form::btInput($evento, 'ind_doc_ext', 4)}}
+            
             {{Form::btInput($evento, 'ind_ctas_adic', 4)}}
             {{Form::btInput($evento, 'ind_reng_adic', 4)}}
             {{Form::btInput($evento, 'ind_detcomp_adic', 6)}}

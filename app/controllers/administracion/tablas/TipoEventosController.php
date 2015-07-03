@@ -23,15 +23,11 @@ class TipoEventosController extends \Administracion\TablasBaseController {
             foreach( $picks as $todo) {
                 $arreglo = $todo['attributes'];
           if (in_array($pick, $arreglo)) {
-              
-            //  $data['evento'] = $pick;
-               $primero = array_shift($arreglo);
-               $prueba[]=$primero;
-           //   dump($prueba);
-               $data['evento']=$prueba;
+                $primero = array_shift($arreglo);
+                $prueba[]=$primero;
+                $data['evento']=$prueba;
         }}}
-     //  exit();
-       $ruta = \Route::getCurrentRoute();
+        $ruta = \Route::getCurrentRoute();
         $data['url'] = url($ruta->getPath());
         return \View::make('administracion.tablas.tipoEventos', $data);
     }
@@ -42,17 +38,15 @@ class TipoEventosController extends \Administracion\TablasBaseController {
         if (!$tipoeven->isEmpty()) {
          
         $data['defeventosasyc']= \Defeventosasyc::findorNew($id)->whereTipoDoc($tipo_doc)->whereTipoEvento($tipo_evento)->get();;
-       
+        $data['descripcion']=  \Oracle\TipoEvento::select('desctipodoc')->where('tipodoc','=', $tipo_doc)->where('tipoevento','=', $tipo_evento)->get();
        return \View::make('administracion.tablas.tipoEventosform', $data);
            
         }else{ 
            $data['defeventosasyc'] = \Defeventosasyc::Create(array('tipo_doc' => $tipo_doc, 'tipo_evento'=>$tipo_evento));
-          
+           $data['descripcion']=  \Oracle\TipoEvento::select('destipodoc')->where('tipodoc','=', $tipo_doc)->where('tipoevento','=', $tipo_evento)->get();
            return \View::make('administracion.tablas.defeventosasycesform', $data);
         }
-
-            
+    
     }
- 
- 
+
 }

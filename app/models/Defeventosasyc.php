@@ -48,30 +48,19 @@ class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
      * @link http://laravel.com/docs/validation#available-validation-rules
      * @var array
      */
-    protected $rules = [
-       
-            'tipo_doc'=>'required', 
-            'tipo_evento'=>'required', 
-            'ind_aprueba_auto'=>'required', 
-            'ind_doc_ext'=>'required', 
-            'ind_ctas_adic'=>'required', 
-            'ind_reng_adic'=>'required', 
-            'ind_detcomp_adic'=>'required', 
-            'version'=>'required|integer', 
 
-    ];
     
     protected function getPrettyFields() {
         return [
              
-            'tipo_doc'=>'tipo_doc', 
-            'tipo_evento'=>'tipo_evento', 
+            'tipo_doc'=>'Tipo Documento', 
+            'tipo_evento'=>'Tipo Evento', 
             'ind_aprueba_auto'=>'Aprobacion Automatica?', 
             'ind_doc_ext'=>'Documento Externo?', 
             'ind_ctas_adic'=>'Cuentas Adicionales?', 
             'ind_reng_adic'=>'Renglones de Solicitud?', 
             'ind_detcomp_adic'=>'Detalle de comprobante de pago?', 
-            'version'=>'Version', 
+            
 
         ];
     }
@@ -80,15 +69,14 @@ class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
         return "defeventosasyc";
     }
 
-     public function TipoEvento() {
-        return $this->hasMany('\Oracle\TipoEvento');
-    }
 
      public function isValid($data)
     {
         $rules = [
-        'tipo_doc'=>'required', 
-        'tipo_evento'=>'required', 
+            'ind_aprueba_auto'=>'required', 
+            'ind_ctas_adic'=>'required', 
+            'ind_reng_adic'=>'required', 
+            'ind_detcomp_adic'=>'required', 
           ];
         
         $validator = Validator::make($data, $rules);
