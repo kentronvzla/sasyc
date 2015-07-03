@@ -9,15 +9,15 @@
         {{Form::open(array('url'=>'administracion/tablas/Defeventosasyc'))}}
         {{Form::concurrencia($defeventosasyc)}}
         <div class="row">
-            {{Form::hidden('id',$defeventosasyc->id)}}
-            {{Form::btInput($defeventosasyc, 'tipo_doc', 6)}}
-            {{Form::btInput($defeventosasyc, 'tipo_evento', 6)}}
-            {{Form::btInput($defeventosasyc, 'ind_aprueba_auto', 6)}}
-            {{Form::btInput($defeventosasyc, 'ind_doc_ext', 6)}}
-            {{Form::btInput($defeventosasyc, 'ind_ctas_adic', 6)}}
-            {{Form::btInput($defeventosasyc, 'ind_reng_adic', 6)}}
+               {{Form::hidden('id',$defeventosasyc->id)}}
+            {{Form::btInput($defeventosasyc, 'tipo_doc', 4)}}
+            {{Form::btInput($defeventosasyc, 'tipo_evento', 4)}}
+            {{Form::btInput($defeventosasyc, 'ind_aprueba_auto', 4)}}
+            {{Form::btInput($defeventosasyc, 'ind_doc_ext', 4)}}
+            {{Form::btInput($defeventosasyc, 'ind_ctas_adic', 4)}}
+            {{Form::btInput($defeventosasyc, 'ind_reng_adic', 4)}}
             {{Form::btInput($defeventosasyc, 'ind_detcomp_adic', 6)}}
-            {{Form::btInput($defeventosasyc, 'version', 6)}}
+              {{Form::btInput($defeventosasyc, 'version', 6)}}
 
         </div>
         {{Form::submitBt()}}

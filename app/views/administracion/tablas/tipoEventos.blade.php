@@ -11,6 +11,7 @@
              <th>Descripcion</th>
              <th>Ruta</th> 
              <th>Tipo de Evento</th>
+              <th>Configuracion</th>
              <th>Acciones</th>
         </tr>
     </thead>
@@ -18,12 +19,15 @@
     <tbody>
         <tr>
              @foreach ($tipoeventos as $eventos)
-            <td>{{$eventos->tipodoc}}</td>
+             <td align='center'>{{$eventos->tipodoc}}</td>
             <td>{{$eventos->desctipodoc}}</td>
-            <td>{{$eventos->codruta}}</td>
-            <td>{{$eventos->tipoevento}}</td>
+            <td align='center'>{{$eventos->codruta}}</td>
+            <td align='center'>{{$eventos->tipoevento}}</td>
+            
+           <?php $seleccion =(explode(',', $evento)); dump($seleccion); $configuracion = ((in_array($eventos->tipodoc, $seleccion))==true) ? "SI" : "NO"; ?>
+            <td align='center'>{{$configuracion}}</td>
              
-            <td> <a class="btn btn-primary btn-xs" href="{{$url}}/modifica/{{$eventos->tipodoc}}/{{$eventos->tipoevento}}"><i class="fa fa-pencil"></i></a></td>
+            <td align="center"> <a class="btn btn-primary btn-xs" href="{{$url}}/modifica/{{$eventos->tipodoc}}/{{$eventos->tipoevento}}"><i class="fa fa-pencil"></i></a></td>
         </tr>
 
         @endforeach

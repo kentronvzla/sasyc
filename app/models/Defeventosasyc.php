@@ -66,11 +66,11 @@ class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
              
             'tipo_doc'=>'tipo_doc', 
             'tipo_evento'=>'tipo_evento', 
-            'ind_aprueba_auto'=>'Aprobacion Automatica', 
-            'ind_doc_ext'=>'Documento Externo', 
-            'ind_ctas_adic'=>'Cuentas Adicionales', 
-            'ind_reng_adic'=>'ind_reng_adic', 
-            'ind_detcomp_adic'=>'ind_detcomp_adic', 
+            'ind_aprueba_auto'=>'Aprobacion Automatica?', 
+            'ind_doc_ext'=>'Documento Externo?', 
+            'ind_ctas_adic'=>'Cuentas Adicionales?', 
+            'ind_reng_adic'=>'Renglones de Solicitud?', 
+            'ind_detcomp_adic'=>'Detalle de comprobante de pago?', 
             'version'=>'Version', 
 
         ];
