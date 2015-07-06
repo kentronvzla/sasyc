@@ -11,20 +11,31 @@
         <div class="row">
                {{Form::hidden('id',$defeventosasyc->id)}}
             <div class="col-xs-12 col-md">
-            <h3>Tipo de Documento:&nbsp;{{$defeventosasyc->tipo_doc}}</h3>
-            <h3>Tipo de Evento:&nbsp;{{$defeventosasyc->tipo_evento}}</h3>
-
-            </div>
+                <div class="row">
+            {{Form::display($defeventosasyc,'tipo_doc',4, true)}}
+             @foreach ($descripcion as $descrip)
+            <h4>Descripcion:&nbsp;{{$descrip->desctipodoc}}</h4>
+              @endforeach
+                 </div>
+               <div class="row">
+            {{Form::display($defeventosasyc,'tipo_evento',8, true)}}
+            {{Form::hidden('tipo_doc',$defeventosasyc->tipo_doc)}}
+            {{Form::hidden('tipo_evento',$defeventosasyc->tipo_evento)}}
+            </div>  
+                 <div class="row">
             {{Form::btInput($defeventosasyc, 'ind_aprueba_auto', 4)}}
-            
             {{Form::btInput($defeventosasyc, 'ind_ctas_adic', 4)}}
+             </div>
+             <div class="row">
             {{Form::btInput($defeventosasyc, 'ind_reng_adic', 4)}}
             {{Form::btInput($defeventosasyc, 'ind_detcomp_adic', 6)}}
+                 </div>
            
-
-        </div>
-        {{Form::submitBt()}}
+                
+                
+                {{Form::submitBt()}}
         {{Form::close()}}
-    </div>
+    </div> </div>
 </div>
 @stop
+                

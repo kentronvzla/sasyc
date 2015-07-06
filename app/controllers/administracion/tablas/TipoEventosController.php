@@ -43,7 +43,7 @@ class TipoEventosController extends \Administracion\TablasBaseController {
            
         }else{ 
            $data['defeventosasyc'] = \Defeventosasyc::Create(array('tipo_doc' => $tipo_doc, 'tipo_evento'=>$tipo_evento));
-           $data['descripcion']=  \Oracle\TipoEvento::select('destipodoc')->where('tipodoc','=', $tipo_doc)->where('tipoevento','=', $tipo_evento)->get();
+           $data['descripcion']=  \Oracle\TipoEvento::select('desctipodoc')->where('tipodoc','=', $tipo_doc)->where('tipoevento','=', $tipo_evento)->get();
            return \View::make('administracion.tablas.defeventosasycesform', $data);
         }
     
