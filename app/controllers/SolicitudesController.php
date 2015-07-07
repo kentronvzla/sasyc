@@ -18,21 +18,21 @@ class SolicitudesController extends BaseController {
 
     public function getIndex() {
         $data['solicitudes'] = Solicitud::eagerLoad()
-            ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','cerrar','anulando','']))
-            ->ordenar();
+                ->aplicarFiltro(Input::except(['asignar', 'solo_asignadas', 'page', 'cerrar', 'anulando', '']))
+                ->ordenar();
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
             $data['solicitud'] = new Solicitud();
-            if($data['campo']=='usuario'){
+            if ($data['campo'] == 'usuario') {
                 $usuario = Usuario::getLogged();
                 $data['solicitudes']->whereDepartamentoId($usuario->departamento_id);
                 $data['analistas'] = $usuario->getCompaneros();
             }
-    }else if (Input::has('anulando')){
+        } else if (Input::has('anulando')) {
             $data['anulando'] = true;
-        } else if(Input::has('cerrar')){
+        } else if (Input::has('cerrar')) {
             $data['cerrar'] = true;
-        } else if(Input::has('solo_asignadas')){
+        } else if (Input::has('solo_asignadas')) {
             $data['solo_asignadas'] = true;
         }
         $data['solicitudes'] = $data['solicitudes']->paginate(5);
@@ -41,14 +41,13 @@ class SolicitudesController extends BaseController {
         $data['solicitud'] = new Solicitud();
         $data['presupuesto'] = new Presupuesto();
         return View::make('solicitudes.index', $data);
-    
     }
 
     public function postModificar() {
         Session::forget('solicitud');
         $solicitud = Solicitud::findOrNew(Input::get('id'));
         $solicitud->fill(Input::all());
-        if(Input::has('informe')){
+        if (Input::has('informe')) {
             $solicitud->reglasInforme();
         }
         if ($solicitud->save()) {
@@ -77,8 +76,8 @@ class SolicitudesController extends BaseController {
         } else {
             $data['solicitud'] = Solicitud::findOrFail($id);
         }
-        if(!$data['solicitud']->puedeModificar()){
-            return Redirect::to('solicitudes')->with('error','Solo se pueden editar solicitudes en Elaboración');
+        if (!$data['solicitud']->puedeModificar()) {
+            return Redirect::to('solicitudes')->with('error', 'Solo se pueden editar solicitudes en Elaboración');
         }
         $data['beneficiario'] = Persona::findOrFail($data['solicitud']->persona_beneficiario_id);
         $data['solicitante'] = Persona::findOrNew($data['solicitud']->persona_solicitante_id);
@@ -128,8 +127,8 @@ class SolicitudesController extends BaseController {
         }
         return Response::json(['mensaje' => 'Se asignaron las solicitudes correctamente']);
     }
-   
-    /* --------------------------------------------------------------------*/
+
+    /* -------------------------------------------------------------------- */
 
     public function getPlanilla($id, $store = false) {
         $data['solicitud'] = Solicitud::findOrFail($id);
@@ -141,7 +140,7 @@ class SolicitudesController extends BaseController {
     public function getVermemo($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
         $data['personaBeneficiario'] = $data['solicitud']->personaBeneficiario;
-        return View::make('memorandun.memorandun',$data);
+        return View::make('memorandun.memorandun', $data);
     }
 
     public function getMemo($id, $store = false) {
@@ -150,74 +149,83 @@ class SolicitudesController extends BaseController {
         return $this->reporte->generar('memorandum.imprimir', $data);
     }
 
-    public function getAceptarasignacion($id){
+    public function getAceptarasignacion($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
-        $data['manual'] = Configuracion::get('ind_secuencia_automatica')=="No";
+        $data['manual'] = Configuracion::get('ind_secuencia_automatica') == "No";
         $data['solicitud']->configurarPresupuesto("", false);
-        return View::make('solicitudes.aceptarasignacion',$data);
+        return View::make('solicitudes.aceptarasignacion', $data);
     }
 
-    public function postAceptarasignacion(){
+    public function postAceptarasignacion() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        if($solicitud->aceptarAsignacion(Input::get('num_proc'))){
-            return Redirect::to('solicitudes/modificar/'.$solicitud->id)->with('mensaje', 'Se aceptó la asignación de la solicitud: '.$solicitud->id.', correctamente');
+        if ($solicitud->aceptarAsignacion(Input::get('num_proc'))) {
+            return Redirect::to('solicitudes/modificar/' . $solicitud->id)->with('mensaje', 'Se aceptó la asignación de la solicitud: ' . $solicitud->id . ', correctamente');
         }
         return Redirect::to('solicitudes?solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
     }
 
-    public function getDevolverasignacion($id){
+    public function getDevolverasignacion($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
-        return View::make('solicitudes.devolverasignacion',$data);
+        return View::make('solicitudes.devolverasignacion', $data);
     }
 
-    public function postDevolverasignacion(){
+    public function postDevolverasignacion() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        if($solicitud->devolverAsignacion()){
-            return Redirect::to('solicitudes?solo_asignadas=true')->with('mensaje', 'Se devolvió la asignación de la solicitud: '.$solicitud->id.', correctamente');
+        if ($solicitud->devolverAsignacion()) {
+            return Redirect::to('solicitudes?solo_asignadas=true')->with('mensaje', 'Se devolvió la asignación de la solicitud: ' . $solicitud->id . ', correctamente');
         }
         return Redirect::to('solicitudes?solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
     }
 
-    public function getSolicitaraprobacion($id){
+    public function getSolicitaraprobacion($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
-        return View::make('solicitudes.solicitaraprobacion',$data);
+        return View::make('solicitudes.solicitaraprobacion', $data);
     }
 
-    public function postSolicitaraprobacion(){
+    public function postSolicitaraprobacion() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        if($solicitud->solicitarAprobacion(Input::get('usuario_autorizacion_id'))){
-            return Response::json(['mensaje'=>'Se solicitó la aprobación de la solicitud: '.$solicitud->id.', correctamente']);
+        $proc_documento = new ayudantes\ProcesarDocumento();
+        $data = $proc_documento->buscarDefEvento($solicitud);
+        
+        if (!empty($data['eventos'])) {
+            $rsp = $proc_documento->insertarDocumentos($data);
+            $proc_documento->atualizarEstatus($data);
+        } else {
+            echo "esta vacio";
         }
-        return Response::json(['errores'=>$solicitud->getErrors()], 400);
+//        if ($solicitud->solicitarAprobacion(Input::get('usuario_autorizacion_id'))) {
+            return Response::json(['mensaje' => 'Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente']);
+//        }
+//        return Response::json(['errores' => $solicitud->getErrors()], 400);
     }
 
-    public function getAnular ($id){
+    public function getAnular($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
         $data['bitacora'] = new Bitacora();
-        return View::make('solicitudes.anular',$data);
+        return View::make('solicitudes.anular', $data);
     }
 
-    public function postAnular (){
+    public function postAnular() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        if($solicitud->anular(Input::get('nota'))){
-            return Redirect::to('solicitudes')->with('mensaje', 'Se anuló la solicitud: '.$solicitud->id.', correctamente');
+        if ($solicitud->anular(Input::get('nota'))) {
+            return Redirect::to('solicitudes')->with('mensaje', 'Se anuló la solicitud: ' . $solicitud->id . ', correctamente');
         }
         return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true')->with('error', $solicitud->getErrors()->first());
     }
 
-    public function getCerrar ($id){ 
+    public function getCerrar($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
         $data['bitacora'] = new Bitacora();
-        return View::make('solicitudes.cerrar',$data);
+        return View::make('solicitudes.cerrar', $data);
     }
 
-    public function postCerrar (){
+    public function postCerrar() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        if($solicitud->cerrar()){
-            return Redirect::to('solicitudes')->with('mensaje', 'Se cerro la solicitud: '.$solicitud->id.', correctamente');
+        if ($solicitud->cerrar()) {
+            return Redirect::to('solicitudes')->with('mensaje', 'Se cerro la solicitud: ' . $solicitud->id . ', correctamente');
         }
         return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&cerrar=true')->with('error', $solicitud->getErrors()->first());
-     }
+    }
 
     public function getBitacora($id, $store = false) {
         $data['solicitud'] = Solicitud::findOrFail($id);
@@ -228,14 +236,16 @@ class SolicitudesController extends BaseController {
         $data['solicitud'] = Solicitud::findOrFail($id);
         return $this->reporte->generar('solicitudes.imprimirinforme', $data);
     }
-    
-    public function getHistorial ($id, $store = false){
+
+    public function getHistorial($id, $store = false) {
         $data['solicitud'] = Solicitud::findOrFail($id);
         return View::make('solicitudes.historial', $data);
     }
-    public function getRequerimientos($id, $store = false){
+
+    public function getRequerimientos($id, $store = false) {
         $data['solicitud'] = Solicitud::findOrFail($id);
         return View::make('solicitudes.verrequerimientos', $data);
     }
+
     /* -------------------------------------- */
 }
