@@ -16,17 +16,15 @@ class TipoEventosController extends \Administracion\TablasBaseController {
    protected static $eagerLoading = ['defeventosasyc'];
 
     public function getIndex() {
-       $data['tipoeventos'] = \Oracle\TipoEvento::all();
-        $evento= ['$ROP', 'SAYL1', '$SFD', '$S2'];
-        foreach ($evento as $pick) {
-            $picks = \Defeventosasyc::select('tipo_doc')->get();
-            foreach( $picks as $todo) {
-                $arreglo = $todo['attributes'];
-          if (in_array($pick, $arreglo)) {
-                $primero = array_shift($arreglo);
+      $data['tipoeventos'] = \Oracle\TipoEvento::all();
+      $picks = \Defeventosasyc::select('tipo_doc')->get();
+            foreach($picks as $todo) {
+               $arreglo = $todo['attributes'];
+                  $primero = array_shift($arreglo);
                 $prueba[]=$primero;
                 $data['evento']=$prueba;
-        }}}
+            }
+       
         $ruta = \Route::getCurrentRoute();
         $data['url'] = url($ruta->getPath());
         return \View::make('administracion.tablas.tipoEventos', $data);
@@ -48,5 +46,6 @@ class TipoEventosController extends \Administracion\TablasBaseController {
         }
     
     }
-
+    
 }
+

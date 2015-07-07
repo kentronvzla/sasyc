@@ -30,8 +30,6 @@
             {{Form::btInput($defeventosasyc, 'ind_reng_adic', 4)}}
             {{Form::btInput($defeventosasyc, 'ind_detcomp_adic', 6)}}
                  </div>
-           
-                
                 
                 {{Form::submitBt()}}
         {{Form::close()}}

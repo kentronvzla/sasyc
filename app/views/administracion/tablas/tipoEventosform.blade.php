@@ -15,7 +15,7 @@
                 <div class="row">
             {{Form::display($evento,'tipo_doc',4, true)}}
              @foreach ($descripcion as $descrip)
-            <h4>Descripcion:&nbsp;{{$descrip->desctipodoc}}</h4>
+            <h5>Descripcion:&nbsp;{{$descrip->desctipodoc}}</h5>
               @endforeach
                  </div>
             <div class="row">
@@ -32,10 +32,10 @@
             {{Form::btInput($evento, 'ind_detcomp_adic', 6)}}
                  </div>
            
-                @endforeach
+                 @endforeach
             
         {{Form::submitBt()}}
-        {{Form::close()}}
+      {{Form::close()}}
     </div> </div>
 </div>
 @stop
