@@ -32,6 +32,7 @@
                  </div>
                 
                 {{Form::submitBt()}}
+                  
         {{Form::close()}}
     </div> </div>
 </div>

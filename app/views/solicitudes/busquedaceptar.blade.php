@@ -11,7 +11,6 @@
             <div id="PanelSolicitud" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
-                       
                         {{Form::btInput($solicitud,'num_solicitud',6)}}
                         {{Form::btInput($solicitud,'descripcion',6)}}
                     </div>
@@ -25,7 +24,10 @@
                     </div>
                     <div class="row">
                         @if (!isset($valor))
-                        {{Form::btInput($solicitud,'estatus',6,'select',[],BaseModel::$estatusArray)}}
+                        <?php $id=Sentry::getUser()->id;
+                    ?>
+                        {{Form::hidden('estatus','ACA')}}
+                        {{Form::hidden('usuario_asignacion_id',$id)}}
                         @endif
                         {{Form::btInput($solicitud,'referente_id',6)}}
                     </div>
@@ -110,3 +112,4 @@
         </div>
     </div>
 </div>
+

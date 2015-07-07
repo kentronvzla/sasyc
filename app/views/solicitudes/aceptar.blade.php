@@ -11,16 +11,20 @@
             </div>
             <div id="PanelBusqueda" class="panel-collapse collapse">
                 <div class="panel-body">
-                    {{Form::busqueda(['url'=>'solicitudes','method'=>'GET'])}}
-                    @include('solicitudes.busqueda')
+                     <?php $id=Sentry::getUser()->id;
+                    ?>
+                    {{Form::busqueda(['url'=>'aceptar','method'=>'GET'])}}
+                    @include('solicitudes.busquedaceptar')
+                   
                     <div class="row">
                         <div class="col-lg-12">
-                            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> Buscar</button>
                             
-                            <a href="{{url('solicitudes')}}" class="btn btn-default btn-reset"><i class="glyphicon glyphicon-trash"></i> Cancelar</a>
+                            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+                            <a href="{{url('aceptar?estatus=ACA&solo_asignadas=true&usuario_asignacion_id='."$id")}}" class="btn btn-default btn-reset"><i class="glyphicon glyphicon-trash"></i> Cancelar</a>
                         </div>
                     </div>
                     {{Form::close()}}
+                 
                 </div>
             </div>
         </div>

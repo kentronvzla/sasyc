@@ -35,6 +35,7 @@
                  @endforeach
             
         {{Form::submitBt()}}
+    
       {{Form::close()}}
     </div> </div>
 </div>

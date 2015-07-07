@@ -17,6 +17,7 @@
                 <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> {{Sentry::getUser()->nombre}}</span>
                <?php
                $id=Sentry::getUser()->id;
+               $url='estatus=ACA&solo_asignadas=true&usuario_asignacion_id='."$id";
                ?>
                 <span class="caret"></span>
             </button>
@@ -58,10 +59,10 @@
                      @endif
                      <li class="divider"></li>
                     @if(Usuario::puedeAcceder('GET.solicitudes.aceptarasignacion'))
-                    <li>{{HTML::link('solicitudes?estatus=EAA&solo_asignadas=true&usuario_asignacion_id='."$id",'Mis Solicitudes (Aceptar Asignacion)')}}</li>
+                    <li>{{HTML::link('solicitar?estatus=EAA&solo_asignadas=true&usuario_asignacion_id='."$id",'Mis Solicitudes (Aceptar Asignacion)')}}</li>
                     @endif
                     @if(Usuario::puedeAcceder('GET.solicitudes.solicitaraprobacion'))
-                    <li>{{HTML::link('solicitudes?estatus=ACA&solo_asignadas=true&usuario_asignacion_id='."$id",'Mis Solicitudes (Solicitar Aprobación)')}}</li>
+                    <li>{{HTML::link('aceptar?estatus=ACA&solo_asignadas=true&usuario_asignacion_id='."$id",'Mis Solicitudes (Solicitar Aprobación)')}}</li>
                     @endif
                     <li class="divider"></li>
                     @if(Usuario::puedeAcceder('GET.solicitudes.cerrar'))
