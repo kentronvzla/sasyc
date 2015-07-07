@@ -54,80 +54,156 @@ class ProcesarDocumento {
         return $data;
     }
 
-    public function ordenarArreglo($arreglo) {
-        list ($j, $aux_arr) = array(0, array());
-        for ($j; $j < count($arreglo); $j++) {
-            array_push($aux_arr, $arreglo[$j][0]);
+    public function insertarDocumentos($data) {
+        list($t_evento, $rsp_pkg) = array("GEN", array());
+        foreach ($data['presupuestos'] as $presupuesto) {
+            $evento = \DB::select("SELECT t1.id,t1.nombre,t1.tipo_doc,t1.ind_cantidad,t1.ind_monto,t1.ind_beneficiario,t2.tipo_evento,t2.ind_aprueba_auto,t2.ind_doc_ext,t2.ind_ctas_adic,t2.ind_reng_adic,t2.ind_detcomp_adic FROM procesos AS t1 INNER JOIN defeventosasyc AS t2 ON t1.tipo_doc = t2.tipo_doc WHERE t1.id =" . $presupuesto->proceso_id . " AND tipo_evento ='" . $t_evento . "'");
+            if (!empty($evento)) {
+
+                if ($presupuesto->documento_id == null) {
+                    $doc_origen = $this->cargarDocOrigen($data, $presupuesto, $evento, 'nuevo');
+//                    dump($doc_origen['attributes']);
+                    if ($doc_origen->save()) {
+
+                        $doc_sasyc = $this->cargarDocSasyc($data, $evento, $doc_origen, 'nuevo');
+//                        dump($doc_sasyc['attributes']);
+                        if ($doc_sasyc->save()) {
+                            $this->cargarPresupuesto($data, $evento, $presupuesto, $doc_sasyc);
+                        }
+                        $this->insertarAdicionales($data, $doc_origen->iddoc);
+                        $pkg = $this->llamarPackage($doc_origen->iddoc);
+                        array_push($rsp_pkg, $pkg);
+                        $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
+                    }
+                } else {
+                    $doc_origen = $this->cargarDocOrigen($data, $presupuesto, $evento, 'viejo');
+//                    dump($doc_origen['attributes']);
+                    if ($doc_origen->save()) {
+
+                        $doc_sasyc = $this->cargarDocSasyc($data, $evento, $doc_origen, 'viejo');
+//                        dump($doc_sasyc['attributes']);
+                        if ($doc_sasyc->save()) {
+                            $this->cargarPresupuesto($data, $evento, $presupuesto, $doc_sasyc);
+                        }
+                        $this->insertarAdicionales($data, $doc_origen->iddoc);
+//                        $pkg = $this->llamarPackage($doc_origen->iddoc);
+//                        array_push($rsp_pkg, $pkg);
+                        $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
+                    }
+                }
+            } else {    // Si no consigue evento que hace ¿?
+            }     // Si no consigue evento que hace ¿?
         }
-        return $aux_arr;
+
+        return true;
     }
 
-    public function InsertarDocOrigen($data, $solicitud) {
-        list($ciclo) = array(true);
-        foreach ($data['presupuestos'] as $presupuesto) {
-            if ($presupuesto->documento_id == null) {
-                $t_evento = "GEN";
-                $evento = \DB::select("SELECT t1.id,t1.nombre,t1.tipo_doc,t1.ind_cantidad,t1.ind_monto,t1.ind_beneficiario,t2.tipo_evento,t2.ind_aprueba_auto,t2.ind_doc_ext,t2.ind_ctas_adic,t2.ind_reng_adic,t2.ind_detcomp_adic FROM procesos AS t1 INNER JOIN defeventosasyc AS t2 ON t1.tipo_doc = t2.tipo_doc WHERE t1.id =" . $presupuesto->proceso_id . " AND tipo_evento ='" . $t_evento . "'");
+    public function insertarAdicionales($data, $doc_ori) {
 
-                if (!empty($evento)) {
-                    $doc_origen = $this->cargarDocOrigen($data, $presupuesto, $evento);
-//                    if ($doc_origen->save()) {
-                    $doc_sasyc = $this->cargarDocSasyc($data, $evento, $doc_origen);
-//                        if ($doc_sasyc->save()) {
-                    if ($ciclo) {
-                        $presupuesto_model = $this->cargarPresupuesto($data, $doc_sasyc);
-                        $ciclo = false;
-                    }
-                    if ($evento[0]->ind_ctas_adic) {
-                        $ctas_adic = $this->cargarCtasAdic($doc_origen);
-                    }if ($evento[0]->ind_reng_adic) {
-                        $reng_adic = $this->cargarRengAdic($doc_origen);
-                    }
-                    if ($evento[0]->ind_detcomp_adic) {
-                        $detcomp_adic = $this->cargarDetComAdic($doc_origen);
-                    }
-                    exit();
-//                        } else {
-//                            if (Request::ajax()) {
-//                                return Response::json(['errores' => $doc_sasyc->getErrors()], 400);
-//                            }
-//                            return Redirect::back()->withInput()->withErrors($doc_sasyc->getErrors());
-//                        }
-//                    } else {
-//                        if (Request::ajax()) {
-//                            return Response::json(['errores' => $doc_origen->getErrors()], 400);
-//                        }
-//                        return Redirect::back()->withInput()->withErrors($doc_origen->getErrors());
-//                    }
-                }
+        $this->eliminarAdicionales($doc_ori);
+        $this->insertarCtasDocAdic($data, $doc_ori);
+        $this->insertarRengSumAdic($data, $doc_ori);
+        $this->insertarComprobDetAdic($data, $doc_ori);
+        return;
+    }
+
+    public function eliminarAdicionales($doc_ori) {
+        $ctas_doc_adic = CtasDocAdic::where('iddoc', '=', $doc_ori)->get();
+        if ($ctas_doc_adic) {
+            foreach ($ctas_doc_adic as $cta_doc_adic) {
+                $cta_doc_adic->delete();
             }
         }
-        exit();
+        $rengs_sum_adic = RengSumAdic::where('iddoc', '=', $doc_ori)->get();
+        if ($rengs_sum_adic) {
+            foreach ($rengs_sum_adic as $reng_sum_adic) {
+                $reng_sum_adic->delete();
+            }
+        }
+        $compros_det_adic = ComprobDetAdic::where('iddoc', '=', $doc_ori)->get();
+        if ($compros_det_adic) {
+            foreach ($compros_det_adic as $compro_det_adic) {
+                $compro_det_adic->delete();
+            }
+        }
+
+        return;
     }
 
-    public function cargarDocOrigen($data, $presupuesto, $evento) {
+    public function llamarPackage($doc_ori) {
+        $param0;
+        $param1 = $doc_ori;
+        $param2 = 'SASC';
+        $params = compact('param0', 'param1', 'param2');
+        $db = \DB::connection('oracle');
+        $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;");
+        $stmt->execute($params);
+        if (!empty($param0) || $param0 != null)
+            return true;
+        else
+            return false;
+    }
+
+    public function atualizarEstatusPresupuesto($data, $evento, $presupuesto) {
+        if ($evento[0]->ind_aprueba_auto == true) {
+            $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])
+                            ->where('proceso_id', '=', $evento[0]->id)
+                            ->where('beneficiario_id', '=', $presupuesto->beneficiario_id)->get();
+            foreach ($presupuestos_model as $presupuesto_model) {
+                $presupuesto_model->sts = "APR";
+                $presupuesto_model->save();
+            }
+        }
+        return;
+    }
+
+    public function atualizarEstatus($data) {
+        list($cont_aprobados, $cont_total) = array(0, 0);
+        $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])->get();
+        $cont_total = count($presupuestos_model);
+        foreach ($presupuestos_model as $presupuesto_model) {
+            if ($presupuesto_model->sts == "APR") {
+                $cont_aprobados++;
+            }
+        }
+        if ($cont_aprobados == $cont_total) {
+            $solicitud_model = Solicitud::where('id', '=', $data['solicitud']['id'])->get();
+            $solicitud_model->estatus = "APR";
+            $solicitud_model->save();
+        }
+        return;
+    }
+
+    public function cargarDocOrigen($data, $presupuesto, $evento, $accion) {
         list($data['sol_benef'], $data['sol_acc_int']) = array(Solicitud::find($data['solicitud']['id'])->personaBeneficiario['attributes'], Solicitud::find($data['solicitud']['id'])->area->tipoAyuda->cod_acc_int);
         $desc_doc = "Caso N°: " . $data['solicitud']['num_solicitud'] . ". Beneficiario: " . $data['sol_benef']['nombre'] . " " . $data['sol_benef']['apellido'] . ". C.I.:" . $data['sol_benef']['ci'] . ". " . $data['solicitud']['descripcion'];
 
-        $doc_origen = new DocumentosOrigen();
+        if ($accion == 'nuevo') {
+            $doc_origen = new DocumentosOrigen();
+            $doc_origen->stsdoc = "PRO";                                // PRO
+            $doc_origen->usrcre = "SASC";
+            $doc_origen->usrsts = "SASC";
+            $doc_origen->fecsts = date("Y-m-d H:i:s");
+        } else {
+            $doc_origen = DocumentosOrigen::findOrFail($presupuesto->documento_id);
+        }
         $doc_origen->descdoc = substr($desc_doc, 0, 60);
         $doc_origen->origen = 'SASC';
-        $doc_origen->numbenef = $presupuesto->beneficiario_id;          // BENEFICIARIO
+        if ($presupuesto->beneficiario_id == null)
+            $doc_origen->numbenef = 99999999;
+        else
+            $doc_origen->numbenef = $presupuesto->beneficiario_id;      // BENEFICIARIO
         $doc_origen->refdoc = $data['solicitud']['num_solicitud'];      // NO. SOLICITUD
-        $doc_origen->mtodoc = $presupuesto->monto_total_apr;            // PRESUPUESTO   
-        $doc_origen->stsdoc = "PRO";                                    // PRO
+        $doc_origen->mtodoc = $presupuesto->monto_total_apr;            // PRESUPUESTO                                                 
         $doc_origen->fecdoc = date("Y-m-d H:i:s");
         $doc_origen->tipodoc = $evento[0]->tipo_doc;
         $doc_origen->ano = date("Y");
-        $doc_origen->usrsts = "SASC";
-        $doc_origen->fecsts = date("Y-m-d H:i:s");
         $doc_origen->indreverso = "N";
         $doc_origen->mensaje = null;
         $doc_origen->numcomprom = null;
         $doc_origen->iddocref = null;
         $doc_origen->ccosto = \Configuracion::get('ccosto');
         $doc_origen->codproyint = $data['sol_acc_int'];
-        $doc_origen->usrcre = null;
         $doc_origen->usrcod = null;
         $doc_origen->usrrec = null;
         $doc_origen->usrver = null;
@@ -160,18 +236,22 @@ class ProcesarDocumento {
         return $doc_origen;
     }
 
-    public function cargarDocSasyc($data, $evento, $doc_origen) {
+    public function cargarDocSasyc($data, $evento, $doc_origen, $action) {
         list($data['sol_benef']) = array(Solicitud::find($data['solicitud']['id'])->personaBeneficiario['attributes']);
         $desc_doc = "Caso N°: " . $data['solicitud']['num_solicitud'] . ". Beneficiario: " . $data['sol_benef']['nombre'] . " " . $data['sol_benef']['apellido'] . ". C.I.:" . $data['sol_benef']['ci'] . ". " . $data['solicitud']['descripcion'];
 
-        $doc_sasyc = new Documentossasyc();
-        $doc_sasyc->documento_id = $doc_origen->id_doc;
+        if ($action == 'nuevo') {
+            $doc_sasyc = new Documentossasyc();
+        } else {
+            $doc_sasyc = Documentossasyc::where('documento_id', '=', $doc_origen->iddoc)->get();
+        }
+        $doc_sasyc->documento_id = $doc_origen->iddoc;
         $doc_sasyc->tipo_doc = $doc_origen->tipodoc;
         $doc_sasyc->tipo_evento = $evento[0]->tipo_evento;
-        $doc_sasyc->descripcion = '';
+        $doc_sasyc->descripcion = $desc_doc;
         $doc_sasyc->fecha = date("Y-m-d H:i:s");
         $doc_sasyc->estatus = 'PRO';
-        $doc_sasyc->solicitud = $data['solicitud']['num_solicitud'];
+        $doc_sasyc->solicitud = $data['solicitud']['id'];
         $doc_sasyc->ref_doc = $data['solicitud']['num_solicitud'];
         $doc_sasyc->num_op = null;
         $doc_sasyc->mensaje = null;
@@ -186,54 +266,117 @@ class ProcesarDocumento {
         return $doc_sasyc;
     }
 
-    public function cargarPresupuesto($data, $doc_sasyc) {
+    public function cargarPresupuesto($data, $evento, $presupuesto, $doc_sasyc) {
 
-        $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])->get();
-        foreach ($presupuestos_model as $presupuesto_model) {
-            $presupuesto_model->documento_id = $doc_sasyc->documento_id;
-            //$presupuesto_model->save();
+        $ptos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])
+                        ->where('proceso_id', '=', $evento[0]->id)
+                        ->where('beneficiario_id', '=', $presupuesto->beneficiario_id)->get();
+        foreach ($ptos_model as $pto_model) {
+            $pto_model->documento_id = $doc_sasyc->documento_id;
+            $pto_model->save();
         }
         return;
     }
 
-    public function cargarCtasAdic($doc_origen) {
+    public function cargarCtasAdic($registro) {
         $ctasdocadic = new CtasDocAdic();
-        $ctasdocadic->iddoc = $doc_origen->id_doc;
-        $ctasdocadic->codaccint = $doc_origen->codproyint;
-        $ctasdocadic->ccosto = $doc_origen->ccosto;
-        $ctasdocadic->codcta = 403180100;
+        $ctasdocadic->iddoc = $registro->documento_id;
+        $ctasdocadic->codaccint = $registro->cod_acc_int;
+        $ctasdocadic->ccosto = \Configuracion::get('ccosto');
+        $ctasdocadic->codcta = $registro->cod_cta;
         $ctasdocadic->codprograma = null;
-        $ctasdocadic->monto = $doc_origen->mtodoc;
+        $ctasdocadic->monto = $registro->montoapr;
         $ctasdocadic->registro = null;
         return $ctasdocadic;
-                
     }
 
-    public function cargarRengAdic($doc_origen) {
+    public function cargarRengAdic($registro) {
         $rengsumadic = new RengSumAdic();
-        $rengsumadic->iddoc = 13628;
+        $rengsumadic->iddoc = $registro->documento_id;
         $rengsumadic->tiporeng = "MT";
-        $rengsumadic->coditem = "148147-1";
+        $rengsumadic->coditem = $registro->cod_item;
         $rengsumadic->codserv = null;
-        $rengsumadic->descreng = null;
-        $rengsumadic->descadiitem = null;
+        $rengsumadic->descreng = $registro->nombre;
+        $rengsumadic->descadiitem = $registro->descripcion;
         $rengsumadic->unidbasica = "UND";
-        $rengsumadic->cantsol = 68;
-        $rengsumadic->precio = 650.50;
-        $rengsumadic->porcimptos = 15;
+        if ($registro->cantidad != null) {
+            $rengsumadic->cantsol = $registro->cantidad;
+        } else {
+            $rengsumadic->cantsol = 0;
+        }
+        $rengsumadic->precio = 0;
+        $rengsumadic->porcimptos = \Configuracion::get('porcimpuesto');
         return $rengsumadic;
     }
 
-    public function cargarDetComAdic($doc_origen) {
+    public function cargarDetComAdic($registro) {
         $comprobdetadic = new ComprobDetAdic();
-        $comprobdetadic->iddoc = 136249;
-        $comprobdetadic->codcta = 403070200;
-        $comprobdetadic->mtoneto = 200.56;
-        $comprobdetadic->porcimpto = 12;
+        $comprobdetadic->iddoc = $registro->documento_id;
+        $comprobdetadic->codcta = $registro->cod_cta;
+        $comprobdetadic->mtoneto = $registro->monto;
+        $comprobdetadic->porcimpto = \Configuracion::get('porcimpuesto');
         $comprobdetadic->indimptoman = 'N';
-        $comprobdetadic->mtoimpuesto = 20.54;
+        $num = (($comprobdetadic->mtoneto * $comprobdetadic->porcimpto) / 100);
+        $num = number_format($num, 2, '.', '');
+        $num = floatval($num);
+        $comprobdetadic->mtoimpuesto = $num;
         $comprobdetadic->mtototal = $comprobdetadic->mtoneto + $comprobdetadic->mtoimpuesto;
         return $comprobdetadic;
+    }
+
+    public function insertarCtasDocAdic($data, $doc_ori) {
+        $sql = "SELECT t1.solicitud_id, t1.documento_id, t1.moneda, t1.beneficiario_id, t4.cod_acc_int, t6.cod_cta, SUM(t1.montoapr) as montoapr 
+            FROM presupuestos as t1, solicitudes as t2, areas as t3, tipo_ayudas as t4, procesos as t5, requerimientos as t6, defeventosasyc as t7
+            WHERE solicitud_id =" . $data['solicitud']['id'] . " AND documento_id =" . $doc_ori . " AND t7.ind_ctas_adic = true AND t2.id = t1.solicitud_id AND t3.id = t2.area_id AND t4.id = t3.tipo_ayuda_id AND t5.id = t1.proceso_id AND t7.tipo_doc = t5.tipo_doc AND t6.id = t1.requerimiento_id GROUP BY t1.solicitud_id, t1.documento_id, t1.beneficiario_id, t4.cod_acc_int, t6.cod_cta, t1.moneda";
+        $registros = \DB::select($sql);
+        if (!empty($registros)) {
+            foreach ($registros as $registro) {
+                $ctasdocadic = $this->cargarCtasAdic($registro);
+//                dump($ctasdocadic['attributes']);
+                $ctasdocadic->save();
+            }
+        }
+        return;
+    }
+
+    public function insertarRengSumAdic($data, $doc_ori) {
+        $sql = "SELECT t1.solicitud_id, t1.documento_id, t3.cod_item, t3.nombre, t3.descripcion, SUM(t1.cantidad) cantidad
+            FROM presupuestos as t1,procesos as t2, requerimientos as t3, defeventosasyc as t4
+            WHERE solicitud_id =" . $data['solicitud']['id'] . " AND documento_id =" . $doc_ori . " AND t4.ind_reng_adic = true AND t2.id = t1.proceso_id AND t4.tipo_doc = t2.tipo_doc AND t3.id = t1.requerimiento_id
+            GROUP BY t1.solicitud_id, t1.documento_id, t3.cod_item, t3.nombre, t3.descripcion";
+        $registros = \DB::select($sql);
+        if (!empty($registros)) {
+            foreach ($registros as $registro) {
+                $rengsumadic = $this->cargarRengAdic($registro);
+//                dump($rengsumadic['attributes']);
+                $rengsumadic->save();
+            }
+        }
+        return;
+    }
+
+    public function insertarComprobDetAdic($data, $doc_ori) {
+        $sql = "SELECT t1.solicitud_id, t1.documento_id, t3.cod_cta, SUM(t1.montoapr) monto
+            FROM presupuestos as t1,  procesos as t2, requerimientos as t3, defeventosasyc as t4
+            WHERE solicitud_id = " . $data['solicitud']['id'] . " AND documento_id =" . $doc_ori . " AND t4.ind_detcomp_adic = true AND t2.id = t1.proceso_id AND t4.tipo_doc = t2.tipo_doc AND t3.id = t1.requerimiento_id
+            GROUP BY t1.solicitud_id, documento_id, t3.cod_cta";
+        $registros = \DB::select($sql);
+        if (!empty($registros)) {
+            foreach ($registros as $registro) {
+                $comprobdetadic = $this->cargarDetComAdic($registro);
+//                dump($comprobdetadic['attributes']);
+                $comprobdetadic->save();
+            }
+        }
+        return;
+    }
+
+    public function ordenarArreglo($arreglo) {
+        list ($j, $aux_arr) = array(0, array());
+        for ($j; $j < count($arreglo); $j++) {
+            array_push($aux_arr, $arreglo[$j][0]);
+        }
+        return $aux_arr;
     }
 
 }
