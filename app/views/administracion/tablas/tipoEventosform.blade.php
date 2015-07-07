@@ -11,19 +11,31 @@
         {{Form::concurrencia($evento)}}
         <div class="row">
             {{Form::hidden('id',$evento->id)}}
-            {{Form::btInput($evento, 'tipo_doc', 6)}}
-            {{Form::btInput($evento, 'tipo_evento', 6)}}
-            {{Form::btInput($evento, 'ind_aprueba_auto', 6)}}
-            {{Form::btInput($evento, 'ind_doc_ext', 6)}}
-            {{Form::btInput($evento, 'ind_ctas_adic', 6)}}
-            {{Form::btInput($evento, 'ind_reng_adic', 6)}}
+            <div class="col-xs-12 col-md">
+                <div class="row">
+            {{Form::display($evento,'tipo_doc',4, true)}}
+             @foreach ($descripcion as $descrip)
+            <h5>Descripcion:&nbsp;{{$descrip->desctipodoc}}</h5>
+              @endforeach
+                 </div>
+            <div class="row">
+            {{Form::display($evento,'tipo_evento',8, true)}}
+            {{Form::hidden('tipo_doc',$evento->tipo_doc)}}
+            {{Form::hidden('tipo_evento',$evento->tipo_evento)}}
+            </div> 
+             <div class="row">
+            {{Form::btInput($evento, 'ind_aprueba_auto', 4)}}
+            {{Form::btInput($evento, 'ind_ctas_adic', 4)}}
+             </div>
+             <div class="row">
+            {{Form::btInput($evento, 'ind_reng_adic', 4)}}
             {{Form::btInput($evento, 'ind_detcomp_adic', 6)}}
-            {{Form::btInput($evento, 'version', 6)}}
-                
-                @endforeach
-        </div>
+                 </div>
+           
+                 @endforeach
+            
         {{Form::submitBt()}}
-        {{Form::close()}}
-    </div>
+      {{Form::close()}}
+    </div> </div>
 </div>
 @stop

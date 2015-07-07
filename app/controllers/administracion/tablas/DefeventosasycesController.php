@@ -6,11 +6,8 @@
  * @author Nadin Yamani
  */
 class DefeventosasycesController extends \Administracion\TablasBaseController {
-    
- 
-    
+      
  public function postIndex() {
-     
        $evento = \Defeventosasyc::findOrNew(\Input::get('id'));
        $data = \Input::all();
        if ($evento->isValid($data))

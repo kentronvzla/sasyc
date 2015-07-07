@@ -9,19 +9,31 @@
         {{Form::open(array('url'=>'administracion/tablas/Defeventosasyc'))}}
         {{Form::concurrencia($defeventosasyc)}}
         <div class="row">
-            {{Form::hidden('id',$defeventosasyc->id)}}
-            {{Form::btInput($defeventosasyc, 'tipo_doc', 6)}}
-            {{Form::btInput($defeventosasyc, 'tipo_evento', 6)}}
-            {{Form::btInput($defeventosasyc, 'ind_aprueba_auto', 6)}}
-            {{Form::btInput($defeventosasyc, 'ind_doc_ext', 6)}}
-            {{Form::btInput($defeventosasyc, 'ind_ctas_adic', 6)}}
-            {{Form::btInput($defeventosasyc, 'ind_reng_adic', 6)}}
+               {{Form::hidden('id',$defeventosasyc->id)}}
+            <div class="col-xs-12 col-md">
+                <div class="row">
+            {{Form::display($defeventosasyc,'tipo_doc',4, true)}}
+             @foreach ($descripcion as $descrip)
+            <h4>Descripcion:&nbsp;{{$descrip->desctipodoc}}</h4>
+              @endforeach
+                 </div>
+               <div class="row">
+            {{Form::display($defeventosasyc,'tipo_evento',8, true)}}
+            {{Form::hidden('tipo_doc',$defeventosasyc->tipo_doc)}}
+            {{Form::hidden('tipo_evento',$defeventosasyc->tipo_evento)}}
+            </div>  
+                 <div class="row">
+            {{Form::btInput($defeventosasyc, 'ind_aprueba_auto', 4)}}
+            {{Form::btInput($defeventosasyc, 'ind_ctas_adic', 4)}}
+             </div>
+             <div class="row">
+            {{Form::btInput($defeventosasyc, 'ind_reng_adic', 4)}}
             {{Form::btInput($defeventosasyc, 'ind_detcomp_adic', 6)}}
-            {{Form::btInput($defeventosasyc, 'version', 6)}}
-
-        </div>
-        {{Form::submitBt()}}
+                 </div>
+                
+                {{Form::submitBt()}}
         {{Form::close()}}
-    </div>
+    </div> </div>
 </div>
 @stop
+                
