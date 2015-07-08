@@ -30,13 +30,14 @@
              <div class="row">
             {{Form::btInput($evento, 'ind_reng_adic', 4)}}
             {{Form::btInput($evento, 'ind_detcomp_adic', 6)}}
-                 </div>
-           
-                 @endforeach
+                 </div></div> </div> 
+            @endforeach
+                
             
         {{Form::submitBt()}}
+       
     
       {{Form::close()}}
-    </div> </div>
-</div>
+   
+    </div></div>
 @stop
