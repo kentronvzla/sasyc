@@ -17,7 +17,6 @@
                 <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> {{Sentry::getUser()->nombre}}</span>
                <?php
                $id=Sentry::getUser()->id;
-               $url='estatus=ACA&solo_asignadas=true&usuario_asignacion_id='."$id";
                ?>
                 <span class="caret"></span>
             </button>

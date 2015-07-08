@@ -29,7 +29,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Defeventosasyc whereUpdatedAt($value)
  */
 class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
-
+ use \Traits\EloquentExtensionTrait;
     
     protected $table = "defeventosasyc";
 
@@ -48,7 +48,8 @@ class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
      * @link http://laravel.com/docs/validation#available-validation-rules
      * @var array
      */
-
+   
+  
     
     protected function getPrettyFields() {
         return [
@@ -90,4 +91,8 @@ class Defeventosasyc extends BaseModel implements SimpleTableInterface  {
         
         return false;
     }
+    
+   
+    
+    
 }

@@ -20,7 +20,7 @@ class TipoEventosController extends \Administracion\TablasBaseController {
       $picks = \Defeventosasyc::select('tipo_doc')->get();
             foreach($picks as $todo) {
                $arreglo = $todo['attributes'];
-                  $primero = array_shift($arreglo);
+                $primero = array_shift($arreglo);
                 $prueba[]=$primero;
                 $data['evento']=$prueba;
             }

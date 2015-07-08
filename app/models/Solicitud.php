@@ -177,6 +177,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     ];
     protected $dates = ['fecha_asignacion', 'fecha_aceptacion',
         'fecha_aprobacion', 'fecha_cierre','created_at'];
+   
     public static $tipo_procesamientos = [
         'P' => 'Punto de Cuenta',
         'M' => 'Memo',
