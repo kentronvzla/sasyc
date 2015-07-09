@@ -19,6 +19,11 @@
     <div class="row">
         {{Form::btInput($personaSolicitante,'nombre',5)}}
         {{Form::btInput($personaSolicitante,'apellido',5)}}
+        <div class="col-xs-12 col-sm-12 col-md-2">
+            <div class="form-group">
+                <button type="button" class="btn btn-primary buscar-sate"><i class="glyphicon glyphicon-search"></i> SATE</button>
+            </div> 
+        </div>           
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -48,6 +53,11 @@
     <div class="row">
         {{Form::btInput($personaBeneficiario,'nombre',5)}}
         {{Form::btInput($personaBeneficiario,'apellido',5)}}
+        <div class="col-xs-12 col-sm-12 col-md-2">
+            <div class="form-group">
+                <button type="button" class="btn btn-primary buscar-sate"><i class="glyphicon glyphicon-search"></i> SATE</button>
+            </div> 
+        </div>            
     </div>
     <div class="row">
         <div class="col-lg-12">
