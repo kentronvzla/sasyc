@@ -55,7 +55,7 @@ class ProcesarDocumento {
     }
 
     public function insertarDocumentos($data) {
-        list($t_evento, $rsp_pkg) = array("GEN", array());
+        list($t_evento, $rsp_pkg, $mensaje) = array("GEN", array(), array());
         foreach ($data['presupuestos'] as $presupuesto) {
             $evento = \DB::select("SELECT t1.id,t1.nombre,t1.tipo_doc,t1.ind_cantidad,t1.ind_monto,t1.ind_beneficiario,t2.tipo_evento,t2.ind_aprueba_auto,t2.ind_doc_ext,t2.ind_ctas_adic,t2.ind_reng_adic,t2.ind_detcomp_adic FROM procesos AS t1 INNER JOIN defeventosasyc AS t2 ON t1.tipo_doc = t2.tipo_doc WHERE t1.id =" . $presupuesto->proceso_id . " AND tipo_evento ='" . $t_evento . "'");
             if (!empty($evento)) {
@@ -70,10 +70,14 @@ class ProcesarDocumento {
                         if ($doc_sasyc->save()) {
                             $this->cargarPresupuesto($data, $evento, $presupuesto, $doc_sasyc);
                         }
-                        $this->insertarAdicionales($data, $doc_origen->iddoc);
-                        $pkg = $this->llamarPackage($doc_origen->iddoc);
-                        array_push($rsp_pkg, $pkg);
-                        $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
+                        $mensaje = $this->insertarAdicionales($data, $doc_origen->iddoc);
+                        if (!empty($mensaje)) {
+                            return $mensaje;
+                        } else {
+                            $pkg = $this->llamarPackage($doc_origen->iddoc);
+                            array_push($rsp_pkg, $pkg);
+                            $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
+                        }
                     }
                 } else {
                     $doc_origen = $this->cargarDocOrigen($data, $presupuesto, $evento, 'viejo');
@@ -85,47 +89,63 @@ class ProcesarDocumento {
                         if ($doc_sasyc->save()) {
                             $this->cargarPresupuesto($data, $evento, $presupuesto, $doc_sasyc);
                         }
-                        $this->insertarAdicionales($data, $doc_origen->iddoc);
-//                        $pkg = $this->llamarPackage($doc_origen->iddoc);
-//                        array_push($rsp_pkg, $pkg);
-                        $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
+                        $mensaje = $this->insertarAdicionales($data, $doc_origen->iddoc);
+                        if (!empty($mensaje)) {
+                            return $mensaje;
+                        } else {
+                            $valida_sts = $this->validarStatus($data, $evento, $presupuesto, $doc_origen->iddoc);
+                            if ($valida_sts) {
+                                $pkg = $this->llamarPackage($doc_origen->iddoc);
+                                array_push($rsp_pkg, $pkg);
+                            }
+                            $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
+                        }
                     }
                 }
             } else {    // Si no consigue evento que hace ¿?
+                $mensaje['errores'] = 'No se puede aprobar la solicitud, defina al menos un tipo de documento';
+                return $mensaje;
             }     // Si no consigue evento que hace ¿?
         }
-
-        return true;
+        return $mensaje;
     }
 
     public function insertarAdicionales($data, $doc_ori) {
-
+        list($mensaje) = array([]);
         $this->eliminarAdicionales($doc_ori);
-        $this->insertarCtasDocAdic($data, $doc_ori);
-        $this->insertarRengSumAdic($data, $doc_ori);
-        $this->insertarComprobDetAdic($data, $doc_ori);
-        return;
+        $valida_rsa = $this->insertarRengSumAdic($data, $doc_ori);
+        if ($valida_rsa == true) {
+            $mensaje['errores'] = 'No se puede aprobar la solicitud, debe configurar correctamente el requerimiento';
+        } else {
+            $this->insertarCtasDocAdic($data, $doc_ori);
+            $this->insertarComprobDetAdic($data, $doc_ori);
+        }
+        return $mensaje;
     }
 
     public function eliminarAdicionales($doc_ori) {
-        $ctas_doc_adic = CtasDocAdic::where('iddoc', '=', $doc_ori)->get();
-        if ($ctas_doc_adic) {
-            foreach ($ctas_doc_adic as $cta_doc_adic) {
-                $cta_doc_adic->delete();
-            }
-        }
-        $rengs_sum_adic = RengSumAdic::where('iddoc', '=', $doc_ori)->get();
-        if ($rengs_sum_adic) {
-            foreach ($rengs_sum_adic as $reng_sum_adic) {
-                $reng_sum_adic->delete();
-            }
-        }
-        $compros_det_adic = ComprobDetAdic::where('iddoc', '=', $doc_ori)->get();
-        if ($compros_det_adic) {
-            foreach ($compros_det_adic as $compro_det_adic) {
-                $compro_det_adic->delete();
-            }
-        }
+        $db = \DB::connection('oracle');
+        $ctas_doc_adic_borradas = $db->delete("DELETE FROM ctas_doc_adic WHERE iddoc =" . $doc_ori . "");
+        $rengs_sum_adic_borradas = $db->delete("DELETE FROM reng_sum_adic WHERE iddoc = " . $doc_ori . "");
+        $compros_det_adic_borradas = $db->delete("DELETE FROM det_comprob_adic WHERE iddoc = " . $doc_ori . "");
+//        $ctas_doc_adic = CtasDocAdic::where('iddoc', '=', $doc_ori)->get();
+//        if ($ctas_doc_adic) {
+//            foreach ($ctas_doc_adic as $cta_doc_adic) {
+//                $cta_doc_adic->delete();
+//            }
+//        }
+//        $rengs_sum_adic = RengSumAdic::where('iddoc', '=', $doc_ori)->get();
+//        if ($rengs_sum_adic) {
+//            foreach ($rengs_sum_adic as $reng_sum_adic) {
+//                $reng_sum_adic->delete();
+//            }
+//        }
+//        $compros_det_adic = ComprobDetAdic::where('iddoc', '=', $doc_ori)->get();
+//        if ($compros_det_adic) {
+//            foreach ($compros_det_adic as $compro_det_adic) {
+//                $compro_det_adic->delete();
+//            }
+//        }
 
         return;
     }
@@ -134,10 +154,15 @@ class ProcesarDocumento {
         $param0;
         $param1 = $doc_ori;
         $param2 = 'SASC';
-        $params = compact('param0', 'param1', 'param2');
+//        $params = compact('param0', 'param1', 'param2');
         $db = \DB::connection('oracle');
+//        $db->statement("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;",array('param0' => $param0, 'param1' => $param1, 'param2' => $param2));
         $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;");
-        $stmt->execute($params);
+        $stmt->bindParam(':param0', $param0, \PDO::PARAM_STR, 255);
+        $stmt->bindParam(':param1', $param1, \PDO::PARAM_INT);
+        $stmt->bindParam(':param2', $param2, \PDO::PARAM_STR);
+        $stmt->execute();
+
         if (!empty($param0) || $param0 != null)
             return true;
         else
@@ -145,31 +170,77 @@ class ProcesarDocumento {
     }
 
     public function atualizarEstatusPresupuesto($data, $evento, $presupuesto) {
+        $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])
+                        ->where('proceso_id', '=', $evento[0]->id)
+                        ->where('beneficiario_id', '=', $presupuesto->beneficiario_id)->get();
         if ($evento[0]->ind_aprueba_auto == true) {
-            $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])
-                            ->where('proceso_id', '=', $evento[0]->id)
-                            ->where('beneficiario_id', '=', $presupuesto->beneficiario_id)->get();
-            foreach ($presupuestos_model as $presupuesto_model) {
-                $presupuesto_model->sts = "APR";
-                $presupuesto_model->save();
+            if (!empty($presupuestos_model)) {
+                foreach ($presupuestos_model as $presupuesto_model) {
+                    $presupuesto_model->estatus_doc = "APR";
+                    $presupuesto_model->save();
+                }
+            }
+        } else {
+            if (!empty($presupuestos_model)) {
+                foreach ($presupuestos_model as $presupuesto_model) {
+                    $presupuesto_model->estatus_doc = "PPA";
+                    $presupuesto_model->save();
+                }
             }
         }
         return;
     }
 
-    public function atualizarEstatus($data) {
-        list($cont_aprobados, $cont_total) = array(0, 0);
-        $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])->get();
-        $cont_total = count($presupuestos_model);
-        foreach ($presupuestos_model as $presupuesto_model) {
-            if ($presupuesto_model->sts == "APR") {
-                $cont_aprobados++;
+    public function validarStatus($data, $evento, $presupuesto, $doc_ori) {
+        list($valida_sts) = array(false);
+        $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])
+                        ->where('documento_id', '=', $doc_ori)
+                        ->where('proceso_id', '=', $evento[0]->id)
+                        ->where('beneficiario_id', '=', $presupuesto->beneficiario_id)->get();
+        if (!empty($presupuestos_model)) {
+            foreach ($presupuestos_model as $presupuesto_model) {
+                if ($presupuesto_model->estatus_doc == "DEV") {
+                    $valida_sts = true;
+                }
             }
         }
+        return $valida_sts;
+    }
+
+    public function atualizarEstatus($data) {
+        list($cont_aprobados, $cont_devueltos, $cont_procesados, $cont_total) = array(0, 0, 0, 0);
+        $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])->get();
+        $cont_total = count($presupuestos_model);
+        if (!empty($presupuestos_model)) {
+            foreach ($presupuestos_model as $presupuesto_model) {
+                if ($presupuesto_model->estatus_doc == "APR") {
+                    $cont_aprobados++;
+                }
+                if ($presupuesto_model->estatus_doc == "PPA") {
+                    $cont_procesados++;
+                }
+                if ($presupuesto_model->estatus_doc == "DEV") {
+                    $cont_devueltos++;
+                }
+            }
+        }
+
+        $solicitud_model = Solicitud::where('id', '=', $data['solicitud']['id'])->first();
         if ($cont_aprobados == $cont_total) {
-            $solicitud_model = Solicitud::where('id', '=', $data['solicitud']['id'])->get();
-            $solicitud_model->estatus = "APR";
-            $solicitud_model->save();
+            if (!empty($solicitud_model)) {
+                $solicitud_model->estatus = "APR";
+                $solicitud_model->save();
+            }
+        } elseif ($cont_devueltos > 0) {
+            if (!empty($solicitud_model)) {
+                $solicitud_model->estatus = "DEV";
+                $solicitud_model->save();
+            }
+        } elseif ($cont_procesados > 0) {
+            if (!empty($solicitud_model)) {
+                $solicitud_model->estatus = "PPA";
+                $solicitud_model->save();
+            }
         }
         return;
     }
@@ -193,6 +264,7 @@ class ProcesarDocumento {
             $doc_origen->numbenef = 99999999;
         else
             $doc_origen->numbenef = $presupuesto->beneficiario_id;      // BENEFICIARIO
+
         $doc_origen->refdoc = $data['solicitud']['num_solicitud'];      // NO. SOLICITUD
         $doc_origen->mtodoc = $presupuesto->monto_total_apr;            // PRESUPUESTO                                                 
         $doc_origen->fecdoc = date("Y-m-d H:i:s");
@@ -217,7 +289,7 @@ class ProcesarDocumento {
         $doc_origen->iddocorigtransf = null;
         $doc_origen->iddoctransf = null;
         $doc_origen->descdocext = $desc_doc;
-        $doc_origen->codsitio = null;
+        $doc_origen->codsitio = \Configuracion::get('sitio');
         $doc_origen->codmoneda = \Configuracion::get('moneda_presupuesto');
         $doc_origen->tasa = 1;
         $doc_origen->montoorig = $presupuesto->monto_total_apr;
@@ -237,13 +309,14 @@ class ProcesarDocumento {
     }
 
     public function cargarDocSasyc($data, $evento, $doc_origen, $action) {
+
         list($data['sol_benef']) = array(Solicitud::find($data['solicitud']['id'])->personaBeneficiario['attributes']);
         $desc_doc = "Caso N°: " . $data['solicitud']['num_solicitud'] . ". Beneficiario: " . $data['sol_benef']['nombre'] . " " . $data['sol_benef']['apellido'] . ". C.I.:" . $data['sol_benef']['ci'] . ". " . $data['solicitud']['descripcion'];
 
         if ($action == 'nuevo') {
             $doc_sasyc = new Documentossasyc();
         } else {
-            $doc_sasyc = Documentossasyc::where('documento_id', '=', $doc_origen->iddoc)->get();
+            $doc_sasyc = Documentossasyc::where('documento_id', '=', $doc_origen->iddoc)->first();
         }
         $doc_sasyc->documento_id = $doc_origen->iddoc;
         $doc_sasyc->tipo_doc = $doc_origen->tipodoc;
@@ -294,7 +367,8 @@ class ProcesarDocumento {
         $rengsumadic = new RengSumAdic();
         $rengsumadic->iddoc = $registro->documento_id;
         $rengsumadic->tiporeng = "MT";
-        $rengsumadic->coditem = $registro->cod_item;
+        if ($registro->cod_item != null)
+            $rengsumadic->coditem = $registro->cod_item;
         $rengsumadic->codserv = null;
         $rengsumadic->descreng = $registro->nombre;
         $rengsumadic->descadiitem = $registro->descripcion;
@@ -347,12 +421,16 @@ class ProcesarDocumento {
         $registros = \DB::select($sql);
         if (!empty($registros)) {
             foreach ($registros as $registro) {
-                $rengsumadic = $this->cargarRengAdic($registro);
+                if ($registro->cod_item != null) {
+                    $rengsumadic = $this->cargarRengAdic($registro);
 //                dump($rengsumadic['attributes']);
-                $rengsumadic->save();
+                    $rengsumadic->save();
+                } else {
+                    return true;
+                }
             }
         }
-        return;
+        return false;
     }
 
     public function insertarComprobDetAdic($data, $doc_ori) {

@@ -50,7 +50,7 @@ abstract class BaseModel extends Eloquent implements SelectInterface, SimpleTabl
         'ELD' => 'Asignada a Departamento',
         'EAA' => 'Asignada a Analista',
         'ACA' => 'Aceptada por el analista',
-        'PPA' => 'Pendiente por Aprobación',
+        'PPA' => 'Procesado por SASYC',
         //-----------------------------
         'APR' => 'Aprobado',
         'DEV' => 'Devuelta por Kerux',

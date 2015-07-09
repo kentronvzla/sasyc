@@ -186,17 +186,32 @@ class SolicitudesController extends BaseController {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         $proc_documento = new ayudantes\ProcesarDocumento();
         $data = $proc_documento->buscarDefEvento($solicitud);
-        
-        if (!empty($data['eventos'])) {
-            $rsp = $proc_documento->insertarDocumentos($data);
-            $proc_documento->atualizarEstatus($data);
+        if (Input::get('usuario_autorizacion_id') != '') {
+            if (!empty($data['eventos'])) {
+                $mensaje = $proc_documento->insertarDocumentos($data);
+                if (!empty($mensaje)) {
+                    $this->cancelarTransaccion();
+                    return Response::json($mensaje, 400);
+                } else {
+                    $proc_documento->atualizarEstatus($data);
+                }
+            } else {
+                return Response::json(['errores' => 'No se puede aprobar la solicitud, defina al menos un tipo de documento'], 400);
+            }
         } else {
-            echo "esta vacio";
+            return Response::json(['errores' => 'Debes seleccionar el autorizador'], 400);
         }
 //        if ($solicitud->solicitarAprobacion(Input::get('usuario_autorizacion_id'))) {
-            return Response::json(['mensaje' => 'Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente']);
+        Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $solicitud->id);
+//        return Redirect::back()->with('mensaje','Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente');
+        return Response::json(['mensaje' => 'Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente']);
 //        }
 //        return Response::json(['errores' => $solicitud->getErrors()], 400);
+    }
+
+    public function cancelarTransaccion() {
+        \DB::rollBack();
+        \DB::connection('oracle')->rollBack();
     }
 
     public function getAnular($id) {
