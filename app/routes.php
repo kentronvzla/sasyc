@@ -42,6 +42,8 @@ Route::group(['before'=>'auth'], function(){
         });
     });
     Route::controller('solicitudes', 'SolicitudesController');
+    Route::controller('aceptar', 'AceptarController');
+    Route::controller('solicitar', 'SolicitarController');
     Route::controller('personas', 'PersonasController');
     Route::controller('presupuestos', 'PresupuestosController');
     Route::controller('recaudossolicitud', 'RecaudosSolicitudController');

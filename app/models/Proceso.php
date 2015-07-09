@@ -25,7 +25,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Proceso whereUpdatedAt($value)
  */
 class Proceso extends BaseModel {
-
+   
     protected $table = "procesos";
 
     /**

@@ -24,6 +24,18 @@
         height: auto;
         padding: 2px;
     }
+
+    .Footer{
+        position: relative;
+        margin-top: -50px;
+        height: 40px;
+        padding:5px 0px;
+        clear: both;
+        background: #286af0;
+        text-align: center;
+        color: #fff;
+
+        }
 </style>
 <page backcolor="#FEFEFE" backtop="10mm" backbottom="10mm" backleft="10mm" backright="10mm" footer="date;heure;page">
    <!------------------------------------------------------------------------->
@@ -84,4 +96,17 @@
     <!-------------------------tabla de memos---------------------------->
         @include('memorandum.tablamemo')
     <!------------------------------------------------------------------->
+        <page_footer>
+ <div class='define'>
+  <table width="100%" border="0" cellpadding="10" cellspacing="5">
+            <tr>
+                <td width=670 ALIGN=left>
+                    <strong>Generado Por:
+                        {{$memos->usuario->nombre}}</strong>
+                </td>
+            </tr>
+        </table>
+        </div>
+        </page_footer>
+     
 </page>
