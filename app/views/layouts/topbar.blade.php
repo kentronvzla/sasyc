@@ -61,7 +61,7 @@
                     <li>{{HTML::link('solicitar?estatus=EAA&solo_asignadas=true&usuario_asignacion_id='."$id",'Mis Solicitudes (Aceptar Asignacion)')}}</li>
                     @endif
                     @if(Usuario::puedeAcceder('GET.solicitudes.solicitaraprobacion'))
-                    <li>{{HTML::link('aceptar?estatus=ACA&solo_asignadas=true&usuario_asignacion_id='."$id",'Mis Solicitudes (Solicitar Aprobación)')}}</li>
+                    <li>{{HTML::link('aceptar?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id='."$id",'Mis Solicitudes (Solicitar Aprobación)')}}</li>
                     @endif
                     <li class="divider"></li>
                     @if(Usuario::puedeAcceder('GET.solicitudes.cerrar'))

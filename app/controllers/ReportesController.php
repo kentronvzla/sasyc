@@ -128,13 +128,14 @@ class ReportesController extends BaseController {
         $data['anterior'] = "";
         $data['cantReportes'] = count(Input::get('order_by'));
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
-        $data['solicitudes'] = $data['solicitudes']
+        $data['solicitudes'] =$data['solicitudes']
                 ->where(function($query) {
                      $query->where('estatus', '=', 'APR');
                 })
+                ->where('estatus', '=', 'APR')
+                
                 ->orderBy($columna, 'ASC')
                 ->get();
-
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
         if(Input::get('formato_reporte','pdf')=="pdf")
             $vista='reportes.html.resueltos';
@@ -161,6 +162,7 @@ class ReportesController extends BaseController {
         $data['solicitudes'] = $data['solicitudes']
                 ->orderBy($columna, 'ASC')
                 ->get();
+      
         $data['orden'] = $columna;
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
         if(Input::get('formato_reporte','pdf')=="pdf")
