@@ -157,10 +157,10 @@ class ProcesarDocumento {
 //        $params = compact('param0', 'param1', 'param2');
         $db = \DB::connection('oracle');
 //        $db->statement("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;",array('param0' => $param0, 'param1' => $param1, 'param2' => $param2));
-        if($accion=='nuevo')
+//        if($accion=='nuevo')
             $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;");
-        else
-            $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.APRUEBA_DOC(:param1, :param2); END;");
+//        else
+//            $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.APRUEBA_DOC(:param1, :param2); END;");
         
         $stmt->bindParam(':param0', $param0, \PDO::PARAM_STR, 255);
         $stmt->bindParam(':param1', $param1, \PDO::PARAM_INT);

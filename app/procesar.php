@@ -6,13 +6,32 @@
 //ini_set("soap.wsdl_cache_enabled", "0"); 
 require_once('/ayudantes/webservices/nusoap.php');
 
+/**
+    * Procesa Documentos SASYC-KERUX.
+    * @param integer $id_doc Identificador de documento
+    * @param string $tipo_doc Tipo de Documento
+    * @param string $desc_doc Descripcion del Documento
+    * @param integer $id_doc_ref Identificador de referencia de documento
+    * @param string $ref_doc Referencia del documento
+    * @param integer $num_op Numero de 
+    * @param string $tipo_evento Tipo de evento del Documento
+    * @return integer $codigo = 1000 Procesos culminados satisfactoriamente
+    * @return integer $codigo = 1001 No consigue configuración del documento en la definicion de eventos
+    * @return integer $codigo = 1002 Error al modificar el campo cheque de la tabla presupuestos 
+    * @return integer $codigo = 1003 Error al modificar el campo estatus de la tabla presupuestos cuando $tipo_evento = PRO
+    * @return integer $codigo = 1004 Error al modificar el campo estatus de la tabla solicitudes
+    * @return integer $codigo = 1005 Error al insertar nuevo registro de la tabla documentossasyc
+    * @return integer $codigo = 1006 Error al modificar el campo estatus de la tabla presupuestos cuando $tipo_evento = DEV
+    * @autor Reysmer Valle
+    * @fecha 2015-07-10 
+ */
 function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, $num_op, $tipo_evento) {
 
     list($db, $host, $username, $password, $db1, $host1, $username1, $password1, $charset1) = array('sasyc_desarrollo', 'appwebdesa.kentron.com.ve', 'sasyc', 'sasyc', 'keruxalt', 'olimpo', 'sasyc', 'sasyc', 'AL32UTF8');
     list($T_EVENTO_GEN, $T_EVENTO_PRO, $EA_DOC, $ED_DOC, $fecha_actual, $VERSION) = array('GEN', 'PRO', 'APR', 'DEV', date("Y-m-d H:i:s"), 1); // $T_EVENTO = 'PRO';
-    $tns = "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = $host1)(PORT = 1521)))(CONNECT_DATA = (SERVICE_NAME = orcl)))";
+    $tns = "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = $host1)(PORT = 1521)))(CONNECT_DATA = (SERVICE_NAME = $db1)))";
     $dsn = "pgsql:host=$host;port=5432;dbname=$db;user=$username;password=$password";
-    $dsn1 = "oci:host=$host1;port=1521;dbname=$db1;charset=$charset1;user=$username1;password=$password1";
+    $dsn1 = "oci:dbname=.$tns,$username1,$password1";
 
     try {
         $dbh = new PDO($dsn);
@@ -52,7 +71,7 @@ function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, 
                                         if ($stmt === false) {
                                             return 1005;
                                         }
-                                        return 1000;    //CODIGO DE MENSAJE SI REALIZA TODOS LOS PROCESOS
+                                        return 1000;
 //                                    else{
 //                                        if ($stmt->rowCount() > 0) {                                         
 //                                            $pkg = llamarPackage($dsn1, $id_doc_ref);
@@ -60,7 +79,7 @@ function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, 
 //                                        }
 //                                    }
                                     }
-                                    return 1000;    //CODIGO DE MENSAJE SI REALIZA TODOS LOS PROCESOS
+                                    return 1000;
                                 }
                             }
                         }
@@ -75,13 +94,13 @@ function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, 
                                 if(!actualizaEstatusSolicitud($dbh, $row['solicitud_id'])){
                                     return 1004;
                                 }    
-                                return 1000;    //CODIGO DE MENSAJE SI REALIZA TODOS LOS PROCESOS
+                                return 1000;
                             }
-                            return 1000;        //CODIGO DE MENSAJE SI REALIZA TODOS LOS PROCESOS
+                            return 1000;
                         }
                     }
                 } else {
-                    return 1001;            //CODIGO DE ERROR SI NO CONSIGUE LA CONFIGURACIÓN DEL DOCUMENTO
+                    return 1001;
                 }
 //                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
 //                    return array(
@@ -181,7 +200,8 @@ $server->wsdl->schemaTargetNamespace = "http://localhost/sasyc/app/";
 $server->register("procesaDocumento", array(
     "id_doc" => "xsd:integer",
     "tipo_doc" => "xsd:string",
-    "desc_doc" => "xsd:string", "id_doc_sasyc" => "xsd:integer",
+    "desc_doc" => "xsd:string",
+    "id_doc_ref" => "xsd:integer",
     "ref_doc" => "xsd:string",
     "num_op" => "xsd:integer",
     "tipo_evento" => "xsd:string",
