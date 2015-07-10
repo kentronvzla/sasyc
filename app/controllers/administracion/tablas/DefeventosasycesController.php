@@ -25,4 +25,7 @@ class DefeventosasycesController extends \Administracion\TablasBaseController {
                             ->withErrors($evento->getErrors());
          }
         }
+        
+         
+       
     }

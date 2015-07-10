@@ -14,7 +14,7 @@
                 <div class="row">
             {{Form::display($defeventosasyc,'tipo_doc',4, true)}}
              @foreach ($descripcion as $descrip)
-            <h4>Descripcion:&nbsp;{{$descrip->desctipodoc}}</h4>
+            <h4>{{$descrip->desctipodoc}}</h4>
               @endforeach
                  </div>
                <div class="row">
