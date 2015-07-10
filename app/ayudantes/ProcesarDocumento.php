@@ -74,7 +74,7 @@ class ProcesarDocumento {
                         if (!empty($mensaje)) {
                             return $mensaje;
                         } else {
-                            $pkg = $this->llamarPackage($doc_origen->iddoc);
+                            $pkg = $this->llamarPackage($doc_origen->iddoc, 'nuevo');
                             array_push($rsp_pkg, $pkg);
                             $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
                         }
@@ -95,7 +95,7 @@ class ProcesarDocumento {
                         } else {
                             $valida_sts = $this->validarStatus($data, $evento, $presupuesto, $doc_origen->iddoc);
                             if ($valida_sts) {
-                                $pkg = $this->llamarPackage($doc_origen->iddoc);
+                                $pkg = $this->llamarPackage($doc_origen->iddoc, 'viejo');
                                 array_push($rsp_pkg, $pkg);
                             }
                             $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
@@ -150,14 +150,18 @@ class ProcesarDocumento {
         return;
     }
 
-    public function llamarPackage($doc_ori) {
+    public function llamarPackage($doc_ori, $accion) {
         $param0;
         $param1 = $doc_ori;
         $param2 = 'SASC';
 //        $params = compact('param0', 'param1', 'param2');
         $db = \DB::connection('oracle');
 //        $db->statement("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;",array('param0' => $param0, 'param1' => $param1, 'param2' => $param2));
-        $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;");
+        if($accion=='nuevo')
+            $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;");
+        else
+            $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.APRUEBA_DOC(:param1, :param2); END;");
+        
         $stmt->bindParam(':param0', $param0, \PDO::PARAM_STR, 255);
         $stmt->bindParam(':param1', $param1, \PDO::PARAM_INT);
         $stmt->bindParam(':param2', $param2, \PDO::PARAM_STR);

@@ -8,19 +8,22 @@ require_once('/ayudantes/webservices/nusoap.php');
 
 function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, $num_op, $tipo_evento) {
 
-    list($db, $host, $username, $password, $db1, $host1, $username1, $password1) = array('sasyc_desarrollo', 'appwebdesa.kentron.com.ve', 'sasyc', 'sasyc', 'keruxalt', 'olimpo', 'sasyc', 'sasyc');
-    list($T_EVENTO_GEN, $T_EVENTO_PRO, $EA_DOC, $ED_DOC, $fecha_actual) = array('GEN', 'PRO', 'APR', 'DEV', date("Y-m-d H:i:s")); // $T_EVENTO = 'PRO';
+    list($db, $host, $username, $password, $db1, $host1, $username1, $password1, $charset1) = array('sasyc_desarrollo', 'appwebdesa.kentron.com.ve', 'sasyc', 'sasyc', 'keruxalt', 'olimpo', 'sasyc', 'sasyc', 'AL32UTF8');
+    list($T_EVENTO_GEN, $T_EVENTO_PRO, $EA_DOC, $ED_DOC, $fecha_actual, $VERSION) = array('GEN', 'PRO', 'APR', 'DEV', date("Y-m-d H:i:s"), 1); // $T_EVENTO = 'PRO';
+    $tns = "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = $host1)(PORT = 1521)))(CONNECT_DATA = (SERVICE_NAME = orcl)))";
     $dsn = "pgsql:host=$host;port=5432;dbname=$db;user=$username;password=$password";
-    $dsn1 = "pgsql:host=$host1;port=1521;dbname=$db1;user=$username1;password=$password1";
+    $dsn1 = "oci:host=$host1;port=1521;dbname=$db1;charset=$charset1;user=$username1;password=$password1";
 
     try {
         $dbh = new PDO($dsn);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if ($dbh) {
 //            echo "Se conectó a la base de datos ".$db." satisfactoriamente";
             $sql = "SELECT id, tipo_doc, tipo_evento, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic FROM defeventosasyc WHERE tipo_doc ='" . $tipo_doc . "' AND tipo_evento = '" . $T_EVENTO_GEN . "';";
             $stmt = $dbh->query($sql);
             if ($stmt === false) {
-                return htmlspecialchars("Error al ejecutar el query: $sql");
+                return 1001;
+//                return htmlspecialchars("Error al ejecutar el query: $sql");
 //                die("Error al ejecutar el query: $sql");
             } else {
                 if ($stmt->rowCount() > 0) {
@@ -28,43 +31,53 @@ function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, 
                     if ($tipo_evento == 'PRO') {
                         $sql = "UPDATE presupuestos SET cheque ='" . $ref_doc . "' WHERE documento_id ='" . $id_doc_ref . "';";
                         $stmt = $dbh->query($sql);
-                        if ($defeventosasyc['ind_aprueba_auto'] == true) {
-                            $sql = "UPDATE presupuestos SET estatus_doc ='" . $EA_DOC . "' WHERE documento_id ='" . $id_doc_ref . "' RETURNING solicitud_id;";
-                            $stmt = $dbh->query($sql);
-                            if ($stmt === false) {
-                                return htmlspecialchars("Error al ejecutar el query: $sql");
-                            } else {
-                                if ($stmt->rowCount() > 0) {
-                                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                                    $verif_upd = actualizaEstatusSolicitud($dbh, $row['solicitud_id']);
-                                    $sql = "INSERT INTO documentossasyc (documento_id, tipo_doc, tipo_evento, descripcion, fecha, estatus, solicitud, ref_doc, num_op, mensaje, id_doc_ref, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic, version) ";
-                                    $sql.= "VALUES (" . $id_doc_ref . ", '" . $tipo_doc . "', '" . $tipo_evento . "', '" . $desc_doc . "', '" . $fecha_actual . "', '" . $T_EVENTO_PRO . "', " . $row['solicitud_id'] . ", '" . $ref_doc . "', " . $num_op . ", NULL, " . $id_doc_ref . ", " . $defeventosasyc['ind_aprueba_auto'] . ", " . $defeventosasyc['ind_doc_ext'] . " , " . $defeventosasyc['ind_ctas_adic'] . " , " . $defeventosasyc['ind_reng_adic'] . " , " . $defeventosasyc['ind_detcomp_adic'] . " , 0);";
-                                    $stmt = $dbh->query($sql);
-                                    $dbh1 = new PDO($dsn1);
-                                    if ($dbh1) {
-                                        $param0;
-                                        list($param1, $param2) = array($id_doc_ref, 'SASC');
-                                        $stmt = $dbh1->prepare("BEGIN :param0 := PROC_MENSAJERO.APRUEBA_DOC(:param1, :param2); END;");
-                                        $stmt->bindParam(':param0', $param0, PDO::PARAM_STR, 255);
-                                        $stmt->bindParam(':param1', $param1, PDO::PARAM_INT);
-                                        $stmt->bindParam(':param2', $param2, PDO::PARAM_STR);
-                                        $stmt->execute();
+                        if ($stmt === false) {
+                            return 1002;
+                        } else {
+                            if ($defeventosasyc['ind_aprueba_auto'] == true) {
+                                $sql = "UPDATE presupuestos SET estatus_doc ='" . $EA_DOC . "' WHERE documento_id ='" . $id_doc_ref . "' RETURNING solicitud_id;";
+                                $stmt = $dbh->query($sql);
+                                if ($stmt === false) {
+                                    return 1003;
+                                } else {
+                                    if ($stmt->rowCount() > 0) {
+                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        if(!actualizaEstatusSolicitud($dbh, $row['solicitud_id'])){
+                                            return 1004;
+                                        }    
+                                        list($ind_aprueba_auto, $ind_doc_ext, $ind_ctas_adic, $ind_reng_adic, $ind_detcomp_adic) = array(($defeventosasyc['ind_aprueba_auto'] == true) ? 'true' : 'false', ($defeventosasyc['ind_doc_ext'] == true) ? 'true' : 'false', ($defeventosasyc['ind_ctas_adic'] == true) ? 'true' : 'false', ($defeventosasyc['ind_reng_adic'] == true) ? 'true' : 'false', ($defeventosasyc['ind_detcomp_adic'] == true) ? 'true' : 'false');
+                                        $sql = "INSERT INTO documentossasyc (documento_id, tipo_doc, tipo_evento, descripcion, fecha, estatus, solicitud, ref_doc, num_op, mensaje, id_doc_ref, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic, version, created_at, updated_at) ";
+                                        $sql.= "VALUES (" . $id_doc_ref . ", '" . $tipo_doc . "', '" . $tipo_evento . "', '" . $desc_doc . "', '" . $fecha_actual . "', '" . $T_EVENTO_PRO . "', " . $row['solicitud_id'] . ", '" . $ref_doc . "', " . $num_op . ", NULL, " . $id_doc_ref . ", " . $ind_aprueba_auto . ", " . $ind_doc_ext . " , " . $ind_ctas_adic . " , " . $ind_reng_adic . " , " . $ind_detcomp_adic . " , " . $VERSION . ", '" . $fecha_actual . "', '" . $fecha_actual . "');";
+                                        $stmt = $dbh->query($sql);
+                                        if ($stmt === false) {
+                                            return 1005;
+                                        }
+                                        return 1000;    //CODIGO DE MENSAJE SI REALIZA TODOS LOS PROCESOS
+//                                    else{
+//                                        if ($stmt->rowCount() > 0) {                                         
+//                                            $pkg = llamarPackage($dsn1, $id_doc_ref);
+//                                            return $pkg;
+//                                        }
+//                                    }
                                     }
+                                    return 1000;    //CODIGO DE MENSAJE SI REALIZA TODOS LOS PROCESOS
                                 }
-                                return 1000;    //CODIGO DE MENSAJE SI REALIZA TODOS LOS PROCESOS
                             }
                         }
                     } elseif ($tipo_evento == 'DEV') {
-                        $sql = "UPDATE presupuestos SET estatus_doc ='" . $ED_DOC . "', cheque ='" . $ref_doc . "' WHERE documento_id ='" . $id_doc . "' RETURNING solicitud_id;";
+                        $sql = "UPDATE presupuestos SET estatus_doc ='" . $ED_DOC . "', cheque = NULL WHERE documento_id ='" . $id_doc_ref . "' RETURNING solicitud_id;";
                         $stmt = $dbh->query($sql);
                         if ($stmt === false) {
-                            return htmlspecialchars("Error al ejecutar el query: $sql");
+                            return 1006;
                         } else {
                             if ($stmt->rowCount() > 0) {
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                                $verif_upd = actualizaEstatusSolicitud($dbh, $row['solicitud_id']);
+                                if(!actualizaEstatusSolicitud($dbh, $row['solicitud_id'])){
+                                    return 1004;
+                                }    
                                 return 1000;    //CODIGO DE MENSAJE SI REALIZA TODOS LOS PROCESOS
                             }
+                            return 1000;        //CODIGO DE MENSAJE SI REALIZA TODOS LOS PROCESOS
                         }
                     }
                 } else {
@@ -92,7 +105,7 @@ function actualizaEstatusSolicitud($dbh, $solicitud_id) {
     $sql = "SELECT estatus_doc FROM presupuestos WHERE solicitud_id ='" . $solicitud_id . "';";
     $stmt = $dbh->query($sql);
     if ($stmt === false) {
-        return htmlspecialchars("Error al ejecutar el query: $sql");
+        return false;
     } else {
         if ($stmt->rowCount() > 0) {
             $cont_total = $stmt->rowCount();
@@ -117,10 +130,10 @@ function actualizaEstatusSolicitud($dbh, $solicitud_id) {
         } elseif ($cont_procesados > 0) {
             $estatus = "PPA";
         }
-        $sql = "UPDATE solicitudes SET estatus ='" . $estatus . "' WHERE solicitud_id ='" . $solicitud_id . "' RETURNING estatus;";
+        $sql = "UPDATE solicitudes SET estatus ='" . $estatus . "' WHERE id ='" . $solicitud_id . "' RETURNING estatus;";
         $stmt = $dbh->query($sql);
         if ($stmt === false) {
-            return htmlspecialchars("Error al ejecutar el query: $sql");
+            return false;
         } else {
             if ($stmt->rowCount() > 0) {
                 return true;
@@ -128,6 +141,27 @@ function actualizaEstatusSolicitud($dbh, $solicitud_id) {
                 return false;
             }
         }
+    }
+    return false;
+}
+
+function llamarPackage($dsn1, $id_doc_ref) {
+    try {
+        $dbh1 = new PDO($dsn1);
+        if ($dbh1) {
+            $param0;
+            list($param1, $param2) = array($id_doc_ref, 'SASC');
+            $stmt = $dbh1->prepare("BEGIN :param0 := PROC_MENSAJERO.APRUEBA_DOC(:param1, :param2); END;");
+            $stmt->bindParam(':param0', $param0, PDO::PARAM_STR, 255);
+            $stmt->bindParam(':param1', $param1, PDO::PARAM_INT);
+            $stmt->bindParam(':param2', $param2, PDO::PARAM_STR);
+            $stmt->execute();
+            return true;
+        }
+    } catch (Exception $e) {
+        return 'Excepción capturada: ' . $e->getMessage() . "\n";
+    } catch (PDOException $PDOe) {
+        return 'Excepción capturada: ' . $PDOe->getMessage() . "\n";
     }
     return false;
 }
