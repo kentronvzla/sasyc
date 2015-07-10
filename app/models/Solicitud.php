@@ -737,7 +737,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function puedeSolicitarAprobacion() {
-        return $this->estatus == "ACA";
+        $arr = ['ACA', 'DEV'];
+        return in_array($this->estatus, $arr);
+        //return $this->estatus == "ACA";
     }
 
     public function puedeCerrar() {

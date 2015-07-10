@@ -17,6 +17,8 @@ $(document).ready(function () {
         $(this).change(calcularEdad);
     });
 
+    $('.buscar-seniat').on('click', buscarSENIAT);
+    
     $('#form-familiares').find("#tipo_nacionalidad_id, #ci").on('change', buscarPersona);
 
     $('#form-informe').find('#total_ingresos').prop("disabled", true);
@@ -179,4 +181,13 @@ function beneficiarioKerux() {
         $('#agregar-beneficiario').hide();
         $('#ind_creando_benef').val(0);
     });
+}
+
+function buscarSENIAT(evt)
+{
+    var pUrl = "http://contribuyente.seniat.gob.ve/BuscaRif/BuscaRif.jsp";
+    var iseniat = $('#iseniat');
+    iseniat.attr('src', pUrl);
+    $('#div-seniat').show();
+    iseniat.contents().find('head').append('<meta charset="utf-8">');
 }

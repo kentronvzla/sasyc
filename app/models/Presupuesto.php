@@ -16,7 +16,7 @@
  * @property integer $version 
  * @property \Carbon\Carbon $created_at 
  * @property \Carbon\Carbon $updated_at 
- * @property string $sts 
+ * @property string $estatus_doc 
  * @property-read \Solicitud $solicitud 
  * @property-read \Proceso $proceso 
  * @property-read \Requerimiento $requerimiento 
@@ -81,6 +81,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
         'cantidad' => '',
         'monto' => '',
         'montoapr' => '',
+        'estatus_doc'=>'',
     ];
 
     protected function getPrettyFields() {
@@ -104,6 +105,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
             'montofor' => 'Monto',
             'montoapr' => 'Mto. Aprobado',
             'montoaprfor' => 'Monto aprobado',
+            'estatus_doc'=>'Estatus',
         ];
     }
 
@@ -141,7 +143,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
 
     public function getTableFields() {
         return [
-            'requerimiento->nombre','proceso->nombre', 'beneficiario->nombre', 'cantidad', 'documento_id', 'documento->estatus', 'montoapr'
+            'requerimiento->nombre','proceso->nombre', 'beneficiario->nombre', 'cantidad', 'documento_id', 'estatus_doc', 'montoapr'
         ];
     }
 

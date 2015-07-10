@@ -9,6 +9,7 @@ $(document).ready(function () {
     $("#tipo_nacionalidad_id, #ci").change(buscarPersona);
     $('.salvar-persona').click(crearPersona);
     $('.buscar-cne').on('click', buscarCNE);
+    $('.buscar-sate').on('click', buscarSATE);
     $('.siguiente').click(validarPersonas);
     $('#div-solicitante').hide();
 
@@ -128,6 +129,20 @@ function buscarCNE(evt)
     icne.attr('src', pUrl);
     $('#div-cne').show();
     icne.contents().find('head').append('<meta charset="utf-8">');
+}
+
+function buscarSATE(evt)
+{
+    //var parent = $(evt.target).closest('.row').parent();
+    //if (parent.find('#ci').val() == "") {
+    //    return;
+    //}
+    //var mDivDestino = $('#cne');
+    var pUrl = "http://172.27.8.23/institucional/sistemas/sas/paginas/classBienvenida.php/classRegistro.php";
+    var isate = $('#isate');
+    isate.attr('src', pUrl);
+    $('#div-sate').show();
+    isate.contents().find('head').append('<meta charset="utf-8">');
 }
 
 function crearPersona(evt)

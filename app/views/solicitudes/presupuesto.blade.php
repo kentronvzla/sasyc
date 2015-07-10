@@ -46,9 +46,12 @@
         {{Form::btInput($beneficiario_kerux,'clase',4, "select", [], Oracle\Beneficiario::$clase)}}
     </div>
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-xs-12 col-sm-12 col-md-10">
             <a id="btn-seleccionar-beneficiario" class="btn btn-primary">Volver</a>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-2">
+            <button type="button" class="btn btn-primary buscar-seniat"><i class="glyphicon glyphicon-search"></i> SENIAT</button>
+        </div>            
     </div>
     <hr>
 </div>
