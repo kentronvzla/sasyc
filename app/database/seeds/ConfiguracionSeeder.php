@@ -38,7 +38,7 @@ class ConfiguracionSeeder extends Seeder {
         ));
         Configuracion::create(array(
             'variable' => 'ccosto',
-            'valor' => 10301,
+            'valor' => 10202,
         ));
         Configuracion::create(array(
             'variable' => 'moneda_presupuesto',
@@ -67,6 +67,14 @@ class ConfiguracionSeeder extends Seeder {
         Configuracion::create(array(
             'variable' => 'coordinador',
             'valor' => 'CAP Jose Holberg Zambrano González',
+        ));
+        Configuracion::create(array(
+            'variable' => 'sitio',
+            'valor' => 'VEN',
+        ));        
+        Configuracion::create(array(
+            'variable' => 'porcimpuesto',
+            'valor' => '12',
         ));
     }
 
