@@ -14,13 +14,15 @@
                 
                 <?php
                 $documen= Defeventosasyc::select('tipo_doc')->get();
+                   if ($documen->isEmpty()) {
+                        $arreglo=null;
+                         $documentos[$arreglo]='Sin informacion';
+                   }
                 foreach ($documen as $tipodoc) {
                 $docu= $tipodoc['attributes'];
                 $arreglo = array_shift($docu);
                 $documentos[$arreglo]=$arreglo;
-               
                 }
-               
                 ?>
                
                 {{Form::btInput($proceso, 'tipo_doc', 6,'select',[],$documentos)}}
