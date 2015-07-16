@@ -34,15 +34,13 @@ function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, 
     $dsn = "pgsql:host=$host;port=5432;dbname=$db;user=$username;password=$password";
 
     try {
-        $dbh = new PDO($dsn);
+        $dbh = new PDO($dsn);        
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if ($dbh) {
-//            return htmlspecialchars("Se conectó a la base de datos ".$db." satisfactoriamente");
             $sql = "SELECT id, tipo_doc, tipo_evento, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic FROM defeventosasyc WHERE tipo_doc ='" . $tipo_doc . "' AND tipo_evento = '" . $T_EVENTO_PRO . "';";
             $stmt = $dbh->query($sql);
             if ($stmt === false) {
                 return 1001;
-//                return htmlspecialchars("Error al ejecutar el query: $sql");
             } else {
                 if ($stmt->rowCount() > 0) {
                     $defeventosasyc = $stmt->fetch(PDO::FETCH_ASSOC);
