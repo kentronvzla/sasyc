@@ -165,7 +165,7 @@ $server->register("procesaDocumento", array(
     "ref_doc" => "xsd:string",
     "num_op" => "xsd:integer",
     "tipo_evento" => "xsd:string",
-        ), array("return" => "xsd:string"), "http://localhost/sasyc/app/", "http://localhost/sasyc/app/procesar/procesaDocumento", "rpc", "encoded", "Procesa Eventos de Documentos");
+        ), array("return" => "xsd:integer"), "http://localhost/sasyc/app/", "http://localhost/sasyc/app/procesar/procesaDocumento", "rpc", "encoded", "Procesa Eventos de Documentos");
 $HTTP_RAW_POST_DATA = file_get_contents("php://input");
 $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : "";
 $server->service($HTTP_RAW_POST_DATA);
