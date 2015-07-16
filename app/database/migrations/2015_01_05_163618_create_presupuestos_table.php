@@ -26,6 +26,7 @@ class CreatePresupuestosTable extends Migration {
             $table->decimal('monto', 14, 2)->nullable(); 
             $table->decimal('montoapr', 14, 2)->nullable();
             $table->string('estatus_doc', 3)->nullable();
+            $table->string('cheque', 100)->nullable();            
             $table->integer('version')->default(0);
 
             $table->timestamps();

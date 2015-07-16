@@ -2,6 +2,7 @@
 @section('contenido2')
     <div class="panel panel-danger">
         <div class="panel-heading">
+            
             @include('templates.tituloBarra',array('obj'=>$persona, 'titulo'=>'personas'))
         </div>
         <div class="panel-body">

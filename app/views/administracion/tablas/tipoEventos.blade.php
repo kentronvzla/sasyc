@@ -17,13 +17,26 @@
             </thead>
             <tbody>
                 <tr>
+                  
                     @foreach ($tipoeventos as $eventos)
                     <td align='center'>{{$eventos->tipodoc}}</td>
                     <td>{{$eventos->desctipodoc}}</td>
                     <td align='center'>{{$eventos->codruta}}</td>
                     <td align='center'>{{$eventos->tipoevento}}</td>
-                    <?php $configuracion = ((in_array($eventos->tipodoc, $evento)) == TRUE) ? "SI" : "NO"; ?>
-                    <td align='center'>{{$configuracion}}</td>
+ 
+                        <?php 
+                   if ($evento==null) {
+                        $configuracion = 'NO';
+                        ?>
+                         <td align='center'>{{$configuracion}}</td> 
+                        <?php
+                    } else {
+                        $configuracion = ((in_array($eventos->tipodoc, $evento)) == TRUE) ? "SI" : "NO";
+                        ?>
+                        <td align='center'>{{$configuracion}}</td> 
+                        <?php
+                    }
+                    ?>
 
                     <td align="center"> <a class="btn btn-primary btn-xs" href="{{$url}}/modifica/{{$eventos->tipodoc}}/{{$eventos->tipoevento}}"><i class="fa fa-pencil"></i></a></td>
                 </tr>
@@ -32,4 +45,6 @@
         </table>
     </div>
 </div> 
+
+
 @stop
