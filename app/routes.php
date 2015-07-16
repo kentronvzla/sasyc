@@ -57,7 +57,7 @@ Route::group(['before'=>'auth'], function(){
    
     
 });
-
+Route::get('parametros','ConfiguracionController@getParametros');
 Route::controller('login','LoginController');
 
    
