@@ -251,7 +251,7 @@ class ProcesarDocumento {
 
     public function cargarDocOrigen($data, $presupuesto, $evento, $accion) {
         list($data['sol_benef'], $data['sol_acc_int']) = array(Solicitud::find($data['solicitud']['id'])->personaBeneficiario['attributes'], Solicitud::find($data['solicitud']['id'])->area->tipoAyuda->cod_acc_int);
-        $desc_doc = "Caso N°: " . $data['solicitud']['num_solicitud'] . ". Beneficiario: " . $data['sol_benef']['nombre'] . " " . $data['sol_benef']['apellido'] . ". C.I.:" . $data['sol_benef']['ci'] . ". " . $data['solicitud']['descripcion'];
+        $desc_doc = "Caso N: " . $data['solicitud']['num_solicitud'] . ". Beneficiario: " . $data['sol_benef']['nombre'] . " " . $data['sol_benef']['apellido'] . ". C.I.:" . $data['sol_benef']['ci'] . ". " . $data['solicitud']['descripcion'];
 
         if ($accion == 'nuevo') {
             $doc_origen = new DocumentosOrigen();
