@@ -1,6 +1,8 @@
 <?php
 
 class ReportesController extends BaseController {
+    
+    
 
     private $reporte;
     Private $punto;
@@ -17,7 +19,6 @@ class ReportesController extends BaseController {
         'personas.sexo' => 'Sexo',
         'especial_mes' => 'Mes',
     ];
-    
     private static $columnas_agrupables_grafico = [
         '' => 'Seleccione',
         'estados.estado_id' => 'Estado',
@@ -30,7 +31,6 @@ class ReportesController extends BaseController {
         'especial_mes' => 'Mes',
         'especial_ano' => 'Año',
     ];
-        
     private static $columnas_descripciones = [
         '' => 'Seleccione',
         'estados.estado_id' => 'estados.nombre',
@@ -52,11 +52,12 @@ class ReportesController extends BaseController {
         'solicitudes.referencia_externa' => 'Referencia externa',
     ];
 
+    
     public function __construct(\ayudantes\Reporte $reporte) {
         require_once '../public/EnLetras.php';
         $this->reporte = $reporte;
-        $this->memo='M';
-        $this->punto='P';
+        $this->memo = 'M';
+        $this->punto = 'P';
         parent::__construct();
     }
 
@@ -101,15 +102,14 @@ class ReportesController extends BaseController {
                     }
                 }
             }
-              $data['solicitudes'][$i] = $data['solicitudes'][$i]
-              ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
-              ->get(); 
-
+            $data['solicitudes'][$i] = $data['solicitudes'][$i]
+                    ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
+                    ->get();
         }
-        if(Input::get('formato_reporte','pdf')=="pdf")
-            $vista='reportes.html.estadisticassolicitud';
+        if (Input::get('formato_reporte', 'pdf') == "pdf")
+            $vista = 'reportes.html.estadisticassolicitud';
         else
-            $vista='reportes.html.estadisticassolicitud_excel';
+            $vista = 'reportes.html.estadisticassolicitud_excel';
 
         return $this->reporte->generar($vista, $data, 'L');
     }
@@ -122,28 +122,34 @@ class ReportesController extends BaseController {
         return View::make('reportes.resueltos', $data);
     }
 
-    public function postResueltos() {
+    public function postResueltos() {  
         $columna = Input::get('order_by');
         $data['total'] = 0;
         $data['anterior'] = "";
         $data['cantReportes'] = count(Input::get('order_by'));
-        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
-        $data['solicitudes'] =$data['solicitudes']
+        $data['solicitudes']= Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'))
                 ->where(function($query) {
-                     $query->where('estatus', '=', 'APR');
+                    $query->where('estatus', '=', 'APR');
                 })
-                ->where('estatus', '=', 'APR')
-                
                 ->orderBy($columna, 'ASC')
-                ->get();
-        $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
-        if(Input::get('formato_reporte','pdf')=="pdf")
-            $vista='reportes.html.resueltos';
-        else
-            $vista='reportes.html.resueltos_excel';
+                        ->paginate(200);
+       
 
-        return $this->reporte->generar($vista, $data, 'L');
+        $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
+        
+                 
+        if (Input::get('formato_reporte', 'pdf') == "pdf")
+                 $vista = 'reportes.html.resueltos';
+       
+    //     return PDF::html('reportes.html.resueltos', $this->data)->render();
+            
+        else
+            $vista = 'reportes.html.resueltos_excel';
+
+       return $this->reporte->generar($vista, $data, 'L');
+
     }
+
 
     public function getPendientes() {
 
@@ -162,14 +168,14 @@ class ReportesController extends BaseController {
         $data['solicitudes'] = $data['solicitudes']
                 ->orderBy($columna, 'ASC')
                 ->get();
-      
+
         $data['orden'] = $columna;
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
-        if(Input::get('formato_reporte','pdf')=="pdf")
-            $vista='reportes.html.pendientes';
+        if (Input::get('formato_reporte', 'pdf') == "pdf")
+            $vista = 'reportes.html.pendientes';
         else
-            $vista='reportes.html.pendientes_excel';
-        
+            $vista = 'reportes.html.pendientes_excel';
+
         return $this->reporte->generar($vista, $data, 'L');
     }
 
@@ -186,7 +192,7 @@ class ReportesController extends BaseController {
         $data['montoASCIIapr'] = $this->montos_punto_memo($total2);
 
         // se pide el reporte
-        if ($data['solicitud']->tipo_proc ==$this->punto) {
+        if ($data['solicitud']->tipo_proc == $this->punto) {
             return $this->reporte->generar('reportes.html.punto', $data, 'P');
         } elseif ($data['solicitud']->tipo_proc == $this->memo) {
             return $this->reporte->generar('reportes.html.memo', $data, 'P');
@@ -208,6 +214,7 @@ class ReportesController extends BaseController {
     }
 
     private function parametro_de_orden($data, $columna) {
+
         $contador = 0;
         $arreglo [] = array();
         foreach ($data['solicitudes'] as $resultado) {
@@ -261,4 +268,5 @@ class ReportesController extends BaseController {
 
         return Response::json($data['solicitudes']);
     }
+
 }

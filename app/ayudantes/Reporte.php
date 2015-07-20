@@ -20,6 +20,7 @@ class Reporte{
     }
 
     private function generarExcel($vista, $data){
+ 
         $nom_reporte = $this->nombreReporte($vista);
         \Excel::create($nom_reporte, function($excel) use ($vista, $data) {
             $excel->sheet('Hoja 1', function($sheet) use ($vista, $data) {
@@ -34,7 +35,6 @@ class Reporte{
         $pdf = new \HTML2PDF($orientacion, 'letter', 'es');
         $pdf->pdf->SetDisplayMode('fullpage');
         try {
-            ob_clean();
             $html = \View::make($vista, $data)->render();
             $pdf->writeHTML($html);
             $pdf->Output($vista.'.pdf');

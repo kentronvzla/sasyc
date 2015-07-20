@@ -112,6 +112,10 @@ return array(
         'Ayudantes\Macros\HtmlServiceProvider',
         'yajra\Oci8\Oci8ServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
+        'Nitmedia\Wkhtml2pdf\Wkhtml2pdfServiceProvider'
+
+
+        
     ),
     /*
       |--------------------------------------------------------------------------
@@ -177,5 +181,6 @@ return array(
         'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
+        'PDF'  => 'Nitmedia\Wkhtml2pdf\Facades\Wkhtml2pdf',
     ),
 );

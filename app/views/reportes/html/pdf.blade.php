@@ -1,5 +1,5 @@
 {{HTML::style('css/reportes/pdf.css')}}
-<page backcolor="#FEFEFE" backtop="10mm" backbottom="10mm" backleft="10mm" backright="10mm" footer="date;heure;page">
+<page backcolor="#FEFEFE" backtop="30mm" backbottom="10mm" backleft="10mm" backright="10mm" footer="date;heure;page">
     <page_header>   
         <table width="100%" border="0" cellpadding="10" cellspacing="0">
             <tr>
