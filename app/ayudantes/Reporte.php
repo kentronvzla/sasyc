@@ -35,7 +35,7 @@ class Reporte{
         $pdf = new \HTML2PDF($orientacion, 'letter', 'es');
         $pdf->pdf->SetDisplayMode('fullpage');
         try {
-            $html = \View::make($vista, $data);
+            $html = \View::make($vista, $data)->render();
             $pdf->writeHTML($html);
             $pdf->Output($vista.'.pdf');
         } catch (\HTML2PDF_exception $e) {
