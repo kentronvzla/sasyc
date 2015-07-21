@@ -163,10 +163,12 @@ class ReportesController extends BaseController {
         $columna = Input::get('order_by');
         $data['total'] = 0;
         $data['cantReportes'] = count(Input::get('order_by'));
-        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'));
-        $data['solicitudes'] = $data['solicitudes']
+        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'))
+                     ->where(function($query) {
+                    $query->where('estatus', '<>', 'APR');
+                })
                 ->orderBy($columna, 'ASC')
-                ->get();
+                ->paginate(350);
 
         $data['orden'] = $columna;
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
