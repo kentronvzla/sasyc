@@ -19,9 +19,11 @@
                     @endforeach
                 </div>
                 <div class="row">
+                   
                     {{Form::display($evento,'tipo_evento',8, true)}}
                     {{Form::hidden('tipo_doc',$evento->tipo_doc)}}
                     {{Form::hidden('tipo_evento',$evento->tipo_evento)}}
+                   
                 </div> 
                 <div class="row">
                     {{Form::btInput($evento, 'ind_aprueba_auto', 4)}}

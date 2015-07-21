@@ -132,7 +132,7 @@ class ReportesController extends BaseController {
                     $query->where('estatus', '=', 'APR');
                 })
                 ->orderBy($columna, 'ASC')
-                        ->paginate(200);
+                        ->paginate(350);
        
 
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
@@ -141,7 +141,6 @@ class ReportesController extends BaseController {
         if (Input::get('formato_reporte', 'pdf') == "pdf")
                  $vista = 'reportes.html.resueltos';
        
-    //     return PDF::html('reportes.html.resueltos', $this->data)->render();
             
         else
             $vista = 'reportes.html.resueltos_excel';

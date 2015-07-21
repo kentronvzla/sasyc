@@ -5,13 +5,16 @@
   "license": "MIT",
   "require": {
     "laravel/framework": "4.2.*",
+    "thujohn/pdf": "dev-master",
     "doctrine/dbal": "2.3.*",
     "barryvdh/laravel-debugbar": "1.*",
     "barryvdh/laravel-ide-helper": "*",
     "cartalyst/sentry": "2.1.*",
     "yajra/laravel-oci8": "*",
     "maatwebsite/excel": "1.*",
-    "cartalyst/sentry": "2.1.*"
+    "cartalyst/sentry": "2.1.*",
+    "barryvdh/laravel-dompdf": "*"
+
   },
   "autoload": {
     "classmap": [
