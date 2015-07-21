@@ -19,22 +19,40 @@ require_once('/ayudantes/webservices/nusoap.php');
  * @return integer $codigo = 1005 Error al insertar nuevo registro de la tabla documentossasyc
  * @return integer $codigo = 1006 Error al modificar el campo estatus de la tabla presupuestos cuando $tipo_evento = DEV
  * @return integer $codigo = 1007 Error de conexión a la BD
+ * @return integer $codigo = 1008 Error de autenticación HTTP
+ * @return integer $codigo = 1009 Error en respuesta JSON de Configuración
+ * @return integer $codigo = 1010 Excepcion capturada por la base de datos
+ * @return integer $codigo = 1011 Error al insertar nuevo registro de la tabla bitacoras
  * @autor Reysmer Valle
  * @fecha 2015-07-10 
  */
 function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, $num_op, $tipo_evento) {
-    $parametros_json = file_get_contents('http://localhost/sasyc/public/parametros');
-    $parametros = json_decode($parametros_json, true);
-    if (count($parametros) > 0) {
-        list($db, $host, $username, $password) = array($parametros['db_pgsql'], $parametros['host_pgsql'], $parametros['username_pgsql'], $parametros['password_pgsql']);
+    list($T_EVENTO_GEN, $T_EVENTO_PRO, $EA_DOC, $ED_DOC, $VERSION) = array('GEN', 'PRO', 'APR', 'DEV', 1);
+    list ($method, $url, $user, $pass) = array("GET", "http://localhost/sasyc/public/parametros", "5@5yc", "5@5yc");
+    $basic_credentials = base64_encode($user . ':' . $pass);
+    $options = array('http' =>
+        array(
+            'method' => $method,
+            'header' => 'Authorization: Basic ' . $basic_credentials . "\r\n" .
+            "Content-Type: text/html; charset=utf-8\r\n",
+        )
+    );
+    $context = stream_context_create($options);
+    $respuesta_json = file_get_contents($url, false, $context);
+    $respuesta_array = json_decode($respuesta_json, true);
+    if (count($respuesta_array) > 0) {
+        if (count($respuesta_array) == 1) {
+            return 1008;
+        } elseif (count($respuesta_array) > 1) {
+            list($db, $host, $username, $password) = array($respuesta_array['db_pgsql'], $respuesta_array['host_pgsql'], $respuesta_array['username_pgsql'], $respuesta_array['password_pgsql']);
+        }
     } else {
-        $db = $host = $username = $password = null;
+        return 1009;
     }
-    list($T_EVENTO_GEN, $T_EVENTO_PRO, $EA_DOC, $ED_DOC, $fecha_actual, $VERSION) = array('GEN', 'PRO', 'APR', 'DEV', date("Y-m-d H:i:s"), 1); // $T_EVENTO = 'PRO';
     $dsn = "pgsql:host=$host;port=5432;dbname=$db;user=$username;password=$password";
 
     try {
-        $dbh = new PDO($dsn);        
+        $dbh = new PDO($dsn);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if ($dbh) {
             $sql = "SELECT id, tipo_doc, tipo_evento, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic FROM defeventosasyc WHERE tipo_doc ='" . $tipo_doc . "' AND tipo_evento = '" . $T_EVENTO_PRO . "';";
@@ -45,7 +63,7 @@ function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, 
                 if ($stmt->rowCount() > 0) {
                     $defeventosasyc = $stmt->fetch(PDO::FETCH_ASSOC);
                     if ($tipo_evento == 'PRO') {
-                        $sql = "UPDATE presupuestos SET cheque ='" . $ref_doc . "' WHERE documento_id ='" . $id_doc_ref . "';";
+                        $sql = "UPDATE presupuestos SET cheque ='" . $ref_doc . "', numop ='" . $num_op . "' WHERE documento_id ='" . $id_doc_ref . "';";
                         $stmt = $dbh->query($sql);
                         if ($stmt === false) {
                             return 1002;
@@ -63,10 +81,18 @@ function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, 
                                         }
                                         list($ind_aprueba_auto, $ind_doc_ext, $ind_ctas_adic, $ind_reng_adic, $ind_detcomp_adic) = array(($defeventosasyc['ind_aprueba_auto'] == true) ? 'true' : 'false', ($defeventosasyc['ind_doc_ext'] == true) ? 'true' : 'false', ($defeventosasyc['ind_ctas_adic'] == true) ? 'true' : 'false', ($defeventosasyc['ind_reng_adic'] == true) ? 'true' : 'false', ($defeventosasyc['ind_detcomp_adic'] == true) ? 'true' : 'false');
                                         $sql = "INSERT INTO documentossasyc (documento_id, tipo_doc, tipo_evento, descripcion, fecha, estatus, solicitud, ref_doc, num_op, mensaje, id_doc_ref, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic, version, created_at, updated_at) ";
-                                        $sql.= "VALUES (" . $id_doc_ref . ", '" . $tipo_doc . "', '" . $tipo_evento . "', '" . $desc_doc . "', '" . $fecha_actual . "', '" . $T_EVENTO_PRO . "', " . $row['solicitud_id'] . ", '" . $ref_doc . "', " . $num_op . ", NULL, " . $id_doc_ref . ", " . $ind_aprueba_auto . ", " . $ind_doc_ext . " , " . $ind_ctas_adic . " , " . $ind_reng_adic . " , " . $ind_detcomp_adic . " , " . $VERSION . ", '" . $fecha_actual . "', '" . $fecha_actual . "');";
+                                        $sql.= "VALUES (" . $id_doc_ref . ", '" . $tipo_doc . "', '" . $tipo_evento . "', '" . $desc_doc . "', '" . date("Y-m-d H:i:s") . "', '" . $T_EVENTO_PRO . "', " . $row['solicitud_id'] . ", '" . $ref_doc . "', " . $num_op . ", NULL, " . $id_doc_ref . ", " . $ind_aprueba_auto . ", " . $ind_doc_ext . " , " . $ind_ctas_adic . " , " . $ind_reng_adic . " , " . $ind_detcomp_adic . " , " . $VERSION . ", '" . date("Y-m-d H:i:s") . "', '" . date("Y-m-d H:i:s") . "');";
                                         $stmt = $dbh->query($sql);
                                         if ($stmt === false) {
                                             return 1005;
+                                        } else {
+                                            $sql = "INSERT INTO bitacoras (solicitud_id, fecha, nota, usuario_id, ind_activo, ind_alarma, ind_atendida, version, created_at, updated_at) ";
+                                            $sql.= "VALUES (" . $row['solicitud_id'] . ", '" . date("Y-m-d") . "', 'Solicitud aprobada correctamente por el sistema administrativo', 1 , 'false', 'false', 'false', 1, '" . date("Y-m-d H:i:s") . "', '" . date("Y-m-d H:i:s") . "');";
+                                            $stmt = $dbh->query($sql);
+                                            if ($stmt === false) {
+                                                return 1011;
+                                            }
+                                            return 1000;
                                         }
                                         return 1000;
                                     }
@@ -98,9 +124,9 @@ function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, 
             return 1007;
         }
     } catch (Exception $e) {
-        echo 'Excepción capturada: ', $e->getMessage(), "\n";
+        return '1010 ' . $e->getMessage() . "\n";
     } catch (PDOException $PDOe) {
-        echo 'Excepción capturada: ', $PDOe->getMessage(), "\n";
+        return '1010 ' . $PDOe->getMessage() . "\n";
     }
 }
 
@@ -163,7 +189,7 @@ $server->register("procesaDocumento", array(
     "ref_doc" => "xsd:string",
     "num_op" => "xsd:integer",
     "tipo_evento" => "xsd:string",
-        ), array("return" => "xsd:integer"), "http://localhost/sasyc/app/", "http://localhost/sasyc/app/procesar/procesaDocumento", "rpc", "encoded", "Procesa Eventos de Documentos");
+        ), array("return" => "xsd:string"), "http://localhost/sasyc/app/", "http://localhost/sasyc/app/procesar/procesaDocumento", "rpc", "encoded", "Procesa Eventos de Documentos");
 $HTTP_RAW_POST_DATA = file_get_contents("php://input");
 $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : "";
 $server->service($HTTP_RAW_POST_DATA);

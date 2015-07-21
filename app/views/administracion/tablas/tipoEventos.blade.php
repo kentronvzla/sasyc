@@ -17,18 +17,18 @@
             </thead>
             <tbody>
                 <tr>
-                  
+
                     @foreach ($tipoeventos as $eventos)
                     <td align='center'>{{$eventos->tipodoc}}</td>
                     <td>{{$eventos->desctipodoc}}</td>
                     <td align='center'>{{$eventos->codruta}}</td>
                     <td align='center'>{{$eventos->tipoevento}}</td>
- 
-                        <?php 
-                   if ($evento==null) {
+
+                    <?php
+                    if ($evento == null) {
                         $configuracion = 'NO';
                         ?>
-                         <td align='center'>{{$configuracion}}</td> 
+                        <td align='center'>{{$configuracion}}</td> 
                         <?php
                     } else {
                         $configuracion = ((in_array($eventos->tipodoc, $evento)) == TRUE) ? "SI" : "NO";

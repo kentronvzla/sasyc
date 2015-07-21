@@ -453,7 +453,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function scopeAplicarFiltro($query, $filtro) {
-        $query->leftJoin('personas','solicitudes.persona_beneficiario_id','=','personas.id')
+      $query->leftJoin('personas','solicitudes.persona_beneficiario_id','=','personas.id')
             ->leftJoin('areas','solicitudes.area_id','=','areas.id')
             ->leftJoin('parroquias','personas.parroquia_id','=','parroquias.id')
             ->leftJoin('municipios','parroquias.municipio_id','=','municipios.id')
@@ -839,4 +839,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 return Solicitud::$cmbsexo[$valor];
         }
     }
+    
+
+     
+    
 }

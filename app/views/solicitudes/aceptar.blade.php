@@ -20,7 +20,7 @@
                         <div class="col-lg-12">
                             
                             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> Buscar</button>
-                            <a href="{{url('aceptar?estatus=ACA&solo_asignadas=true&usuario_asignacion_id='."$id")}}" class="btn btn-default btn-reset"><i class="glyphicon glyphicon-trash"></i> Cancelar</a>
+                            <a href="{{url('aceptar?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id='."$id")}}" class="btn btn-default btn-reset"><i class="glyphicon glyphicon-trash"></i> Cancelar</a>
                         </div>
                     </div>
                     {{Form::close()}}

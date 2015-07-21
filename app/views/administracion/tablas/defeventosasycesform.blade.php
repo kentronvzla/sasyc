@@ -31,9 +31,12 @@
             {{Form::btInput($defeventosasyc, 'ind_detcomp_adic', 6)}}
                  </div>
                 
-                {{Form::submitBt()}}
-                  
+                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Guardar</button>
+        <button class="btn btn-default"><i class="glyphicon glyphicon-trash"></i>{{ link_to('administracion/tablas/tipoEventos', '') }} Cancelar</button>
         {{Form::close()}}
+
+                  
+     
     </div> </div>
 </div>
 @stop
