@@ -132,7 +132,7 @@ class ReportesController extends BaseController {
                     $query->where('estatus', '=', 'APR');
                 })
                 ->orderBy($columna, 'ASC')
-                        ->paginate(350);
+                        ->paginate(250);
        
 
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
@@ -168,7 +168,7 @@ class ReportesController extends BaseController {
                     $query->where('estatus', '<>', 'APR');
                 })
                 ->orderBy($columna, 'ASC')
-                ->paginate(350);
+                ->paginate(250);
 
         $data['orden'] = $columna;
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));

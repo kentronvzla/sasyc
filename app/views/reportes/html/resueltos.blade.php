@@ -1,12 +1,12 @@
 @extends('reportes.html.'.Input::get('formato_reporte','pdf'))
 @section('reporte')
 
-<?php $i=1; ?>
+<?php $i = 1; ?>
 
 <h4 ALIGN=CENTER >Relación de Casos Resueltos</h4>
- <table width="100%" border="0" cellpadding="10" cellspacing="3">
+<table width="100%" border="0" cellpadding="10" cellspacing="3">
     <tr style=' background:#d8d8d8;'>
-         <td ALIGN=CENTER  valign="middle" style="width: 35px;height:auto; font-size: 13px;">
+        <td ALIGN=CENTER  valign="middle" style="width: 35px;height:auto; font-size: 13px;">
             <strong>N#</strong>  
         </td>   
         <td style="width: 150px;height:auto; font-size: 13px;"  valign="middle">
@@ -32,62 +32,91 @@
         </td>
     </tr>
     <!------------------------------------------->
-    <?php $contador=0;  $subtotal=0; ?>
+    <?php
+    $contador = 0;
+    $subtotal = 0;
+    $totalref = 0;
+    $n_caso = 1;
+    $n_casoref = 1;
+
+    ?>
     <!------------------------------------------->
-    
+
     @foreach($solicitudes as $resultado)
-        @foreach($resultado->presupuestos as $key=>$presupuesto)
-            {{Form::hidden('solcitudes[]', $resultado->id)}}
-            <tr>
-                <td ALIGN=CENTER  valign="middle" style="width: 35px;height:auto; font-size: 13px;">
-                <strong>{{$i}}</strong>  
-            </td>
-                <td style="width: 150px;height:auto;">
-                    {{$presupuesto->solicitud->referencia_externa}}
-                    
-                </td>
-                <td ALIGN=CENTER style="width: 65px;height:auto;">
-                    {{$presupuesto->solicitud->created_at->format('d/m/Y')}}
-                </td>
-                <td ALIGN=CENTER style="width: 70px;height:auto;">
-                    {{$presupuesto->solicitud->num_solicitud}}
-                </td>
-                <td style="width: 200px;height:auto;"> 
-                    {{$presupuesto->solicitud->personaBeneficiario->nombre}}&nbsp;
-                    {{$presupuesto->solicitud->personaBeneficiario->apellido}}
-                </td>
-                <td style="width: 170px;height:auto;">
-                    {{$presupuesto->requerimiento->nombre}}
-                </td>
-                <td ALIGN=CENTER style="width: 50px;height:auto;">
-                    {{$presupuesto->cheque}}
-                </td>
-                <td ALIGN=right style="width: 150px;height:auto;">
-                    {{$presupuesto->montoapr_for}}
-                </td>
-            </tr>
-            <?php $total += $presupuesto->montoapr;
-                  $subtotal+=$presupuesto->montoapr;
-            ?>
-            <!------------------------------------------->
-            @if($presupuesto->montoapr_for != null)
-                
-                <tr style="background: #CCC;">
-                    <td style="width: 40px;height:auto; font-size: 13px;">
-                    <strong>Total</strong>
-                    </td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td>
-                    <td valign="middle" ALIGN=right>{{tm($subtotal)}}</td>
-                </tr> <?php $contador++;  $subtotal=0; ?>         
-                
-            @endif
-            <?php $i++; ?>
-            <!------------------------------------------->
-        @endforeach
-        
-    @endforeach  
+    @foreach($resultado->presupuestos as $key=>$presupuesto)
+   
+      <?php $n_casoref = 1; ?> 
+
+    <tr>
+        <td ALIGN=CENTER  valign="middle" style="width: 35px;height:auto; font-size: 13px;">
+            <strong>{{$i}}</strong>  
+        </td>
+        <td style="width: 150px;height:auto;">
+            {{$presupuesto->solicitud->referencia_externa}}
+
+        </td>
+        <td ALIGN=CENTER style="width: 65px;height:auto;">
+            {{$presupuesto->solicitud->created_at->format('d/m/Y')}}
+        </td>
+        <td ALIGN=CENTER style="width: 70px;height:auto;">
+            {{$presupuesto->solicitud->num_solicitud}}
+        </td>
+        <td style="width: 200px;height:auto;"> 
+            {{$presupuesto->solicitud->personaBeneficiario->nombre}}&nbsp;
+            {{$presupuesto->solicitud->personaBeneficiario->apellido}}
+        </td>
+        <td style="width: 170px;height:auto;">
+            {{$presupuesto->requerimiento->nombre}}
+        </td>
+        <td ALIGN=CENTER style="width: 50px;height:auto;">
+            {{$presupuesto->cheque}}
+        </td>
+        <td ALIGN=right style="width: 150px;height:auto;">
+            {{$presupuesto->montoapr_for}}
+        </td>
+    </tr>
+    <?php
+    $total += $presupuesto->montoapr;
+    $subtotal+=$presupuesto->montoapr;
+    $totalref+=$presupuesto->montoapr;
+    ?>
     <!------------------------------------------->
-    <!-- <tr style="background: #CCC;">
+    @if($presupuesto->montoapr_for != null)
+
+    <tr style="background: #CCC;">
+        <td style="width: 40px;height:auto; font-size: 13px;">
+            <strong>Total</strong>
+        </td><td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+        <td valign="middle" ALIGN=right>{{tm($subtotal)}}</td>
+    </tr> <?php $contador++;
+    $subtotal = 0;
+    ?>         
+
+
+    @endif
+    <?php $i++; ?>
+    @if(@$totalref!=0)
+    <tr style="background: #CCC;">
+        <td colspan="3">
+            <strong>Total {{$presupuesto->solicitud->referencia_externa}}</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td valign="middle" ALIGN=right>{{tm($totalref)}}</td>
+    </tr>
+    @endif     
+
+    <!------------------------------------------->
+    @endforeach 
+
+    @endforeach  
+ 
+    
+
+    <!------------------------------------------->
+    <!--<tr style="background: #CCC;">
          <td style="width: 40px;height:auto; font-size: 13px;">
          <strong>Total</strong></td><td></td><td></td><td></td>
         <td></td><td></td><td></td>
@@ -116,14 +145,14 @@
         <td style="width: 50px;height: auto; font-size: 13px;"  valign="middle">
 
         </td>
-        
+
         <td style="width: 150px;height: auto; font-size: 13px;"  valign="middle" ALIGN=right>
             {{tm($total)}}
         </td>
     </tr>
 </table>
 
-         
+
 
 
 @endsection
