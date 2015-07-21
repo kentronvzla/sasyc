@@ -5,8 +5,8 @@ class UsersTableSeeder extends Seeder {
     public function run() {
 
         Sentry::createUser(array(
-            'email' => 'nyamaui@kentron.com.ve',
-            'nombre' => 'Nadin Yamaui',
+            'email' => 'sasyc@com.ve',
+            'nombre' => 'Usuario Sasyc',
             'password' => '123456',
             'departamento_id' => 1,
             'activated' => true,
