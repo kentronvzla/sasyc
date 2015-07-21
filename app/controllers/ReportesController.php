@@ -103,7 +103,7 @@ class ReportesController extends BaseController {
                 }
             }
             $data['solicitudes'][$i] = $data['solicitudes'][$i]
-                    ->selectRaw($strSelect . 'SUM(presupuestos.monto) as monto, COUNT(distinct solicitudes.id) as cantidad')
+                    ->selectRaw($strSelect . 'SUM(presupuestos.montoapr) as monto, COUNT(distinct solicitudes.id) as cantidad')
                     ->get();
         }
         if (Input::get('formato_reporte', 'pdf') == "pdf")
