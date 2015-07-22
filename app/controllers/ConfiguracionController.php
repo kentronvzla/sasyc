@@ -15,15 +15,6 @@ class ConfiguracionController extends BaseController {
     }
 
     public function getParametros() {
-//        $token = null;
-//        $headers = apache_request_headers();
-//        if (isset($headers['Authorization'])) {
-//            $matches = array();
-//            preg_match('/Token token="(.*)"/', $headers['Authorization'], $matches);
-//            if (isset($matches[1])) {
-//                $token = $matches[1];
-//            }
-//        }
         if ((!isset($_SERVER['PHP_AUTH_USER'])) || (!isset($_SERVER['PHP_AUTH_PW']))) {
             header('WWW-Authenticate: Basic realm="Secured Area"');
             header('HTTP/1.0 401 Unauthorized');

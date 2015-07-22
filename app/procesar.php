@@ -26,10 +26,10 @@ require_once('/ayudantes/webservices/nusoap.php');
  * @autor Reysmer Valle
  * @fecha 2015-07-10 
  */
-function procesaDocumento($id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, $num_op, $tipo_evento) {
+function procesaDocumento($user, $pass, $id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, $num_op, $tipo_evento) {
     list($T_EVENTO_GEN, $T_EVENTO_PRO, $EA_DOC, $ED_DOC, $VERSION) = array('GEN', 'PRO', 'APR', 'DEV', 1);
-    list ($method, $url, $user, $pass) = array("GET", "http://localhost/sasyc/public/parametros", "5@5yc", "5@5yc");
-    $basic_credentials = base64_encode($user . ':' . $pass);
+    list ($method, $url, $usuario, $clave) = array("GET", "http://localhost/sasyc/public/parametros", $user, $pass);
+    $basic_credentials = base64_encode($usuario . ':' . $clave);
     $options = array('http' =>
         array(
             'method' => $method,
@@ -182,6 +182,8 @@ $server->xml_encoding = "utf-8";
 $server->wsdl->schemaTargetNamespace = "http://localhost/sasyc/app/";
 
 $server->register("procesaDocumento", array(
+    "user" => "xsd:string",
+    "pass" => "xsd:string",
     "id_doc" => "xsd:integer",
     "tipo_doc" => "xsd:string",
     "desc_doc" => "xsd:string",
