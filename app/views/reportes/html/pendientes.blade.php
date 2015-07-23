@@ -26,7 +26,7 @@
             <strong>Estatus</strong>
         </td>        
         <td style="width: 160px;height: auto; font-size: 13px;"  valign="middle">
-            <strong>Tratamiento</strong>
+            <strong>Requerimiento</strong>
         </td> 
         <td style="width: 130px;height: auto; font-size: 13px;" valign="middle" ALIGN=right>
             <strong>Monto</strong>

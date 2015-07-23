@@ -76,6 +76,14 @@ class ConfiguracionSeeder extends Seeder {
             'variable' => 'porcimpuesto',
             'valor' => '12',
         ));
+        Configuracion::create(array(
+            'variable' => 'usuariows',
+            'valor' => 'SASYCKNT',
+        ));
+        Configuracion::create(array(
+            'variable' => 'passws',
+            'valor' => 'GaSQKvKMmTDOgD3XkRYN3yaN1Dunrj6o',
+        ));        
     }
 
 }
