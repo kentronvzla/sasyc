@@ -103,10 +103,10 @@ class ProcesarDocumento {
                         }
                     }
                 }
-            } else {    // Si no consigue evento que hace ¿?
+            } else {
                 $mensaje['errores'] = 'No se puede aprobar la solicitud, defina al menos un tipo de documento';
                 return $mensaje;
-            }     // Si no consigue evento que hace ¿?
+            }
         }
         return $mensaje;
     }
@@ -129,25 +129,6 @@ class ProcesarDocumento {
         $ctas_doc_adic_borradas = $db->delete("DELETE FROM ctas_doc_adic WHERE iddoc =" . $doc_ori . "");
         $rengs_sum_adic_borradas = $db->delete("DELETE FROM reng_sum_adic WHERE iddoc = " . $doc_ori . "");
         $compros_det_adic_borradas = $db->delete("DELETE FROM det_comprob_adic WHERE iddoc = " . $doc_ori . "");
-//        $ctas_doc_adic = CtasDocAdic::where('iddoc', '=', $doc_ori)->get();
-//        if ($ctas_doc_adic) {
-//            foreach ($ctas_doc_adic as $cta_doc_adic) {
-//                $cta_doc_adic->delete();
-//            }
-//        }
-//        $rengs_sum_adic = RengSumAdic::where('iddoc', '=', $doc_ori)->get();
-//        if ($rengs_sum_adic) {
-//            foreach ($rengs_sum_adic as $reng_sum_adic) {
-//                $reng_sum_adic->delete();
-//            }
-//        }
-//        $compros_det_adic = ComprobDetAdic::where('iddoc', '=', $doc_ori)->get();
-//        if ($compros_det_adic) {
-//            foreach ($compros_det_adic as $compro_det_adic) {
-//                $compro_det_adic->delete();
-//            }
-//        }
-
         return;
     }
 

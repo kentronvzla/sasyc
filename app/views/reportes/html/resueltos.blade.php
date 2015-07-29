@@ -22,7 +22,7 @@
             <strong>Beneficiario</strong>
         </td>
         <td style="width: 200px;height: auto; font-size: 13px;"  valign="middle">
-            <strong>Tratamiento</strong>
+            <strong>Requerimiento</strong>
         </td> 
         <td style="width: 50px;height: auto; font-size: 13px;"  valign="middle">
             <strong>Cheque</strong>
