@@ -1,3 +1,4 @@
+
 <div class="navbar navbar-default" role="navigation">
 
     <div class="navbar-inner">
@@ -11,29 +12,45 @@
             <i class="glyphicon glyphicon-home"></i>
         </a>
 
+
         <!-- user dropdown starts -->
+        <?php
+        $id = Sentry::getUser()->id;
+        $hoy = date('Y-m-d');
+        ?>
+
         <div class="btn-group pull-right">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> {{Sentry::getUser()->nombre}}</span>
-               <?php
-               $id=Sentry::getUser()->id;
-               ?>
+                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">{{Sentry::getUser()->nombre}}</span>
+
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li>{{HTML::link('login/logout','Cerrar Sesión')}}</li>
                 <li class="divider"></li>
-                 @if(Usuario::puedeAcceder('GET.administracion'))
+                @if(Usuario::puedeAcceder('GET.administracion'))
                 <li>{{HTML::link('administracion','Administración')}}</li>
                 @endif
             </ul>
+        </div>
+        <div class="btn-group pull-right" >
+            <button  style="background-color:yellow" class="btn btn-default">
+
+                <?php
+                $alertas = Bitacora::where('usuario_id', '=', $id)->where('ind_atendida', '=', 'false')
+                                ->where('ind_alarma', '=', 'true')->where('fecha', '<=', $hoy)->get()->count();
+                ?>
+                {{HTML::button('alertas' , 'bell', 'Alertas', true)}}
+                <span class="notification">{{$alertas}}</span>
+            </button>
+
         </div>
         <!-- user dropdown ends -->
 
         <ul class="collapse navbar-collapse nav navbar-nav top-menu">
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Aten. social y ciudadana <span
-                            class="caret"></span></a>
+                        class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     @if(Usuario::puedeAcceder('GET.solicitudes.nueva'))
                     <li>{{HTML::link('solicitudes/nueva/','Nueva Solicitud')}}</li>
@@ -41,7 +58,7 @@
                     @if(Usuario::puedeAcceder('GET.solicitudes.ver'))
                     <li>{{HTML::link('solicitudes','Solicitudes')}}</li>
                     @endif
-                    
+
                     <li class="divider"></li>
                     @if(Usuario::puedeAcceder('GET.solicitudes.asignardepartamento'))
                     <li>{{HTML::link('solicitudes?estatus=ELA&asignar=departamento','Asignar a un Departamento')}}</li>
@@ -53,10 +70,10 @@
                     <li>{{HTML::link('solicitudes?estatus=EAA&asignar=usuario','Reasignar a un Analista')}}</li>
                     @endif
                     <li class="divider"></li>
-                     @if(Usuario::puedeAcceder('GET.memorandum.ver'))
+                    @if(Usuario::puedeAcceder('GET.memorandum.ver'))
                     <li>{{HTML::link('memorandum','Listar Memorandums')}}</li>
-                     @endif
-                     <li class="divider"></li>
+                    @endif
+                    <li class="divider"></li>
                     @if(Usuario::puedeAcceder('GET.solicitudes.aceptarasignacion'))
                     <li>{{HTML::link('solicitar?estatus=EAA&solo_asignadas=true&usuario_asignacion_id='."$id",'Mis Solicitudes (Aceptar Asignacion)')}}</li>
                     @endif
@@ -76,7 +93,7 @@
             </li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Reportes <span
-                            class="caret"></span></a>
+                        class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     @if(Usuario::puedeAcceder('GET.reportes.resueltos'))
                     <li>{{HTML::link('reportes/resueltos/','Casos Resueltos')}}</li>
@@ -88,13 +105,13 @@
                     <li>{{HTML::link('reportes/estadisticassolicitud/','Busqueda Agrupada')}}</li>
                     @endif
                     @if(Usuario::puedeAcceder('GET.reportes.estadisticasgrafico'))
-                   <li>{{HTML::link('reportes/estadisticasgrafico/','Graficas Estadisticas')}}</li>
+                    <li>{{HTML::link('reportes/estadisticasgrafico/','Graficas Estadisticas')}}</li>
                     @endif
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Documentos<span
-                            class="caret"></span></a>
+                        class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     @if(Usuario::puedeAcceder('GET.documentos.ver'))
                     <li>{{HTML::link('documentos','Consulta de Documentos')}}</li>
@@ -104,6 +121,6 @@
         </ul>
     </div>
     @unless(Request::is('/'))
-        {{HTML::image('img/banner_ppal.jpg', 'Banner principal', ['class'=>'img-responsive', 'width'=>'100%'])}}
+    {{HTML::image('img/banner_ppal.jpg', 'Banner principal', ['class'=>'img-responsive', 'width'=>'100%'])}}
     @endunless
 </div>

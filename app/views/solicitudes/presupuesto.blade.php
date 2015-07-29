@@ -13,7 +13,31 @@
 {{Form::hidden('id',$presupuesto->id)}}
 {{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">
-    {{Form::btInput($presupuesto,'requerimiento_id',4,'text',['data-url'=>'requerimientos/procesos','data-child'=>'proceso_id'])}}
+    <?php
+                $documen= Solicitud::select('area_id')->where('id', '=', $solicitud->id)->get();
+                foreach ($documen as $do){
+                     $ayuda= Area::select('tipo_ayuda_id')->where('id', '=', $do['area_id'])->get();
+                     
+                }
+                 foreach ($ayuda as $tu) {
+                     $reque= Requerimiento::select('nombre')->where('tipo_ayuda_id', '=', $tu['tipo_ayuda_id'])->get();    
+                     
+                 }
+                 foreach ($reque as $tipodoc) {
+                $docu= $tipodoc['attributes'];
+                $arreglo = array_shift($docu);
+                $documentos[$arreglo]=$arreglo;
+                     
+                 }
+                 
+                ?>
+               {{Form::btInput($presupuesto, 'requerimiento_id', 6,'select',[],$documentos)}}
+    
+    
+    
+     
+    
+    
     {{Form::btInput($presupuesto,'proceso_id',3)}}
     {{Form::btInput($presupuesto,'cantidad',1)}}
     {{Form::btInput($presupuesto,'monto',2)}}

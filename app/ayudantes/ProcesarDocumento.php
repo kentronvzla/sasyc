@@ -24,7 +24,8 @@ use Presupuesto;
 class ProcesarDocumento {
 
     public function buscarDefEvento($solicitud) {
-
+         
+     
         list($data, $procesos, $eventos, $i) = array(array(), array(), array(), 0);
 
         $presupuestos = \DB::select('SELECT beneficiario_id, proceso_id, documento_id, SUM(montoapr) as monto_total_apr, moneda FROM presupuestos WHERE solicitud_id =' . $solicitud->id . ' GROUP BY beneficiario_id, proceso_id, documento_id, moneda');

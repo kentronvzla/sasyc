@@ -29,6 +29,9 @@ class BitacorasController extends BaseController {
         $data['bitacora']->atendida();
         $data['solicitud'] = $data['bitacora']->solicitud;
         $data['bitacoras'] = $data['solicitud']->bitacoras;
+        
         return View::make('solicitudes.bitacora', $data);
     }
+    
+      
 }

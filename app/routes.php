@@ -54,6 +54,7 @@ Route::group(['before'=>'auth'], function(){
     Route::controller('reportes', 'ReportesController');
     Route::controller('documentos', 'DocumentossasycesController');
     Route::controller('autocompletar', 'AutocompletarController');
+    Route::controller('alertas', 'AlertasController');
    
     
 });

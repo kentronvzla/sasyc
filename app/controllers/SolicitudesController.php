@@ -179,7 +179,26 @@ class SolicitudesController extends BaseController {
 
     public function getSolicitaraprobacion($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
-        return View::make('solicitudes.solicitaraprobacion', $data);
+        $prueba = $data['solicitud']->informe_social;
+        if (!empty($prueba)) {
+            $recaudo = RecaudoSolicitud::select('ind_recibido', 'recaudo_id')->where('solicitud_id', '=', $id)->get();
+            $data['prueba'] = $recaudo;
+            foreach ($recaudo as $todo) {
+                $primero = $todo['attributes'];
+                $primer = array_shift($primero);
+                $pru[] = $primer;
+                $data['inf_social'] = 1;
+            }
+            if (in_array(false, $pru)) {
+                return View::make('solicitudes.mensaje', $data);
+            } else {
+                return View::make('solicitudes.solicitaraprobacion', $data);
+            }
+        } else {
+            $data['inf_social'] = null;
+            $data['prueba'] = 1;
+            return View::make('solicitudes.mensaje', $data);
+        }
     }
 
     public function postSolicitaraprobacion() {
@@ -203,8 +222,12 @@ class SolicitudesController extends BaseController {
         }
 //        if ($solicitud->solicitarAprobacion(Input::get('usuario_autorizacion_id'))) {
         Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $solicitud->id);
-//        return Redirect::back()->with('mensaje','Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente');
-        return Response::json(['mensaje' => 'Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente']);
+        $id = Sentry::getUser()->id;
+//          return Redirect::back()->with('mensaje','Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente');
+        return \Redirect::to(('solicitudes?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id=' . "$id"))
+                        ->with('mensaje', 'Se solicito la aprobacion de la solictud ' . $solicitud->id
+                                . ' correctamente.');
+        // return Response::json(['mensaje' => 'Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente']);
 //        }
 //        return Response::json(['errores' => $solicitud->getErrors()], 400);
     }

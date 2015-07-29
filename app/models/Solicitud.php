@@ -747,7 +747,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function puedeModificar() {
-        $arr = ['ELA', 'ART', 'ELD', 'EAA', 'ACA', 'PPA'];
+        $arr = ['ELA', 'ART', 'ELD', 'EAA', 'ACA'];
         return in_array($this->estatus, $arr);
     }
 
