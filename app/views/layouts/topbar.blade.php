@@ -41,7 +41,7 @@
                                 ->where('ind_alarma', '=', 'true')->where('fecha', '<=', $hoy)->get()->count();
                 ?>
                 {{HTML::button('alertas' , 'bell', 'Alertas', true)}}
-                <span class="notification">{{$alertas}}</span>
+                <span class="notification red">{{$alertas}}</span>
             </button>
 
         </div>
