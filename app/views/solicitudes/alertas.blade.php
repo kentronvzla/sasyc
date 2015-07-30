@@ -30,7 +30,7 @@
                             <td>
                               
                                 <a class="btn btn-primary btn-xs" href="{{$url}}/modificar/{{$bit->id}}">
-                                    <i class="fa fa-check edit-trigger"></i>
+                                    <i class="fa fa-check"></i>
                                 </a>
                                
                             </td>

@@ -14,15 +14,15 @@
         <!-- user dropdown starts -->
         <div class="btn-group pull-right">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">{{Sentry::getUser()->nombre}}</span>
-
+                <i class="glyphicon glyphicon-user"></i>&nbsp;
+                <span class="hidden-sm hidden-xs">{{Sentry::getUser()->nombre}}</span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li>{{HTML::link('login/logout','Cerrar Sesión')}}</li>
-                  @if(Usuario::puedeAcceder('GET.administracion'))
+                @if(Usuario::puedeAcceder('GET.administracion'))
                 <li class="divider"></li>
-              
+
                 <li>{{HTML::link('administracion','Administración')}}</li>
                 @endif
             </ul>
@@ -32,18 +32,18 @@
         $hoy = date('Y-m-d');
         $alerta = Bitacora::where('usuario_id', '=', $id)->where('ind_atendida', '=', 'false')
                         ->where('ind_alarma', '=', 'true')->where('fecha', '<=', $hoy)
-                ->get()->count();
+                        ->get()->count();
         ?>
-     
+
         @if ($alerta >= 1)
         <div class="btn-group pull-right" >
             <button  style="background-color:#aea79f" class="btn btn-default">
-                 @if(Usuario::puedeAcceder('GET.alertas'))
+                @if(Usuario::puedeAcceder('GET.alertas'))
                 {{HTML::button('alertas' , 'bell', 'Alertas', true)}}
-                  @endif   
+                @endif   
                 <span class="notification red">{{$alerta}}</span>
             </button>
-        
+
         </div>
         @endif    
         <!-- user dropdown ends -->
@@ -107,17 +107,17 @@
                     @endif
                 </ul>
             </li>
-           @if(Usuario::puedeAcceder('GET.documentossasyces.ver'))
+            @if(Usuario::puedeAcceder('GET.documentossasyces.ver'))
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-list"></i> Documentos<span
                         class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  
+
                     <li>{{HTML::link('documentos','Consulta de Documentos')}}</li>
-                  
+
                 </ul>
             </li>
-              @endif
+            @endif
         </ul>
     </div>
     @unless(Request::is('/'))
