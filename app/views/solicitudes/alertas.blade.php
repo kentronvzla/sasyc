@@ -2,7 +2,7 @@
     <div class="modal-content">
         @foreach ($bitacoras as $bitacora)
 
-        {{Form::open(array('url'=>'alertas'))}}
+        {{Form::open(array('url'=>'alertas', 'class'=>'saveajax'))}}
         {{Form::hidden('id', $bitacora->id)}}
         @endforeach
         <div class="modal-header">
@@ -28,13 +28,11 @@
                             <td>{{$bit->getValueAt('nota')}}</td>
                             <td>{{$bit->getValueAt('ind_atendida')}}</td>
                             <td>
-                                @if($bit->vencida)
-                                @if(Usuario::puedeAcceder('GET.bitacoras.atendida'))
+                              
                                 <a class="btn btn-primary btn-xs" href="{{$url}}/modificar/{{$bit->id}}">
                                     <i class="fa fa-check edit-trigger"></i>
                                 </a>
-                                @endif
-                                @endif
+                               
                             </td>
                         </tr>
                         @endforeach
