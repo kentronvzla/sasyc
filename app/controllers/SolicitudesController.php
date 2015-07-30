@@ -246,7 +246,7 @@ class SolicitudesController extends BaseController {
     public function postAnular() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         if ($solicitud->anular(Input::get('nota'))) {
-            return Redirect::to('solicitudes')->with('mensaje', 'Se anuló la solicitud: ' . $solicitud->id . ', correctamente');
+            return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=ART&estatus[]=ELD&estatus[]=ACA&estatus[]=DEV&estatus[]=EAA&anulando=true')->with('mensaje', 'Se anuló la solicitud: ' . $solicitud->id . ', correctamente');
         }
         return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=ART&estatus[]=ELD&estatus[]=ACA&estatus[]=DEV&estatus[]=EAA&anulando=true')->with('error', $solicitud->getErrors()->first());
     }
@@ -260,7 +260,7 @@ class SolicitudesController extends BaseController {
     public function postCerrar() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         if ($solicitud->cerrar()) {
-            return Redirect::to('solicitudes')->with('mensaje', 'Se cerro la solicitud: ' . $solicitud->id . ', correctamente');
+            return Redirect::to('solicitudes?estatus[]=APR&cerrar=true')->with('mensaje', 'Se cerro la solicitud: ' . $solicitud->id . ', correctamente');
         }
         return Redirect::to('solicitudes?estatus[]=APR&cerrar=true')->with('error', $solicitud->getErrors()->first());
     }
