@@ -25,7 +25,7 @@ $app = new Illuminate\Foundation\Application;
  */
 
 $env = $app->detectEnvironment(array(
-    'produccion' => ['100.67.40.49'],
+    'produccion' => ['linuxkentron'],
     'local' => array('LENOVO-MJ83W43','LENOVO-MJ83Y16', 'KNTDSW01W8', 'KNTDSW02W8'),
     'test' => array('APPWEBDESA')
         )
