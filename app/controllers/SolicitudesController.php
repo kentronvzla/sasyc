@@ -179,8 +179,8 @@ class SolicitudesController extends BaseController {
 
     public function getSolicitaraprobacion($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
-        $prueba = $data['solicitud']->informe_social;
-        if (!empty($prueba)) {
+        $informe = $data['solicitud']->informe_social;
+        if (!empty($informe)) {
             $recaudo = RecaudoSolicitud::select('ind_recibido', 'recaudo_id')->where('solicitud_id', '=', $id)->get();
             $data['prueba'] = $recaudo;
             foreach ($recaudo as $todo) {
@@ -248,7 +248,7 @@ class SolicitudesController extends BaseController {
         if ($solicitud->anular(Input::get('nota'))) {
             return Redirect::to('solicitudes')->with('mensaje', 'Se anuló la solicitud: ' . $solicitud->id . ', correctamente');
         }
-        return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&anulando=true')->with('error', $solicitud->getErrors()->first());
+        return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=ART&estatus[]=ELD&estatus[]=ACA&estatus[]=DEV&estatus[]=EAA&anulando=true')->with('error', $solicitud->getErrors()->first());
     }
 
     public function getCerrar($id) {
@@ -262,7 +262,7 @@ class SolicitudesController extends BaseController {
         if ($solicitud->cerrar()) {
             return Redirect::to('solicitudes')->with('mensaje', 'Se cerro la solicitud: ' . $solicitud->id . ', correctamente');
         }
-        return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=REF&estatus[]=PEN&estatus[]=ACP&cerrar=true')->with('error', $solicitud->getErrors()->first());
+        return Redirect::to('solicitudes?estatus[]=APR&cerrar=true')->with('error', $solicitud->getErrors()->first());
     }
 
     public function getBitacora($id, $store = false) {
