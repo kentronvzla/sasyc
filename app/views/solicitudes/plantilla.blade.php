@@ -70,7 +70,6 @@
                             </div>
                         </div>
                     @endunless
-                    <!--@if($solicitud->puedeModificarFamiliarEconomico())-->
                         <div class="panel panel-danger">
                             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelCuatro">
                                 <h4 class="panel-title">
@@ -99,7 +98,6 @@
                                 </div>
                             </div>
                         </div>
-                    <!--@endif-->
                     <div class="panel panel-danger">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelSeis">
                             <h4 class="panel-title">
