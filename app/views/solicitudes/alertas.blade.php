@@ -15,46 +15,36 @@
         <div class="modal-body">
             <div class="table-responsive">
                 <table class="table table-striped">
-
                     <thead>
                         <tr>
-
                             <th>Notas</th>
                             <th>Atendia?</th>
                             <th>Atender</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($bitacoras as $bit)
                         <tr>
-
                             <td>{{$bit->getValueAt('nota')}}</td>
                             <td>{{$bit->getValueAt('ind_atendida')}}</td>
                             <td>
                                 @if($bit->vencida)
                                 @if(Usuario::puedeAcceder('GET.bitacoras.atendida'))
-
-                            <a class="btn btn-primary btn-xs" href="{{$url}}/modifica/{{$bit->id}}/{{$bit->solicitud_id}}">
-                                <i class="fa fa-check edit-trigger"></i></a>
-
-
-                            @endif
-                            @endif
+                                <a class="btn btn-primary btn-xs" href="{{$url}}/modificar/{{$bit->id}}">
+                                    <i class="fa fa-check edit-trigger"></i>
+                                </a>
+                                @endif
+                                @endif
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         </div>
-
-
         {{Form::close()}}
     </div>
 </div>

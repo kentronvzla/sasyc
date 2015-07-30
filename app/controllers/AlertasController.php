@@ -12,7 +12,7 @@ class AlertasController extends BaseController {
 
         return View::make('solicitudes.alertas', $data);
     }
- public function getModifica($bitacora_id, $id) {
+ public function getModificar($bitacora_id) {
         $data['bitacora'] = Bitacora::findOrFail($bitacora_id);
         $data['bitacora']->atendida();
         $data['solicitud'] = $data['bitacora']->solicitud;
