@@ -43,7 +43,7 @@
 class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalInterface {
 
     private static $estatusModificacion = [
-        'ELA', 'ELD', 'REF', 'EAA','ACA'
+        'ELA', 'ELD', 'ART', 'EAA', 'ACA', 'DEV'
     ];
 
     protected $table = "presupuestos";

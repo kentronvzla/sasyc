@@ -18,6 +18,9 @@
     <div class="panel panel-danger">
         <div class="panel-heading">Tablas</div>
         <ul class="list-group">
+            <a href="{{url('administracion/tablas/tipoEventos')}}">
+                <li class="list-group-item">Tipo de Documentos</li>
+            </a>            
             <a href="{{url('administracion/tablas/configuraciones')}}">
                 <li class="list-group-item">Configuracion Avanzada</li>
             </a>            
@@ -71,9 +74,6 @@
             </a>
             <a href="{{url('administracion/tablas/referentes')}}">
                 <li class="list-group-item">Referentes</li>
-            </a>
-            <a href="{{url('administracion/tablas/tipoEventos')}}">
-                <li class="list-group-item">Tipo de Documentos</li>
             </a>            
             <a href="{{url('administracion/tablas/procesos')}}">
                 <li class="list-group-item">Procesos</li>
