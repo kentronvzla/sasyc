@@ -34,9 +34,11 @@
                 </div>
                 <div class="row">
                    <div class="col-lg-12">
+                        @if(Usuario::puedeAcceder('POST.reportes.resueltos'))
                         <button class="btn btn-primary" type="submit" name="formato_reporte" value="pdf"><i class="fa fa-file-pdf-o"></i> Generar en PDF</button>
                         <button class="btn btn-primary" type="submit" name="formato_reporte" value="xls"><i class="fa fa-file-excel-o"></i> Generar en Excel</button>
-                    </div>
+                   @endif
+                   </div>
                 </div>
             </div>
         </div>

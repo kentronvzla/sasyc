@@ -89,6 +89,10 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
             'GET.reportes.estadisticassolicitud' => 'Reporte Estadistica Agrupada',
             'GET.reportes.estadisticasgrafico' => 'Graficas Estadisticas',
             'GET.reportes.puntomemo' => 'Reporte Punto Memo',
+            'POST.reportes.resueltos' => 'Generar Reporte de Casos Resueltos',
+            'POST.reportes.pendientes' => 'Generar Reporte de Casos Pendientes',
+            'POST.reportes.estadisticassolicitud' => 'Generar Reporte de Busqueda Agrupada',
+            'POST.reportes.datos' => 'Generar Reporte de Graficas Estadisticas',
         ),
         'DocumentossasycesController' => array(
             'Descripcion' => 'Menu de Documentos',
@@ -103,6 +107,17 @@ class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {
             'GET.solicitudes.modificar' => 'Modificar Solicitudes',
             'POST.solicitudes.nueva' => 'Guardar Solicitudes Nuevas',
             'POST.solicitudes.asignar' => 'Asignar Departamento/Analista/ Reasignar Analista',
+        ),
+         'PermisosController' => array(
+            'Descripcion' => 'Menu para Modificar Solicitudes',
+            'GET.solicitudes.modificar' => 'Solicitud',
+            'GET.personas.modificar' => 'Beneficiario',
+            'GET.personas.crear' => 'Solicitante',
+            'GET.personas.familiar' => 'Grupo Familiar',
+            'GET.solicitudes.informe' => 'Informe Socieconomico',
+            'GET.recaudossolicitud.modificar' => 'Recaudos',
+            'GET.presupuestos.modificar' => 'Presupuestos',
+            'GET.fotossolicitud.modificar' => 'Galeria de Fotos',
         ),
         'MemosController' => array(
             'Descripcion' => 'Operaciones de Memorandums',
