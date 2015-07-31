@@ -55,7 +55,8 @@ function procesaDocumento($user, $pass, $id_doc, $tipo_doc, $desc_doc, $id_doc_r
         $dbh = new PDO($dsn);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if ($dbh) {
-            $sql = "SELECT id, tipo_doc, tipo_evento, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic FROM defeventosasyc WHERE tipo_doc ='" . $tipo_doc . "' AND tipo_evento = '" . $T_EVENTO_PRO . "';";
+            $sql = "SELECT id, tipo_doc, tipo_evento, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic FROM defeventosasyc WHERE tipo_doc ='" . $tipo_doc;
+            //. "' AND tipo_evento = '" . $T_EVENTO_PRO . "';";
             $stmt = $dbh->query($sql);
             if ($stmt === false) {
                 return 1001;
