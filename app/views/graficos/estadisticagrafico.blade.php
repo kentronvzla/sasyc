@@ -34,7 +34,9 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
+                     @if(Usuario::puedeAcceder('POST.reportes.datos'))
                     <button type="button" class="btn btn-primary graficar_datos"> Generar en Gráfico</button>
+               @endif
                 </div>
             </div>
         </div>
