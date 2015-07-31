@@ -29,9 +29,9 @@ return array(
         ),
         'oracle' => array(
             'driver' => 'oracle',
-            'host' => 'appweb',
+            'host' => 'olimpo',
             'port' => '1521',
-            'database' => 'prueba',
+            'database' => 'keruxalt',
             'username' => 'sasyc',
             'password' => 'sasyc',
             'charset' => 'AL32UTF8',
