@@ -266,8 +266,8 @@
                         </h4>
                     </div>
                     <div class="panel-body">
-                        <div class="text-center">                           
-                            {{HTML::button('solicitudes/solicitaraprobacion/'.$solicitud->id , 'certificate', 'Solicitar Aprobacion', true)}}                           
+                        <div class="text-center">   
+                            {{HTML::buttonText('solicitudes/solicitaraprobacion/'.$solicitud->id , 'certificate', 'Solicitar Aprobacion', true)}}                           
                         </div>
                     </div> 
                 </div>

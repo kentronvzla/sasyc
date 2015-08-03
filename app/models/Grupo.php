@@ -14,7 +14,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Grupo wherePermissions($value)
  * @method static \Illuminate\Database\Query\Builder|\Grupo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Grupo whereUpdatedAt($value)
- * @property integer $version 
+ * @property integer $version
  * @method static \Illuminate\Database\Query\Builder|\Grupo whereVersion($value)
  */
 class Grupo extends BaseModel implements SimpleTableInterface, SelectInterface {

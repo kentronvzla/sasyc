@@ -15,23 +15,23 @@ namespace Oracle;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Presupuesto[] $presupuestos
  * @property-read mixed $id
  * @property-read mixed $estatus_display
- * @property integer $BENEFICIARIO_ID 
- * @property string $CCOSTO 
- * @property string $COD_ACC_INT 
- * @property string $DEPENDENCIA 
- * @property string $DESCRIPCION 
- * @property string $ESTATUS 
- * @property string $FECHA 
- * @property integer $ID 
- * @property integer $ID_DOC 
- * @property string $IND_REVERSO 
- * @property string $MENSAJE 
- * @property string $MONEDA 
- * @property float $MONTO 
- * @property string $REFERENCIA 
- * @property integer $SOLICITUD_ID 
- * @property string $TIPO_DOC 
- * @property integer $VERSION 
+ * @property integer $BENEFICIARIO_ID
+ * @property string $CCOSTO
+ * @property string $COD_ACC_INT
+ * @property string $DEPENDENCIA
+ * @property string $DESCRIPCION
+ * @property string $ESTATUS
+ * @property string $FECHA
+ * @property integer $ID
+ * @property integer $ID_DOC
+ * @property string $IND_REVERSO
+ * @property string $MENSAJE
+ * @property string $MONEDA
+ * @property float $MONTO
+ * @property string $REFERENCIA
+ * @property integer $SOLICITUD_ID
+ * @property string $TIPO_DOC
+ * @property integer $VERSION
  * @method static \Illuminate\Database\Query\Builder|\Oracle\Documento whereBENEFICIARIOID($value)
  * @method static \Illuminate\Database\Query\Builder|\Oracle\Documento whereCCOSTO($value)
  * @method static \Illuminate\Database\Query\Builder|\Oracle\Documento whereCODACCINT($value)

@@ -4,16 +4,16 @@
  * Description of Proceso
  *
  * @author Nadin Yamani
- * @property integer $id 
- * @property string $nombre 
- * @property string $tipo_doc 
- * @property boolean $ind_cantidad 
- * @property boolean $ind_monto 
- * @property boolean $ind_beneficiario 
- * @property integer $version 
- * @property \Carbon\Carbon $created_at 
- * @property \Carbon\Carbon $updated_at 
- * @property-read mixed $estatus_display 
+ * @property integer $id
+ * @property string $nombre
+ * @property string $tipo_doc
+ * @property boolean $ind_cantidad
+ * @property boolean $ind_monto
+ * @property boolean $ind_beneficiario
+ * @property integer $version
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read mixed $estatus_display
  * @method static \Illuminate\Database\Query\Builder|\Proceso whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Proceso whereNombre($value)
  * @method static \Illuminate\Database\Query\Builder|\Proceso whereTipoDoc($value)

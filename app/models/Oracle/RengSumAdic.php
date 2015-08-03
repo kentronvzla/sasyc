@@ -13,7 +13,7 @@ namespace Oracle;
  *
  * @author Reysmer Valle
  * @property-read mixed $id
- * @property-read mixed $estatus_display 
+ * @property-read mixed $estatus_display
  */
 class RengSumAdic extends OracleBaseModel {
 

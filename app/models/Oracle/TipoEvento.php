@@ -12,14 +12,14 @@ namespace Oracle;
  * Description of TipoEvento
  *
  * @author Dhaily Robles
- * @property string $CODRUTA 
- * @property string $DESCTIPODOC 
- * @property string $INDREFDOC 
- * @property string $TIPODOC 
- * @property string $TIPODOCREF 
- * @property string $TIPOEVENTO 
- * @property-read \Illuminate\Database\Eloquent\Collection|\Defeventosasyc[] $defeventosasyc 
- * @property-read mixed $estatus_display 
+ * @property string $CODRUTA
+ * @property string $DESCTIPODOC
+ * @property string $INDREFDOC
+ * @property string $TIPODOC
+ * @property string $TIPODOCREF
+ * @property string $TIPOEVENTO
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Defeventosasyc[] $defeventosasyc
+ * @property-read mixed $estatus_display
  * @method static \Illuminate\Database\Query\Builder|\Oracle\TipoEvento whereCODRUTA($value)
  * @method static \Illuminate\Database\Query\Builder|\Oracle\TipoEvento whereDESCTIPODOC($value)
  * @method static \Illuminate\Database\Query\Builder|\Oracle\TipoEvento whereINDREFDOC($value)

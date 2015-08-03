@@ -81,7 +81,7 @@
                             <?php
                             $id=Sentry::getUser()->id;
                             ?>
-                            @if ($solicitud->usuario_asignacion_id == $id)
+                            @if ($solicitud->usuario_asignacion_id == $id || $solicitud->usuario_asignacion_id == null )
                             @if($solicitud->puedeModificar())
                                 {{HTML::button('solicitudes/modificar/'.$solicitud->id, 'pencil','Modificar Solicitud')}}
                             @endif

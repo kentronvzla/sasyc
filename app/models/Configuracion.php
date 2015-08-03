@@ -14,7 +14,7 @@
  * @method static \Illuminate\Database\Query\Builder|\Configuracion whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Configuracion whereUpdatedAt($value)
  * @property-read mixed $estatus_display
- * @property integer $version 
+ * @property integer $version
  * @method static \Illuminate\Database\Query\Builder|\Configuracion whereVersion($value)
  */
 class Configuracion extends BaseModel implements SimpleTableInterface {

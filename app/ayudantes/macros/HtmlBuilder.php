@@ -14,6 +14,10 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
         return '<a class="btn btn-primary btn-xs '.($modal ? 'abrir-modal':'').'" href="'.url($href).'" title="'.$title.'" target="_blank">'.\HTML::icon($icon).'</a>';
     }
 
+    function buttonText($href, $icon, $title, $modal = false) {
+        return '<a class="btn btn-primary '.($modal ? 'abrir-modal':'').'" href="'.url($href).'" title="'.$title.'" target="_blank">'.\HTML::icon($icon).' '.$title.'</a>';
+    }
+    
     function icon($icon) {
         return '<span class="fa fa-' . $icon . '"></span>';
     }

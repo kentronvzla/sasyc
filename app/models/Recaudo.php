@@ -1,36 +1,29 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Recaudo
  *
- * @property integer $id
- * @property string $nombre
- * @property string $descripcion
- * @property boolean $ind_obligatorio
- * @property boolean $ind_vence
- * @property boolean $ind_activo
- * @property integer $version
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property integer $id 
+ * @property string $nombre 
+ * @property string $descripcion 
+ * @property boolean $ind_obligatorio 
+ * @property boolean $ind_vence 
+ * @property boolean $ind_activo 
+ * @property integer $tipo_ayuda_id 
+ * @property integer $version 
+ * @property \Carbon\Carbon $created_at 
+ * @property \Carbon\Carbon $updated_at 
+ * @property-read \TipoAyuda $tipoAyuda 
+ * @property-read mixed $estatus_display 
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereNombre($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereDescripcion($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereIndObligatorio($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereIndVence($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereIndActivo($value)
+ * @method static \Illuminate\Database\Query\Builder|\Recaudo whereTipoAyudaId($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereUpdatedAt($value)
- * @property-read mixed $estatus_display
- * @property integer $tipo_ayuda_id 
- * @property-read \TipoAyuda $tipoAyuda 
- * @method static \Illuminate\Database\Query\Builder|\Recaudo whereTipoAyudaId($value)
  */
 class Recaudo extends BaseModel implements SimpleTableInterface {
 

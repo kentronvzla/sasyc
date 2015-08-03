@@ -37,8 +37,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereUpdatedAt($value)
  * @property-read mixed $notafor
  * @property-read mixed $estatus_display
- * @property boolean $ind_atendida 
- * @property-read mixed $vencida 
+ * @property boolean $ind_atendida
+ * @property-read mixed $vencida
  * @method static \Illuminate\Database\Query\Builder|\Bitacora whereIndAtendida($value)
  */
 class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {

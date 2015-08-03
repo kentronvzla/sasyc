@@ -108,9 +108,9 @@
  * @method static \Solicitud ordenar()
  * @method static \Solicitud aplicarFiltro($filtro)
  * @method static \Solicitud eagerLoad()
- * @property string $referencia_externa 
- * @property string $num_solicitud 
- * @property-read mixed $tipo_proc_for 
+ * @property string $referencia_externa
+ * @property string $num_solicitud
+ * @property-read mixed $tipo_proc_for
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereReferenciaExterna($value)
  * @method static \Illuminate\Database\Query\Builder|\Solicitud whereNumSolicitud($value)
  */
@@ -415,7 +415,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function createdModel($model) {
-        $recaudos = Recaudo::whereIndActivo(true)->whereTipoAyudaId($this->area->tipo_ayuda_id)->get();
+        $recaudos = Recaudo::whereTipoAyudaId($this->area->tipo_ayuda_id)->whereIndActivo(true)->get();
         $recaudos->each(function ($recaudo) use ($model) {
             $recSolicitud = new RecaudoSolicitud();
             $recSolicitud->solicitud()->associate($model);

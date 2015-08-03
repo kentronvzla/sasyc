@@ -32,9 +32,9 @@
  * @method static \Illuminate\Database\Query\Builder|\Memo whereAsunto($value)
  * @method static \Illuminate\Database\Query\Builder|\Memo whereOrigenId($value)
  * @method static \Illuminate\Database\Query\Builder|\Memo whereDestinoId($value)
- * @property integer $usuario_id 
- * @property-read \Usuario $usuario 
- * @property-read \Illuminate\Database\Eloquent\Collection|\Solicitud[] $solicitudes 
+ * @property integer $usuario_id
+ * @property-read \Usuario $usuario
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Solicitud[] $solicitudes
  * @method static \Illuminate\Database\Query\Builder|\Memo whereUsuarioId($value)
  */
 class Memo extends BaseModel implements DefaultValuesInterface, SimpleTableInterface {

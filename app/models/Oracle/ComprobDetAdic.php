@@ -12,7 +12,7 @@ namespace Oracle;
  * Description of ComprobDetAdic
  *
  * @author Reysmer Valle
- * @property-read mixed $estatus_display 
+ * @property-read mixed $estatus_display
  */
 class ComprobDetAdic extends OracleBaseModel {
     

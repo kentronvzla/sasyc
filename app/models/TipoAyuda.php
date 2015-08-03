@@ -23,6 +23,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\Area[] $areas
  * @property-read mixed $estatus_display
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Recaudo[] $recaudos 
  */
 class TipoAyuda extends BaseModel implements SimpleTableInterface {
 
@@ -63,5 +64,9 @@ class TipoAyuda extends BaseModel implements SimpleTableInterface {
     public function areas() {
         return $this->hasMany('Area');
     }
+    
+    public function recaudos() {
+        return $this->hasMany('Recaudo');
+    }    
 
 }

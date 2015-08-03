@@ -16,8 +16,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Departamento whereNombre($value)
  * @method static \Illuminate\Database\Query\Builder|\Departamento whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Departamento whereUpdatedAt($value)
- * @property integer $version 
- * @property-read \Illuminate\Database\Eloquent\Collection|\Usuario[] $usuarios 
+ * @property integer $version
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Usuario[] $usuarios
  * @method static \Illuminate\Database\Query\Builder|\Departamento whereVersion($value)
  */
 class Departamento extends BaseModel implements SimpleTableInterface {

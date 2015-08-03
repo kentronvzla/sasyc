@@ -35,8 +35,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereDepartamentoId($value)
- * @property integer $version 
- * @property-read mixed $grupos_display 
+ * @property integer $version
+ * @property-read mixed $grupos_display
  * @method static \Illuminate\Database\Query\Builder|\Usuario whereVersion($value)
  */
 class Usuario extends BaseModel implements SimpleTableInterface {
