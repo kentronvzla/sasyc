@@ -258,6 +258,7 @@
                         </div>
                     </div> 
                 </div>
+              @if($solicitud->estatus == 'ACA')
             <div class="panel panel-danger">
                     <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelPlanilla">
                         <h4 class="panel-title">
@@ -266,10 +267,13 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center">
+                           
                             {{HTML::button('solicitudes/solicitaraprobacion/'.$solicitud->id , 'certificate', 'Solicitar Aprobacion', true)}}
+                           
                         </div>
                     </div> 
                 </div>
+               @endif
             @endunless
         </div>
     </div>
