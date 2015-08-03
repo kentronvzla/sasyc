@@ -13,6 +13,8 @@ class SolicitudesController extends BaseController {
         $data['solicitud'] = Solicitud::findOrFail($id);
         $data['beneficiario'] = $data['solicitud']->getBeneficiario();
         $data['solicitante'] = $data['solicitud']->getSolicitante();
+        $data['recaudos'] = $data['solicitud']->recaudosSolicitud;        
+        $data['fotos'] = $data['solicitud']->fotos;
         return View::make('solicitudes.planilla', $data);
     }
 
