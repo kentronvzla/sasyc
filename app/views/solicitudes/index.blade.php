@@ -75,10 +75,16 @@
                                 </div>
                             @endif
                         </div>
+                        
                         <div class="col-xs-12 col-sm-2 col-md-2 text-right">
                             {{HTML::button('solicitudes/ver/'.$solicitud->id, 'search','Ver Solicitud')}}
+                            <?php
+                            $id=Sentry::getUser()->id;
+                            ?>
+                            @if ($solicitud->usuario_asignacion_id == $id)
                             @if($solicitud->puedeModificar())
                                 {{HTML::button('solicitudes/modificar/'.$solicitud->id, 'pencil','Modificar Solicitud')}}
+                            @endif
                             @endif
                             @if(isset($anulando))
                                 {{HTML::button('solicitudes/anular/'.$solicitud->id, 'trash','Anular Solicitud', true)}}
