@@ -19,7 +19,7 @@
                     </div>
                 </div>
             @else
-             @if(Usuario::puedeAcceder('GET.solicitudes.modificar'))
+            
                 <div class="panel panel-danger">
                     <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelUno">
                         <h4 class="panel-title">
@@ -39,8 +39,7 @@
                     </div>
                      
                 </div>
-             @endif
-             @if(Usuario::puedeAcceder('GET.personas.modificar'))
+            
                 @unless(is_null($solicitud->id))
                     <div class="panel panel-danger">
                         <div class="panel-heading"  data-toggle="collapse" data-parent="#accordion" href="#PanelDos">
@@ -60,8 +59,7 @@
                         </div>
                          
                     </div>
-                 @endif
-                 @if(Usuario::puedeAcceder('GET.personas.crear'))
+                
                     @unless($solicitud->ind_mismo_benef)
                         <div class="panel panel-danger">
                             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelTres">
@@ -82,8 +80,7 @@
                            
                         </div>
                     @endunless
-                     @endif
-                     @if(Usuario::puedeAcceder('GET.personas.familiar'))
+                    
                         <div class="panel panel-danger">
                             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelCuatro">
                                 <h4 class="panel-title">
@@ -100,8 +97,8 @@
                             </div>
                            
                         </div>
-                      @endif
-                       @if(Usuario::puedeAcceder('GET.solicitudes.informe'))
+                    
+                      
                         <div class="panel panel-danger">
                             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelCinco">
                                 <h4 class="panel-title">
@@ -118,8 +115,7 @@
                             </div>
                            
                         </div>
-                     @endif
-                     @if(Usuario::puedeAcceder('GET.recaudossolicitud.modificar'))
+                   
                     <div class="panel panel-danger">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelSeis">
                             <h4 class="panel-title">
@@ -136,8 +132,7 @@
                         </div>
                        
                     </div>
-                     @endif
-                     @if(Usuario::puedeAcceder('GET.presupuestos.modificar'))
+                    
                     <div class="panel panel-danger">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelSiete">
                             <h4 class="panel-title">
@@ -154,8 +149,7 @@
                         </div>
                         
                     </div>
-                    @endif
-                      @if(Usuario::puedeAcceder('GET.fotossolicitud.modificar'))
+                 
                     <div class="panel panel-danger">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelOcho">
                             <h4 class="panel-title">
@@ -172,7 +166,7 @@
                         </div>
                         
                     </div>
-                      @endif
+                      
                     <!-------------------------------------------------------------------->
                 @endunless
             @endif
