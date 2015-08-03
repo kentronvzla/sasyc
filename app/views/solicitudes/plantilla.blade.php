@@ -179,6 +179,7 @@
                     </div>
                 </div>
             </div>
+           
             <div id="div-cne" class="panel panel-danger" style="display:none;">
                 <div class="panel-heading">CNE</div>
                 <div class="panel-body text-center">
@@ -214,7 +215,8 @@
                         <iframe id="isate" src="" width="350px"  height="540px" ></iframe>
                     </div>
                 </div>
-            </div>                 
+            </div>
+           
             @unless(is_null($solicitud->id))
                 <div id="div-bitacora" class="panel panel-danger" style="display:block;">
                     <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelBitacora">
@@ -254,7 +256,19 @@
                                 </ul>
                             </div>
                         </div>
+                    </div> 
+                </div>
+            <div class="panel panel-danger">
+                    <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelPlanilla">
+                        <h4 class="panel-title">
+                           Solicitar Aprobacion
+                        </h4>
                     </div>
+                    <div class="panel-body">
+                        <div class="text-center">
+                            {{HTML::button('solicitudes/solicitaraprobacion/'.$solicitud->id , 'certificate', 'Solicitar Aprobacion', true)}}
+                        </div>
+                    </div> 
                 </div>
             @endunless
         </div>
@@ -263,3 +277,5 @@
 @section('javascript')
     {{HTML::script('js/views/solicitudes/solicitud.js')}}
 @stop
+
+  
