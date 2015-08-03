@@ -19,7 +19,7 @@
                     </div>
                 </div>
             @else
-            
+             @if(Usuario::puedeAcceder('GET.solicitudes.modificar'))
                 <div class="panel panel-danger">
                     <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelUno">
                         <h4 class="panel-title">
@@ -27,20 +27,18 @@
                                 Solicitud
                             </a>
                         </h4>
-                    </div>
-                    
+                    </div>            
                     <div id="PanelUno" class="panel-collapse collapse in">
                         <div class="panel-body">             
                             {{Form::open(['url'=>'solicitudes/modificar','id'=>'form-solicitud'])}}
                             @include('solicitudes.solicitud')
-                            {{Form::close()}}
-                           
+                            {{Form::close()}}   
                         </div>
-                    </div>
-                     
+                    </div>      
                 </div>
-            
+                @endif
                 @unless(is_null($solicitud->id))
+                  @if(Usuario::puedeAcceder('GET.personas.modificar'))
                     <div class="panel panel-danger">
                         <div class="panel-heading"  data-toggle="collapse" data-parent="#accordion" href="#PanelDos">
                             <h4 class="panel-title">
@@ -48,19 +46,18 @@
                                     Beneficiario
                                 </a>
                             </h4>
-                        </div>
-                         
+                        </div>         
                         <div id="PanelDos" class="panel-collapse collapse">
                             <div class="panel-body">
                                 {{Form::open(['url'=>'personas/modificar','id'=>'form-persona','class'=>'saveajax', 'data-callback'=>'grupoFamiliar'])}}
                                 @include('solicitudes.beneficiario')
                                 {{Form::close()}}
                             </div>
-                        </div>
-                         
+                        </div>         
                     </div>
-                
+                    @endif
                     @unless($solicitud->ind_mismo_benef)
+                    @if(Usuario::puedeAcceder('GET.personas.crear'))
                         <div class="panel panel-danger">
                             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelTres">
                                 <h4 class="panel-title">
@@ -68,19 +65,18 @@
                                         Solicitante
                                     </a>
                                 </h4>
-                            </div>
-                           
+                            </div>                          
                             <div id="PanelTres" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     {{Form::open(['url'=>'personas/crear/'.$beneficiario->id.'/false','id'=>'form-persona','class'=>'saveajax','data-callback'=>'grupoFamiliar'])}}
                                     @include('solicitudes.solicitante')
                                     {{Form::close()}}
                                 </div>
-                            </div>
-                           
+                            </div>   
                         </div>
+                    @endif
                     @endunless
-                    
+                    @if(Usuario::puedeAcceder('GET.personas.familiar'))
                         <div class="panel panel-danger">
                             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelCuatro">
                                 <h4 class="panel-title">
@@ -88,17 +84,15 @@
                                         Grupo Familiar
                                     </a>
                                 </h4>
-                            </div>
-                            
+                            </div>                
                             <div id="PanelCuatro" class="panel-collapse collapse">
                                 <div class="panel-body" id='grupo-familiares'>
                                     @include('solicitudes.grupofamiliar')
                                 </div>
-                            </div>
-                           
+                            </div>      
                         </div>
-                    
-                      
+                    @endif  
+                    @if(Usuario::puedeAcceder('GET.solicitudes.informe'))
                         <div class="panel panel-danger">
                             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelCinco">
                                 <h4 class="panel-title">
@@ -107,15 +101,14 @@
                                     </a>
                                 </h4>
                             </div>
-                           
                             <div id="PanelCinco" class="panel-collapse collapse">
                                 <div class="panel-body" id="informe-socioeconomico">
                                     @include('solicitudes.informesocioeconomico')
                                 </div>
-                            </div>
-                           
+                            </div>        
                         </div>
-                   
+                    @endif   
+                    @if(Usuario::puedeAcceder('GET.recaudossolicitud.modificar'))
                     <div class="panel panel-danger">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelSeis">
                             <h4 class="panel-title">
@@ -123,16 +116,15 @@
                                     Recaudos
                                 </a>
                             </h4>
-                        </div>
-                       
+                        </div>  
                         <div id="PanelSeis" class="panel-collapse collapse">
                             <div class="panel-body">
                                 @include('solicitudes.recaudos')
                             </div>
-                        </div>
-                       
+                        </div>  
                     </div>
-                    
+                    @endif
+                    @if(Usuario::puedeAcceder('GET.presupuestos.modificar'))
                     <div class="panel panel-danger">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelSiete">
                             <h4 class="panel-title">
@@ -141,15 +133,14 @@
                                 </a>
                             </h4>
                         </div>
-                      
                         <div id="PanelSiete" class="panel-collapse collapse">
                             <div class="panel-body">
                                 @include('solicitudes.presupuesto')
                             </div>
-                        </div>
-                        
+                        </div>    
                     </div>
-                 
+                    @endif
+                    @if(Usuario::puedeAcceder('GET.presupuestos.modificar'))
                     <div class="panel panel-danger">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelOcho">
                             <h4 class="panel-title">
@@ -158,15 +149,13 @@
                                 </a>
                             </h4>
                         </div>
-                      
                         <div id="PanelOcho" class="panel-collapse collapse">
                             <div class="panel-body">
                                 @include('solicitudes.galeriafotos')
                             </div>
-                        </div>
-                        
+                        </div>   
                     </div>
-                      
+                    @endif 
                     <!-------------------------------------------------------------------->
                 @endunless
             @endif
