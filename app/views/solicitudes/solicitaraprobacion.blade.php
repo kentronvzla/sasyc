@@ -1,6 +1,6 @@
 <div class="modal-dialog" id="div-candidato-documentos">
     <div class="modal-content">
-        {{Form::open(array('url'=>'solicitudes/solicitaraprobacion', 'class'=>'saveajax'))}}
+        {{Form::open(array('url'=>'solicitudes/solicitaraprobacion'))}}
         {{Form::hidden('id', $solicitud->id)}}
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">
@@ -18,6 +18,7 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
              @if(Usuario::puedeAcceder('GET.solicitudes.solicitaraprobacion'))
+             
             <button type="submit" class="btn btn-primary">Solicitar Aprobación</button>
             @endif
         </div>

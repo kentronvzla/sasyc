@@ -223,16 +223,16 @@ class SolicitudesController extends BaseController {
             return Response::json(['errores' => 'Debes seleccionar el autorizador'], 400);
         }
 //        if ($solicitud->solicitarAprobacion(Input::get('usuario_autorizacion_id'))) {
-        Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $solicitud->id);
-        $id = Sentry::getUser()->id;
-//          return Redirect::back()->with('mensaje','Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente');
-        return \Redirect::to(('solicitudes?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id=' . "$id"))
-                        ->with('mensaje', 'Se solicito la aprobacion de la solictud ' . $solicitud->id
-                                . ' correctamente.');
-        // return Response::json(['mensaje' => 'Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente']);
-//        }
+          Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $solicitud->id);
+          return Redirect::to('aceptar?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id=5')
+                 ->with('mensaje', 'Se solicito la aprobacion de la solicitud: ' . $solicitud->id . ', correctamente');
+     
+//      return Redirect::back()->with('mensaje','Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente');
+       
 //        return Response::json(['errores' => $solicitud->getErrors()], 400);
     }
+    
+  
 
     public function cancelarTransaccion() {
         \DB::rollBack();
