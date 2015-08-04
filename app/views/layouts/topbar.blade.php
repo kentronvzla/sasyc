@@ -38,9 +38,7 @@
         @if ($alerta >= 1)
         <div class="btn-group pull-right" >
             <button  style="background-color:#aea79f" class="btn btn-default">
-                @if(Usuario::puedeAcceder('GET.alertas'))
                 {{HTML::button('alertas' , 'bell', 'Alertas', true)}}
-                @endif   
                 <span class="notification red">{{$alerta}}</span>
             </button>
 
