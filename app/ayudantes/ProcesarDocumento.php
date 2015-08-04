@@ -295,9 +295,8 @@ class ProcesarDocumento {
     }
 
     public function cargarDocSasyc($data, $evento, $doc_origen, $action) {
-
         list($data['sol_benef']) = array(Solicitud::find($data['solicitud']['id'])->personaBeneficiario['attributes']);
-        $desc_doc = "Caso N°: " . $data['solicitud']['num_solicitud'] . ". Beneficiario: " . $data['sol_benef']['nombre'] . " " . $data['sol_benef']['apellido'] . ". C.I.:" . $data['sol_benef']['ci'] . ". " . $data['solicitud']['descripcion'];
+        $desc_doc = "Caso N: " . $data['solicitud']['num_solicitud'] . ". Beneficiario: " . $data['sol_benef']['nombre'] . " " . $data['sol_benef']['apellido'] . ". C.I.:" . $data['sol_benef']['ci'] . ". " . $data['solicitud']['descripcion'];
 
         if ($action == 'nuevo') {
             $doc_sasyc = new Documentossasyc();
