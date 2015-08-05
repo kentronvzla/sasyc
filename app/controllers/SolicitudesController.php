@@ -13,7 +13,7 @@ class SolicitudesController extends BaseController {
         $data['solicitud'] = Solicitud::findOrFail($id);
         $data['beneficiario'] = $data['solicitud']->getBeneficiario();
         $data['solicitante'] = $data['solicitud']->getSolicitante();
-        $data['recaudos'] = $data['solicitud']->recaudosSolicitud;        
+        $data['recaudos'] = $data['solicitud']->recaudosSolicitud;
         $data['fotos'] = $data['solicitud']->fotos;
         return View::make('solicitudes.planilla', $data);
     }
@@ -95,6 +95,22 @@ class SolicitudesController extends BaseController {
         $data['foto'] = new FotoSolicitud();
         $data['fotos'] = $data['solicitud']->fotos;
         $data['beneficiario_kerux'] = new Oracle\Beneficiario();
+        $documen = Solicitud::select('area_id')->where('id', '=', $id)->get();
+        foreach ($documen as $do) {
+            $ayuda = Area::select('tipo_ayuda_id')->where('id', '=', $do['area_id'])->get();
+        }
+        foreach ($ayuda as $tu) {
+            $reque = Requerimiento::select('nombre', 'id')->where('tipo_ayuda_id', '=', $tu['tipo_ayuda_id'])
+                    ->get();
+        }
+        foreach ($reque as $tipodoc) {
+            $docu = $tipodoc['attributes'];
+            $arreglo = array_shift($docu);
+            $prueba = $tipodoc->id;
+            $documentos[$prueba] = $arreglo;
+            $data['requerimientos'] = $documentos;
+        }
+
         if (Request::ajax()) {
             return Response::json($data);
         }
@@ -223,16 +239,13 @@ class SolicitudesController extends BaseController {
             return Response::json(['errores' => 'Debes seleccionar el autorizador'], 400);
         }
 //        if ($solicitud->solicitarAprobacion(Input::get('usuario_autorizacion_id'))) {
-          Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $solicitud->id);
-          return Redirect::to('aceptar?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id=5')
-                 ->with('mensaje', 'Se solicito la aprobacion de la solicitud: ' . $solicitud->id . ', correctamente');
-     
+        Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $solicitud->id);
+        return Redirect::to('aceptar?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id=5')
+                        ->with('mensaje', 'Se solicito la aprobacion de la solicitud: ' . $solicitud->id . ', correctamente');
+
 //      return Redirect::back()->with('mensaje','Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente');
-       
 //        return Response::json(['errores' => $solicitud->getErrors()], 400);
     }
-    
-  
 
     public function cancelarTransaccion() {
         \DB::rollBack();

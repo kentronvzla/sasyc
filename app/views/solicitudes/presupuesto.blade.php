@@ -1,4 +1,5 @@
 {{Form::open(['url'=>'presupuestos/modificar','id'=>'form-presupuesto','class'=>'saveajax'])}}
+
 @if($presupuestos->count()>0)
 {{HTML::simpleTable($presupuestos, 'Presupuesto',['pencil'=>'Editar', 'trash'=>'Eliminar'], 'presupuestos/presupuesto/'.$solicitud->id)}}
 <h4>Presupuestos de la solicitud</h4>
@@ -13,25 +14,7 @@
 {{Form::hidden('id',$presupuesto->id)}}
 {{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">
-    <?php
-    $documen = Solicitud::select('area_id')->where('id', '=', $solicitud->id)->get();
-    foreach ($documen as $do) {
-        $ayuda = Area::select('tipo_ayuda_id')->where('id', '=', $do['area_id'])->get();
-    }
-    foreach ($ayuda as $tu) {
-        $reque = Requerimiento::select('nombre', 'id')->where('tipo_ayuda_id', '=', $tu['tipo_ayuda_id'])->get();
-    }
-
-    foreach ($reque as $tipodoc) {
-        $docu = $tipodoc['attributes'];
-
-        $arreglo = array_shift($docu);
-        $prueba = $tipodoc->id;
-        $documentos[$prueba] = $arreglo;
-    }
-    ?>
-
-    {{Form::btInput($presupuesto,'requerimiento_id',4,'select',['data-url'=>'requerimientos/procesos','data-child'=>'proceso_id'],$documentos)}}
+    {{Form::btInput($presupuesto,'requerimiento_id',4,'select',['data-url'=>'requerimientos/procesos','data-child'=>'proceso_id'],$requerimientos)}}
     {{Form::btInput($presupuesto,'proceso_id',3)}}
     {{Form::btInput($presupuesto,'cantidad',1)}}
     {{Form::btInput($presupuesto,'monto',2)}}
@@ -43,8 +26,8 @@
     </div>
     <div class="col-md-3">
         @if(Usuario::puedeAcceder('POST.presupuestos.modificar'))
-           <a id="btn-agregar-beneficiario" class="btn btn-danger">Agregar Beneficiario</a>         
-                    @endif
+        <a id="btn-agregar-beneficiario" class="btn btn-danger">Agregar Beneficiario</a>         
+        @endif
     </div>
 </div>
 <div id="agregar-beneficiario" style="display:none;">
