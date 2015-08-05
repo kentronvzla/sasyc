@@ -1,7 +1,5 @@
 <div>
-    <p>
     <h3>Situacion fisico-ambiental</h3>
-    </p>
     <div>
         <table border="0" cellpadding="10" cellspacing="0">
             <tr>
@@ -24,14 +22,22 @@
                     {{$solicitud->tenencia->nombre or ""}}
                 </td>
                 <td width=250 height=20  align=center valign="middle" style="background: white;">
-                    {{--$solicitud->total_ingresos_for--}}
+                    {{$solicitud->total_ingresos_for}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <hr>
+                    <h3>Diagnostico Social</h3>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: justify;"> 
+                    <p>
+                        {{$solicitud->informe_social}}
+                    </p>
                 </td>
             </tr>
         </table>
     </div>
-    <hr width="100%">
-    <h3>Diagnostico Social</h3>
-    <p>
-        {{--$solicitud->informe_social--}}
-    </p>
 </div>    

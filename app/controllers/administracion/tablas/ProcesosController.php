@@ -10,4 +10,7 @@ class ProcesosController extends \Administracion\TablasBaseController {
     public function getProceso($id){
         return \Response::json(\Proceso::findOrFail($id));
     }
+    
+     
+    
 }
