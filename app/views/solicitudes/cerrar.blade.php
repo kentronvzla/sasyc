@@ -27,7 +27,7 @@
                 </tr>
                 <tr style="background:white;">
                     <td style="background:white;">
-                        <strong>Ampellido: </strong>
+                        <strong>Apellido: </strong>
                     </td>
                     <td style="background:white;">
                         {{$solicitud->personaBeneficiario->apellido}}

@@ -10,8 +10,7 @@
             {{Form::concurrencia($grupo)}}
             <div class="row">
                 {{Form::hidden('id',$grupo->id)}}
-                {{Form::hidden('nombre', $grupo->name)}}  
- 
+                {{Form::hidden('nombre', $grupo->name)}}   
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         {{ Form::text('name',@$grupo->name, array('class' => 'form-control','placeholder'=>'Nombre del grupo.','required'=>'','data-tieneayuda'=>'0')) }}
