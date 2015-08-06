@@ -66,8 +66,8 @@
         solicitada al <strong>{{$solicitud->referente->nombre}} </strong> 
         por 
         <strong>
-            {{$solicitud->personaSolicitante->nombre}}&nbsp;
-            {{$solicitud->personaSolicitante->apellido}}&nbsp;
+            {{strtoupper($solicitud->personaSolicitante->nombre)}}&nbsp;
+            {{strtoupper($solicitud->personaSolicitante->apellido)}}&nbsp;
         </strong>
         de 
         <strong>{{$solicitud->personaSolicitante->fecha_nacimiento->age}}</strong> 
@@ -76,13 +76,13 @@
         <strong>{{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;</strong>, 
         por la cantidad de 
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
-        a favor del si mismo, que en virtud del
-        analisis de la documentación  presentada por parte de las Direcciones de 
-        &nbsp;{{--$solicitud->departamento->nombre--}}&nbsp; y de Administración, 
-        necesita recursos para cubrir y/o tratar la siguiente necesidad:&nbsp;
-        <strong>&nbsp;{{$solicitud->necesidad}}&nbsp;</strong>. En tal sentido, la ayuda
+        a favor de sí mismo, que en virtud del
+        análisis de la documentación  presentada por parte de las Direcciones de 
+        &nbsp;{{$solicitud->departamento->nombre}}&nbsp; y de Administración, 
+        necesita recursos para cubrir y/o tratar la siguiente necesidad:
+        <strong>{{$solicitud->necesidad}}&nbsp;</strong>. En tal sentido, la ayuda
         económica va dirigida a cubrir gastos inherentes a los siguientes requerimientos y/o 
-        necesidades;
+        necesidades:
         &nbsp;
         @foreach($solicitud->presupuestos as $resultado)
             {{--*/ $cont_ciclo++ /*--}}
