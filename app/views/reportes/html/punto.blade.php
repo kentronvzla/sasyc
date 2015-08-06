@@ -46,7 +46,7 @@
                     </tr>
                     <tr>    
                         <td style="width: 370px; height: auto;">
-                            C- POR: Dierecciones de administracion y bienestar social
+                            C- POR: Direcciones de administracion y bienestar social
                             de la fundación pueblo soberano
                         </td>
                     </tr>

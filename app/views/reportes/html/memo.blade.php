@@ -18,7 +18,7 @@
                 <strong>Para:</strong>
             </td>
             <td style="width: 580px; height: auto; font-size: 14px;" valign="middle" >
-                Cap. José Zambrano Director de Administracion
+                Cap. José Zambrano Director de Administración
             </td>  
         </tr>
         <tr>
