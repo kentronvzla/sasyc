@@ -11,9 +11,14 @@
 @endif
 <hr>
 <div class="row">
-    {{Form::btInput($familiar,'tipo_nacionalidad_id',4)}}
-    {{Form::btInput($familiar,'ci',4)}}
-    {{Form::btInput($familiar,'sexo',4,"select",[], BaseModel::$cmbsexo)}}   
+    {{Form::btInput($familiar,'tipo_nacionalidad_id',3)}}
+    {{Form::btInput($familiar,'ci',3)}}
+    {{Form::btInput($familiar,'sexo',4,"select",[], BaseModel::$cmbsexo)}}
+    <div class="col-xs-12 col-sm-12 col-md-2">
+        <div class="form-group">
+            <button type="button" class="btn btn-primary buscar-cne"><i class="glyphicon glyphicon-search"></i> CNE</button>
+        </div> 
+    </div>
 </div>
 <div class="row">
     {{Form::btInput($familiar,'nombre',6)}}
@@ -28,4 +33,7 @@
     {{Form::btInput($familiar,'ingreso_mensual',6)}}
 </div>  
 @include('templates.bootstrap.submit')
+@section('javascript')
+{{HTML::script('js/views/solicitudes/nuevasolicitud.js')}}
+@stop
 {{Form::close()}}
