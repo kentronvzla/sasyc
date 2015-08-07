@@ -252,8 +252,6 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
     public function solicitudes() {
         return $this->hasMany('Solicitud', 'persona_beneficiario_id');
     }
-    
-    
 
     public function setFechaNacimientoAttribute($value) {
         if ($value != "") {
@@ -296,7 +294,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         if ($this->twitter != "") {
             $contactos .= "Twitter: " . $this->twitter . '<br>';
         }
-        if($contactos==""){
+        if ($contactos == "") {
             return "No tiene información de contacto.";
         }
         return $contactos;
@@ -343,7 +341,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
 
     public static function getDecimalFields() {
         return [
-            'ingreso_mensual','cobertura'
+            'ingreso_mensual', 'cobertura'
         ];
     }
 
@@ -355,7 +353,6 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         return tm($value);
     }
 
-    
     public function setCoberturaAttribute($value) {
         $this->attributes['cobertura'] = tf($value);
     }
@@ -363,7 +360,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
     public function getCoberturaAttribute($value) {
         return tm($value);
     }
-    
+
     public function getDefaultValues() {
         return [
             'ind_asegurado' => 1,
