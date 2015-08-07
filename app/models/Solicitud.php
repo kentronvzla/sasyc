@@ -117,6 +117,7 @@
 class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTableInterface, DecimalInterface {
 
     use \Traits\EloquentExtensionTrait;
+
     protected $table = "solicitudes";
 
     /**
@@ -125,7 +126,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
      * @var array
      */
     protected $fillable = [
-        'descripcion', 'persona_beneficiario_id', 'persona_solicitante_id','referencia_externa',
+        'descripcion', 'persona_beneficiario_id', 'persona_solicitante_id', 'referencia_externa',
         'area_id', 'referente_id', 'recepcion_id', 'organismo_id',
         'ind_mismo_benef', 'ind_inmediata', 'actividad', 'referencia',
         'accion_tomada', 'necesidad', 'tipo_proc', 'num_proc', 'facturas',
@@ -176,8 +177,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'total_ingresos' => '',
     ];
     protected $dates = ['fecha_asignacion', 'fecha_aceptacion',
-        'fecha_aprobacion', 'fecha_cierre','created_at'];
-   
+        'fecha_aprobacion', 'fecha_cierre', 'created_at'];
     public static $tipo_procesamientos = [
         'P' => 'Punto de Cuenta',
         'M' => 'Memo',
@@ -220,10 +220,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'informe_social' => 'Informe social',
             'total_ingresos' => 'Total de ingresos',
             'departamento_id' => 'Departamento',
-            'num_solicitud'=>'Número de Solicitud',
-            'created_at'=>'Fecha de registro',
-            'created_at_desde'=>'Fecha de registro desde',
-            'created_at_hasta'=>'Fecha de registro hasta',
+            'num_solicitud' => 'Número de Solicitud',
+            'created_at' => 'Fecha de registro',
+            'created_at_desde' => 'Fecha de registro desde',
+            'created_at_hasta' => 'Fecha de registro hasta',
         ];
     }
 
@@ -381,12 +381,12 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function getDefaultValues() {
         $numero = $this->calcularNumSolicitud();
-        $numero = Carbon::now()->format('y').'-'.$this->formatoNumSolicitud($numero);
+        $numero = Carbon::now()->format('y') . '-' . $this->formatoNumSolicitud($numero);
         return [
             'estatus' => 'ELA',
             'ind_mismo_benef' => false,
             'moneda' => 'VEF',
-            'num_solicitud'=>$numero,
+            'num_solicitud' => $numero,
         ];
     }
 
@@ -449,22 +449,22 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function scopeOrdenar($query) {
-        return $query->orderBy('ind_inmediata', 'DESC')->orderBy('solicitudes.id','DESC');
+        return $query->orderBy('ind_inmediata', 'DESC')->orderBy('solicitudes.id', 'DESC');
     }
 
     public function scopeAplicarFiltro($query, $filtro) {
-      $query->leftJoin('personas','solicitudes.persona_beneficiario_id','=','personas.id')
-            ->leftJoin('areas','solicitudes.area_id','=','areas.id')
-            ->leftJoin('parroquias','personas.parroquia_id','=','parroquias.id')
-            ->leftJoin('municipios','parroquias.municipio_id','=','municipios.id')
-            ->leftJoin('estados','municipios.estado_id','=','estados.id')
-            ->leftJoin('presupuestos','presupuestos.solicitud_id','=','solicitudes.id')
-            ->leftJoin('referentes','solicitudes.referente_id','=','referentes.id')
-            ->leftJoin('tipo_ayudas','areas.tipo_ayuda_id','=','tipo_ayudas.id')
-            ->leftJoin('recepciones','solicitudes.recepcion_id','=','recepciones.id')
-            ->leftJoin('requerimientos','presupuestos.requerimiento_id','=','requerimientos.id')
-            ->distinct()
-            ->select('solicitudes.*');
+        $query->leftJoin('personas', 'solicitudes.persona_beneficiario_id', '=', 'personas.id')
+                ->leftJoin('areas', 'solicitudes.area_id', '=', 'areas.id')
+                ->leftJoin('parroquias', 'personas.parroquia_id', '=', 'parroquias.id')
+                ->leftJoin('municipios', 'parroquias.municipio_id', '=', 'municipios.id')
+                ->leftJoin('estados', 'municipios.estado_id', '=', 'estados.id')
+                ->leftJoin('presupuestos', 'presupuestos.solicitud_id', '=', 'solicitudes.id')
+                ->leftJoin('referentes', 'solicitudes.referente_id', '=', 'referentes.id')
+                ->leftJoin('tipo_ayudas', 'areas.tipo_ayuda_id', '=', 'tipo_ayudas.id')
+                ->leftJoin('recepciones', 'solicitudes.recepcion_id', '=', 'recepciones.id')
+                ->leftJoin('requerimientos', 'presupuestos.requerimiento_id', '=', 'requerimientos.id')
+                ->distinct()
+                ->select('solicitudes.*');
 
         //filtros del menu..
         if (isset($filtro['estatus'])) {
@@ -477,23 +477,23 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if (isset($filtro['solo_asignadas'])) {
             $query->whereUsuarioAsignacionId(Sentry::getUser()->id);
         }
-        if(isset($filtro['departamento_id'])){
+        if (isset($filtro['departamento_id'])) {
             $query->whereDepartamentoId($filtro['departamento_id']);
         }
 
         //filtros de busqueda.
-        $campos = array_except($filtro, ['departamento_id', 'estatus','solo_asignadas','_token']);
-        foreach($campos as $campo=>$valor){
+        $campos = array_except($filtro, ['departamento_id', 'estatus', 'solo_asignadas', '_token']);
+        foreach ($campos as $campo => $valor) {
             //se quitan espacios vacios del array.
-            if(is_array($valor)){
+            if (is_array($valor)) {
                 $valor = array_filter($valor);
             }
-            if($valor!='' && count($valor)>0){
+            if ($valor != '' && count($valor) > 0) {
                 //laravel cambia el . por _ por eso se usa el replace
-                $campo = str_replace('personas_','personas.',$campo);
-                $campo = str_replace('solicitudes_','solicitudes.',$campo);
-                $campo = str_replace('presupuestos_','presupuestos.',$campo);
-                $campo = str_replace('referentes_','referentes.',$campo);
+                $campo = str_replace('personas_', 'personas.', $campo);
+                $campo = str_replace('solicitudes_', 'solicitudes.', $campo);
+                $campo = str_replace('presupuestos_', 'presupuestos.', $campo);
+                $campo = str_replace('referentes_', 'referentes.', $campo);
                 $query = $this->parseFilter($campo, $valor, $query);
             }
         }
@@ -502,20 +502,20 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function scopeEagerLoad($query) {
         return $query->with('organismo')
-            ->with('personaSolicitante')
-            ->with('personaBeneficiario')
-            ->with('usuarioAutorizacion')
-            ->with('usuarioAsignacion')
-            ->with('area.tipoAyuda');
+                        ->with('personaSolicitante')
+                        ->with('personaBeneficiario')
+                        ->with('usuarioAutorizacion')
+                        ->with('usuarioAsignacion')
+                        ->with('area.tipoAyuda');
     }
 
-    public function validate($model = null){
-        if(parent::validate($model)){
-            if(isset($this->id)){
+    public function validate($model = null) {
+        if (parent::validate($model)) {
+            if (isset($this->id)) {
                 $area_anterior = Area::find($this->getOriginal('area_id'));
                 //no se puede cambiar el tipo de ayuda de la solicitud
-                if($area_anterior->tipo_ayuda_id != $this->area->tipo_ayuda_id){
-                    $this->addError('area->tipo_ayuda_id','No se puede cambiar el tipo de ayuda de la solicitud');
+                if ($area_anterior->tipo_ayuda_id != $this->area->tipo_ayuda_id) {
+                    $this->addError('area->tipo_ayuda_id', 'No se puede cambiar el tipo de ayuda de la solicitud');
                     return false;
                 }
             }
@@ -535,7 +535,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
 
     public function asignarDepartamento($departamento_id, $memo) {
         $usuario = Usuario::getLogged();
-        if($departamento_id == $usuario->departamento_id){
+        if ($departamento_id == $usuario->departamento_id) {
             $this->addError('departamento_id', 'No puedes asignar la solicitud al mismo departamento al cual permaneces');
         } else if ($this->estatus == "ELA") {
             $this->departamento_id = $departamento_id;
@@ -543,10 +543,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->memo_id = $memo->id;
             $this->save();
             Bitacora::registrar("Se asigno la solicitud al departamento: " . $this->departamento->nombre, $this->id);
-        }else{
+        } else {
             $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELA']);
         }
-
     }
 
     public function asignarAnalista($encargado_id) {
@@ -554,20 +553,19 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $this->usuario_asignacion_id = $encargado_id;
             $this->estatus = "EAA";
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
-            $this->save(); 
-            Bitacora::registrar("Se asignó la solicitud al analista: " .$this->usuarioAsignacion->nombre, $this->id);
-        }else if ($this->estatus == "EAA") {
-              $this->usuario_asignacion_id = $encargado_id;
+            $this->save();
+            Bitacora::registrar("Se asignó la solicitud al analista: " . $this->usuarioAsignacion->nombre, $this->id);
+        } else if ($this->estatus == "EAA") {
+            $this->usuario_asignacion_id = $encargado_id;
             $this->estatus = "EAA";
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
-            $this->save(); 
+            $this->save();
             Bitacora::registrar("Se reasignó la solicitud al analista: " . $this->usuarioAsignacion->nombre, $this->id);
-       }else{
-            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus '  . static::$estatusArray['EAA']);
+        } else {
+            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['EAA']);
         }
-        
     }
-    
+
     public static function asignar(array $values) {
         //se usa para los message bags
         $mensajes = new Solicitud();
@@ -598,12 +596,12 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                     $mensajes->errors->merge($solicitud->errors);
                 });
             }
-        }else{
+        } else {
             $mensajes->setErrors($validator->messages());
         }
         return $mensajes;
     }
-    
+
     public function anular($nota) {
         if ($this->estatus == "ELA" || $this->estatus == "ART") {
             $this->estatus = "ANU";
@@ -673,57 +671,61 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
-    private function reglasSolicitudAprobacion(){
+    private function reglasSolicitudAprobacion() {
         $this->reglasInforme();
     }
 
-    public function solicitarAprobacion($autorizador_id) {
-        if ($this->puedeSolicitarAprobacion() && $autorizador_id!='') {
-            $descripcion = 'Caso N°: '.$this->id.' Beneficiario: '.$this->personaBeneficiario->nombre.' '.$this->personaBeneficiario->apellido.' C.I.:'.$this->personaBeneficiario->ci.' '.$this->descripcion;
-            \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
-            $this->estatus = 'PPA';
-            $this->usuario_autorizacion_id = $autorizador_id;
-            $this->beneficiario_json = json_encode($this->personaBeneficiario->toArray());
-            if (is_object($this->personaSolicitante)) {
-                $this->solicitante_json = json_encode($this->personaSolicitante->toArray());
-            }
-            //despues que se asigna el modelo retorna lo que esta en BD.
-            $this->total_ingresos = tm($this->total_ingresos);
-            $this->reglasSolicitudAprobacion();
-            if($this->presupuestos()->count() && $this->save()){
-                Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $this->id);
-                return true;
-            }else if(!$this->hasErrors()){
-                $this->addError('presupuestos', 'La solicitud debe tener al menos un presupuesto cargado');
-            }
-        }else if($autorizador_id==''){
+    /*public function solicitarAprobacion($autorizador_id) {
+        if ($autorizador_id == '') {
             $this->addError('usuario_autorizacion_id', 'Debes seleccionar el autorizador');
-        }else{
-            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
+        } else if ($this->presupuestos()->count() < 1) {
+            $this->addError('presupuestos', 'La solicitud debe tener al menos un presupuesto cargado');
+        } else if (!$this->puedeSolicitarAprobacion()) {
+            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto para ser aprobada');
+        }        
+        $this->reglasSolicitudAprobacion();       
+        if ($this->hasErrors()) {
+            return false;
         }
-        return false;
-    }
+        $descripcion = 'Caso N: ' . $this->id . ' Beneficiario: ' . $this->personaBeneficiario->nombre . ' ' . $this->personaBeneficiario->apellido . ' C.I.:' . $this->personaBeneficiario->ci . ' ' . $this->descripcion;
+        \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
+        $this->estatus = 'PPA';
+        $this->usuario_autorizacion_id = $autorizador_id;
+        $this->beneficiario_json = json_encode($this->personaBeneficiario->toArray());
+        if (is_object($this->personaSolicitante)) {
+            $this->solicitante_json = json_encode($this->personaSolicitante->toArray());
+        }
+        $this->total_ingresos = tm($this->total_ingresos);        
+        if ($this->save()) {
+            Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $this->id);
+            return true;
+        } else {
+            $this->addError('estatus', 'La solicitud ' . $this->id . ' no pudo ser aprobada');
+            return false;
+        }
+    }*/
 
-    public function getBeneficiario(){
-        if($this->puedeModificar()){
+    public function getBeneficiario() {
+        if ($this->puedeModificar()) {
             return $this->personaBeneficiario;
-        }else{
-            if(!isset($this->beneficiario_json)){
+        } else {
+            if (!isset($this->beneficiario_json)) {
                 return $this->personaBeneficiario;
-            }else{
-                return new Persona(json_decode($this->beneficiario_json));
+            } else {
+               
+                return new Persona(json_decode($this->beneficiario_json,true));
             }
         }
     }
 
-    public function getSolicitante(){
-        if($this->puedeModificar()){
+    public function getSolicitante() {
+        if ($this->puedeModificar()) {
             return $this->personaSolicitante;
-        }else{
-            if(!isset($this->solicitante_json)){
+        } else {
+            if (!isset($this->solicitante_json)) {
                 return $this->personaSolicitante;
-            }else{
-                return new Persona(json_decode($this->solicitante_json));
+            } else {
+                return new Persona(json_decode($this->solicitante_json,true));
             }
         }
     }
@@ -752,7 +754,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function puedeModificarFamiliarEconomico() {
-        return $this->estatus=="ACA";
+        return $this->estatus == "ACA";
     }
 
     public function reglasInforme() {
@@ -781,37 +783,34 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         }
     }
 
-    public function calcularNumSolicitud(){
-        $consulta=DB::table('solicitudes')
-            ->where(DB::raw('extract(year from created_at)'),'=',(int)\Carbon\Carbon::now()->format('Y'))
-            ->count();
+    public function calcularNumSolicitud() {
+        $consulta = DB::table('solicitudes')
+                ->where(DB::raw('extract(year from created_at)'), '=', (int) \Carbon\Carbon::now()->format('Y'))
+                ->count();
 
-        return $consulta+1;
+        return $consulta + 1;
     }
 
-    public function formatoNumSolicitud ($numero){
-        if ($numero<=9){
-            $numero="0000".$numero;
-        }
-        else if ($numero<=99){
-            $numero="000".$numero;
-        }
-        else if ($numero<=999){
-            $numero="00".$numero;
-        }
-        else if ($numero<=9999){
-            $numero="0".$numero;
+    public function formatoNumSolicitud($numero) {
+        if ($numero <= 9) {
+            $numero = "0000" . $numero;
+        } else if ($numero <= 99) {
+            $numero = "000" . $numero;
+        } else if ($numero <= 999) {
+            $numero = "00" . $numero;
+        } else if ($numero <= 9999) {
+            $numero = "0" . $numero;
         }
 
         return $numero;
     }
 
-    public function getValorReporte($columna){
-        if(str_contains($columna, '.')){
-            $columna = explode('.',$columna)[1];
+    public function getValorReporte($columna) {
+        if (str_contains($columna, '.')) {
+            $columna = explode('.', $columna)[1];
         }
         $valor = $this->{$columna};
-        switch($columna){
+        switch ($columna) {
             case "estado_id":
                 return Estado::find($valor)->nombre;
             case "tipo_ayuda_id":
@@ -820,7 +819,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 return Area::find($valor)->nombre;
             case "beneficiario_id":
                 $benef = \Oracle\Beneficiario::find($valor);
-                if(is_null($benef)){
+                if (is_null($benef)) {
                     return $valor;
                 }
                 return $benef->nombre;
@@ -833,14 +832,11 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             case "especial_mes":
                 return Solicitud::$array_meses[$valor];
             case "sexo":
-                if($valor==''){
+                if ($valor == '') {
                     return "No Seleccionado";
                 }
                 return Solicitud::$cmbsexo[$valor];
         }
     }
-    
 
-     
-    
 }

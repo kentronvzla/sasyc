@@ -158,6 +158,12 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
         ];
     }
 
+    public function getDefaultValues() {
+        return [
+            'estatus_doc' => 'ELA'
+        ];
+    }
+    
     public function savingModel($model){
         if($this->puedeModificarEliminar()){
             $this->moneda = \Configuracion::get('moneda_presupuesto');

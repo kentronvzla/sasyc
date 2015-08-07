@@ -66,12 +66,12 @@ class Proceso extends BaseModel {
     }
     
     public static function getCombos($idrequerimiento = "", array $condiciones = []) {
-        $procesos = Requerimiento::find((int) $idrequerimiento);
+        $requerimiento = Requerimiento::find((int) $idrequerimiento);
         $retorno = array('' => 'Seleccione.');
-        if (is_object($procesos)) {
+        if (is_object($requerimiento)) {
             
-            $actividades = $procesos->procesos;
-            foreach ($actividades as $registro) {
+            $procesos = $requerimiento->procesos;
+            foreach ($procesos as $registro) {
                 $retorno[$registro->id] = $registro->nombre;
             }
         } else {

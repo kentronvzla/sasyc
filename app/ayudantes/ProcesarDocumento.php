@@ -24,8 +24,8 @@ use Presupuesto;
 class ProcesarDocumento {
 
     public function buscarDefEvento($solicitud) {
-         
-     
+
+
         list($data, $procesos, $eventos, $i) = array(array(), array(), array(), 0);
 
         $presupuestos = \DB::select('SELECT beneficiario_id, proceso_id, documento_id, SUM(montoapr) as monto_total_apr, moneda FROM presupuestos WHERE solicitud_id =' . $solicitud->id . ' GROUP BY beneficiario_id, proceso_id, documento_id, moneda');
@@ -140,10 +140,10 @@ class ProcesarDocumento {
         $db = \DB::connection('oracle');
 //        $db->statement("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;",array('param0' => $param0, 'param1' => $param1, 'param2' => $param2));
 //        if($accion=='nuevo')
-            $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;");
+        $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.GENAPRUEBA_DOC(:param1, :param2); END;");
 //        else
 //            $stmt = $db->getPdo()->prepare("BEGIN :param0 := PROC_MENSAJERO.APRUEBA_DOC(:param1, :param2); END;");
-        
+
         $stmt->bindParam(':param0', $param0, \PDO::PARAM_STR, 255);
         $stmt->bindParam(':param1', $param1, \PDO::PARAM_INT);
         $stmt->bindParam(':param2', $param2, \PDO::PARAM_STR);
@@ -193,7 +193,7 @@ class ProcesarDocumento {
         return $valida_sts;
     }
 
-    public function atualizarEstatus($data) {
+    public function atualizarEstatus($data, $autorizador_id = null) {
         list($cont_aprobados, $cont_devueltos, $cont_procesados, $cont_total) = array(0, 0, 0, 0);
         $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])->get();
         $cont_total = count($presupuestos_model);
@@ -225,6 +225,13 @@ class ProcesarDocumento {
         } elseif ($cont_procesados > 0) {
             if (!empty($solicitud_model)) {
                 $solicitud_model->estatus = "PPA";
+                $solicitud_model->usuario_autorizacion_id = $autorizador_id;
+                $solicitud_model->beneficiario_json = json_encode($solicitud_model->personaBeneficiario->toArray());
+                if (is_object($solicitud_model->personaSolicitante)) {
+                    $solicitud_model->solicitante_json = json_encode($solicitud_model->personaSolicitante->toArray());
+                }
+                $solicitud_model->total_ingresos = tm($solicitud_model->total_ingresos);
+
                 $solicitud_model->save();
             }
         }
