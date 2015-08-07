@@ -14,8 +14,17 @@
                 {{Form::btInput($requerimiento, 'descripcion', 6)}}
             </div>
             <div class="row">
-                {{Form::btInput($requerimiento, 'cod_item', 6)}}
-                {{Form::btInput($requerimiento, 'cod_cta', 6)}}
+             <?php
+             $documen= \Oracle\Catalogo::select('codigo','descripcion')->get();
+                foreach ($documen as $item) {
+                    $docu = $item['attributes'];
+                    $arreglo = array_shift($docu);
+                     $prueba = $item->descripcion;
+                    $documentos[$arreglo] = $prueba;
+                }
+             ?>
+                 {{Form::btInput($requerimiento, 'cod_item', 6,'select',[],$documentos)}}
+                 {{Form::btInput($requerimiento, 'cod_cta', 6)}}
             </div>
             <div class="row">
                 {{Form::btInput($requerimiento, 'tipo_requerimiento_id', 6)}}

@@ -40,6 +40,7 @@ class GruposController extends \Administracion\TablasBaseController {
                 '' => array(),
             );
         }
+       
            return \View::make('administracion.seguridad.creargrupos', $data);
             
         }
@@ -78,6 +79,7 @@ class GruposController extends \Administracion\TablasBaseController {
                 '' => array(),
             );
         }
+   
         return \View::make('administracion.seguridad.gruposform', $data);
     }
 

@@ -43,9 +43,10 @@
                         }
                         ?>
                         <tr>
+                            @if($bit->recaudo->ind_obligatorio == true)
                             <td>{{$bit->recaudo->nombre}}</td>
                             <td>{{$reca}}</td>
-
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

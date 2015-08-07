@@ -1,7 +1,9 @@
+{{--*/ $cont_total = count($solicitud->presupuestos) /*--}}
+{{--*/ $cont_ciclo = 0 /*--}}
 @if($solicitud->personaSolicitante->ci!=$solicitud->personaBeneficiario->ci)
     <p align="justify">
         Se somete a la consideración y aprobación del Presidente de la Fundación 
-        Pueblo Sobrerano, el otorgamiento de ayuda económica
+        Pueblo Soberano, el otorgamiento de ayuda económica
         solicitada al <strong>{{$solicitud->referente->nombre}} </strong> 
         por 
         <strong>
@@ -12,42 +14,47 @@
         <strong>{{$solicitud->personaSolicitante->fecha_nacimiento->age}}</strong> 
         años de edad, titular de la cédula de 
         identidad 
-        <strong>N#:&nbsp;{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, por la cantidad de 
+        <strong>{{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;</strong>, por la cantidad de 
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
         a favor del ciudadan@&nbsp;
 
         <strong>
-            {{$solicitud->personaSolicitante->nombre}}&nbsp;
-            {{$solicitud->personaSolicitante->apellido}}&nbsp;
+            {{strtoupper($solicitud->personaBeneficiario->nombre)}}&nbsp;
+            {{strtoupper($solicitud->personaBeneficiario->apellido)}}&nbsp;
         </strong> 
         de 
         <strong>{{$solicitud->personaBeneficiario->fecha_nacimiento->age}}</strong> 
         años de edad, titular
         de la cédula de identidad 
-        <strong>N#:&nbsp;{{$solicitud->personaBeneficiario->ci}}</strong>, 
+        <strong>{{($solicitud->personaBeneficiario->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario->ci}}</strong>, 
         quien en virtud del
         analisis de la documentación  presentada por parte de las Direcciones de 
-        &nbsp;{{$solicitud->departamento->nombre}}&nbsp; y de Administración, 
-        necesita recursos para cubrir la necesidad 
-        y/o tratar la siguiente necesidad a continuacion:&nbsp;
+        {{$solicitud->departamento->nombre}} y de Administración, 
+        necesita recursos para cubrir y/o tratar la siguiente necesidad:&nbsp;
         <strong>&nbsp;{{$solicitud->necesidad}}&nbsp;</strong>. En tal sentido, la ayuda
         económica va dirigida a cubrir gastos inherentes a los siguientes requerimientos y/o 
-        necesidades;
-        &nbsp;
+        necesidades:
+        
         @foreach($solicitud->presupuestos as $resultado)
-            {{$resultado->requerimiento->nombre }},&nbsp;
+            {{--*/ $cont_ciclo++ /*--}}
+            {{$resultado->requerimiento->nombre}}
+            @if($cont_ciclo == $cont_total)
+                {{"."}}&nbsp;
+            @else
+                {{","}}&nbsp;
+            @endiF
         @endforeach
         <br><br>
 
        De allí que, en vista de las condiciones socio-económicas del solicitante y 
        de la disponibilidad presupuestaria correspondiente, se recomienda la aprobación
        para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>
-       . El cheuqe
+       . El cheque
        esta emitido a favor de:<br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>
-                {{$resultado->beneficiario->nombre}} por&nbsp;
-                {{$resultado->montoapr}}<br>
+                {{$resultado->beneficiario->nombre}} por&nbsp;Bs. F
+                {{tm($resultado->montoapr)}}<br>
             </strong>
         @endforeach 
         
@@ -59,38 +66,43 @@
         solicitada al <strong>{{$solicitud->referente->nombre}} </strong> 
         por 
         <strong>
-            {{$solicitud->personaSolicitante->nombre}}&nbsp;
-            {{$solicitud->personaSolicitante->apellido}}&nbsp;
+            {{strtoupper($solicitud->personaSolicitante->nombre)}}&nbsp;
+            {{strtoupper($solicitud->personaSolicitante->apellido)}}&nbsp;
         </strong>
         de 
         <strong>{{$solicitud->personaSolicitante->fecha_nacimiento->age}}</strong> 
         años de edad, titular de la cédula de 
         identidad 
-        <strong>N#:&nbsp;{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, 
+        <strong>{{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;</strong>, 
         por la cantidad de 
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
-        a favor del si mismo, que en virtud del
-        analisis de la documentación  presentada por parte de las Direcciones de 
-        &nbsp;{{--$solicitud->departamento->nombre--}}&nbsp; y de Administración, 
-        necesita recursos para cubrir la necesidad 
-        y/o tratar la siguiente necesidad:
-        <strong>&nbsp;{{$solicitud->necesidad}}&nbsp;</strong>. En tal sentido, la ayuda
+        a favor de sí mismo, que en virtud del
+        análisis de la documentación  presentada por parte de las Direcciones de 
+        &nbsp;{{$solicitud->departamento->nombre}}&nbsp; y de Administración, 
+        necesita recursos para cubrir y/o tratar la siguiente necesidad:
+        <strong>{{$solicitud->necesidad}}&nbsp;</strong>. En tal sentido, la ayuda
         económica va dirigida a cubrir gastos inherentes a los siguientes requerimientos y/o 
-        necesidades;
+        necesidades:
         &nbsp;
         @foreach($solicitud->presupuestos as $resultado)
-            {{$resultado->requerimiento->nombre }},&nbsp;
+            {{--*/ $cont_ciclo++ /*--}}
+            {{$resultado->requerimiento->nombre}}
+            @if($cont_ciclo == $cont_total)
+                {{"."}}&nbsp;
+            @else
+                {{","}}&nbsp;
+            @endiF
         @endforeach
         <br><br>
 
        De las necesidades presentes y en vista de las condiciones socio-económicas del solicitante y 
        de la disponibilidad presupuestaria correspondiente, se recomienda la aprobación
-       para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>. El cheque 
+       para otorgar la ayuda económica, por la cantidad de: <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>. El cheque 
        esta emitido a favor de:<br><br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>
-                {{$resultado->beneficiario->nombre}} por&nbsp;
-                {{$resultado->montoapr}}<br>
+                {{$resultado->beneficiario->nombre}} por&nbsp;Bs. F
+                {{tm($resultado->montoapr)}}<br>
             </strong>
         @endforeach 
     </p>

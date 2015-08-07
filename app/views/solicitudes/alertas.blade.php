@@ -29,7 +29,7 @@
                             <td>{{$bit->getValueAt('ind_atendida')}}</td>
                             <td>
                               
-                                <a class="btn btn-primary btn-xs" href="{{$url}}/modificar/{{$bit->id}}">
+                                <a class="btn btn-primary btn-xs" target="_blank" href="{{$url}}/modificar/{{$bit->id}}/{{$bit->solicitud_id}}">
                                     <i class="fa fa-check"></i>
                                 </a>
                                

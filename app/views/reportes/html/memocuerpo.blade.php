@@ -13,10 +13,10 @@
                 &nbsp;años de edad, 
                 titular de la cédula de identidad 
                 <strong>
-                    N#&nbsp;{{$solicitud->personaSolicitante->ci}}&nbsp;
+                    {{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;
                 </strong>;
                 quien solicita ayuda económica para cubrir gastos ante la necesidad y/o
-                tratamiento de:&nbsp;{{$solicitud->necesidad}}&nbsp; a favor del ciudadano(a)
+                tratamiento de:&nbsp;{{$solicitud->necesidad}} a favor del ciudadano(a)
                 <strong>
                     &nbsp;
                     {{$solicitud->personaBeneficiario->nombre}}&nbsp;
@@ -26,7 +26,7 @@
                 {{$solicitud->personaBeneficiario->fecha_nacimiento->age}}
                 &nbsp;años de edad,
                 titular de la cédula de identidad 
-                <strong>N#&nbsp;{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, 
+                <strong>{{($solicitud->personaBeneficiario->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, 
                 por la 
                 cantidad <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>,
                 en virtud de cubrir los gastos ante; 
@@ -57,7 +57,7 @@
                 Sin otro particular al cual hacer referencia, se despide de usted.<br>
                 Atentamente,<br><br>
 
-                <strong>1ER.TTE. Evelyn Cárdenas<br>Dirección de bienestar Social</strong>
+                <strong>1ER.TTE. Evelyn Cárdenas<br>Dirección de Bienestar Social</strong>
             </p><br>
         </td>
     </tr>
@@ -66,7 +66,7 @@
         <td>
             <p align="justify">
                 Tengo el honor de dirigirme a usted en la oportunidad de saludarle
-                y a lavez remitirle los recaudos del ciudadano(a) 
+                y a la vez remitirle los recaudos del ciudadano(a) 
                 <strong>
                     &nbsp;{{$solicitud->personaSolicitante->nombre}}&nbsp;
                     {{$solicitud->personaSolicitante->apellido}}&nbsp;
@@ -76,10 +76,10 @@
                 &nbsp;años de edad,--> 
                 titular de la cédula de identidad 
                 <strong>
-                    N#&nbsp;{{$solicitud->personaSolicitante->ci}}&nbsp;
-                </strong>;
+                   {{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;
+                </strong>,
                 quien solicita ayuda económica para cubrir gastos ante la necesidad y/o
-                tratamiento de:&nbsp;{{$solicitud->necesidad}}&nbsp; a favor si mismo(a), 
+                tratamiento de:&nbsp;{{$solicitud->necesidad}} a favor si mismo(a), 
                 por la 
                 cantidad <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>,
                 en virtud de cubrir los gastos por:<br><br> 
@@ -110,7 +110,7 @@
                 Sin otro particular al cual hacer referencia, se despide de usted.<br>
                 Atentamente:
 
-                <strong>1ER.TTE. Evelyn Cárdenas Dirección de bienestar Social</strong>
+                <strong>1ER.TTE. Evelyn Cárdenas Dirección de Bienestar Social</strong>
             </p><br>
         </td>
     </tr>

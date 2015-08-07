@@ -13,6 +13,7 @@ class RequerimientosController extends \Administracion\TablasBaseController {
 
     public function afterPostIndex($variable){
         $variable->procesos()->sync(\Input::get('procesos', []));
+        
     }
     
     public function getProcesos($id) {
