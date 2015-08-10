@@ -84,6 +84,9 @@
             <a href="{{url('administracion/tablas/requerimientos')}}">
                 <li class="list-group-item">Requerimientos</li>
             </a>
+             <a href="{{url('administracion/tablas/seguros')}}">
+                <li class="list-group-item">Empresas de Seguro</li>
+            </a>
         </ul>
     </div>
 </div>
