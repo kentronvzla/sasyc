@@ -27,85 +27,85 @@
         <hr width="100%">
         <h3>Datos Personales Beneficiario</h3>
         <div class="row">
-            {{Form::display($solicitud->personaBeneficiario,'nombre',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'apellido',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'ci',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'sexo',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'nombre',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'apellido',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'ci',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'sexo',3, true)}}
         </div>
         <div class="row">
-            {{Form::display($solicitud->personaBeneficiario,'estadoCivil->nombre',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'fecha_nacimiento',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'edad',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'ind_trabaja',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'estadoCivil->nombre',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'fecha_nacimiento',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'edad',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'ind_trabaja',3, true)}}
         </div>
         <div class="row">
-            {{Form::display($solicitud->personaBeneficiario,'ocupacion',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'nivelAcademico->nombre',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'ingreso_mensual',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'ind_asegurado',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'ocupacion',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'nivelAcademico->nombre',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'ingreso_mensual',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'ind_asegurado',3, true)}}
         </div>
        
         <div class="row">
-            @if ($solicitud->personaBeneficiario->ind_asegurado)
-                {{Form::display($solicitud->personaBeneficiario,'empresa_seguro',3, true)}}
-                {{Form::display($solicitud->personaBeneficiario,'cobertura',3, true)}}
+            @if ($solicitud->getBeneficiario()->ind_asegurado)
+                {{Form::display($solicitud->getBeneficiario(),'empresa_seguro',3, true)}}
+                {{Form::display($solicitud->getBeneficiario(),'cobertura',3, true)}}
             @endif
-            {{Form::display($solicitud->personaBeneficiario,'otro_apoyo',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'otro_apoyo',3, true)}}
         </div>
         <h3>Direccion de habitación</h3>
         <div class="row">
-            {{Form::display($solicitud->personaBeneficiario,'parroquia->municipio->estado->nombre',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'parroquia->municipio->nombre',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'parroquia->nombre',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'telefono_fijo',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'parroquia->municipio->estado->nombre',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'parroquia->municipio->nombre',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'parroquia->nombre',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'telefono_fijo',3, true)}}
         </div>
         <div class="row">
-            {{Form::display($solicitud->personaBeneficiario,'zona_sector',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'calle_avenida',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'apto_casa',3, true)}}
-            {{Form::display($solicitud->personaBeneficiario,'telefono_celular',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'zona_sector',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'calle_avenida',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'apto_casa',3, true)}}
+            {{Form::display($solicitud->getBeneficiario(),'telefono_celular',3, true)}}
         </div>
         <hr width="100%">
-        @if($solicitud->personaSolicitante->ci!=$beneficiario->ci)
-            <h3>Datos personales de solicitante</h3>
+        @if($solicitud->getSolicitante()->ci!=$solicitud->getBeneficiario()->ci)
+            <h3>Datos personales de Solicitante</h3>
             <div class="row">
-                {{Form::display($solicitud->personaSolicitante,'nombre',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'apellido',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'ci',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'sexo',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'nombre',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'apellido',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'ci',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'sexo',3, true)}}
             </div>
             <div class="row">
-                {{Form::display($solicitud->personaSolicitante,'estadoCivil->nombre',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'fecha_nacimiento',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'edad',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'ind_trabaja',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'estadoCivil->nombre',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'fecha_nacimiento',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'edad',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'ind_trabaja',3, true)}}
             </div>
             <div class="row">
-                {{Form::display($solicitud->personaSolicitante,'ocupacion',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'nivelAcademico->nombre',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'ingreso_mensual',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'ind_asegurado',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'ocupacion',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'nivelAcademico->nombre',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'ingreso_mensual',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'ind_asegurado',3, true)}}
             </div>
 
             <div class="row">
-                @if ($solicitud->personaBeneficiario->ind_asegurado)
-                    {{Form::display($solicitud->personaSolicitante,'empresa_seguro',3, true)}}
-                    {{Form::display($solicitud->personaSolicitante,'cobertura',3, true)}}
+                @if ($solicitud->getBeneficiario()->ind_asegurado)
+                    {{Form::display($solicitud->getSolicitante(),'empresa_seguro',3, true)}}
+                    {{Form::display($solicitud->getSolicitante(),'cobertura',3, true)}}
                 @endif
-                {{Form::display($solicitud->personaSolicitante,'otro_apoyo',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'otro_apoyo',3, true)}}
             </div>
             <h3>Direccion de habitación</h3>
             <div class="row">
-                {{Form::display($solicitud->personaSolicitante,'parroquia->municipio->estado->nombre',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'parroquia->municipio->nombre',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'parroquia->nombre',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'telefono_fijo',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'parroquia->municipio->estado->nombre',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'parroquia->municipio->nombre',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'parroquia->nombre',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'telefono_fijo',3, true)}}
             </div>
             <div class="row">
-                {{Form::display($solicitud->personaSolicitante,'zona_sector',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'calle_avenida',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'apto_casa',3, true)}}
-                {{Form::display($solicitud->personaSolicitante,'telefono_celular',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'zona_sector',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'calle_avenida',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'apto_casa',3, true)}}
+                {{Form::display($solicitud->getSolicitante(),'telefono_celular',3, true)}}
             </div>
         @endif
         <hr width="100%">

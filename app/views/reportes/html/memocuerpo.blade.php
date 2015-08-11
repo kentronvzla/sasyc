@@ -1,32 +1,32 @@
-@if($solicitud->personaSolicitante->ci!=$solicitud->personaBeneficiario->ci)
+@if($solicitud->getSolicitante()->ci!=$solicitud->getBeneficiario()->ci)
     <tr>
         <td>
             <p align="justify">
                 Tengo el honor de dirigirme a usted en la oportunidad de saludarle
                 y a la vez remitirle los recaudos del ciudadano(a) 
                 <strong>
-                    &nbsp;{{$solicitud->personaSolicitante->nombre}}&nbsp;
-                    {{$solicitud->personaSolicitante->apellido}}&nbsp;
+                    &nbsp;{{$solicitud->getSolicitante()->nombre}}&nbsp;
+                    {{$solicitud->getSolicitante()->apellido}}&nbsp;
                 </strong> 
                 de&nbsp; 
-                {{$solicitud->personaSolicitante->fecha_nacimiento->age}}
+                {{$solicitud->getSolicitante()->fecha_nacimiento->age}}
                 &nbsp;años de edad, 
                 titular de la cédula de identidad 
                 <strong>
-                    {{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;
+                    {{($solicitud->getSolicitante()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;
                 </strong>;
                 quien solicita ayuda económica para cubrir gastos ante la necesidad y/o
                 tratamiento de:&nbsp;{{$solicitud->necesidad}} a favor del ciudadano(a)
                 <strong>
                     &nbsp;
-                    {{$solicitud->personaBeneficiario->nombre}}&nbsp;
-                    {{$solicitud->personaBeneficiario->apellido}}&nbsp;
+                    {{$solicitud->getBeneficiario()->nombre}}&nbsp;
+                    {{$solicitud->getBeneficiario()->apellido}}&nbsp;
                 </strong> 
                 de &nbsp; 
-                {{$solicitud->personaBeneficiario->fecha_nacimiento->age}}
+                {{$solicitud->getBeneficiario()->fecha_nacimiento->age}}
                 &nbsp;años de edad,
                 titular de la cédula de identidad 
-                <strong>{{($solicitud->personaBeneficiario->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, 
+                <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, 
                 por la 
                 cantidad <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>,
                 en virtud de cubrir los gastos ante; 
@@ -57,7 +57,7 @@
                 Sin otro particular al cual hacer referencia, se despide de usted.<br>
                 Atentamente,<br><br>
 
-                <strong>1ER.TTE. Evelyn Cárdenas<br>Dirección de Bienestar Social</strong>
+                <strong>1er. TTE. {{$solicitud->departamento->supervisor->nombre}} Dirección de {{$solicitud->departamento->nombre}}</strong>
             </p><br>
         </td>
     </tr>
@@ -66,22 +66,22 @@
         <td>
             <p align="justify">
                 Tengo el honor de dirigirme a usted en la oportunidad de saludarle
-                y a la vez remitirle los recaudos del ciudadano(a) 
+                y a la vez remitirle los recaudos del ciudadano(a)&nbsp;
                 <strong>
-                    &nbsp;{{$solicitud->personaSolicitante->nombre}}&nbsp;
-                    {{$solicitud->personaSolicitante->apellido}}&nbsp;
+                    {{$solicitud->getBeneficiario()->nombre}}&nbsp;
+                    {{$solicitud->getBeneficiario()->apellido}}&nbsp;,
                 </strong> 
-                <!--de&nbsp; 
-                {{--$solicitud->personaBeneficiario->fecha_nacimiento->age--}}
-                &nbsp;años de edad,--> 
+                de&nbsp; 
+                {{$solicitud->getBeneficiario()->getEdadAttribute()}}
+                &nbsp;años de edad, 
                 titular de la cédula de identidad 
                 <strong>
-                   {{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;
-                </strong>,
-                quien solicita ayuda económica para cubrir gastos ante la necesidad y/o
+                   {{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getBeneficiario()->ci}},
+                </strong>
+                &nbsp;quien solicita ayuda económica para cubrir gastos ante la necesidad y/o
                 tratamiento de:&nbsp;{{$solicitud->necesidad}} a favor si mismo(a), 
                 por la 
-                cantidad <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>,
+                cantidad de <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>,
                 en virtud de cubrir los gastos por:<br><br> 
                 <strong>
                     @foreach($solicitud->presupuestos as $resultado)
@@ -110,7 +110,7 @@
                 Sin otro particular al cual hacer referencia, se despide de usted.<br>
                 Atentamente:
 
-                <strong>1ER.TTE. Evelyn Cárdenas Dirección de Bienestar Social</strong>
+                <strong>{{$solicitud->departamento->supervisor->nombre}} Dirección de {{$solicitud->departamento->nombre}}</strong>
             </p><br>
         </td>
     </tr>

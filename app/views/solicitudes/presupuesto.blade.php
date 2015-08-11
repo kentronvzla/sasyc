@@ -15,7 +15,7 @@
 {{Form::hidden ('solicitud_id', $solicitud->id, ['id'=>'solicitud_id'])}}
 <div class="row">
     {{Form::btInput($presupuesto,'requerimiento_id',4,'select',['data-url'=>'requerimientos/procesos','data-child'=>'proceso_id'],$requerimientos)}}
-    {{Form::btInput($presupuesto,'proceso_id',3,'select')}}
+    {{Form::btInput($presupuesto,'proceso_id',3,"select",[],Proceso::getCombos($presupuesto->requerimiento_id))}}
     {{Form::btInput($presupuesto,'cantidad',1)}}
     {{Form::btInput($presupuesto,'monto',2)}}
     {{Form::btInput($presupuesto,'montoapr',2)}}    

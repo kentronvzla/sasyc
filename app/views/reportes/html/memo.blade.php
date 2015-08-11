@@ -18,7 +18,7 @@
                 <strong>Para:</strong>
             </td>
             <td style="width: 580px; height: auto; font-size: 14px;" valign="middle" >
-                Cap. José Zambrano Director de Administración
+                {{Configuracion::get('coordinador')}}&nbsp;Director de Administración
             </td>  
         </tr>
         <tr>
@@ -26,7 +26,8 @@
                 <strong>De:</strong>
             </td>
             <td style="width: 580px; height: auto; font-size: 14px;" valign="middle">
-                1er. Tte. Evelyn Cárdenas Directora de Bienestar Social
+                <!--1er. TTE. Evelyn Cárdenas Directora de Bienestar Social-->
+                {{$solicitud->departamento->supervisor->nombre}} Director(a) de {{$solicitud->departamento->nombre}}
             </td>  
         </tr>
         <tr>
@@ -42,7 +43,7 @@
                 <strong>Fecha:</strong>
             </td>
             <td style="width: 580px; height: auto; font-size: 14px;" valign="middle" >
-                21/10/2014
+                {{date('d/m/Y')}}
             </td>  
         </tr>
     </table>

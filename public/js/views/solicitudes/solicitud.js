@@ -19,6 +19,8 @@ $(document).ready(function () {
 
     $('.buscar-seniat').on('click', buscarSENIAT);
     
+    $('.buscar-cne').on('click', buscarCNE);
+    
     $('#form-familiares').find("#tipo_nacionalidad_id, #ci").on('change', buscarPersona);
 
     $('#form-informe').find('#total_ingresos').prop("disabled", true);
@@ -190,4 +192,18 @@ function buscarSENIAT(evt)
     iseniat.attr('src', pUrl);
     $('#div-seniat').show();
     iseniat.contents().find('head').append('<meta charset="utf-8">');
+}
+
+function buscarCNE(evt)
+{
+    var parent = $(evt.target).closest('.row').parent();
+    if (parent.find('#ci').val() == "") {
+        return;
+    }
+    //var mDivDestino = $('#cne');
+    var pUrl = "http://www.cne.gob.ve/web/registro_electoral/ce.php?nacionalidad=V&cedula=" + parent.find('#ci').val();
+    var icne = $('#icne');
+    icne.attr('src', pUrl);
+    $('#div-cne').show();
+    icne.contents().find('head').append('<meta charset="utf-8">');
 }

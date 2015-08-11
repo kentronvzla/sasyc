@@ -34,20 +34,20 @@
             <table width="100%" border="1" cellpadding="10" cellspacing="0">
                     <tr>
                         <td style="width: 370px; height: auto;">
-                            A- AL: MY Antonio José Pérez Suárez<br>
+                            A- AL: {{Configuracion::get('presidente')}}<br>
                             Presidente de la fundacion pueblo soberano (FPS)
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 370px; height: auto;">
-                            B- AL: CAP José Holberg Zambrano Gonzáles<br>
-                            coordinador general de la fundacion pueblo soberano (FPS)
+                            B- AL: {{Configuracion::get('coordinador')}}<br>
+                            Coordinador general de la fundacion pueblo soberano (FPS)
                         </td>
                     </tr>
                     <tr>    
                         <td style="width: 370px; height: auto;">
-                            C- POR: Direcciones de administracion y bienestar social
-                            de la fundación pueblo soberano
+                            C- POR: Direcciones de Administracion y Bienestar Social
+                            de la Fundación Pueblo Soberano
                         </td>
                     </tr>
                 </table>

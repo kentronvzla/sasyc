@@ -33,7 +33,4 @@
     {{Form::btInput($familiar,'ingreso_mensual',6)}}
 </div>  
 @include('templates.bootstrap.submit')
-@section('javascript')
-{{HTML::script('js/views/solicitudes/nuevasolicitud.js')}}
-@stop
 {{Form::close()}}

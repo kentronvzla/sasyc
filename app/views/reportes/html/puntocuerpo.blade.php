@@ -1,32 +1,32 @@
 {{--*/ $cont_total = count($solicitud->presupuestos) /*--}}
 {{--*/ $cont_ciclo = 0 /*--}}
-@if($solicitud->personaSolicitante->ci!=$solicitud->personaBeneficiario->ci)
+@if($solicitud->getSolicitante()->ci!=$solicitud->getBeneficiario()->ci)
     <p align="justify">
         Se somete a la consideración y aprobación del Presidente de la Fundación 
         Pueblo Soberano, el otorgamiento de ayuda económica
         solicitada al <strong>{{$solicitud->referente->nombre}} </strong> 
         por 
         <strong>
-            {{$solicitud->personaSolicitante->nombre}}&nbsp;
-            {{$solicitud->personaSolicitante->apellido}}&nbsp;
+            {{$solicitud->getSolicitante()->nombre}}&nbsp;
+            {{$solicitud->getSolicitante()->apellido}}&nbsp;
         </strong>
         de 
-        <strong>{{$solicitud->personaSolicitante->fecha_nacimiento->age}}</strong> 
+        <strong>{{$solicitud->getSolicitante()->fecha_nacimiento->age}}</strong> 
         años de edad, titular de la cédula de 
         identidad 
-        <strong>{{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;</strong>, por la cantidad de 
+        <strong>{{($solicitud->getSolicitante()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;</strong>, por la cantidad de 
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
         a favor del ciudadan@&nbsp;
 
         <strong>
-            {{strtoupper($solicitud->personaBeneficiario->nombre)}}&nbsp;
-            {{strtoupper($solicitud->personaBeneficiario->apellido)}}&nbsp;
+            {{strtoupper($solicitud->getBeneficiario()->nombre)}}&nbsp;
+            {{strtoupper($solicitud->getBeneficiario()->apellido)}}&nbsp;
         </strong> 
         de 
-        <strong>{{$solicitud->personaBeneficiario->fecha_nacimiento->age}}</strong> 
+        <strong>{{$solicitud->getBeneficiario()->fecha_nacimiento->age}}</strong> 
         años de edad, titular
         de la cédula de identidad 
-        <strong>{{($solicitud->personaBeneficiario->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario->ci}}</strong>, 
+        <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario->ci}}</strong>, 
         quien en virtud del
         analisis de la documentación  presentada por parte de las Direcciones de 
         {{$solicitud->departamento->nombre}} y de Administración, 
@@ -66,14 +66,14 @@
         solicitada al <strong>{{$solicitud->referente->nombre}} </strong> 
         por 
         <strong>
-            {{strtoupper($solicitud->personaSolicitante->nombre)}}&nbsp;
-            {{strtoupper($solicitud->personaSolicitante->apellido)}}&nbsp;
+            {{strtoupper($solicitud->getBeneficiario()->nombre)}}&nbsp;
+            {{strtoupper($solicitud->getBeneficiario()->apellido)}}&nbsp;
         </strong>
         de 
-        <strong>{{$solicitud->personaSolicitante->fecha_nacimiento->age}}</strong> 
+        <strong>{{$solicitud->getBeneficiario()->fecha_nacimiento->age}}</strong> 
         años de edad, titular de la cédula de 
         identidad 
-        <strong>{{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;</strong>, 
+        <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getBeneficiario->ci}}&nbsp;</strong>, 
         por la cantidad de 
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
         a favor de sí mismo, que en virtud del

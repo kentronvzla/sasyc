@@ -9,56 +9,47 @@
             </button>
             <h4 class="modal-title">Enviar solicitud de aprobacion</h4>
         </div>
-        
-        
+
+
         <div class="modal-body">
-           
-          <?php
-          
-          if ($inf_social== null) {
-              echo ' No se puede aprobar la solicitud porque le falta el Informe Socieconomico';
-              
-         }else{ ?>
-          
-         
-            No se puede aprobar la solicitud porque le faltan Recaudos por Consignar
-            <br>
-            <br>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Reacudo</th>
-                            <th>Recibido?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($prueba as $bit)
-                        <?php
-                        if ($bit->ind_recibido == true) {
-                            $reca = 'Si';
-                        } else {
-
-                            $reca = 'No';
-                        }
-                        ?>
-                        <tr>
-                            @if($bit->recaudo->ind_obligatorio == true)
-                            <td>{{$bit->recaudo->nombre}}</td>
-                            <td>{{$reca}}</td>
+            @if(@$inf_social == null)
+                {{'No se puede aprobar la solicitud, hace falta Informe Socieconomico'}}
+            @elseif (@$recaudos == null)
+                {{'No se puede aprobar la solicitud, hace falta Recaudos Asociados'}}            
+            @else
+                {{'No se puede aprobar la solicitud porque le faltan Recaudos por Consignar'}}
+                <br>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Reacudo</th>
+                                <th>Recibido?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($recaudos as $recaudo)
+                            @if($recaudo->ind_recibido == true)
+                            {{--*/ $ind_recaudo = "Si" /*--}}
+                            @else
+                            {{--*/ $ind_recaudo = "No" /*--}}
                             @endif
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-        <?php } ?>
+                            <tr>
+                                @if($recaudo->recaudo->ind_obligatorio == true)
+                                <td>{{$recaudo->recaudo->nombre}}</td>
+                                <td>{{$ind_recaudo}}</td>
+                                @endif
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
         </div>
+        
         <div class="modal-footer">
-
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-
         </div>
         {{Form::close()}}
     </div>
