@@ -24,7 +24,7 @@
                     <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#PanelUno">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#PanelUno">
-                                Solicitud
+                                Solicitud &nbsp;{{$solicitud->num_solicitud}}
                             </a>
                         </h4>
                     </div>            
