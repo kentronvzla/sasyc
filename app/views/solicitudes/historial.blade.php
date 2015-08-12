@@ -1,4 +1,3 @@
-<!-- @if(Usuario::puedeAcceder('GET.solicitudes.historial'))-->
 <div class="modal-dialog" id="div-candidato-documentos">
     <div class="modal-content">
         <div class="modal-header">
