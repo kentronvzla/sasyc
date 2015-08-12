@@ -1,12 +1,11 @@
 <?php
 
-Route::group(['before'=>'auth'], function(){
-    Route::get('','IndexController@inicio');
-    Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion','before'=>'auth'), function() {
+Route::group(['before' => 'auth'], function() {
+    Route::get('', 'IndexController@inicio');
+    Route::group(array('prefix' => 'administracion', 'namespace' => 'Administracion', 'before' => 'auth'), function() {
         Route::group(array('prefix' => 'seguridad', 'namespace' => 'Seguridad'), function() {
             Route::controller('usuarios', 'UsuariosController');
             Route::controller('grupos', 'GruposController');
-             
         });
         Route::group(array('prefix' => 'tablas', 'namespace' => 'Tablas'), function() {
             Route::controller('tipoAyudas', 'TipoAyudasController');
@@ -33,11 +32,9 @@ Route::group(['before'=>'auth'], function(){
             Route::controller('personas', 'PersonasController');
             Route::controller('procesos', 'ProcesosController');
             Route::controller('ayudaCampos', 'AyudaCamposController');
-            
-          
-            
+            Route::controller('seguros', 'SegurosController');
         });
-        Route::get('', function(){
+        Route::get('', function() {
             return View::make('administracion.principal');
         });
     });
@@ -55,10 +52,7 @@ Route::group(['before'=>'auth'], function(){
     Route::controller('documentos', 'DocumentossasycesController');
     Route::controller('autocompletar', 'AutocompletarController');
     Route::controller('alertas', 'AlertasController');
-   
-    
 });
-Route::get('parametros','ConfiguracionController@getParametros');
-Route::controller('login','LoginController');
+Route::get('parametros', 'ConfiguracionController@getParametros');
+Route::controller('login', 'LoginController');
 
-   

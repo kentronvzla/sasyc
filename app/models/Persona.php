@@ -180,7 +180,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
             'ingreso_mensual' => 'Ingreso mensual',
             'observaciones' => 'Observaciones',
             'ind_asegurado' => '¿Asegurado?',
-            'empresa_seguro' => 'Empresa seguro',
+            'empresa_seguro' => 'Empresa Aseguradora',
             'cobertura' => 'Cobertura',
             'otro_apoyo' => 'Otro apoyo otorgado',
             'documento' => 'Documento',

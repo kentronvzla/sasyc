@@ -36,13 +36,11 @@
         ?>
 
         @if ($alerta >= 1)
-        <div class="btn-group pull-right" >
-            <button  style="background-color:#aea79f" class="btn btn-default">
-                {{HTML::button('alertas' , 'bell', 'Alertas', true)}}
-                <span class="notification red">{{$alerta}}</span>
-            </button>
-
+        <div class="btn-group pull-right">
+            {{HTML::buttonText('alertas' , 'bell', '', true)}}  
+            <span class="notification red">{{$alerta}}</span>
         </div>
+        </style>
         @endif    
         <!-- user dropdown ends -->
         <ul class="collapse navbar-collapse nav navbar-nav top-menu">
