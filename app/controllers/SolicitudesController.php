@@ -188,25 +188,34 @@ class SolicitudesController extends BaseController {
 
     public function getSolicitaraprobacion($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
+        $id_usuario = Sentry::getUser()->id;
         $informe = $data['solicitud']->informe_social;
         if (!empty($informe)) {
-            $recaudo = RecaudoSolicitud::select('ind_recibido', 'recaudo_id')->where('solicitud_id', '=', $id)->get();
-            $data['prueba'] = $recaudo;
-            foreach ($recaudo as $todo) {
-                $primero = $todo['attributes'];
-                $primer = array_shift($primero);
-                $pru[] = $primer;
-                $data['inf_social'] = 1;
-            }
-            if (in_array(false, $pru)) {
-                return View::make('solicitudes.mensaje', $data);
-            } else {
+            $recaudos = RecaudoSolicitud::select('ind_recibido', 'recaudo_id')->where('solicitud_id', '=', $id)->get();
+            if (count($recaudos) > 0) {
+                $data['recaudos'] = $recaudos;
+                foreach ($recaudos as $recaudo) {
+                    $atributos = $recaudo['attributes'];
+                    $arreglo_attr = array_shift($atributos);
+                    $recaudo_attr[] = $arreglo_attr;
+                    $data['inf_social'] = 1;
+                }
                 return View::make('solicitudes.solicitaraprobacion', $data);
+            } else {
+                if (Request::ajax()) {
+                    return Response::json($data=['error' => 'No se puede aprobar la solicitud porque le faltan Recaudos por Consignar'], $status=400, $headers=[], $options=JSON_PRETTY_PRINT);
+//                    return Response::json(['error' => 'No se puede aprobar la solicitud porque le faltan Recaudos por Consignar'], 400);
+                }
+//                return Redirect::back()->with('error', 'No se puede aprobar la solicitud porque le faltan Recaudos por Consignar');                
+//                return View::make('solicitudes.mensaje', $data);
             }
         } else {
-            $data['inf_social'] = null;
-            $data['prueba'] = 1;
-            return View::make('solicitudes.mensaje', $data);
+            if (Request::ajax()) {
+                return Response::json($data=['error' => 'No se puede aprobar la solicitud porque le faltan Recaudos por Consignar'], $status=400, $headers=[], $options=JSON_PRETTY_PRINT);
+//                return Response::json(['error' => 'No se puede aprobar la solicitud, hace falta Informe Socieconomico'], 400);
+            }
+//            return Redirect::back()->with('error', 'No se puede aprobar la solicitud, hace falta Informe Socieconomico');
+//            return View::make('solicitudes.mensaje', $data);
         }
     }
 
@@ -214,7 +223,7 @@ class SolicitudesController extends BaseController {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         $proc_documento = new ayudantes\ProcesarDocumento();
         $data = $proc_documento->buscarDefEvento($solicitud);
-        if (Input::get('usuario_autorizacion_id') != '') {
+        if (!$solicitud->validarAprobacion(Input::get('usuario_autorizacion_id'))) {
             if (!empty($data['eventos'])) {
                 $mensaje = $proc_documento->insertarDocumentos($data);
                 if (!empty($mensaje)) {
@@ -227,15 +236,26 @@ class SolicitudesController extends BaseController {
                 return Response::json(['errores' => 'No se puede aprobar la solicitud, defina al menos un tipo de documento'], 400);
             }
         } else {
-            return Response::json(['errores' => 'Debes seleccionar el autorizador'], 400);
+            return Response::json(['errores' => $solicitud->getErrors()], 400);
         }
-//        if ($solicitud->solicitarAprobacion(Input::get('usuario_autorizacion_id'))) {
         Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $solicitud->id);
         return Redirect::to('aceptar?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id=5')
                         ->with('mensaje', 'Se solicito la aprobacion de la solicitud: ' . $solicitud->id . ', correctamente');
-
-//      return Redirect::back()->with('mensaje','Se solicitó la aprobación de la solicitud: ' . $solicitud->id . ', correctamente');
-//        return Response::json(['errores' => $solicitud->getErrors()], 400);
+//        if (Input::get('usuario_autorizacion_id') != '') {
+//            if (!empty($data['eventos'])) {
+//                $mensaje = $proc_documento->insertarDocumentos($data);
+//                if (!empty($mensaje)) {
+//                    $this->cancelarTransaccion();
+//                    return Response::json($mensaje, 400);
+//                } else {
+//                    $proc_documento->atualizarEstatus($data);
+//                }
+//            } else {
+//                return Response::json(['errores' => 'No se puede aprobar la solicitud, defina al menos un tipo de documento'], 400);
+//            }
+//        } else {
+//            return Response::json(['errores' => 'Debes seleccionar el autorizador'], 400);
+//        }
     }
 
     public function cancelarTransaccion() {

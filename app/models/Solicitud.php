@@ -597,7 +597,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 });
             }
         } else {
-            $mensajes->setErrors($validator->messages());
+            foreach ($validator->getMessageBag()->getMessages() as $campo => $mensaje) {
+                $mensajes->addError($campo, $mensaje);
+            }
         }
         return $mensajes;
     }
@@ -704,6 +706,22 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             return false;
         }
     }*/
+    
+    public function validarAprobacion($autorizador_id) {
+        if ($autorizador_id == '') {
+            $this->addError('usuario_autorizacion_id', 'Debes seleccionar el autorizador');
+        } else if ($this->presupuestos()->count() < 1) {
+            $this->addError('presupuestos', 'La solicitud debe tener al menos un presupuesto cargado');
+        } else if (!$this->puedeSolicitarAprobacion()) {
+            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto para ser aprobada');
+        }
+        $this->reglasSolicitudAprobacion();       
+        if ($this->hasErrors()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public function getBeneficiario() {
         if ($this->puedeModificar()) {
@@ -712,7 +730,6 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             if (!isset($this->beneficiario_json)) {
                 return $this->personaBeneficiario;
             } else {
-               
                 return new Persona(json_decode($this->beneficiario_json,true));
             }
         }
