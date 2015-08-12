@@ -255,7 +255,9 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
 
     public function setFechaNacimientoAttribute($value) {
         if ($value != "") {
-            $this->attributes['fecha_nacimiento'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+            $value = date_create($value); 
+            $value = date_format($value, 'Y-m-d');
+            $this->attributes['fecha_nacimiento'] = Carbon::createFromFormat('Y-m-d', $value)->toDateString();
         }
     }
 

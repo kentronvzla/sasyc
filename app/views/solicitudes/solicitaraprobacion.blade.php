@@ -1,6 +1,6 @@
-<div class="modal-dialog" id="div-candidato-documentos">
+<div class="modal-dialog modal-lg" id="div-candidato-documentos">
     <div class="modal-content">
-        {{Form::open(array('url'=>'solicitudes/solicitaraprobacion'))}}
+        {{Form::open(array('url'=>'solicitudes/solicitaraprobacion', 'class'=>'saveajax'))}}
         {{Form::hidden('id', $solicitud->id)}}
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">
@@ -14,10 +14,15 @@
             {{Form::btInput($solicitud, 'usuario_autorizacion_id')}}
             <h4>Presupuestos</h4>
             {{HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')}}
+            @if(empty($informe))
+                <h4><span class="label label-danger">No se puede aprobar la solicitud, falta Informe Socieconomico</span></h4>
+            @elseif(count($recaudos)<=0)
+                <h4><span class="label label-danger">No se puede aprobar la solicitud, faltan recaudos por consignar</span></h4>
+            @endif
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-             @if(Usuario::puedeAcceder('GET.solicitudes.solicitaraprobacion'))             
+            @if(Usuario::puedeAcceder('GET.solicitudes.solicitaraprobacion') && !empty($informe) && count($recaudos)>0)
             <button type="submit" class="btn btn-primary">Solicitar Aprobación</button>
             @endif
         </div>
