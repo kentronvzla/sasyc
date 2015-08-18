@@ -229,8 +229,6 @@ class SolicitudesController extends BaseController {
         }
         Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $solicitud->id);
         return Response::json(['mensaje' => 'Se solicito la aprobacion de la solicitud: ' . $solicitud->id . ', correctamente', 'url' => Redirect::back()->getTargetUrl()], 200);
-//        return Redirect::to('aceptar?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id='."$id_usuario")
-//                        ->with('mensaje', 'Se solicito la aprobacion de la solicitud: ' . $solicitud->id . ', correctamente');
     }
 
     public function cancelarTransaccion() {
@@ -247,7 +245,8 @@ class SolicitudesController extends BaseController {
     public function postAnular() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
         if ($solicitud->anular(Input::get('nota'))) {
-            return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=ART&estatus[]=ELD&estatus[]=ACA&estatus[]=DEV&estatus[]=EAA&anulando=true')->with('mensaje', 'Se anuló la solicitud: ' . $solicitud->id . ', correctamente');
+            return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=ART&estatus[]=ELD&estatus[]=ACA&estatus[]=DEV&estatus[]=EAA&anulando=true')
+                            ->with('mensaje', 'Se anuló la solicitud: ' . $solicitud->id . ', correctamente');
         }
         return Redirect::to('solicitudes?estatus[]=ELA&estatus[]=ART&estatus[]=ELD&estatus[]=ACA&estatus[]=DEV&estatus[]=EAA&anulando=true')->with('error', $solicitud->getErrors()->first());
     }
