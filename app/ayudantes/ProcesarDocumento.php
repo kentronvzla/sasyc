@@ -31,7 +31,14 @@ class ProcesarDocumento {
         $presupuestos = \DB::select('SELECT beneficiario_id, proceso_id, documento_id, SUM(montoapr) as monto_total_apr, moneda FROM presupuestos WHERE solicitud_id =' . $solicitud->id . ' GROUP BY beneficiario_id, proceso_id, documento_id, moneda');
 
         foreach ($presupuestos as $presupuesto) {
-            $consulta = \DB::select('SELECT id, nombre, tipo_doc, ind_cantidad, ind_monto, ind_beneficiario  FROM procesos WHERE id =' . $presupuesto->proceso_id . ' GROUP BY id, nombre, tipo_doc, ind_cantidad, ind_monto, ind_beneficiario');
+            $consulta = \DB::select("SELECT pro.id, nombre, tipo_doc, ind_cantidad, "
+                            . " ind_monto, ind_beneficiario "
+                            . " FROM procesos as pro, "
+                            . " defeventosasyc as def "
+                            . " WHERE pro.id = " . $presupuesto->proceso_id
+                            . " AND  def.id = pro.defeventosasyc_id "
+                            . " GROUP BY pro.id, nombre, tipo_doc, ind_cantidad, "
+                            . " ind_monto, ind_beneficiario");
             array_push($procesos, $consulta);
         }
 
@@ -40,7 +47,12 @@ class ProcesarDocumento {
         $t_evento = "GEN";
 
         for ($i; $i < count($procesos); $i++) {
-            $consulta = \DB::select("SELECT id, tipo_doc, tipo_evento, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic FROM defeventosasyc WHERE tipo_doc ='" . $procesos[$i]->tipo_doc . "' AND tipo_evento = '" . $t_evento . "'");
+            $consulta = \DB::select("SELECT id, tipo_doc, tipo_evento, ind_aprueba_auto, "
+                            . " ind_doc_ext, ind_ctas_adic, "
+                            . " ind_reng_adic, ind_detcomp_adic "
+                            . " FROM defeventosasyc "
+                            . " WHERE tipo_doc ='" . $procesos[$i]->tipo_doc .
+                            "' AND tipo_evento = '" . $t_evento . "'");
             if (!empty($consulta))
                 array_push($eventos, $consulta);
         }
@@ -58,7 +70,23 @@ class ProcesarDocumento {
     public function insertarDocumentos($data) {
         list($t_evento, $rsp_pkg, $mensaje) = array("GEN", array(), array());
         foreach ($data['presupuestos'] as $presupuesto) {
-            $evento = \DB::select("SELECT t1.id,t1.nombre,t1.tipo_doc,t1.ind_cantidad,t1.ind_monto,t1.ind_beneficiario,t2.tipo_evento,t2.ind_aprueba_auto,t2.ind_doc_ext,t2.ind_ctas_adic,t2.ind_reng_adic,t2.ind_detcomp_adic FROM procesos AS t1 INNER JOIN defeventosasyc AS t2 ON t1.tipo_doc = t2.tipo_doc WHERE t1.id =" . $presupuesto->proceso_id . " AND tipo_evento ='" . $t_evento . "'");
+            $evento = \DB::select("SELECT pro.id,"
+                            . " pro.nombre,"
+                            . " pro.ind_cantidad,"
+                            . " pro.ind_monto,"
+                            . " pro.ind_beneficiario,"
+                            . " def.tipo_doc,"
+                            . " def.tipo_evento,"
+                            . " def.ind_aprueba_auto,"
+                            . " def.ind_doc_ext,"
+                            . " def.ind_ctas_adic,"
+                            . " def.ind_reng_adic,"
+                            . " def.ind_detcomp_adic"
+                            . " FROM procesos AS pro"
+                            . " INNER JOIN defeventosasyc AS def ON pro.defeventosasyc_id = def.id"
+                            . " WHERE pro.id =" . $presupuesto->proceso_id
+                            . " AND tipo_evento = '" . $t_evento . "'"
+            );
             if (!empty($evento)) {
 
                 if ($presupuesto->documento_id == null) {
@@ -114,13 +142,9 @@ class ProcesarDocumento {
     public function insertarAdicionales($data, $doc_ori) {
         list($mensaje) = array([]);
         $this->eliminarAdicionales($doc_ori);
-        $valida_rsa = $this->insertarRengSumAdic($data, $doc_ori);
-        if ($valida_rsa == true) {
-            $mensaje['errores'] = 'No se puede aprobar la solicitud, debe configurar correctamente el requerimiento';
-        } else {
-            $this->insertarCtasDocAdic($data, $doc_ori);
-            $this->insertarComprobDetAdic($data, $doc_ori);
-        }
+        $this->insertarRengSumAdic($data, $doc_ori);
+        $this->insertarCtasDocAdic($data, $doc_ori);
+        $this->insertarComprobDetAdic($data, $doc_ori);
         return $mensaje;
     }
 
@@ -355,13 +379,22 @@ class ProcesarDocumento {
         return $ctasdocadic;
     }
 
-    public function cargarRengAdic($registro) {
+    public function cargarRengAdic($registro, $catalogos = null) {
         $rengsumadic = new RengSumAdic();
         $rengsumadic->iddoc = $registro->documento_id;
-        $rengsumadic->tiporeng = "MT";
-        if ($registro->cod_item != null)
-            $rengsumadic->coditem = $registro->cod_item;
-        $rengsumadic->codserv = null;
+        if ($catalogos != null) {
+            foreach ($catalogos as $catalogo) {
+                if (($catalogo->tipoitem == 'B') || ($catalogo->tipoitem == 'M')) {
+                    $rengsumadic->tiporeng = "MT";
+                    $rengsumadic->coditem = $catalogo->coditem;
+                } else {
+                    $rengsumadic->tiporeng = "SV";
+                    $rengsumadic->codserv = $catalogo->codserv;
+                }
+            }
+        } else {
+            $rengsumadic->tiporeng = "SV";
+        }
         $rengsumadic->descreng = $registro->nombre;
         $rengsumadic->descadiitem = $registro->descripcion;
         $rengsumadic->unidbasica = "UND";
@@ -391,9 +424,18 @@ class ProcesarDocumento {
     }
 
     public function insertarCtasDocAdic($data, $doc_ori) {
-        $sql = "SELECT t1.solicitud_id, t1.documento_id, t1.moneda, t1.beneficiario_id, t4.cod_acc_int, t6.cod_cta, SUM(t1.montoapr) as montoapr 
-            FROM presupuestos as t1, solicitudes as t2, areas as t3, tipo_ayudas as t4, procesos as t5, requerimientos as t6, defeventosasyc as t7
-            WHERE solicitud_id =" . $data['solicitud']['id'] . " AND documento_id =" . $doc_ori . " AND t7.ind_ctas_adic = true AND t2.id = t1.solicitud_id AND t3.id = t2.area_id AND t4.id = t3.tipo_ayuda_id AND t5.id = t1.proceso_id AND t7.tipo_doc = t5.tipo_doc AND t6.id = t1.requerimiento_id GROUP BY t1.solicitud_id, t1.documento_id, t1.beneficiario_id, t4.cod_acc_int, t6.cod_cta, t1.moneda";
+        $sql = "SELECT pre.solicitud_id, pre.documento_id, pre.moneda, pre.beneficiario_id, tayu.cod_acc_int, t6.cod_cta, SUM(pre.montoapr) as montoapr 
+            FROM presupuestos as pre, solicitudes as sol, areas as are, tipo_ayudas as tayu, procesos as pro, requerimientos as req, defeventosasyc as def
+            WHERE solicitud_id =" . $data['solicitud']['id'] .
+                " AND documento_id =" . $doc_ori
+                . " AND def.ind_ctas_adic = true "
+                . " AND sol.id = pre.solicitud_id "
+                . " AND are.id = sol.area_id "
+                . " AND tayu.id = are.tipo_ayuda_id "
+                . " AND pro.id = pre.proceso_id "
+                . " AND def.id = pro.defeventosasyc_id "
+                . " AND req.id = pre.requerimiento_id "
+                . " GROUP BY pre.solicitud_id, pre.documento_id, pre.beneficiario_id, tayu.cod_acc_int, req.cod_cta, pre.moneda";
         $registros = \DB::select($sql);
         if (!empty($registros)) {
             foreach ($registros as $registro) {
@@ -406,30 +448,44 @@ class ProcesarDocumento {
     }
 
     public function insertarRengSumAdic($data, $doc_ori) {
-        $sql = "SELECT t1.solicitud_id, t1.documento_id, t3.cod_item, t3.nombre, t3.descripcion, SUM(t1.cantidad) cantidad
-            FROM presupuestos as t1,procesos as t2, requerimientos as t3, defeventosasyc as t4
-            WHERE solicitud_id =" . $data['solicitud']['id'] . " AND documento_id =" . $doc_ori . " AND t4.ind_reng_adic = true AND t2.id = t1.proceso_id AND t4.tipo_doc = t2.tipo_doc AND t3.id = t1.requerimiento_id
-            GROUP BY t1.solicitud_id, t1.documento_id, t3.cod_item, t3.nombre, t3.descripcion";
+        $sql = "SELECT pre.solicitud_id, pre.documento_id, req.cod_item, req.nombre, req.descripcion, SUM(pre.cantidad) cantidad
+            FROM presupuestos as pre, procesos as pro, requerimientos as req, defeventosasyc as def
+            WHERE solicitud_id =" . $data['solicitud']['id']
+                . " AND documento_id =" . $doc_ori
+                . " AND def.ind_reng_adic = true "
+                . " AND pro.id = pre.proceso_id "
+                . " AND def.id = pro.defeventosasyc_id "
+                . " AND req.id = pre.requerimiento_id"
+                . " GROUP BY pre.solicitud_id, pre.documento_id, req.cod_item, req.nombre, req.descripcion";
         $registros = \DB::select($sql);
         if (!empty($registros)) {
             foreach ($registros as $registro) {
                 if ($registro->cod_item != null) {
-                    $rengsumadic = $this->cargarRengAdic($registro);
-//                dump($rengsumadic['attributes']);
-                    $rengsumadic->save();
+                    $sql = "SELECT CODITEM, CODSERV, TIPOITEM
+                        FROM V_CATALOGO
+                        WHERE CODIGO ='" . $registro->cod_item . "'";
+                    $catalogos = \DB::connection('oracle')->select($sql);
                 } else {
-                    return true;
+                    $catalogos = null;
                 }
+                $rengsumadic = $this->cargarRengAdic($registro, $catalogos);
+                $rengsumadic->save();
+//                dump($rengsumadic['attributes']);
             }
         }
-        return false;
+        return;
     }
 
     public function insertarComprobDetAdic($data, $doc_ori) {
-        $sql = "SELECT t1.solicitud_id, t1.documento_id, t3.cod_cta, SUM(t1.montoapr) monto
-            FROM presupuestos as t1,  procesos as t2, requerimientos as t3, defeventosasyc as t4
-            WHERE solicitud_id = " . $data['solicitud']['id'] . " AND documento_id =" . $doc_ori . " AND t4.ind_detcomp_adic = true AND t2.id = t1.proceso_id AND t4.tipo_doc = t2.tipo_doc AND t3.id = t1.requerimiento_id
-            GROUP BY t1.solicitud_id, documento_id, t3.cod_cta";
+        $sql = "SELECT pre.solicitud_id, pre.documento_id, req.cod_cta, SUM(pre.montoapr) monto
+            FROM presupuestos as pre,  procesos as pro, requerimientos as req, defeventosasyc as def
+            WHERE solicitud_id = " . $data['solicitud']['id']
+                . " AND documento_id =" . $doc_ori
+                . " AND def.ind_detcomp_adic = true "
+                . " AND pro.id = pre.proceso_id "
+                . " AND def.id = pro.defeventosasyc_id"
+                . " AND req.id = pre.requerimiento_id"
+                . " GROUP BY pre.solicitud_id, documento_id, req.cod_cta";
         $registros = \DB::select($sql);
         if (!empty($registros)) {
             foreach ($registros as $registro) {

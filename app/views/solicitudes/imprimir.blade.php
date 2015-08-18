@@ -144,7 +144,7 @@
             <tr>
                 <td style="width: 160px;height: auto;">
                     <strong>Empresa de Seguro:</strong>&nbsp;
-                    {{$beneficiario->empresa_seguro or ""}}
+                    {{$beneficiario->seguro_id or ""}}
                 </td>
                 <td style="width: 200px;height: auto;">
                     <strong>Cobertura:</strong>&nbsp;
@@ -261,7 +261,7 @@
             <tr>
                 <td style="width: 160px;height: auto;">
                     <strong>Empresa de Seguro:</strong>&nbsp;
-                    {{$solicitud->personaSolicitante->empresa_seguro or ""}}
+                    {{$solicitud->personaSolicitante->seguro_id or ""}}
                 </td>
                 <td style="width: 200px;height: auto;">
                     <strong>Cobertura:</strong>&nbsp;

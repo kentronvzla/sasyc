@@ -39,8 +39,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereSts($value)
- * @property string $cheque 
- * @property string $numop 
+ * @property string $cheque
+ * @property string $numop
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereEstatusDoc($value)
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereCheque($value)
  * @method static \Illuminate\Database\Query\Builder|\Presupuesto whereNumop($value)

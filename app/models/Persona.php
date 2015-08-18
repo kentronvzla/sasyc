@@ -35,7 +35,7 @@
  * @property float $ingreso_mensual
  * @property string $observaciones
  * @property string $ind_asegurado
- * @property string $empresa_seguro
+ * @property integer $seguro_id
  * @property string $cobertura
  * @property string $otro_apoyo
  * @property integer $version
@@ -92,6 +92,7 @@
  * @property-read mixed $informacion_contacto
  * @property-read mixed $ingreso_mensual_for
  * @property-read mixed $estatus_display
+ * @method static \Illuminate\Database\Query\Builder|\Persona whereSeguroId($value)
  */
 class Persona extends BaseModel implements SimpleTableInterface, DecimalInterface, DefaultValuesInterface {
 
@@ -110,7 +111,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         'zona_sector', 'calle_avenida', 'apto_casa',
         'telefono_fijo', 'telefono_celular', 'telefono_otro', 'email',
         'twitter', 'ind_trabaja', 'ocupacion', 'ingreso_mensual',
-        'observaciones', 'ind_asegurado', 'empresa_seguro', 'cobertura',
+        'observaciones', 'ind_asegurado', 'seguro_id', 'cobertura',
         'otro_apoyo',
     ];
 
@@ -146,7 +147,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         'ingreso_mensual' => 'between:0.000,999999999998.99',
         'observaciones' => '',
         'ind_asegurado' => '',
-        'empresa_seguro' => '',
+        'seguro_id' => '',
         'cobertura' => 'between:0.000,999999999998.99',
         'otro_apoyo' => '',
     ];
@@ -180,7 +181,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
             'ingreso_mensual' => 'Ingreso mensual',
             'observaciones' => 'Observaciones',
             'ind_asegurado' => '¿Asegurado?',
-            'empresa_seguro' => 'Empresa Aseguradora',
+            'seguro_id' => 'Empresa Aseguradora',
             'cobertura' => 'Cobertura',
             'otro_apoyo' => 'Otro apoyo otorgado',
             'documento' => 'Documento',

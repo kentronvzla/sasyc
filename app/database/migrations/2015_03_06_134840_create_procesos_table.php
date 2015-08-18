@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClaseRequerimiento extends Migration {
+class CreateProcesos extends Migration {
 
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateClaseRequerimiento extends Migration {
         Schema::create('procesos', function(Blueprint $table) {
             $table->increments('id');
             $table->string('nombre', 100);
-            $table->string('tipo_doc', 5);
+            $table->integer('defeventosasyc_id', false, true)->nullable();
             $table->boolean('ind_cantidad')->default(0);
             $table->boolean('ind_monto')->default(0);
             $table->boolean('ind_beneficiario')->default(0);

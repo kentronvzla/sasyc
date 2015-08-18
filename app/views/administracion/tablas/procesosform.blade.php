@@ -11,15 +11,10 @@
             <div class="row">
                 {{Form::hidden('id',$proceso->id)}}
                 {{Form::btInput($proceso, 'nombre', 6)}}  
-                
-               
-               
-                {{Form::btInput($proceso, 'tipo_doc', 6,'select',[],$procesos)}}
-                 
+                {{Form::btInput($proceso, 'defeventosasyc_id', 6,'select',[],Defeventosasyc::getCombos())}}                 
                 {{Form::btInput($proceso, 'ind_cantidad', 6)}}
                 {{Form::btInput($proceso, 'ind_monto', 6)}}
-                {{Form::btInput($proceso, 'ind_beneficiario', 6)}}
-              
+                {{Form::btInput($proceso, 'ind_beneficiario', 6)}}              
             </div>
             {{Form::submitBt()}}
             {{Form::close()}}

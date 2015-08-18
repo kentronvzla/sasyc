@@ -14,7 +14,7 @@ class SolicitudesController extends BaseController {
         $data['beneficiario'] = $data['solicitud']->getBeneficiario();
         $data['solicitante'] = $data['solicitud']->getSolicitante();
         $data['recaudos'] = $data['solicitud']->recaudosSolicitud;
-        $data['fotos'] = $data['solicitud']->fotos;        
+        $data['fotos'] = $data['solicitud']->fotos;
         return View::make('solicitudes.planilla', $data);
     }
 
@@ -168,14 +168,12 @@ class SolicitudesController extends BaseController {
 
     public function getAceptarasignacion($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
-        $data['manual'] = Configuracion::get('ind_secuencia_automatica') == "No";
-        $data['solicitud']->configurarPresupuesto("", false);
         return View::make('solicitudes.aceptarasignacion', $data);
     }
 
     public function postAceptarasignacion() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
-        if ($solicitud->aceptarAsignacion(Input::get('num_proc'))) {
+        if ($solicitud->aceptarAsignacion()) {
             return Redirect::to('solicitudes/modificar/' . $solicitud->id)->with('mensaje', 'Se aceptó la asignación de la solicitud: ' . $solicitud->id . ', correctamente');
         }
         return Redirect::to('solicitudes?solo_asignadas=true')->with('error', $solicitud->getErrors()->first());
@@ -196,7 +194,9 @@ class SolicitudesController extends BaseController {
 
     public function getSolicitaraprobacion($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
+        $data['solicitud']->configurarPresupuesto("", false);
         $data['informe'] = $data['solicitud']->informe_social;
+        $data['manual'] = Configuracion::get('ind_secuencia_automatica') == "No";
         $data['recaudos'] = RecaudoSolicitud::whereSolicitudId($id)
                 ->where('ind_recibido', '=', true)
                 ->where('ind_obligatorio', '=', true)
@@ -207,9 +207,10 @@ class SolicitudesController extends BaseController {
 
     public function postSolicitaraprobacion() {
         $solicitud = Solicitud::findOrFail(Input::get('id'));
+        $num_proc = Input::get('num_proc');
         $proc_documento = new ayudantes\ProcesarDocumento();
         $data = $proc_documento->buscarDefEvento($solicitud);
-        $id_usuario = Sentry::getUser()->id;
+//        $id_usuario = Sentry::getUser()->id;
         if (!$solicitud->validarAprobacion(Input::get('usuario_autorizacion_id'))) {
             if (!empty($data['eventos'])) {
                 $mensaje = $proc_documento->insertarDocumentos($data);
@@ -217,7 +218,8 @@ class SolicitudesController extends BaseController {
                     $this->cancelarTransaccion();
                     return Response::json($mensaje, 400);
                 } else {
-                    $proc_documento->atualizarEstatus($data);
+                    $solicitud->configurarPresupuesto($num_proc);
+                    $proc_documento->atualizarEstatus($data, Input::get('usuario_autorizacion_id'));
                 }
             } else {
                 return Response::json(['errores' => 'No se puede aprobar la solicitud, defina al menos un tipo de documento'], 400);
@@ -226,8 +228,9 @@ class SolicitudesController extends BaseController {
             return Response::json(['errores' => $solicitud->getErrors()], 400);
         }
         Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $solicitud->id);
-        return Redirect::to('aceptar?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id='."$id_usuario")
-                        ->with('mensaje', 'Se solicito la aprobacion de la solicitud: ' . $solicitud->id . ', correctamente');
+        return Response::json(['mensaje' => 'Se solicito la aprobacion de la solicitud: ' . $solicitud->id . ', correctamente', 'url' => Redirect::back()->getTargetUrl()], 200);
+//        return Redirect::to('aceptar?estatus[]=ACA&estatus[]=DEV&solo_asignadas=true&usuario_asignacion_id='."$id_usuario")
+//                        ->with('mensaje', 'Se solicito la aprobacion de la solicitud: ' . $solicitud->id . ', correctamente');
     }
 
     public function cancelarTransaccion() {

@@ -148,7 +148,7 @@ class MigrarSasyc extends Command {
                 $personaNueva->ingreso_mensual = $persona->ingresomensual;
                 $personaNueva->observaciones = $persona->observaciones;
                 $personaNueva->ind_asegurado = $persona->asegurado == 'S';
-                $personaNueva->empresa_seguro = $persona->empresaseguro;
+                $personaNueva->seguro_id = $persona->empresaseguro;
                 $personaNueva->cobertura = $persona->cobertura;
                 $personaNueva->otro_apoyo = $persona->otroapoyo;
                 $personaNueva->save();

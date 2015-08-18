@@ -6,7 +6,6 @@
  * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
- * @property string $tipo_doc
  * @property boolean $ind_cantidad
  * @property boolean $ind_monto
  * @property boolean $ind_beneficiario
@@ -23,6 +22,9 @@
  * @method static \Illuminate\Database\Query\Builder|\Proceso whereVersion($value)
  * @method static \Illuminate\Database\Query\Builder|\Proceso whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Proceso whereUpdatedAt($value)
+ * @property integer $defeventosasyc_id 
+ * @property-read \Defeventosasyc $defeventosasyc 
+ * @method static \Illuminate\Database\Query\Builder|\Proceso whereDefeventosasycId($value)
  */
 class Proceso extends BaseModel {
    
@@ -34,7 +36,7 @@ class Proceso extends BaseModel {
      * @var array
      */
     protected $fillable = [
-        'nombre', 'tipo_doc', 'ind_cantidad', 'ind_monto', 'ind_beneficiario',
+        'nombre', 'defeventosasyc_id', 'ind_cantidad', 'ind_monto', 'ind_beneficiario',
     ];
 
     /**
@@ -45,7 +47,7 @@ class Proceso extends BaseModel {
      */
     protected $rules = [
         'nombre'=>'required',
-        'tipo_doc'=>'required',
+        'defeventosasyc_id'=>'required',
         'ind_cantidad'=>'required',
         'ind_monto'=>'required',
         'ind_beneficiario'=>'required',
@@ -54,7 +56,7 @@ class Proceso extends BaseModel {
     protected function getPrettyFields() {
         return [
             'nombre'=>'Proceso',
-            'tipo_doc'=>'Tipo de documento',
+            'defeventosasyc_id'=>'Tipo de documento',
             'ind_cantidad'=>'¿Solicita Cantidad?',
             'ind_monto'=>'¿Solicita Monto?',
             'ind_beneficiario'=>'¿Solicita Beneficiario?',
@@ -63,6 +65,10 @@ class Proceso extends BaseModel {
 
     public function getPrettyName() {
         return "Proceso";
+    }
+    
+    public function defeventosasyc() {
+        return $this->belongsTo('Defeventosasyc');
     }
     
     public static function getCombos($idrequerimiento = "", array $condiciones = []) {
@@ -80,4 +86,13 @@ class Proceso extends BaseModel {
         return $retorno;
     }
     
+    public function getTableFields() {
+        return [
+            'nombre',
+            'defeventosasyc->tipo_doc',
+            'ind_cantidad',
+            'ind_monto',
+            'ind_beneficiario' 
+        ];
+    }    
 }

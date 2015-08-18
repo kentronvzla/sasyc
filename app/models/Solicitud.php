@@ -552,13 +552,13 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         if ($this->estatus == "ELD") {
             $this->usuario_asignacion_id = $encargado_id;
             $this->estatus = "EAA";
-            $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
+            $this->fecha_asignacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save();
             Bitacora::registrar("Se asignó la solicitud al analista: " . $this->usuarioAsignacion->nombre, $this->id);
         } else if ($this->estatus == "EAA") {
             $this->usuario_asignacion_id = $encargado_id;
             $this->estatus = "EAA";
-            $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
+            $this->fecha_asignacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save();
             Bitacora::registrar("Se reasignó la solicitud al analista: " . $this->usuarioAsignacion->nombre, $this->id);
         } else {
@@ -615,19 +615,20 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
-    public function aceptarAsignacion($num_proc) {
+    public function aceptarAsignacion() {
         if ($this->puedeAceptarAsignacion()) {
             $this->estatus = "ACA";
             $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
+            $this->save();
             Bitacora::registrar('El analista aceptó la solicitud', $this->id);
-            $this->configurarPresupuesto($num_proc);
+//            $this->configurarPresupuesto($num_proc);
             return !$this->hasErrors();
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
         return false;
     }
 
-    public function configurarPresupuesto($num_proc, $salvar = true) {
+    public function configurarPresupuesto($num_proc, $salvar = true) {      
         $monto_maximo = Configuracion::get('monto_maximo_memo');
         $monto_presupuesto = $this->presupuestos()->sum('monto');
         //Tipo es M

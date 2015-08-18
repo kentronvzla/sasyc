@@ -2,18 +2,18 @@
 /**
  * Recaudo
  *
- * @property integer $id 
- * @property string $nombre 
- * @property string $descripcion 
- * @property boolean $ind_obligatorio 
- * @property boolean $ind_vence 
- * @property boolean $ind_activo 
- * @property integer $tipo_ayuda_id 
- * @property integer $version 
- * @property \Carbon\Carbon $created_at 
- * @property \Carbon\Carbon $updated_at 
- * @property-read \TipoAyuda $tipoAyuda 
- * @property-read mixed $estatus_display 
+ * @property integer $id
+ * @property string $nombre
+ * @property string $descripcion
+ * @property boolean $ind_obligatorio
+ * @property boolean $ind_vence
+ * @property boolean $ind_activo
+ * @property integer $tipo_ayuda_id
+ * @property integer $version
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \TipoAyuda $tipoAyuda
+ * @property-read mixed $estatus_display
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereNombre($value)
  * @method static \Illuminate\Database\Query\Builder|\Recaudo whereDescripcion($value)

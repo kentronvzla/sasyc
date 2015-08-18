@@ -47,7 +47,7 @@
        
         <div class="row">
             @if ($solicitud->getBeneficiario()->ind_asegurado)
-                {{Form::display($solicitud->getBeneficiario(),'empresa_seguro',3, true)}}
+                {{Form::display($solicitud->getBeneficiario(),'seguro_id',3, true)}}
                 {{Form::display($solicitud->getBeneficiario(),'cobertura',3, true)}}
             @endif
             {{Form::display($solicitud->getBeneficiario(),'otro_apoyo',3, true)}}
@@ -89,7 +89,7 @@
 
             <div class="row">
                 @if ($solicitud->getBeneficiario()->ind_asegurado)
-                    {{Form::display($solicitud->getSolicitante(),'empresa_seguro',3, true)}}
+                    {{Form::display($solicitud->getSolicitante(),'seguro_id',3, true)}}
                     {{Form::display($solicitud->getSolicitante(),'cobertura',3, true)}}
                 @endif
                 {{Form::display($solicitud->getSolicitante(),'otro_apoyo',3, true)}}

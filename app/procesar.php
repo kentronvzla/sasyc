@@ -28,23 +28,28 @@ require_once('/ayudantes/webservices/nusoap.php');
  */
 function procesaDocumento($user, $pass, $id_doc, $tipo_doc, $desc_doc, $id_doc_ref, $ref_doc, $num_op, $tipo_evento) {
     list($T_EVENTO_GEN, $T_EVENTO_PRO, $EA_DOC, $ED_DOC, $VERSION) = array('GEN', 'PRO', 'APR', 'DEV', 1);
-    list ($method, $url, $usuario, $clave) = array("GET", "http://localhost/sasyc/public/parametros", $user, $pass);
-    $basic_credentials = base64_encode($usuario . ':' . $clave);
-    $options = array('http' =>
+    list ($metodo, $url, $usuario, $clave) = array("GET", "http://localhost/sasyc/public/parametros", $user, $pass);
+    $credenciales = base64_encode($usuario . ':' . $clave);
+    $opciones = array('http' =>
         array(
-            'method' => $method,
-            'header' => 'Authorization: Basic ' . $basic_credentials . "\r\n" .
+            'method' => $metodo,
+            'header' => 'Authorization: Basic ' . $credenciales . "\r\n" .
             "Content-Type: text/html; charset=utf-8\r\n",
         )
     );
-    $context = stream_context_create($options);
-    $respuesta_json = file_get_contents($url, false, $context);
+    $contexto = stream_context_create($opciones);
+    $respuesta_json = file_get_contents($url, false, $contexto);
     $respuesta_array = json_decode($respuesta_json, true);
     if (count($respuesta_array) > 0) {
         if (count($respuesta_array) == 1) {
             return 1008;
         } elseif (count($respuesta_array) > 1) {
-            list($db, $host, $username, $password) = array($respuesta_array['db_pgsql'], $respuesta_array['host_pgsql'], $respuesta_array['username_pgsql'], $respuesta_array['password_pgsql']);
+            list($db, $host, $username, $password) = array(
+                $respuesta_array['db_pgsql'],
+                $respuesta_array['host_pgsql'],
+                $respuesta_array['username_pgsql'],
+                $respuesta_array['password_pgsql']
+            );
         }
     } else {
         return 1009;
@@ -55,8 +60,7 @@ function procesaDocumento($user, $pass, $id_doc, $tipo_doc, $desc_doc, $id_doc_r
         $dbh = new PDO($dsn);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if ($dbh) {
-            $sql = "SELECT id, tipo_doc, tipo_evento, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic FROM defeventosasyc WHERE tipo_doc ='" . $tipo_doc."'";
-            //. "' AND tipo_evento = '" . $T_EVENTO_PRO . "';";
+            $sql = "SELECT id, tipo_doc, tipo_evento, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic FROM defeventosasyc WHERE tipo_doc ='" . $tipo_doc . "'";
             $stmt = $dbh->query($sql);
             if ($stmt === false) {
                 return 1001;

@@ -8,6 +8,11 @@
 
 namespace Oracle;
 
+/**
+ * Oracle\Catalogo
+ *
+ * @property-read mixed $estatus_display 
+ */
 class Catalogo extends OracleBaseModel {
 
     protected $primaryKey = null;
@@ -70,6 +75,17 @@ class Catalogo extends OracleBaseModel {
             'codigo' => 'Codigo',
             'desrpcion' => 'Descripción',
         ];
+    }
+    
+     public static function getCombos(array $condiciones = []) {
+        $catalogos = Catalogo::all();
+        $retorno = array('' => 'Seleccione');
+        if (is_object($catalogos)) {
+            foreach ($catalogos as $registro) {
+                $retorno[$registro->codigo] = $registro->codigo." - ".$registro->descripcion;
+            }
+        }
+        return $retorno;
     }
 
 }

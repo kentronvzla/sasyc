@@ -4,6 +4,17 @@
  * Description of Seguro
  *
  * @author Dhaily Robles
+ * @property integer $id 
+ * @property string $nombre 
+ * @property integer $version 
+ * @property \Carbon\Carbon $created_at 
+ * @property \Carbon\Carbon $updated_at 
+ * @property-read mixed $estatus_display 
+ * @method static \Illuminate\Database\Query\Builder|\Seguro whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Seguro whereNombre($value)
+ * @method static \Illuminate\Database\Query\Builder|\Seguro whereVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\Seguro whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Seguro whereUpdatedAt($value)
  */
 class Seguro extends BaseModel {
 

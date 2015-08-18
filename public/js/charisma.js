@@ -30,10 +30,10 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
-    $('.autocompletado').each(function(){
+    $('.autocompletado').each(function () {
         var url = $(this).data('url');
         $(this).typeahead({
-            ajax: baseUrl+url
+            ajax: baseUrl + url
         });
     });
     guardarAyudasNavegador();
@@ -53,11 +53,11 @@ $(document).ready(function () {
     // Hide responsive navbar on clicking outside
     $(document).mouseup(function (e) {
         if (!$sidebarNav.is(e.target) // if the target of the click isn't the container...
-            && $sidebarNav.has(e.target).length === 0
-            && !$('.navbar-toggle').is(e.target)
-            && $('.navbar-toggle').has(e.target).length === 0
-            && $sidebarNav.hasClass('active')
-        )// ... nor a descendant of the container
+                && $sidebarNav.has(e.target).length === 0
+                && !$('.navbar-toggle').is(e.target)
+                && $('.navbar-toggle').has(e.target).length === 0
+                && $sidebarNav.hasClass('active')
+                )// ... nor a descendant of the container
         {
             e.stopPropagation();
             $('.navbar-toggle').click();
@@ -81,9 +81,9 @@ $(document).ready(function () {
 
     //establish history variables
     var
-        History = window.History, // Note: We are using a capital H instead of a lower h
-        State = History.getState(),
-        $log = $('#log');
+            History = window.History, // Note: We are using a capital H instead of a lower h
+            State = History.getState(),
+            $log = $('#log');
 
     //bind to State Change
     History.Adapter.bind(window, 'statechange', function () { // Note: We are using statechange instead of popstate
@@ -159,7 +159,7 @@ $(document).ready(function () {
                         }
                         cantidad++;
                         //Se quita la opcion enb blanco para cuando es multiselect
-                        if(i!='' || selectChild.attr('multiple')==undefined){
+                        if (i != '' || selectChild.attr('multiple') == undefined) {
                             selectChild.append("<option value='" + i + "'>" + value + "</option>");
                         }
                     });
@@ -193,7 +193,7 @@ function docReady() {
             $(this).attr("data-tienetooltip", 1);
             $(this).tooltip({'trigger': 'focus hover', 'title': $(this).attr("placeholder")});
         }
-        if ($(this).attr("data-tieneayuda") == undefined  && $(this).attr('type') != "hidden") {
+        if ($(this).attr("data-tieneayuda") == undefined && $(this).attr('type') != "hidden") {
             $(this).attr("data-tieneayuda", 1);
             $(this).hover(buscarAyuda);
             $(this).focus(buscarAyuda);
@@ -305,6 +305,9 @@ function docReady() {
                 }
                 if (data.vista != undefined) {
                     $(this.formulario).parent().html(data.vista);
+                }
+                if (data.url) {
+                    window.location.href = data.url;
                 }
             },
             error: function (data)
@@ -451,45 +454,45 @@ function mostrarOcultar(ocultar, div, parent) {
     }
 }
 
-function guardarAyudasNavegador(){
+function guardarAyudasNavegador() {
     localStorage.clear();
-    $.getJSON(baseUrl+"administracion/tablas/ayudaCampos/todas", function(data){
-        $.each(data, function(index, obj){
-            localStorage.setItem(obj.formulario+"."+obj.campo, obj.ayuda);
+    $.getJSON(baseUrl + "administracion/tablas/ayudaCampos/todas", function (data) {
+        $.each(data, function (index, obj) {
+            localStorage.setItem(obj.formulario + "." + obj.campo, obj.ayuda);
         });
     });
 }
 
-function buscarAyuda(evt){
+function buscarAyuda(evt) {
     var form = $(evt.target).closest('form');
     var input = $(evt.target);
     var url = location.href;
     //la seccion de administracion no tiene ayuda en lso campos
-    if(url.startsWith(baseUrl+"administracion")){
+    if (url.startsWith(baseUrl + "administracion")) {
         return;
     }
-    else if(form.attr('id')==undefined){
+    else if (form.attr('id') == undefined) {
         console.log("El formulario no tiene ID, debe tener un id para poder mostrar la ayuda");
     }
-    else if(input.attr('id')==undefined){
+    else if (input.attr('id') == undefined) {
         console.log("El input no tiene ID, debe tener un id para poder mostrar la ayuda");
-    }else{
-        var ayuda = localStorage.getItem(form.attr('id')+"."+input.attr('id'));
-        if(ayuda!=undefined){
+    } else {
+        var ayuda = localStorage.getItem(form.attr('id') + "." + input.attr('id'));
+        if (ayuda != undefined) {
             $('#contenedor-ayudas').html(ayuda);
-        }else if(evt.type=="mouseenter"){
+        } else if (evt.type == "mouseenter") {
             crearAyuda(form.attr('id'), input.attr('id'));
         }
     }
 }
 
-function crearAyuda(formulario, campo){
+function crearAyuda(formulario, campo) {
     var data = {
         formulario: formulario,
         campo: campo,
     };
-    localStorage.setItem(formulario+"."+campo, "Pendiente por documentar");
-    $.post(baseUrl+"administracion/tablas/ayudaCampos/crear", data);
+    localStorage.setItem(formulario + "." + campo, "Pendiente por documentar");
+    $.post(baseUrl + "administracion/tablas/ayudaCampos/crear", data);
 }
 
 $.fn.clearForm = function () {
@@ -509,7 +512,7 @@ $.fn.clearForm = function () {
 };
 
 if (typeof String.prototype.startsWith != 'function') {
-    String.prototype.startsWith = function (str){
+    String.prototype.startsWith = function (str) {
         return this.slice(0, str.length) == str;
     };
 }

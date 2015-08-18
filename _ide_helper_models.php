@@ -617,7 +617,7 @@ namespace {
  * @property float $ingreso_mensual
  * @property string $observaciones
  * @property string $ind_asegurado
- * @property string $empresa_seguro
+ * @property string $seguro_id
  * @property string $cobertura
  * @property string $otro_apoyo
  * @property integer $version
@@ -734,7 +734,7 @@ namespace {
  * @author Nadin Yamani
  * @property integer $id
  * @property string $nombre
- * @property string $tipo_doc
+ * @property string $defeventosasyc_id
  * @property boolean $ind_cantidad
  * @property boolean $ind_monto
  * @property boolean $ind_beneficiario

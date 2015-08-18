@@ -37,7 +37,7 @@
                 {{Form::btInput($persona, 'ingreso_mensual', 6)}}
                 {{Form::btInput($persona, 'observaciones', 6)}}
                 {{Form::btInput($persona, 'ind_asegurado', 6)}}
-                {{Form::btInput($persona, 'empresa_seguro', 6)}}
+                {{Form::btInput($persona, 'seguro_id', 6)}}
                 {{Form::btInput($persona, 'cobertura', 6)}}
                 {{Form::btInput($persona, 'otro_apoyo', 6)}}
             </div>

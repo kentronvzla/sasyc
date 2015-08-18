@@ -23,7 +23,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TipoAyuda whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\Area[] $areas
  * @property-read mixed $estatus_display
- * @property-read \Illuminate\Database\Eloquent\Collection|\Recaudo[] $recaudos 
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Recaudo[] $recaudos
  */
 class TipoAyuda extends BaseModel implements SimpleTableInterface {
 

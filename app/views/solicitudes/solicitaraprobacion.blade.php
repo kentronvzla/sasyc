@@ -12,6 +12,11 @@
         <div class="modal-body">
             @include('solicitudes.detalle_solicitud_modal')
             {{Form::btInput($solicitud, 'usuario_autorizacion_id')}}
+            @if($manual)
+            <div class="row">
+                {{Form::btInput($solicitud, 'num_proc')}}
+            </div>
+            @endif
             <h4>Presupuestos</h4>
             {{HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')}}
             @if(empty($informe))

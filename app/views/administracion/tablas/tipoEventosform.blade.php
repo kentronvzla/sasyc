@@ -18,12 +18,10 @@
                     <h5>{{$descrip->desctipodoc}}</h5>
                     @endforeach
                 </div>
-                <div class="row">
-                   
+                <div class="row">                   
                     {{Form::display($evento,'tipo_evento',8, true)}}
                     {{Form::hidden('tipo_doc',$evento->tipo_doc)}}
-                    {{Form::hidden('tipo_evento',$evento->tipo_evento)}}
-                   
+                    {{Form::hidden('tipo_evento',$evento->tipo_evento)}}                   
                 </div> 
                 <div class="row">
                     {{Form::btInput($evento, 'ind_aprueba_auto', 4)}}
@@ -34,7 +32,6 @@
                     {{Form::btInput($evento, 'ind_detcomp_adic', 6)}}
                 </div></div> </div> 
         @endforeach
-
 
         <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i>Guardar</button>
         <button class="btn btn-default"><i class="glyphicon glyphicon-trash"></i>{{ link_to('administracion/tablas/tipoEventos', '') }} Cancelar</button>
