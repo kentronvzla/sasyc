@@ -50,7 +50,7 @@
         <td class="texto-centrado-excel">
             <strong>{{$i}}</strong>  
         </td>
-        <td >
+        <td>
             {{$presupuesto->solicitud->referencia_externa}}                    
         </td>
         <td class="texto-centrado-excel" >
@@ -98,10 +98,10 @@
 
     @if(@$totalref!=0)
     <tr style="background: #CCC;">
-        <td colspan="3" class="texto-centrado-excel">
+        <td colspan="8">
             <strong>Total {{$presupuesto->solicitud->referencia_externa}}</strong>
         </td>        
-        <td colspan="6" valign="middle" ALIGN=right>{{tm($totalref)}}</td>
+        <td class="texto-derecha-excel">{{tm($totalref)}}</td>
     </tr>
     @endif
 
