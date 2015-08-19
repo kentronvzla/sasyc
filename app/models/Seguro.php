@@ -49,6 +49,7 @@ class Seguro extends BaseModel {
         return "seguros";
     }
 
+
     public static function getCombos() {
         $seguros = Seguro::all();
         $retorno = array('' => 'Seleccione.');
