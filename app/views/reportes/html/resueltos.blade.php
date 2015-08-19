@@ -118,11 +118,9 @@
         <td valign="middle" ALIGN=center style="width: 35px;height:auto; font-size: 13px;">
             <strong>{{$i-1}}</strong>
         </td>
-        <td style="width: 100px;height:auto; font-size: 13px;"  valign="middle">
+        <td colspan="7" style="width: 100px;height:auto; font-size: 13px;"  valign="middle">
             <strong>Monto Total General</strong>
         </td> 
-        <td colspan="6" style="width: 65px;height: auto; font-size: 13px;">
-        </td>
         <td style="width: 130px;height: auto; font-size: 13px;"  valign="middle" ALIGN=right>
             {{tm($total)}}
         </td>
