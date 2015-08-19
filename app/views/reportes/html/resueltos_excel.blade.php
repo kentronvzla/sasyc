@@ -5,36 +5,36 @@
 <!------------------------------------------->
 <table border="0" cellpadding="10" cellspacing="0">
     <tr>
-        <th colspan="8" class="texto-centrado-excel">
+        <th colspan="9" class="texto-centrado-excel">
             <strong>Relación de Casos Resueltos</strong>  
         </th>
     </tr>
     <tr class="titulo-celda-compuesta texto-centrado-excel">
-        <td >
+        <td>
             <strong>N#</strong>  
         </td>   
-        <td >
+        <td>
             <strong>Referencia</strong>
         </td> 
-        <td >
+        <td>
             <strong>Fecha</strong>
         </td>
-        <td >
+        <td>
             <strong># Caso</strong>
         </td> 
-        <td >
+        <td>
             <strong>Beneficiario</strong>
         </td>
-        <td >
+        <td>
             <strong>Tratamiento</strong>
         </td> 
-        <td >
+        <td>
             <strong>Cheque</strong>
         </td>
-        <td >
+        <td>
             <strong>Num OP</strong>
         </td>
-        <td >
+        <td>
             <strong>Monto</strong>
         </td>
     </tr>
@@ -53,10 +53,10 @@
         <td>
             {{$presupuesto->solicitud->referencia_externa}}                    
         </td>
-        <td class="texto-centrado-excel" >
+        <td class="texto-centrado-excel">
             {{$presupuesto->solicitud->created_at->format('d/m/Y')}}
         </td>
-        <td class="texto-centrado-excel" >
+        <td class="texto-centrado-excel">
             {{$presupuesto->solicitud->num_solicitud}}
         </td>
         <td > 
@@ -66,13 +66,13 @@
         <td >
             {{$presupuesto->requerimiento->nombre}}
         </td>
-        <td class="texto-centrado-excel" >
+        <td class="texto-centrado-excel">
             {{$presupuesto->cheque}}
         </td>
-        <td class="texto-centrado-excel" >
+        <td class="texto-centrado-excel">
             {{$presupuesto->numop}}
         </td>
-        <td class="texto-derecha-excel" >
+        <td class="texto-derecha-excel">
             {{$presupuesto->montoapr_for}}
         </td>
     </tr>
