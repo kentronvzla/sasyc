@@ -3,10 +3,9 @@
 class RecepcionTableSeeder extends Seeder {
 
     public function run() {
-        $recepciones = array('Presidencia',
-            'Ayudantía',
-            'Correspondencia',
-            'Actividad presidencial');
+        $recepciones = array('Presidenciales',
+            'Gobierno y trabajo de calle',
+            'Atención Inicial');
         foreach ($recepciones as $recepcion) {
             Recepcion::create(array('nombre' => $recepcion));
         }

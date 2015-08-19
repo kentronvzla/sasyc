@@ -5,7 +5,7 @@ class GruposTableSeeder extends Seeder {
     public function run() {
 
         Sentry::createGroup(array(
-            'name' => 'Atención Inicial'
+            'name' => 'Carga Inicial'
         ));
 
         Sentry::createGroup(array(

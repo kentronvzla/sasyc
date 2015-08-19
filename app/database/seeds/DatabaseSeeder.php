@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('NivelAcademicoTableSeeder');
         $this->call('OrganismoTableSeeder');
         $this->call('ParentescoTableSeeder');
-        //$this->call('RecepcionTableSeeder');
+        $this->call('RecepcionTableSeeder');
         $this->call('ReferenteTableSeeder');
         $this->call('TenenciaTableSeeder');
         $this->call('TipoAyudaTableSeeder');

@@ -10,6 +10,7 @@ class AreaTableSeeder extends Seeder {
         Area::create(array('nombre' => 'Ginecología', 'descripcion' => 'Ginecología', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Cirugía', 'descripcion' => 'Cirugía', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Efectivo', 'descripcion' => 'Efectivo', 'tipo_ayuda_id' => '2'));
+        Area::create(array('nombre' => 'Remodelaciones', 'descripcion' => 'Remodelaciones', 'tipo_ayuda_id' => '3'));
     }
 
 }
