@@ -424,7 +424,7 @@ class ProcesarDocumento {
     }
 
     public function insertarCtasDocAdic($data, $doc_ori) {
-        $sql = "SELECT pre.solicitud_id, pre.documento_id, pre.moneda, pre.beneficiario_id, tayu.cod_acc_int, t6.cod_cta, SUM(pre.montoapr) as montoapr 
+        $sql = "SELECT pre.solicitud_id, pre.documento_id, pre.moneda, pre.beneficiario_id, tayu.cod_acc_int, req.cod_cta, SUM(pre.montoapr) as montoapr 
             FROM presupuestos as pre, solicitudes as sol, areas as are, tipo_ayudas as tayu, procesos as pro, requerimientos as req, defeventosasyc as def
             WHERE solicitud_id =" . $data['solicitud']['id'] .
                 " AND documento_id =" . $doc_ori

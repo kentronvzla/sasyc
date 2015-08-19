@@ -86,7 +86,7 @@ function procesaDocumento($user, $pass, $id_doc, $tipo_doc, $desc_doc, $id_doc_r
                                         }
                                         list($ind_aprueba_auto, $ind_doc_ext, $ind_ctas_adic, $ind_reng_adic, $ind_detcomp_adic) = array(($defeventosasyc['ind_aprueba_auto'] == true) ? 'true' : 'false', ($defeventosasyc['ind_doc_ext'] == true) ? 'true' : 'false', ($defeventosasyc['ind_ctas_adic'] == true) ? 'true' : 'false', ($defeventosasyc['ind_reng_adic'] == true) ? 'true' : 'false', ($defeventosasyc['ind_detcomp_adic'] == true) ? 'true' : 'false');
                                         $sql = "INSERT INTO documentossasyc (documento_id, tipo_doc, tipo_evento, descripcion, fecha, estatus, solicitud, ref_doc, num_op, mensaje, id_doc_ref, ind_aprueba_auto, ind_doc_ext, ind_ctas_adic, ind_reng_adic, ind_detcomp_adic, version, created_at, updated_at) ";
-                                        $sql.= "VALUES (" . $id_doc_ref . ", '" . $tipo_doc . "', '" . $tipo_evento . "', '" . $desc_doc . "', '" . date("Y-m-d H:i:s") . "', '" . $T_EVENTO_PRO . "', " . $row['solicitud_id'] . ", '" . $ref_doc . "', " . $num_op . ", NULL, " . $id_doc_ref . ", " . $ind_aprueba_auto . ", " . $ind_doc_ext . " , " . $ind_ctas_adic . " , " . $ind_reng_adic . " , " . $ind_detcomp_adic . " , " . $VERSION . ", '" . date("Y-m-d H:i:s") . "', '" . date("Y-m-d H:i:s") . "');";
+                                        $sql.= "VALUES (" . $id_doc . ", '" . $tipo_doc . "', '" . $tipo_evento . "', '" . $desc_doc . "', '" . date("Y-m-d H:i:s") . "', '" . $T_EVENTO_PRO . "', " . $row['solicitud_id'] . ", '" . $ref_doc . "', " . $num_op . ", NULL, " . $id_doc_ref . ", " . $ind_aprueba_auto . ", " . $ind_doc_ext . " , " . $ind_ctas_adic . " , " . $ind_reng_adic . " , " . $ind_detcomp_adic . " , " . $VERSION . ", '" . date("Y-m-d H:i:s") . "', '" . date("Y-m-d H:i:s") . "');";
                                         $stmt = $dbh->query($sql);
                                         if ($stmt === false) {
                                             return 1005;
@@ -105,8 +105,8 @@ function procesaDocumento($user, $pass, $id_doc, $tipo_doc, $desc_doc, $id_doc_r
                                 }
                             }
                         }
-                    } elseif ($tipo_evento == 'DEV') {
-                        $sql = "UPDATE presupuestos SET estatus_doc ='" . $ED_DOC . "', cheque = NULL , numop = NULL  WHERE documento_id ='" . $id_doc_ref . "' RETURNING solicitud_id;";
+                    } elseif ($tipo_evento == 'DEV' || $tipo_evento == 'PPA') {
+                        $sql = "UPDATE presupuestos SET estatus_doc ='" . $tipo_evento . "', cheque = NULL , numop = NULL  WHERE documento_id ='" . $id_doc_ref . "' RETURNING solicitud_id;";
                         $stmt = $dbh->query($sql);
                         if ($stmt === false) {
                             return 1006;

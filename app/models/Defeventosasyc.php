@@ -85,12 +85,16 @@ class Defeventosasyc extends BaseModel implements SimpleTableInterface {
         return false;
     }
 
-    public static function getCombos(array $condiciones = []) {
+    public static function getCombos() {
         $def_evtsasyc = Defeventosasyc::all();
         $retorno = array('' => 'Seleccione');
         if (is_object($def_evtsasyc)) {
             foreach ($def_evtsasyc as $registro) {
-                $retorno[$registro->id] = $registro->tipo_doc;
+                $descripciones = \Oracle\TipoEvento::select('desctipodoc')
+                                ->where('tipodoc', '=', $registro->tipo_doc)->get();
+                foreach ($descripciones as $descripcion) {
+                    $retorno[$registro->id] = $registro->tipo_doc . " - " . $descripcion->desctipodoc;
+                }
             }
         }
         return $retorno;
