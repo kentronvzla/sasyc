@@ -103,5 +103,16 @@ class Requerimiento extends BaseModel {
             'nombre', 'tipoRequerimiento->nombre', 'tipoAyuda->nombre'
         ];
     }
-
+    
+    public static function getCombos($tipoayuda_id = "") {
+        $requerimiento = Requerimiento::whereTipoAyudaId($tipoayuda_id);
+        $retorno = array('' => 'Seleccione.');
+        if (is_object($requerimiento)) {
+            
+            foreach ($requerimiento as $registro) {
+                $retorno[$registro->id] = $registro->nombre;
+            }
+        }
+        return $retorno;
+    }
 }

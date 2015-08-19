@@ -31,21 +31,14 @@ class AlertasController extends BaseController {
         $data['foto'] = new FotoSolicitud();
         $data['fotos'] = $data['solicitud']->fotos;
         $data['beneficiario_kerux'] = new Oracle\Beneficiario();
-        $documen = Solicitud::select('area_id')->where('id', '=', $solicitud_id)->get();
-        foreach ($documen as $do) {
-            $ayuda = Area::select('tipo_ayuda_id')->where('id', '=', $do['area_id'])->get();
+        if (isset($data['solicitud']->area_id)) {
+            $requerimientos = Requerimiento::select('id', 'nombre')->whereTipoAyudaId($data['solicitud']->area->tipo_ayuda_id)->get();
+            foreach ($requerimientos as $requerimiento) {
+                $requerimientof[$requerimiento->id] = $requerimiento->nombre;
+                $data['requerimientos'] = $requerimientof;
+            }
         }
-        foreach ($ayuda as $tu) {
-            $reque = Requerimiento::select('nombre', 'id')->where('tipo_ayuda_id', '=', $tu['tipo_ayuda_id'])
-                    ->get();
-        }
-        foreach ($reque as $tipodoc) {
-            $docu = $tipodoc['attributes'];
-            $arreglo = array_shift($docu);
-            $prueba = $tipodoc->id;
-            $documentos[$prueba] = $arreglo;
-            $data['requerimientos'] = $documentos;
-        }
+
         return View::make('solicitudes.plantilla', $data);
     }
 

@@ -145,10 +145,17 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
         $this->save();
     }
 
-    public static function registrar($mensaje, $solicitud_id) {
+    public static function registrar($mensaje, $solicitud_id, $alarma = false, $usuario_id = null) {
         $bitacora = new Bitacora();
         $bitacora->nota = $mensaje;
         $bitacora->solicitud_id = $solicitud_id;
+        if($alarma){
+            $bitacora->fecha = Carbon::now()->format('d/m/Y') ;
+            $bitacora->ind_activo = true;
+            $bitacora->ind_alarma = true;
+            $bitacora->ind_atendida = false;
+            $bitacora->usuario_id = $usuario_id;
+        }
         return $bitacora->save();
     }
 

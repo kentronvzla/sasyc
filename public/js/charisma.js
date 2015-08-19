@@ -446,11 +446,11 @@ function mostrarOcultar(ocultar, div, parent) {
         parent = document;
     }
     if (ocultar) {
-        $(parent).find('#' + div).find('input,select').removeAttr('required');
+        $(parent).find('#' + div).find('input,select,textarea').removeAttr('required');
         $(parent).find('#' + div).hide();
     } else {
         $(parent).find('#' + div).show();
-        $(parent).find('#' + div).find('input,select').attr('required', 'required');
+        $(parent).find('#' + div).find('input,select,textarea').attr('required', 'required');
     }
 }
 

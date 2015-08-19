@@ -422,6 +422,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $recSolicitud->recaudo()->associate($recaudo);
             $recSolicitud->save();
         });
+
         Bitacora::registrar('Se registró la solicitud.', $model->id);
     }
 
@@ -549,20 +550,18 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function asignarAnalista($encargado_id) {
-        if ($this->estatus == "ELD") {
+        if (($this->estatus == "ELD") || ($this->estatus == "EAA")){
             $this->usuario_asignacion_id = $encargado_id;
             $this->estatus = "EAA";
             $this->fecha_asignacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save();
             Bitacora::registrar("Se asignó la solicitud al analista: " . $this->usuarioAsignacion->nombre, $this->id);
-        } else if ($this->estatus == "EAA") {
-            $this->usuario_asignacion_id = $encargado_id;
-            $this->estatus = "EAA";
-            $this->fecha_asignacion = \Carbon\Carbon::now()->format('d/m/Y');
-            $this->save();
-            Bitacora::registrar("Se reasignó la solicitud al analista: " . $this->usuarioAsignacion->nombre, $this->id);
+            if ($this->ind_inmediata){
+                Bitacora::registrar('La solicitud debe ser atendida de forma inmediata.', $this->id, true, $encargado_id);
+            }
+        
         } else {
-            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['EAA']);
+            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en estatus ' . static::$estatusArray['ELD']);
         }
     }
 
@@ -628,7 +627,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return false;
     }
 
-    public function configurarPresupuesto($num_proc, $salvar = true) {      
+    public function configurarPresupuesto($num_proc, $salvar = true) {
         $monto_maximo = Configuracion::get('monto_maximo_memo');
         $monto_presupuesto = $this->presupuestos()->sum('monto');
         //Tipo es M
@@ -678,36 +677,36 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         $this->reglasInforme();
     }
 
-    /*public function solicitarAprobacion($autorizador_id) {
-        if ($autorizador_id == '') {
-            $this->addError('usuario_autorizacion_id', 'Debes seleccionar el autorizador');
-        } else if ($this->presupuestos()->count() < 1) {
-            $this->addError('presupuestos', 'La solicitud debe tener al menos un presupuesto cargado');
-        } else if (!$this->puedeSolicitarAprobacion()) {
-            $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto para ser aprobada');
-        }        
-        $this->reglasSolicitudAprobacion();       
-        if ($this->hasErrors()) {
-            return false;
-        }
-        $descripcion = 'Caso N: ' . $this->id . ' Beneficiario: ' . $this->personaBeneficiario->nombre . ' ' . $this->personaBeneficiario->apellido . ' C.I.:' . $this->personaBeneficiario->ci . ' ' . $this->descripcion;
-        \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
-        $this->estatus = 'PPA';
-        $this->usuario_autorizacion_id = $autorizador_id;
-        $this->beneficiario_json = json_encode($this->personaBeneficiario->toArray());
-        if (is_object($this->personaSolicitante)) {
-            $this->solicitante_json = json_encode($this->personaSolicitante->toArray());
-        }
-        $this->total_ingresos = tm($this->total_ingresos);        
-        if ($this->save()) {
-            Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $this->id);
-            return true;
-        } else {
-            $this->addError('estatus', 'La solicitud ' . $this->id . ' no pudo ser aprobada');
-            return false;
-        }
-    }*/
-    
+    /* public function solicitarAprobacion($autorizador_id) {
+      if ($autorizador_id == '') {
+      $this->addError('usuario_autorizacion_id', 'Debes seleccionar el autorizador');
+      } else if ($this->presupuestos()->count() < 1) {
+      $this->addError('presupuestos', 'La solicitud debe tener al menos un presupuesto cargado');
+      } else if (!$this->puedeSolicitarAprobacion()) {
+      $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto para ser aprobada');
+      }
+      $this->reglasSolicitudAprobacion();
+      if ($this->hasErrors()) {
+      return false;
+      }
+      $descripcion = 'Caso N: ' . $this->id . ' Beneficiario: ' . $this->personaBeneficiario->nombre . ' ' . $this->personaBeneficiario->apellido . ' C.I.:' . $this->personaBeneficiario->ci . ' ' . $this->descripcion;
+      \Ayudantes\Packages\Sasyc::aprobar($this->id, $descripcion);
+      $this->estatus = 'PPA';
+      $this->usuario_autorizacion_id = $autorizador_id;
+      $this->beneficiario_json = json_encode($this->personaBeneficiario->toArray());
+      if (is_object($this->personaSolicitante)) {
+      $this->solicitante_json = json_encode($this->personaSolicitante->toArray());
+      }
+      $this->total_ingresos = tm($this->total_ingresos);
+      if ($this->save()) {
+      Bitacora::registrar('Se solicitó la aprobación de la solicitud correctamente', $this->id);
+      return true;
+      } else {
+      $this->addError('estatus', 'La solicitud ' . $this->id . ' no pudo ser aprobada');
+      return false;
+      }
+      } */
+
     public function validarAprobacion($autorizador_id) {
         if ($autorizador_id == '') {
             $this->addError('usuario_autorizacion_id', 'Debes seleccionar el autorizador');
@@ -716,10 +715,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         } else if (!$this->puedeSolicitarAprobacion()) {
             $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto para ser aprobada');
         }
-        $this->reglasSolicitudAprobacion();       
+        $this->reglasSolicitudAprobacion();
         if ($this->hasErrors()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -731,7 +730,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             if (!isset($this->beneficiario_json)) {
                 return $this->personaBeneficiario;
             } else {
-                return new Persona(json_decode($this->beneficiario_json,true));
+                return new Persona(json_decode($this->beneficiario_json, true));
             }
         }
     }
@@ -743,7 +742,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             if (!isset($this->solicitante_json)) {
                 return $this->personaSolicitante;
             } else {
-                return new Persona(json_decode($this->solicitante_json,true));
+                return new Persona(json_decode($this->solicitante_json, true));
             }
         }
     }

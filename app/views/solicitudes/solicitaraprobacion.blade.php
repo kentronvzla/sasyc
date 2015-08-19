@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-lg" id="div-candidato-documentos">
     <div class="modal-content">
-        {{Form::open(array('url'=>'solicitudes/solicitaraprobacion', 'class'=>'saveajax'))}}
+        {{Form::open(array('url'=>'solicitudes/solicitaraprobacion', 'id'=>'form-solicitar-apr', 'class'=>'saveajax'))}}
         {{Form::hidden('id', $solicitud->id)}}
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">
@@ -20,9 +20,9 @@
             <h4>Presupuestos</h4>
             {{HTML::simpleTable($solicitud->presupuestos, 'Presupuesto')}}
             @if(empty($informe))
-                <h4><span class="label label-danger">No se puede aprobar la solicitud, falta Informe Socieconomico</span></h4>
+            <h4><span class="label label-danger">No se puede aprobar la solicitud, falta Informe Socieconomico</span></h4>
             @elseif(count($recaudos)<=0)
-                <h4><span class="label label-danger">No se puede aprobar la solicitud, faltan recaudos por consignar</span></h4>
+            <h4><span class="label label-danger">No se puede aprobar la solicitud, faltan recaudos por consignar</span></h4>
             @endif
         </div>
         <div class="modal-footer">
