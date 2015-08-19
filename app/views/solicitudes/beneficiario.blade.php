@@ -41,7 +41,7 @@
     <hr>
     <h4>Datos de p&oacute;liza</h4> 
     <div class="row">
-        {{Form::btInput($beneficiario,'seguro_id',6, 'select',[], $seguros)}}
+        {{Form::btInput($beneficiario,'seguro_id',6, 'select',[], Seguro::getCombos())}}
         {{Form::btInput($beneficiario,'cobertura',6)}}
     </div>
 </div>

@@ -45,9 +45,19 @@ class Seguro extends BaseModel {
         ];
     }
 
-
     public function getPrettyName() {
         return "seguros";
+    }
+
+     public static function getCombos(array $condiciones = []) {
+        $seguros = Seguro::all();
+        $retorno = array('' => 'Seleccione');
+        if (is_object($seguros)) {
+            foreach ($seguros as $seguro) {
+                $retorno[$seguro->id] = $seguro->nombre;
+            }
+        }
+        return $retorno;
     }
 
 }
