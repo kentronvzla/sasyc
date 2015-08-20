@@ -1,6 +1,8 @@
 @extends('reportes.html.'.Input::get('formato_reporte','pdf'))
 @section('reporte')
-<?php $i = 1; ?>
+<!------------------------------------------->
+{{--*/ $i = 1 /*--}}
+<!------------------------------------------->
 <h4 ALIGN=CENTER >Relación de Casos Pendientes</h4>
 <table width="100%" border="0" cellpadding="10" cellspacing="3">
     <tr style=' background:#d8d8d8;'>
@@ -33,20 +35,14 @@
         </td>
     </tr>
     <!------------------------------------------->
-    <?php
-    $contador = 0;
-    $totalref = 0;
-    $subtotal = 0;
-    $totalgen = 0;
-    $n_caso = 1;
-    $n_casoref = 1;
-    $referencia = ""
-    ?>
+    {{--*/ list($contador, $subtotal, $totalref, $totalgen,  $n_caso, $n_casoref, $referencia) = array(0, 0, 0, 0, 1, 1, "") /*--}}
     <!------------------------------------------->
     @foreach($solicitudes as $resultado)
     @if(@$totalref!=0)
     @if(($referencia!= "") && ($referencia!= $resultado->referencia_externa))
-    <?php $n_casoref = 1; ?> 
+    <!------------------------------------------->
+    {{--*/ $n_casoref = 1 /*--}}
+    <!------------------------------------------->
     <tr style="background: #CCC;">
         <td colspan="3">
             <strong>Total {{$referencia}}</strong></td>
@@ -56,7 +52,9 @@
         <td></td>
         <td></td>
         <td valign="middle" ALIGN=right>{{tm($totalref)}}</td>
-        <?php $totalref = 0; ?> 
+        <!------------------------------------------->
+        {{--*/ $totalref = 0 /*--}}
+        <!------------------------------------------->
     </tr>
     @endif 
     @endif 
@@ -67,11 +65,12 @@
         <td style="width: 15px;height:auto;" valign="middle" ALIGN=center>
             <strong>{{$n_casoref}}</strong>
         </td>
-        <?php
-        $n_caso++;
-        $n_casoref++;
-        $referencia = trim($resultado->referencia_externa);
-        ?>         
+        <!------------------------------------------->
+        {{--*/ $n_caso++ /*--}}
+        {{--*/ $n_casoref++ /*--}}
+        {{--*/ $referencia = trim($resultado->referencia_externa) /*--}}
+        <!------------------------------------------->
+
         <td style="width: 140px;height:auto;" >
             {{$referencia}}
         </td>
@@ -117,13 +116,16 @@
             {{$presupuesto->montoapr_for}}
         </td>
     </tr>
-    <?php
-    $subtotal += $presupuesto->montoapr;
-    $totalref+=$presupuesto->montoapr;
-    $totalgen+=$presupuesto->montoapr;
-    ?>
+    <!------------------------------------------->
+    {{--*/ $subtotal += $presupuesto->montoapr /*--}}
+    {{--*/ $totalref += $presupuesto->montoapr /*--}}
+    {{--*/ $totalgen += $presupuesto->montoapr /*--}}
+    <!------------------------------------------->
+
     @endforeach 
-    <?php $i++; ?>
+    <!-------------------------------------------> 
+    {{--*/ $i++ /*--}}
+    <!------------------------------------------->
     @if(@$subtotal!=0)
     <tr style="background: #CCC;">
         <td colspan="3">
@@ -136,10 +138,10 @@
         <td valign="middle" ALIGN=right>{{tm($subtotal)}}</td>
     </tr>
     @endif    
-    <?php 
-     $contador++; 
-     $subtotal = 0;
-    ?> 
+    <!------------------------------------------->
+    {{--*/ $contador++ /*--}}
+    {{--*/ $subtotal = 0 /*--}}
+    <!-------------------------------------------> 
     @endforeach    
     @if(@$totalref!=0)
     <tr style="background: #CCC;">
@@ -193,5 +195,4 @@
         </td>
     </tr>
 </table>
-<?php //echo $contador."<br>".count($parametro);   ?>
 @endsection

@@ -15,7 +15,9 @@
         </tr>
     </thead>
     @if(count($solicitudes[$i]))
-    <?php $anterior = $solicitudes[$i]->first()->{$primera_columna[$i]}; ?>
+    <!-------------------------------------------> 
+    {{--*/ $anterior = $solicitudes[$i]->first()->{$primera_columna[$i]} /*--}}
+    <!------------------------------------------->
     @foreach($solicitudes[$i] as $solicitud)
     @if(count($columnas[$i])>1 && $anterior!=$solicitud->{$primera_columna[$i]})
     <tr>
@@ -23,9 +25,9 @@
         <th class="texto-derecha-excel fondo-excel">{{$cont}}</th>
         <th class="texto-derecha-excel fondo-excel">{{tm($acum)}}</th>
     </tr>
-    <?php $cont = 0;
-    $acum = 0;
-    ?>
+    <!------------------------------------------->
+    {{--*/ list($cont, $acum) = array(0, 0) /*--}}
+    <!------------------------------------------->
     @endif
     <tr>
         @foreach($columnas[$i] as $key=>$columna)
@@ -38,12 +40,10 @@
             {{tm($solicitud->monto)}}
         </td>
     </tr>
-    <?php $cont+=$solicitud->cantidad;
-    $acum+=$solicitud->monto;
-    ?>
-
-<?php $anterior = $solicitud->{$primera_columna[$i]};
-$solicitud_anterior = $solicitud; ?>
+    <!------------------------------------------->
+    {{--*/ $cont += $solicitud->cantidad; $acum += $solicitud->monto /*--}}
+    {{--*/ $anterior = $solicitud->{$primera_columna[$i]}; $solicitud_anterior = $solicitud /*--}}
+    <!------------------------------------------->
     @endforeach
     <tfoot>
         @if(count($columnas[$i])>1)
@@ -61,9 +61,9 @@ $solicitud_anterior = $solicitud; ?>
     </tfoot>
     @endif
 </table>
-<?php $cont = 0;
-$acum = 0;
-?>
+<!------------------------------------------->
+{{--*/ list($cont, $acum) = array(0, 0) /*--}}
+<!------------------------------------------->
 <br>
 <br>
 @endfor

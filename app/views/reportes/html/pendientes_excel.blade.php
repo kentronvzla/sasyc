@@ -1,6 +1,8 @@
 @extends('reportes.html.'.Input::get('formato_reporte','xls'))
 @section('reporte')
-<?php $i = 1; ?>
+<!------------------------------------------->
+{{--*/ $i = 1 /*--}}
+<!------------------------------------------->
 <table border="0" cellpadding="10" cellspacing="0">
     <tr >
         <th colspan="9" class="texto-centrado-excel">
@@ -41,21 +43,15 @@
         </tr>
     </thead>
     <!------------------------------------------->
-    <?php
-    $contador = 0;
-    $totalref = 0;
-    $subtotal = 0;
-    $totalgen = 0;
-    $n_caso = 1;
-    $n_casoref = 1;
-    $referencia = ""
-    ?>
+    {{--*/ list($contador, $subtotal, $totalref, $totalgen,  $n_caso, $n_casoref, $referencia) = array(0, 0, 0, 0, 1, 1, "") /*--}}
     <!------------------------------------------->
     <tbody>
         @foreach($solicitudes as $resultado)
         @if(@$totalref!=0)
         @if(($referencia!= "") && ($referencia!= $resultado->referencia_externa))
-        <?php $n_casoref = 1; ?> 
+        <!------------------------------------------->
+        {{--*/ $n_casoref = 1 /*--}}
+        <!------------------------------------------->
         <tr class="fondo-inferior-excel">
             <td colspan="3">
                 <strong>Total {{$referencia}}</strong></td>
@@ -65,39 +61,41 @@
             <td></td>
             <td></td>
             <td class="texto-derecha-excel">{{tm($totalref)}}</td>
-            <?php $totalref = 0; ?> 
+            <!------------------------------------------->
+            {{--*/ $totalref = 0 /*--}}
+            <!------------------------------------------->
         </tr>
         @endif 
         @endif 
         <tr>
-            <td >
+            <td>
                 <strong>{{$n_caso}}</strong>            
             </td>               
-            <td >
+            <td>
                 <strong>{{$n_casoref}}</strong>
             </td>
-            <?php
-            $n_caso++;
-            $n_casoref++;
-            $referencia = trim($resultado->referencia_externa);
-            ?>         
-            <td >
+            <!------------------------------------------->
+            {{--*/ $n_caso++ /*--}}
+            {{--*/ $n_casoref++ /*--}}
+            {{--*/ $referencia = trim($resultado->referencia_externa) /*--}}
+            <!------------------------------------------->
+            <td>
                 {{$referencia}}
             </td >
-            <td >
+            <td>
                 {{$resultado->created_at->format('d/m/Y')}}
             </td>
-            <td >
+            <td>
                 {{$resultado->num_solicitud}}
             </td>
-            <td > 
+            <td> 
                 {{$resultado->personaBeneficiario->nombre}}&nbsp;
                 {{$resultado->personaBeneficiario->apellido}}
             </td>
-            <td >
+            <td>
                 {{$resultado->estatus_display}}
             </td>        
-            <td >
+            <td>
             </td>
             <td class="texto-derecha-excel">
             </td>
@@ -105,20 +103,13 @@
 
         @foreach($resultado->presupuestos as $key=>$presupuesto)
         <tr>
-            <td >
-            </td>
-            <td >
-            </td>        
-            <td >
-            </td>
-            <td >
-            </td>
-            <td >
-            </td>
-            <td > 
-            </td>
-            <td >
-            </td>        
+            <td></td>
+            <td></td>        
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>        
             <td>
                 {{$presupuesto->requerimiento->nombre}}
             </td>
@@ -126,13 +117,15 @@
                 {{$presupuesto->montoapr_for}}
             </td>
         </tr>
-        <?php
-        $subtotal += $presupuesto->montoapr;
-        $totalref+=$presupuesto->montoapr;
-        $totalgen+=$presupuesto->montoapr;
-        ?>
+        <!------------------------------------------->
+        {{--*/ $subtotal += $presupuesto->montoapr /*--}}
+        {{--*/ $totalref += $presupuesto->montoapr /*--}}
+        {{--*/ $totalgen += $presupuesto->montoapr /*--}}
+        <!------------------------------------------->
         @endforeach 
-        <?php $i++; ?>
+        <!-------------------------------------------> 
+        {{--*/ $i++ /*--}}
+        <!------------------------------------------->
         @if(@$subtotal!=0)
         <tr class="fondo-inferior-excel">
             <td colspan="3">
@@ -145,10 +138,10 @@
             <td class="texto-derecha-excel">{{tm($subtotal)}}</td>
         </tr>
         @endif    
-        <?php
-        $contador++;
-        $subtotal = 0;
-        ?> 
+        <!------------------------------------------->
+        {{--*/ $contador++ /*--}}
+        {{--*/ $subtotal = 0 /*--}}
+        <!-------------------------------------------> 
         @endforeach    
         @if(@$totalref!=0)
         <tr class="fondo-inferior-excel">
@@ -179,24 +172,14 @@
             </td>
             <td class="texto-centrado-excel">            
             </td>        
-            <td >
+            <td>
                 <strong>Monto Total General</strong>
             </td> 
-            <td >
-
-            </td>
-            <td >
-
-            </td> 
-            <td >
-
-            </td>
-            <td >
-
-            </td> 
-            <td >
-
-            </td>
+            <td></td>
+            <td></td> 
+            <td></td>
+            <td></td> 
+            <td></td>
             <td class="texto-derecha-excel">
                 <strong>{{tm($totalgen)}}</strong>
             </td>
