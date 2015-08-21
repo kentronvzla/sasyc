@@ -11,7 +11,7 @@
             <div id="PanelSolicitud" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
-                       
+
                         {{Form::btInput($solicitud,'num_solicitud',6)}}
                         {{Form::btInput($solicitud,'descripcion',6)}}
                     </div>
@@ -51,7 +51,10 @@
                         {{Form::btInput($presupuesto,'proceso_id',6)}}
                     </div>
                     <div class="row">
-                        {{Form::btInput($presupuesto,'beneficiario_id',12)}}
+                        {{Form::btInput($requerimiento, 'tipo_requerimiento_id', 12)}}
+                    </div>
+                    <div class="row">
+                        {{Form::btInput($presupuesto,'beneficiario_id',12)}}                        
                     </div>
                 </div>
             </div>

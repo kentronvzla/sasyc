@@ -464,6 +464,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 ->leftJoin('tipo_ayudas', 'areas.tipo_ayuda_id', '=', 'tipo_ayudas.id')
                 ->leftJoin('recepciones', 'solicitudes.recepcion_id', '=', 'recepciones.id')
                 ->leftJoin('requerimientos', 'presupuestos.requerimiento_id', '=', 'requerimientos.id')
+                ->leftJoin('tipo_requerimientos', 'requerimientos.tipo_requerimiento_id', '=', 'tipo_requerimientos.id')
                 ->distinct()
                 ->select('solicitudes.*');
 
@@ -495,6 +496,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 $campo = str_replace('solicitudes_', 'solicitudes.', $campo);
                 $campo = str_replace('presupuestos_', 'presupuestos.', $campo);
                 $campo = str_replace('referentes_', 'referentes.', $campo);
+                $campo = str_replace('requerimientos_', 'requerimientos.', $campo);
                 $query = $this->parseFilter($campo, $valor, $query);
             }
         }
@@ -848,6 +850,12 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
                 return Recepcion::find($valor)->nombre;
             case "especial_mes":
                 return Solicitud::$array_meses[$valor];
+            case "especial_edad":
+//                $persona_edad = Persona::find($valor);
+//                if (is_null($persona_edad)) {
+                    return $valor;
+//                }
+//                return $persona->nombre;
             case "sexo":
                 if ($valor == '') {
                     return "No Seleccionado";

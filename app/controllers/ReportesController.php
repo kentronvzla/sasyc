@@ -1,8 +1,6 @@
 <?php
 
 class ReportesController extends BaseController {
-    
-    
 
     private $reporte;
     Private $punto;
@@ -18,6 +16,7 @@ class ReportesController extends BaseController {
         'solicitudes.recepcion_id' => 'Recepcion',
         'personas.sexo' => 'Sexo',
         'especial_mes' => 'Mes',
+        'especial_edad' => 'Categoría Edad',
     ];
     private static $columnas_agrupables_grafico = [
         '' => 'Seleccione',
@@ -30,9 +29,10 @@ class ReportesController extends BaseController {
         'personas.sexo' => 'Sexo',
         'especial_mes' => 'Mes',
         'especial_ano' => 'Año',
+        'especial_edad' => 'Edad',
     ];
     private static $columnas_descripciones = [
-        '' => 'Seleccione',
+        '' => 'Selecciones',
         'estados.estado_id' => 'estados.nombre',
         'areas.tipo_ayuda_id' => 'tipo_ayudas.nombre',
         'solicitudes.area_id' => 'areas.nombre',
@@ -41,7 +41,8 @@ class ReportesController extends BaseController {
         'solicitudes.recepcion_id' => 'recepciones.nombre',
         'personas.sexo' => 'personas.sexo',
         'especial_mes' => 'to_char(solicitudes.created_at,\'MM / YYYY\')',
-        'especial_ano' => 'extract(year from solicitudes.created_at)'
+        'especial_ano' => 'extract(year from solicitudes.created_at)',
+        'especial_edad' => 'extract(year from age(personas.fecha_nacimiento))'
     ];
     private static $columnas_orden = [
         '' => 'Seleccione',
@@ -52,7 +53,6 @@ class ReportesController extends BaseController {
         'solicitudes.referencia_externa' => 'Referencia externa',
     ];
 
-    
     public function __construct(\ayudantes\Reporte $reporte) {
         require_once '../public/EnLetras.php';
         $this->reporte = $reporte;
@@ -66,6 +66,7 @@ class ReportesController extends BaseController {
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
         $data['presupuesto'] = new Presupuesto();
+        $data['requerimiento'] = new Requerimiento();
         return View::make('reportes.estadisticassolicitud', $data);
     }
 
@@ -86,6 +87,11 @@ class ReportesController extends BaseController {
                 if (!empty($columna)) {
                     if ($columna == 'especial_mes') {
                         $strSelect .= 'extract(month from solicitudes.created_at) as especial_mes, ';
+                    } else if ($columna == 'especial_edad') {
+                        $strSelect .= "CASE "
+                                . "WHEN EXTRACT (YEAR FROM age(personas.fecha_nacimiento)) < 18 THEN 'Niño' "
+                                . "WHEN EXTRACT (YEAR FROM age(personas.fecha_nacimiento)) >= 18 THEN 'Adulto' "
+                                . "END AS especial_edad, ";
                     } else {
                         $strSelect .= $columna . ',';
                     }
@@ -119,43 +125,37 @@ class ReportesController extends BaseController {
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
         $data['presupuesto'] = new Presupuesto();
+        $data['requerimiento'] = new Requerimiento();
         return View::make('reportes.resueltos', $data);
     }
 
-    public function postResueltos() {  
+    public function postResueltos() {
         $columna = Input::get('order_by');
         $data['total'] = 0;
         $data['anterior'] = "";
         $data['cantReportes'] = count(Input::get('order_by'));
-        $data['solicitudes']= Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'))
+        $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'))
                 ->where(function($query) {
                     $query->where('estatus', '=', 'APR');
                 })
                 ->orderBy($columna, 'ASC')
-                        ->paginate(250);
-       
+                ->paginate(250);
 
         $data['parametro'] = $this->parametro_de_orden($data, (explode('.', $columna)[1]));
-        
-                 
         if (Input::get('formato_reporte', 'pdf') == "pdf")
-                 $vista = 'reportes.html.resueltos';
-       
-            
+            $vista = 'reportes.html.resueltos';
         else
             $vista = 'reportes.html.resueltos_excel';
 
-       return $this->reporte->generar($vista, $data, 'L');
-
+        return $this->reporte->generar($vista, $data, 'L');
     }
 
-
     public function getPendientes() {
-
         $data['columnas_orden'] = static::$columnas_orden_1;
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
         $data['presupuesto'] = new Presupuesto();
+        $data['requerimiento'] = new Requerimiento();
         return View::make('reportes.pendientes', $data);
     }
 
@@ -164,7 +164,7 @@ class ReportesController extends BaseController {
         $data['total'] = 0;
         $data['cantReportes'] = count(Input::get('order_by'));
         $data['solicitudes'] = Solicitud::aplicarFiltro(Input::except('formato_reporte', 'order_by'))
-                     ->where(function($query) {
+                ->where(function($query) {
                     $query->where('estatus', '<>', 'APR');
                 })
                 ->orderBy($columna, 'ASC')
@@ -240,6 +240,7 @@ class ReportesController extends BaseController {
         $data['solicitud'] = new Solicitud();
         $data['persona'] = new Persona();
         $data['presupuesto'] = new Presupuesto();
+        $data['requerimiento'] = new Requerimiento();
         return View::make('graficos.estadisticagrafico', $data);
     }
 

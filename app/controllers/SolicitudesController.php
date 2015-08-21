@@ -42,6 +42,7 @@ class SolicitudesController extends BaseController {
         $data['persona'] = new Persona();
         $data['solicitud'] = new Solicitud();
         $data['presupuesto'] = new Presupuesto();
+        $data['requerimiento'] = new Requerimiento();
         return View::make('solicitudes.index', $data);
     }
 
