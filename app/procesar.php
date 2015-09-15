@@ -1,6 +1,6 @@
 <?php
 
-require_once('/ayudantes/webservices/nusoap.php');
+require_once('webservices/nusoap.php');
 
 /**
  * Procesa Documentos SASYC-KERUX.

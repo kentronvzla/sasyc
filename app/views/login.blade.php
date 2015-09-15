@@ -32,7 +32,7 @@
                             <input type="text" class="form-control" id="email" name="email" placeholder="Correo">
                         </div>
                         <div class="form-group">
-                            <label for="password">Contraseña <a href="/sessions/forgot_password">(¿Olvidaste tu contraseña?)</a></label>
+                            <!--<label for="password">Contraseña <a href="/sessions/forgot_password">(¿Olvidaste tu contraseña?)</a></label>-->
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                         </div>
                         <div class="checkbox">
