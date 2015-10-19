@@ -64,5 +64,4 @@ class RecaudoTableSeeder extends Seeder {
             'ind_activo' => '1', 
             'tipo_ayuda_id' => '1'));
     }
-
 }

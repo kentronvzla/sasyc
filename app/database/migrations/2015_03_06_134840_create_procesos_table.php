@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProcesos extends Migration {
+class CreateProcesosTable extends Migration {
 
     /**
      * Run the migrations.

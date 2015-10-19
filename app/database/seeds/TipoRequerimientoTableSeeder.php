@@ -4,8 +4,9 @@ class TipoRequerimientoTableSeeder extends Seeder {
 
     public function run() {
         $tipos = array(
-            ['nombre'=>'Material Médico'],
-            ['nombre'=>'Ayudas en efectivo'],
+            ['nombre'=>'Salud'],
+            ['nombre'=>'Financieros'],
+            ['nombre'=>'Efectivo'],
             ['nombre'=>'Protesis'],
         );
         foreach ($tipos as $tipo) {
