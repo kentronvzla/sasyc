@@ -8,7 +8,6 @@ class AreaTableSeeder extends Seeder {
         Area::create(array('nombre' => 'Angiología y Cirugía Vascular', 'descripcion' => 'Angiología y Cirugía Vascular', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Cirugía General', 'descripcion' => 'Cirugía General ', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Dermatología Medico Quirurgica y Veneurología', 'descripcion' => 'Dermatología Medico Quirurgica y Veneurología', 'tipo_ayuda_id' => '1'));
-        Area::create(array('nombre' => 'Económico', 'descripcion' => 'Económico ', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Endocrinología', 'descripcion' => 'Endocrinología ', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Fisiatría', 'descripcion' => 'Fisiatría', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Gastroenterología', 'descripcion' => 'Gastroenterología ', 'tipo_ayuda_id' => '1'));
@@ -16,11 +15,9 @@ class AreaTableSeeder extends Seeder {
         Area::create(array('nombre' => 'Hematología y Hemoterapia', 'descripcion' => 'Hematología y Hemoterapia', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Mastología', 'descripcion' => 'Mastología', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Cirugía Maxilofacial', 'descripcion' => 'Cirugía Maxilofacial', 'tipo_ayuda_id' => '1'));
-        Area::create(array('nombre' => 'Medicina Interna', 'descripcion' => 'Medicina Interna', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Nefrología', 'descripcion' => 'Nefrología', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Neumonología', 'descripcion' => 'Neumonología ', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Neurología', 'descripcion' => 'Neurología', 'tipo_ayuda_id' => '1'));
-        Area::create(array('nombre' => 'Ginecología y Obstetricia', 'descripcion' => 'Ginecología y Obstetricia', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Odontología', 'descripcion' => 'Odontología', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Oftalmología', 'descripcion' => 'Oftalmología', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Oncología Médica', 'descripcion' => 'Oncología Médica', 'tipo_ayuda_id' => '1'));
@@ -59,6 +56,7 @@ class AreaTableSeeder extends Seeder {
         Area::create(array('nombre' => 'Radiodiagnostico', 'descripcion' => 'Radiodiagnostico', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Terapias', 'descripcion' => 'Terapias', 'tipo_ayuda_id' => '1'));
         Area::create(array('nombre' => 'Enseres', 'descripcion' => 'Enseres', 'tipo_ayuda_id' => '2'));
+        Area::create(array('nombre' => 'Económico', 'descripcion' => 'Económico ', 'tipo_ayuda_id' => '2'));        
         Area::create(array('nombre' => 'Efectivo', 'descripcion' => 'Efectivo', 'tipo_ayuda_id' => '2'));
         Area::create(array('nombre' => 'Remodelaciones', 'descripcion' => 'Remodelaciones', 'tipo_ayuda_id' => '3'));
     }

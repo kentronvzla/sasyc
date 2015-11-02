@@ -27,12 +27,6 @@ class RequerimientoTableSeeder extends Seeder {
             'descripcion' => 'Equipos Médicos',
             'tipo_ayuda_id' => '1'));
 
-        Requerimiento::create(array('nombre' => 'Intervención Quirúrgica',
-            'cod_cta' => '401070600',
-            'tipo_requerimiento_id' => '1',
-            'descripcion' => 'Intervención Quirúrgica',
-            'tipo_ayuda_id' => '1'));
-
         Requerimiento::create(array('nombre' => 'Tratamiento Médico',
             'cod_cta' => '401070600',
             'tipo_requerimiento_id' => '1',
@@ -103,12 +97,6 @@ class RequerimientoTableSeeder extends Seeder {
             'cod_cta' => '401070600',
             'tipo_requerimiento_id' => '2',
             'descripcion' => 'Ayuda de Estudio Academíco',
-            'tipo_ayuda_id' => '2'));
-
-        Requerimiento::create(array('nombre' => 'Canastilla, Artículos para Bebe',
-            'cod_cta' => '401070600',
-            'tipo_requerimiento_id' => '2',
-            'descripcion' => 'Canastilla, Artículos para Bebe',
             'tipo_ayuda_id' => '2'));
 
         Requerimiento::create(array('nombre' => 'Computadoras',
