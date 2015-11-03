@@ -39,6 +39,7 @@
                                 <br><a href="#" data-toggle="tooltip" data-original-title="{{$solicitud->personaSolicitante->informacion_contacto}}">(Información de contacto)</a>
                             @endunless
                             <br>Solicitud: <b>{{$solicitud->num_solicitud}}</b><br>
+                            <br>Referencia: <b>{{$solicitud->id}}</b><br>
                             <br>Referido por: <b>{{$solicitud->referente->nombre}}</b><br>
                             <br>Estatus: <b>{{$solicitud->estatus_display}}</b>
                         </div>

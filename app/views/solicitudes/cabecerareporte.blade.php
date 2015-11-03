@@ -10,6 +10,9 @@
                         <h3>SOLICITUD:&nbsp;
                         {{$solicitud->num_solicitud or ""}}
                         </h3>
+                        <h4>Referencia:&nbsp;
+                        {{$solicitud->id or ""}}
+                        </h4>
                     </td>
                     <td width=150 ALIGN=CENTER style=' font-size: 14px;'>
                         <strong>Fecha de la solicitud: </strong>
