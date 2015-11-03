@@ -201,7 +201,7 @@
     </div>
     <hr width="100%">
     <!------------------------------------------------------------------------->
-    @if($solicitud->personaSolicitante->ci!=$beneficiario->ci)  
+    @if(!$solicitud->ind_mismo_benef && $solicitud->personaSolicitante->ci!=$beneficiario->ci)  
     <h3>Datos personales de solicitante</h3>
     <div class="cuerpo">
         <table border="0" cellpadding="5" cellspacing="0">
