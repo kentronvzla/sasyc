@@ -7,7 +7,7 @@
             {{Form::display($solicitud,'total_ingresos',4)}}
         </div>
         <h3>Diagnostico Social</h3>
-        <div class="row">
+        <div class="row" style="text-align: justify;">
             {{$solicitud->informe_social}}
         </div>
     </div>

@@ -14,7 +14,13 @@
         @foreach($collection as $object)
             <tr>
                 @foreach($prettyFields as $key=>$col)
-                    <td class="{{$object->isDecimalField($key) ? 'decimal-format':''}}">{{$object->getValueAt($key)}}</td>
+                    <td class="{{$object->isDecimalField($key) ? 'decimal-format':''}}">
+                            @if($object->isBooleanField($key))
+                                {{$object->getValueAt($key) == 't' ? 'SI':'NO'}}
+                            @else
+                                {{$object->getValueAt($key)}}
+                            @endif  
+                    </td>
                 @endforeach
                 @if(count($botones)>0)
                     <td>
