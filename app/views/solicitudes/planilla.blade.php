@@ -116,7 +116,7 @@
                         <li>{{HTML::link('solicitudes/planilla/'.$solicitud->id, 'Planilla', ['target'=>'_blank'])}}</li>
                         <li>{{HTML::link('solicitudes/informe/'.$solicitud->id, 'Informe Socioeconomico', ['target'=>'_blank'])}}</li>
                         <li>{{HTML::link('solicitudes/bitacora/'.$solicitud->id, 'Bitacora', ['target'=>'_blank'])}}</li>
-                        @if ($solicitud->estatus == 'PPA' || $solicitud->estatus == 'APR'  || $solicitud->estatus == 'ACA')
+                        @if ($solicitud->estatus == 'PPA' || $solicitud->estatus == 'APR')
                         <li>{{HTML::link('reportes/puntomemo/'.$solicitud->id, 'Punto / Memo', ['target'=>'_blank'])}}</li>
                         @endif
 

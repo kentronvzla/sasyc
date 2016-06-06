@@ -53,7 +53,7 @@
        esta emitido a favor de:<br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>
-                {{$resultado->beneficiario->nombre}} por&nbsp;Bs. F
+                {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs. F
                 {{tm($resultado->montoapr)}}<br>
             </strong>
         @endforeach 
