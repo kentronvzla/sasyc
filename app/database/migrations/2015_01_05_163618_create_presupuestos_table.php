@@ -21,12 +21,12 @@ class CreatePresupuestosTable extends Migration {
             $table->string('moneda', 3)->nullable();//Configuracion
             $table->integer('beneficiario_id', false, true)->length(14)->nullable();//Lo selecciona el usuario
             //fin de kerux
-
             $table->integer('cantidad')->nullable();
             $table->decimal('monto', 14, 2)->nullable(); 
             $table->decimal('montoapr', 14, 2)->nullable();
             $table->string('estatus_doc', 3)->nullable();
-            $table->string('cheque', 100)->nullable();            
+            $table->string('cheque', 100)->nullable(); 
+            $table->integer('numop')->nullable();
             $table->integer('version')->default(0);
 
             $table->timestamps();

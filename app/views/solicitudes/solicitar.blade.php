@@ -70,7 +70,7 @@
                                         <br>Monto Solicitado: <b>{{$solicitud->presupuestos[0]->monto or "Sin Asignar"}}</b>
                                         <br>Monto Aprobado: <b>{{$solicitud->presupuestos[0]->montoapr or "Sin Asignar"}}</b>
                                     @endif
-                                    <br>Estatus: <b>{{$solicitud->presupuestos[0]->documento->estatus or "Sin Generar"}}</b>
+                                    <br>Estatus: <b>{{$solicitud->presupuestos[0]->estatus_doc or "Sin Generar"}}</b>
                                     <br>IdDoc: <b>{{$solicitud->presupuestos[0]->documento_id or "Sin Generar"}}</b>
                                     <br>
                                     @if(count($solicitud->presupuestos)>1)

@@ -21,7 +21,7 @@ class CreateDocumentossasycTable extends Migration {
             $table->string('estatus', 3);
             $table->integer('solicitud', false, true);
             $table->string('ref_doc', 30)->nullable();
-            $table->integer('num_op', false, true)->nullable();
+            $table->integer('num_op')->nullable();
             $table->string('mensaje', 2000)->nullable();
             $table->integer('id_doc_ref', false, true)->nullable();
             $table->boolean('ind_aprueba_auto')->default(0);

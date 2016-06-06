@@ -413,13 +413,13 @@ class ProcesarDocumento {
         $comprobdetadic->iddoc = $registro->documento_id;
         $comprobdetadic->codcta = $registro->cod_cta;
         $comprobdetadic->mtoneto = $registro->monto;
-        $comprobdetadic->porcimpto = \Configuracion::get('porcimpuesto');
+        $comprobdetadic->porcimpto = 0;//\Configuracion::get('porcimpuesto');
         $comprobdetadic->indimptoman = 'N';
-        $num = (($comprobdetadic->mtoneto * $comprobdetadic->porcimpto) / 100);
+        /*$num = (($comprobdetadic->mtoneto * $comprobdetadic->porcimpto) / 100);
         $num = number_format($num, 2, '.', '');
-        $num = floatval($num);
-        $comprobdetadic->mtoimpuesto = $num;
-        $comprobdetadic->mtototal = $comprobdetadic->mtoneto + $comprobdetadic->mtoimpuesto;
+        $num = floatval($num);*/
+        $comprobdetadic->mtoimpuesto = 0; //$num;
+        $comprobdetadic->mtototal = $comprobdetadic->mtoneto;// + $comprobdetadic->mtoimpuesto;
         return $comprobdetadic;
     }
 

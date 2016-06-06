@@ -143,7 +143,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
     }
 
     public function documento() {
-        return $this->belongsTo('Oracle\Documento');
+        return $this->belongsTo('Documentossasyc');
     }
 
     public function getTableFields() {
