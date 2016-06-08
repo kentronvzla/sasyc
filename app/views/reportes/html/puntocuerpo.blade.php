@@ -14,7 +14,7 @@
         <strong>{{$solicitud->getSolicitante()->fecha_nacimiento->age}}</strong> 
         años de edad, titular de la cédula de 
         identidad 
-        <strong>{{($solicitud->getSolicitante()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;</strong>, por la cantidad de 
+        <strong>{{($solicitud->getSolicitante()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante()->ci}}&nbsp;</strong>, por la cantidad de 
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
         a favor del ciudadan@&nbsp;
 
@@ -26,7 +26,7 @@
         <strong>{{$solicitud->getBeneficiario()->fecha_nacimiento->age}}</strong> 
         años de edad, titular
         de la cédula de identidad 
-        <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario->ci}}</strong>, 
+        <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario()->ci}}</strong>, 
         quien en virtud del
         analisis de la documentación  presentada por parte de las Direcciones de 
         {{$solicitud->departamento->nombre}} y de Administración, 
@@ -73,7 +73,7 @@
         <strong>{{$solicitud->getBeneficiario()->fecha_nacimiento->age}}</strong> 
         años de edad, titular de la cédula de 
         identidad 
-        <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getBeneficiario->ci}}&nbsp;</strong>, 
+        <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getBeneficiario()->ci}}&nbsp;</strong>, 
         por la cantidad de 
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
         a favor de sí mismo, que en virtud del
@@ -101,7 +101,7 @@
        esta emitido a favor de:<br><br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>
-                {{$resultado->beneficiario->nombre}} por&nbsp;Bs. F
+                {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs. F
                 {{tm($resultado->montoapr)}}<br>
             </strong>
         @endforeach 
