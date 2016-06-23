@@ -9,7 +9,7 @@ class MemosController extends BaseController
     }
     
     public function getIndex(){
-       $data['memos'] = Memo::orderBy('numero','desc')->paginate(5);
+       $data['memos'] = Memo::orderBy('id','desc')->paginate(5);
         return View::make('memorandum.listamemo',$data);
     }
 
