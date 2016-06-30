@@ -13,7 +13,7 @@
                 &nbsp;años de edad, 
                 titular de la cédula de identidad 
                 <strong>
-                    {{($solicitud->getSolicitante()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci}}&nbsp;
+                    {{($solicitud->getSolicitante()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getSolicitante->ci}}&nbsp;
                 </strong>;
                 quien solicita ayuda económica para cubrir gastos ante la necesidad y/o
                 tratamiento de:&nbsp;{{$solicitud->necesidad}} a favor del ciudadano(a)
@@ -26,7 +26,7 @@
                 {{$solicitud->getBeneficiario()->fecha_nacimiento->age}}
                 &nbsp;años de edad,
                 titular de la cédula de identidad 
-                <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario->ci}}&nbsp;</strong>, 
+                <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getBeneficiario->ci}}&nbsp;</strong>, 
                 por la 
                 cantidad <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>,
                 en virtud de cubrir los gastos ante; 
@@ -101,7 +101,7 @@
                 @foreach($solicitud->presupuestos as $resultado)
                     @if ($resultado->beneficiario_id != null)
                          <strong>
-                            {{$resultado->beneficiario->nombre}} por&nbsp;
+                            {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs. F                            
                             {{$resultado->montoapr}}<br>
                         </strong>
                     @endif

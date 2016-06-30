@@ -14,7 +14,7 @@
         <strong>{{$solicitud->getSolicitante()->fecha_nacimiento->age}}</strong> 
         años de edad, titular de la cédula de 
         identidad 
-        <strong>{{($solicitud->getSolicitante()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante()->ci}}&nbsp;</strong>, por la cantidad de 
+        <strong>{{($solicitud->getSolicitante()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getSolicitante()->ci}}&nbsp;</strong>, por la cantidad de 
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
         a favor del ciudadan@&nbsp;
 
@@ -26,7 +26,7 @@
         <strong>{{$solicitud->getBeneficiario()->fecha_nacimiento->age}}</strong> 
         años de edad, titular
         de la cédula de identidad 
-        <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaBeneficiario()->ci}}</strong>, 
+        <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getBeneficiario()->ci}}</strong>, 
         quien en virtud del
         analisis de la documentación  presentada por parte de las Direcciones de 
         {{$solicitud->departamento->nombre}} y de Administración, 

@@ -64,7 +64,14 @@ class CreateForeignTable extends Migration {
         });
 
         Schema::table('presupuestos', function(Blueprint $table) {
+            $table->index('solicitud_id');
+            $table->foreign('solicitud_id')->references('id')->on('solicitudes');
+
+            $table->index('requerimiento_id');
+            $table->foreign('requerimiento_id')->references('id')->on('requerimientos');          
             
+            $table->index('proceso_id');
+            $table->foreign('proceso_id')->references('id')->on('procesos');  
         });
 
         Schema::table('recaudo_solicitud', function(Blueprint $table) {
@@ -206,7 +213,7 @@ class CreateForeignTable extends Migration {
             $table->dropForeign('requerimientos_tipo_ayuda_id_foreign');
             $table->dropIndex('requerimientos_tipo_ayuda_id_index');
         });
-
+        
         Schema::table('solicitudes', function(Blueprint $table) {
             $table->dropForeign('solicitudes_persona_beneficiario_id_foreign');
             $table->dropIndex('solicitudes_persona_beneficiario_id_index');

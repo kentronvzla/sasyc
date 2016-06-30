@@ -34,7 +34,7 @@
             {{$resultado->documento_id or ""}}
         </td>
         <td width=90 valign="middle">
-            {{$resultado->documento->estatus or ""}}
+            {{$resultado->estatus_doc or ""}}
         </td>
         <td width=100 ALIGN=right valign="middle">
             {{$resultado->montoapr_for}}

@@ -179,7 +179,7 @@ class ProcesarDocumento {
             return false;
     }
 
-    public function atualizarEstatusPresupuesto($data, $evento, $presupuesto) {
+    public function actualizarEstatusPresupuesto($data, $evento, $presupuesto) {
         $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])
                         ->where('proceso_id', '=', $evento[0]->id)
                         ->where('beneficiario_id', '=', $presupuesto->beneficiario_id)->get();

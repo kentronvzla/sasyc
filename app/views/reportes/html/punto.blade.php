@@ -35,13 +35,13 @@
                     <tr>
                         <td style="width: 370px; height: auto;">
                             A- AL: {{Configuracion::get('presidente')}}<br>
-                            Presidente de la fundacion pueblo soberano (FPS)
+                            Presidente de la Fundacion Pueblo Soberano (FPS)
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 370px; height: auto;">
                             B- AL: {{Configuracion::get('coordinador')}}<br>
-                            Coordinador general de la fundacion pueblo soberano (FPS)
+                            Coordinador General de la Fundacion Pueblo Soberano (FPS)
                         </td>
                     </tr>
                     <tr>    
@@ -74,7 +74,7 @@
             <td style="width: 690px; height: auto;" valign="middle">
                 <strong>Observaciones:&nbsp;</strong>
                 <p align="justify">
-                    {{$solicitud->observaciones or "No se existe texto adjunto."}}
+                    {{$solicitud->observaciones or ""}}
                 </p>
             </td>
         </tr>
@@ -84,14 +84,14 @@
         <tr style=' background:#d8d8d8;'>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
                 <strong>
-                    6- Presentado por: Direccion de {{$solicitud->departamento->nombre or "No se cargo el texto"}}
+                    6- Presentado por: Direccion de {{$solicitud->departamento->nombre or ""}}
                 </strong>
             </td>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
-                <strong>7- Revisado por: Direccion de Administración</strong>
+                <strong>7- Revisado por: Unidad de Presupuesto</strong>
             </td>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
-                <strong>8- Aprobado por: Coordinador General</strong>
+                <strong>8- Aprobado por: Unidad de Contabilidad</strong>
             </td>
         </tr>
         <tr>
@@ -121,13 +121,13 @@
     <table width="100%" border="1" cellpadding="10" cellspacing="0">
         <tr style=' background:#d8d8d8;'>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
-                <strong>9- Aprobado por: Presidente</strong>
+                <strong>9- Aprobado por: Administración</strong>
             </td>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
-                <strong>10- Revisado por: Unidad de Presupuesto</strong>
+                <strong>10- Revisado por: Coordinador General</strong>
             </td>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
-                <strong>11- Aprobado por: Unidad de Contabilidad</strong>
+                <strong>11- Aprobado por: Presidente</strong>
             </td>
         </tr>
         <tr>

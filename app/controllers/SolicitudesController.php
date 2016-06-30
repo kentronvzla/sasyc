@@ -212,7 +212,7 @@ class SolicitudesController extends BaseController {
                     return Response::json($mensaje, 400);
                 } else {
                     $solicitud->configurarPresupuesto($num_proc);
-                    $proc_documento->atualizarEstatus($data, Input::get('usuario_autorizacion_id'));
+                    $proc_documento->actualizarEstatus($data, Input::get('usuario_autorizacion_id'));
                 }
             } else {
                 return Response::json(['errores' => 'No se puede aprobar la solicitud, defina al menos un tipo de documento'], 400);
