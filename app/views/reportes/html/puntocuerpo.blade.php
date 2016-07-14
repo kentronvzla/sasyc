@@ -48,12 +48,12 @@
 
        De allí que, en vista de las condiciones socio-económicas del solicitante y 
        de la disponibilidad presupuestaria correspondiente, se recomienda la aprobación
-       para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>
+       para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>-
        . El cheque
        esta emitido a favor de:<br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>
-                {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs. F
+                {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs 
                 {{tm($resultado->montoapr)}}<br>
             </strong>
         @endforeach 
@@ -101,7 +101,7 @@
        esta emitido a favor de:<br><br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>
-                {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs. F
+                {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs 
                 {{tm($resultado->montoapr)}}<br>
             </strong>
         @endforeach 

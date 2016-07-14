@@ -8,7 +8,7 @@ $(document).ready(function () {
             $(this).remove();
         }
 
-    });
+    });    
 
     $(document).on('dblclick', '.remover-solicitud', function () {
         var elem = $(this).clone();

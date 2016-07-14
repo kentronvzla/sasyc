@@ -5,14 +5,17 @@
         </td>
         <td width=170 style='font-size: 13px;' valign="middle">
             <strong>Nombre del Beneficiario</strong>
-        </td>
-        <td width=70 ALIGN=right style='font-size: 13px;' valign="middle">
+        </td>        
+        <td width=60 ALIGN=right style='font-size: 13px;' valign="middle">
             <strong>Cantidad</strong>
         </td>
-        <td width=70 style='font-size: 13px;' valign="middle">
+        <td width=80 style='font-size: 13px;' valign="middle">
             <strong>ID Doc</strong>
-        </td>
-        <td width=90 style='font-size: 13px;' valign="middle">
+        </td>                                        
+        <td width=70 style='font-size: 13px;' valign="middle">
+                <strong>N° Cheque</strong>
+        </td>                                
+        <td width=50 style='font-size: 13px;' valign="middle">
             <strong>Estatus</strong>
         </td>
         <td width=100 ALIGN=right style='font-size: 13px;' valign="middle">
@@ -26,14 +29,17 @@
         </td>
         <td width=170 valign="middle">
             {{$resultado->beneficiario->nombre or ""}} 
-        </td>
-        <td width=70 valign="middle" ALIGN=right>
+        </td>       
+        <td width=60 valign="middle" ALIGN=right>
             {{$resultado->cantidad}} 
         </td>
-        <td width=70 height=15 valign="middle" >
+        <td width=80 height=15 valign="middle" >
             {{$resultado->documento_id or ""}}
-        </td>
-        <td width=90 valign="middle">
+        </td>                                                
+        <td width=70 valign="middle">
+                {{$resultado->cheque or ""}}
+        </td> 
+        <td width=50 valign="middle">
             {{$resultado->estatus_doc or ""}}
         </td>
         <td width=100 ALIGN=right valign="middle">
@@ -45,7 +51,8 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
+        <td></td>              
+        <td></td>        
         <td><strong>Total:</strong></td>
         <td width=100 ALIGN=right valign="middle">
             <hr>

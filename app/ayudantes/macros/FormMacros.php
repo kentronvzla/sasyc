@@ -77,7 +77,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             $type = 'select';
             $options = $obj->getRelatedOptions($attrName);
             if (count($options) > 30) {
-                $data['params']['class'] = ' advanced-select ';
+                $data['params']['class'] = 'advanced-select ';
                 $data['params']['style'] = 'width: 100%;';
             }
         } else if ($obj->isDateField($attrName) && $type == "text") {

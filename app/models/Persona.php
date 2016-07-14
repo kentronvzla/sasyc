@@ -225,6 +225,14 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
     }
 
     /**
+     * Define una relación pertenece a Seguro
+     * @return Seguro
+     */
+    public function seguro() {
+        return $this->belongsTo('Seguro');
+    }
+
+    /**
      * 
      */
     public function familiaresBeneficiario() {

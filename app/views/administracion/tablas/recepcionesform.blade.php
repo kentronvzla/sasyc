@@ -9,6 +9,7 @@
         {{Form::open(array('url'=>'administracion/tablas/recepciones'))}}
         {{Form::concurrencia($recepcion)}}
         <div class="row">
+        	{{Form::hidden('id',$recepcion->id)}}
             {{Form::btInput($recepcion, 'nombre', 6)}}
         </div>
         {{Form::submitBt()}}

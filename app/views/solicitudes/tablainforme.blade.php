@@ -38,6 +38,13 @@
                     </p>
                 </td>
             </tr>
+            <tr>
+                <td colspan="3" style="text-align: justify;"> 
+                    <p>
+                       <strong>Redactado por: {{$solicitud->usuarioAsignacion->nombre}}</strong>
+                    </p>
+                </td>
+            </tr>
         </table>
     </div>
 </div>    

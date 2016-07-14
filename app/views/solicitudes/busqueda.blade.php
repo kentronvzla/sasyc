@@ -110,6 +110,12 @@
                     </div>
                 </div>
             </div>
+            <div>
+            	@if(isset($campo))        
+                 {{ Form::hidden('asignar', $campo) }}                 
+                 {{ Form::hidden('estatus', $sts) }}                 
+            	@endif      
+            </div>
         </div>
     </div>
 </div>

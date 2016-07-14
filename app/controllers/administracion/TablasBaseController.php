@@ -65,7 +65,8 @@ abstract class TablasBaseController extends \BaseController {
     
 
     public function getModificar($id = 0) {
-        $data[$this->getVarName()] = $this->executeFunction('findOrNew', $id);
+    	dump($id);    	
+        $data[$this->getVarName()] = $this->executeFunction('findOrNew', $id);        
         return \View::make($this->getFolder() . 'form', $data);
     }
 

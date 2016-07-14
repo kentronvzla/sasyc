@@ -41,24 +41,19 @@
             </tr>
             <tr>
                 <td style="width: 80px;height: auto;">
-                    <strong>Necesidad:</strong>
+                    <strong>Recepción:</strong>
                 </td>
                 <td style="width: 420px;height: auto;">
-                    {{$solicitud->necesidad or ""}}
-                </td>
+                    {{$solicitud->recepcion->nombre or ""}}
+                </td>    
                 <td style="width: 180px;height: auto;">
                     <strong>Area:</strong>&nbsp;
                     {{$solicitud->area->nombre or ""}}
-                </td>
-            </tr>
+                </td>            
+            </tr>            
             <tr>
+                
                 <td style="width: 80px;height: auto;">
-                    <strong>Observación:</strong>
-                </td>
-                <td style="width: 420px;height: auto;">
-                    {{$solicitud->observaciones or ""}}
-                </td>
-                <td style="width: 180px;height: auto;">
                     <strong>Atencion inmediata:</strong>&nbsp;
                     {{$solicitud->ind_inmediata ? "Si":"No"}}
                 </td>
@@ -81,9 +76,26 @@
                 </td>
             </tr>
         </table>
+        <table>
+        	<tr>
+                <td style="width: 80px;height: auto;">
+                    <strong>Necesidad:</strong>
+                </td>
+                <td style="width: 420px;height: auto;">
+                    {{$solicitud->necesidad or ""}}
+                </td>                
+            </tr>
+            <tr>
+                <td style="width: 80px;height: auto;">
+                    <strong>Observación:</strong>
+                </td>
+                <td style="width: 420px;height: auto;">
+                    {{$solicitud->observaciones or ""}}
+                </td>
+            </tr>
+        </table>
         @endif
-    </div><br>
-    <hr width="100%">
+    </div>
     <!------------------------------------------------------------------------->
     <h3>Datos personales del beneficiario</h3>
     <div class="cuerpo">
@@ -144,7 +156,7 @@
             <tr>
                 <td style="width: 160px;height: auto;">
                     <strong>Empresa de Seguro:</strong>&nbsp;
-                    {{$beneficiario->seguro_id or ""}}
+                    {{$beneficiario->seguro->nombre or ""}}
                 </td>
                 <td style="width: 200px;height: auto;">
                     <strong>Cobertura:</strong>&nbsp;
@@ -329,5 +341,10 @@
         @else
             <p> <strong>No existe presupuesto asociado a esta solicitud</strong> </p>
         @endif
+    </div>
+    <div>
+		<p>
+           <strong>Procesada por: {{$solicitud->usuarioAsignacion->nombre}}</strong>
+        </p>
     </div>
 </page>

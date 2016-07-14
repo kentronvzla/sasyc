@@ -207,10 +207,10 @@ class ReportesController extends BaseController {
         $V = new EnLetras();
         $valor = explode(".", $monto);
         if (count($valor) > 1) {
-            $con = strtoupper($V->ValorEnLetras($valor[0], " Bs. F Con "));
-            return $con . strtoupper($V->ValorEnLetras($valor[1], " Centimos")) . " (Bs. F " . tm($monto) . ")";
+            $con = strtoupper($V->ValorEnLetras($valor[0], " Bs. Con "));
+            return $con . strtoupper($V->ValorEnLetras($valor[1], " Centimos")) . " (Bs. " . tm($monto) . ")";
         } else {
-            return strtoupper($V->ValorEnLetras($valor[0], " Bs. F")) . " (Bs. F " . tm($monto) . ")";
+            return strtoupper($V->ValorEnLetras($valor[0], " Bs. ")) . " (Bs. " . tm($monto) . ")";
         }
     }
 

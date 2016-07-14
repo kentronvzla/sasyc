@@ -22,11 +22,13 @@
             <strong>Monto</strong>
         </td>
     </tr>
+    <?php 
+    $caso=0;               
+   ?>
     @foreach($memos->solicitudes as $resultado)
     <tr>
         <td height=15 valign="middle" ALIGN=CENTER>
-            <?php 
-            $caso=0;           
+            <?php           
             $caso +=1;
            ?>
             {{$caso}} 

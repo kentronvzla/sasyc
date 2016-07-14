@@ -87,6 +87,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
         'monto' => '',
         'montoapr' => '',
         'estatus_doc'=>'',
+        'cheque'=>'',
     ];
 
     protected function getPrettyFields() {
@@ -111,6 +112,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
             'montoapr' => 'Mto. Aprobado',
             'montoaprfor' => 'Monto aprobado',
             'estatus_doc'=>'Estatus',
+            'cheque'=>'N° de Cheque',
         ];
     }
 
@@ -148,7 +150,7 @@ class Presupuesto extends BaseModel implements \SimpleTableInterface, \DecimalIn
 
     public function getTableFields() {
         return [
-            'requerimiento->nombre','proceso->nombre', 'beneficiario->nombre', 'cantidad', 'documento_id', 'estatus_doc', 'montoapr'
+            'requerimiento->nombre','proceso->nombre', 'beneficiario->nombre', 'cantidad', 'documento_id', 'cheque', 'estatus_doc', 'montoapr'
         ];
     }
 

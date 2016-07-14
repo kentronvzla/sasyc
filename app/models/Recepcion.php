@@ -47,7 +47,7 @@ class Recepcion extends BaseModel {
 
     protected function getPrettyFields() {
         return [
-            'nombre' => 'Nombre',
+            'nombre' => 'Recepción',
         ];
     }
 

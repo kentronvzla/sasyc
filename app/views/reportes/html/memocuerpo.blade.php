@@ -101,7 +101,7 @@
                 @foreach($solicitud->presupuestos as $resultado)
                     @if ($resultado->beneficiario_id != null)
                          <strong>
-                            {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs. F                            
+                            {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs                             
                             {{$resultado->montoapr}}<br>
                         </strong>
                     @endif

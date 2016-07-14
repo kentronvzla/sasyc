@@ -10,13 +10,12 @@
             {{Form::display($solicitud->area,'tipoAyuda->nombre',4, true)}}
         </div>
         <div class="row">
-            {{Form::display($solicitud,'necesidad',8, true)}}
+            {{Form::display($solicitud,'recepcion->nombre',8, true)}}
             {{Form::display($solicitud,'area->nombre',4, true)}}
-        </div>
-        <div class="row">
-            {{Form::display($solicitud,'observaciones',8, true)}}
-            {{Form::display($solicitud,'ind_inmediata',4, true)}}
-        </div>
+        </div>          
+        <div class="row">            
+            {{Form::display($solicitud,'ind_inmediata',12, true)}}
+        </div>        
         @if ($solicitud->ind_inmediata)
         <div class="row">
             {{Form::display($solicitud,'actividad',4,true)}}
@@ -24,6 +23,12 @@
             {{Form::display($solicitud,'accion_tomada',4,true)}}
         </div>
         @endif
+        <div class="row">
+            {{Form::display($solicitud,'necesidad',12, true)}}
+        </div>
+        <div class="row">
+            {{Form::display($solicitud,'observaciones',12, true)}}            
+        </div>
         <hr width="100%">
         <h3>Datos Personales Beneficiario</h3>
         <div class="row">
@@ -47,7 +52,7 @@
        
         <div class="row">
             @if ($solicitud->getBeneficiario()->ind_asegurado)
-                {{Form::display($solicitud->getBeneficiario(),'seguro_id',3, true)}}
+                {{Form::display($solicitud->getBeneficiario(),'seguro->nombre',3, true)}}
                 {{Form::display($solicitud->getBeneficiario(),'cobertura',3, true)}}
             @endif
             {{Form::display($solicitud->getBeneficiario(),'otro_apoyo',3, true)}}

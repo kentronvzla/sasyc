@@ -18,18 +18,20 @@ class SolicitudesController extends BaseController {
         return View::make('solicitudes.planilla', $data);
     }
 
-    public function getIndex() {
+    public function getIndex() {        
         $data['solicitudes'] = Solicitud::eagerLoad()
                 ->aplicarFiltro(Input::except(['asignar', 'solo_asignadas', 'page', 'cerrar', 'anulando', '']))
                 ->ordenar();
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
-            $data['solicitud'] = new Solicitud();
-            if ($data['campo'] == 'usuario') {
+            $data['sts'] = Input::get('estatus');
+            $data['solicitud'] = new Solicitud();            
+            if ($data['campo'] == 'usuario') {        
                 $usuario = Usuario::getLogged();
                 $data['solicitudes']->whereDepartamentoId($usuario->departamento_id);
                 $data['analistas'] = $usuario->getCompaneros();
-            }
+            } 
+            $data['ruta'] = '?estatus='.Input::get('estatus').'&asignar='.Input::get('asignar');
         } else if (Input::has('anulando')) {
             $data['anulando'] = true;
         } else if (Input::has('cerrar')) {
@@ -37,12 +39,13 @@ class SolicitudesController extends BaseController {
         } else if (Input::has('solo_asignadas')) {
             $data['solo_asignadas'] = true;
         }
-        $data['solicitudes'] = $data['solicitudes']->paginate(5);
+        $data['solicitudes'] = $data['solicitudes']->paginate(30);
         //se usa para el helper de busqueda
         $data['persona'] = new Persona();
         $data['solicitud'] = new Solicitud();
         $data['presupuesto'] = new Presupuesto();
         $data['requerimiento'] = new Requerimiento();
+        
         return View::make('solicitudes.index', $data);
     }
 
@@ -98,6 +101,8 @@ class SolicitudesController extends BaseController {
         $data['beneficiario_kerux'] = new Oracle\Beneficiario();
         if (isset($data['solicitud']->area_id)) {
             $requerimientos = Requerimiento::select('id', 'nombre')->whereTipoAyudaId($data['solicitud']->area->tipo_ayuda_id)->get();
+                $requerimientof[0] = 'Seleccione';
+                $data['requerimientos'] = $requerimientof;
             foreach ($requerimientos as $requerimiento) {
                 $requerimientof[$requerimiento->id] = $requerimiento->nombre;
                 $data['requerimientos'] = $requerimientof;

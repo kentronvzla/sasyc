@@ -140,7 +140,9 @@ class Usuario extends BaseModel implements SimpleTableInterface {
     }
 
     public function getCompaneros(){
-        $analistas=$this->departamento->usuarios->lists('nombre','id');
+        $grupo=Usuario::select('id', 'nombre')->where('activated', '=', 't')->where('departamento_id', '=', $this->departamento_id)->orderBy('nombre', 'asc')->get();
+        $analistas=$grupo->lists('nombre','id');
+        //$analistas=$this->departamento->usuarios->lists('nombre','id');
         $analistas[""]="Seleccione";
         return $analistas;
     }
