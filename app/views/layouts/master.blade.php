@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>@yield('titulo','Sasyc')</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Sistema para la gestión de citas medicas">
+        <meta name="description" content="Sistema de atención social y ciudadana">
 
         <!--CSS-->
         {{HTML::style('css/bootstrap-united.min.css')}}
@@ -59,9 +59,9 @@
         <footer class="footer">
             <div class="container">
                 <div class="row">
-                    <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; 2014 - {{date('Y')}}</p>
-                    <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Powered by: <a
-                            href="http://usman.it/free-responsive-admin-template">Charisma</a></p>
+                    <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; 2015 - {{date('Y')}}</p>
+                    <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Desarrollado por: <a
+                            href="http://kentron.com.ve">Kentron Sistemas de Información</a></p>
                 </div>
             </div>
         </footer>

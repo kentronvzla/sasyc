@@ -415,7 +415,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function createdModel($model) {
-        $recaudos = Recaudo::whereTipoAyudaId($this->area->tipo_ayuda_id)->whereIndActivo(true)->get();
+        $recaudos = Recaudo::whereTipoAyudaId($this->area->tipo_ayuda_id)->get();
         $recaudos->each(function ($recaudo) use ($model) {
             $recSolicitud = new RecaudoSolicitud();
             $recSolicitud->solicitud()->associate($model);

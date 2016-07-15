@@ -1,4 +1,4 @@
-@if($solicitud->getSolicitante()->ci!=$solicitud->getBeneficiario()->ci)
+@if(!$solicitud->ind_mismo_benef)
     <tr>
         <td>
             <p align="justify">

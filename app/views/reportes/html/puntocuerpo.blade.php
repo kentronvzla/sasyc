@@ -1,6 +1,6 @@
 {{--*/ $cont_total = count($solicitud->presupuestos) /*--}}
 {{--*/ $cont_ciclo = 0 /*--}}
-@if($solicitud->getSolicitante()->ci!=$solicitud->getBeneficiario()->ci)
+@if(!$solicitud->ind_mismo_benef)
     <p align="justify">
         Se somete a la consideración y aprobación del Presidente de la Fundación 
         Pueblo Soberano, el otorgamiento de ayuda económica
@@ -30,11 +30,9 @@
         quien en virtud del
         analisis de la documentación  presentada por parte de las Direcciones de 
         {{$solicitud->departamento->nombre}} y de Administración, 
-        necesita recursos para cubrir y/o tratar la siguiente necesidad:&nbsp;
+        requiere ayuda para cubrir y/o tratar la siguiente necesidad:&nbsp;
         <strong>&nbsp;{{$solicitud->necesidad}}&nbsp;</strong>. En tal sentido, la ayuda
-        económica va dirigida a cubrir gastos inherentes a los siguientes requerimientos y/o 
-        necesidades:
-        
+        económica va dirigida a cubrir gastos inherentes a los siguientes requerimientos de:
         @foreach($solicitud->presupuestos as $resultado)
             {{--*/ $cont_ciclo++ /*--}}
             {{$resultado->requerimiento->nombre}}
@@ -48,12 +46,13 @@
 
        De allí que, en vista de las condiciones socio-económicas del solicitante y 
        de la disponibilidad presupuestaria correspondiente, se recomienda la aprobación
-       para otorgar la ayuda económica, por la cantidad de; <strong>&nbsp;{{$montoASCIIapr}}&nbsp;</strong>-
-       . El cheque
-       esta emitido a favor de:<br>
+       para otorgar la ayuda económica, por la cantidad de: <br>
+       <strong>{{$montoASCIIapr}}</strong>
+       <br><br>
+       El cheque esta emitido a favor de:<br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>
-                {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs 
+                {{(isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs.
                 {{tm($resultado->montoapr)}}<br>
             </strong>
         @endforeach 
@@ -75,8 +74,7 @@
         identidad 
         <strong>{{($solicitud->getBeneficiario()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getBeneficiario()->ci}}&nbsp;</strong>, 
         por la cantidad de 
-        <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
-        a favor de sí mismo, que en virtud del
+        <strong>&nbsp;{{$montoASCII}}&nbsp;</strong>, que en virtud del
         análisis de la documentación  presentada por parte de las Direcciones de 
         &nbsp;{{$solicitud->departamento->nombre}}&nbsp; y de Administración, 
         necesita recursos para cubrir y/o tratar la siguiente necesidad:

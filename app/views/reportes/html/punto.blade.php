@@ -16,7 +16,7 @@
                     <tr>
                         <td>
                             <strong>
-                                2- Fecha:&nbsp;{{$solicitud->created_at->format('d/m/Y')}}
+                                2- Fecha:&nbsp;{{$solicitud->updated_at->format('d/m/Y')}}
                             </strong>
                         </td>
                     </tr>
@@ -54,7 +54,7 @@
             </td>
             <td style="width: 150px; height: auto; font-size: 14px;" valign="middle" align=center>
                 <strong>4- PTO N#</strong>
-                <br> FPS-c 402
+                <br> FPS-{{$solicitud->num_proc}}
             </td>
         </tr>
     </table>    

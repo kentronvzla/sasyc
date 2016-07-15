@@ -71,7 +71,7 @@
             {{Form::display($solicitud->getBeneficiario(),'telefono_celular',3, true)}}
         </div>
         <hr width="100%">
-        @if(!$solicitud->ind_mismo_benef && $solicitud->getSolicitante()->ci!=$solicitud->getBeneficiario()->ci)
+        @if(!$solicitud->ind_mismo_benef))
             <h3>Datos personales de Solicitante</h3>
             <div class="row">
                 {{Form::display($solicitud->getSolicitante(),'nombre',3, true)}}

@@ -13,7 +13,7 @@ class DocumentossasycesController extends BaseController {
     }
     
     public function getIndex(){
-       $data['documentossasyces'] = Documentossasyc::paginate(5);
+       $data['documentossasyces'] = Documentossasyc::orderBy('id','desc')->paginate(5);
         return View::make('documentos.documentossasyces',$data);
     }
 

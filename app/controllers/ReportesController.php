@@ -32,7 +32,7 @@ class ReportesController extends BaseController {
         'especial_edad' => 'Edad',
     ];
     private static $columnas_descripciones = [
-        '' => 'Selecciones',
+        '' => 'Seleccione',
         'estados.estado_id' => 'estados.nombre',
         'areas.tipo_ayuda_id' => 'tipo_ayudas.nombre',
         'solicitudes.area_id' => 'areas.nombre',

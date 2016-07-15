@@ -1,7 +1,6 @@
 <?php
 
-require_once('webservices/nusoap.php');
-
+require_once('/var/www/html/sasyc/app/ayudantes/webservices/nusoap.php');
 /**
  * Procesa Documentos SASYC-KERUX.
  * @param integer $id_doc Identificador de documento
@@ -181,10 +180,11 @@ function actualizaEstatusSolicitud($dbh, $solicitud_id) {
 }
 
 $server = new \soap_server();
-$server->configureWSDL("procesar", "http://localhost/sasyc/app/");
+$namespace = 'http://localhost/sasyc/app/';
+$server->configureWSDL("procesar", $namespace);
 $server->soap_defencoding = 'utf-8';
 $server->xml_encoding = "utf-8";
-$server->wsdl->schemaTargetNamespace = "http://localhost/sasyc/app/";
+$server->wsdl->schemaTargetNamespace = $namespace;
 
 $server->register("procesaDocumento", array(
     "user" => "xsd:string",
@@ -196,7 +196,7 @@ $server->register("procesaDocumento", array(
     "ref_doc" => "xsd:string",
     "num_op" => "xsd:integer",
     "tipo_evento" => "xsd:string",
-        ), array("return" => "xsd:string"), "http://localhost/sasyc/app/", "http://localhost/sasyc/app/procesar/procesaDocumento", "rpc", "encoded", "Procesa Eventos de Documentos");
+        ), array("return" => "xsd:string"), $namespace, "http://localhost/sasyc/app/procesar/procesaDocumento", "rpc", "encoded", "Procesa Eventos de Documentos");
 $HTTP_RAW_POST_DATA = file_get_contents("php://input");
 $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : "";
 $server->service($HTTP_RAW_POST_DATA);
