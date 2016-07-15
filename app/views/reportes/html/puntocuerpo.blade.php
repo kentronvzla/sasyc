@@ -52,7 +52,7 @@
        El cheque esta emitido a favor de:<br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>
-                {{(isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs.
+                {{(isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;BOLIVARES.
                 {{tm($resultado->montoapr)}}<br>
             </strong>
         @endforeach 
@@ -99,7 +99,7 @@
        esta emitido a favor de:<br><br>
         @foreach($solicitud->presupuestos as $resultado)
             <strong>
-                {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;Bs 
+                {{ (isset($resultado->beneficiario->nombre) && $resultado->beneficiario->nombre != null) ? $resultado->beneficiario->nombre : ""}} por&nbsp;BOLIVARES 
                 {{tm($resultado->montoapr)}}<br>
             </strong>
         @endforeach 

@@ -4,7 +4,7 @@
     <table width="100%" border="0" cellpadding="10" cellspacing="0">
         <tr>
             <td style="width: 70px; height: auto; font-size: 14px;" valign="middle">
-                <strong>DBS-197</strong>
+                <strong>DBS-{{$solicitud->num_proc}}</strong>
             </td>
             <td style="width: 600px; height: auto; font-size: 14px;" valign="middle" align="center">
                 <strong>Memorandum</strong>
@@ -18,7 +18,7 @@
                 <strong>Para:</strong>
             </td>
             <td style="width: 580px; height: auto; font-size: 14px;" valign="middle" >
-                {{Configuracion::get('coordinador')}}&nbsp;Director de Administración
+                {{Configuracion::get('coordinador')}}&nbsp;Director de Administraci&oacute;n
             </td>  
         </tr>
         <tr>
@@ -26,7 +26,6 @@
                 <strong>De:</strong>
             </td>
             <td style="width: 580px; height: auto; font-size: 14px;" valign="middle">
-                <!--1er. TTE. Evelyn Cárdenas Directora de Bienestar Social-->
                 {{$solicitud->departamento->supervisor->nombre}} Director(a) de {{$solicitud->departamento->nombre}}
             </td>  
         </tr>
