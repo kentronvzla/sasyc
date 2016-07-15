@@ -35,19 +35,19 @@
                     <tr>
                         <td style="width: 370px; height: auto;">
                             A- AL: {{Configuracion::get('presidente')}}<br>
-                            Presidente de la Fundacion Pueblo Soberano (FPS)
+                            Presidente de la Fundaci&oacute;n Pueblo Soberano (FPS)
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 370px; height: auto;">
                             B- AL: {{Configuracion::get('coordinador')}}<br>
-                            Coordinador General de la Fundacion Pueblo Soberano (FPS)
+                            Coordinador General de la Fundaci&oacute;n Pueblo Soberano (FPS)
                         </td>
                     </tr>
                     <tr>    
                         <td style="width: 370px; height: auto;">
-                            C- POR: Direcciones de Administracion y Bienestar Social
-                            de la Fundación Pueblo Soberano
+                            C- POR: Direcciones de Administraci&oacute;n y Bienestar Social
+                            de la Fundaci&oacute;n Pueblo Soberano
                         </td>
                     </tr>
                 </table>
@@ -62,7 +62,7 @@
     <table width="100%" border="1" cellpadding="10" cellspacing="0">
         <tr style=' background:#d8d8d8;'>
             <td style="width: 690px; height: auto;"> 
-                <strong>5- Asunto: Solicitud de ayuda económica</strong>
+                <strong>5- Asunto: Solicitud de ayuda econ&oacute;mica</strong>
             </td>
         </tr>
         <tr>
@@ -84,7 +84,7 @@
         <tr style=' background:#d8d8d8;'>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
                 <strong>
-                    6- Presentado por: Direccion de {{$solicitud->departamento->nombre or ""}}
+                    6- Presentado por: Direcci&oacute;n de {{$solicitud->departamento->nombre or ""}}
                 </strong>
             </td>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
@@ -121,7 +121,7 @@
     <table width="100%" border="1" cellpadding="10" cellspacing="0">
         <tr style=' background:#d8d8d8;'>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
-                <strong>9- Aprobado por: Administración</strong>
+                <strong>9- Aprobado por: Administraci&oacute;n</strong>
             </td>
             <td style="width: 225px; height: auto;" valign="middle" align=center>
                 <strong>10- Revisado por: Coordinador General</strong>
