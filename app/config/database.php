@@ -42,8 +42,8 @@ return array(
     'connections' => array(
         'pgsql' => array(
             'driver' => 'pgsql',
-            'host' => 'appwebdesa.kentron.com.ve',
-            'database' => 'sasyc_desarrollo',
+            'host' => 'localhost',
+            'database' => 'sasycdev',
             'username' => 'sasyc',
             'password' => 'sasyc',
             'charset' => 'utf8',
@@ -52,11 +52,11 @@ return array(
         ),
         'oracle' => array(
             'driver' => 'oracle',
-            'host' => 'olimpo',
+            'host' => '172.27.9.198',
             'port' => '1521',
-            'database' => 'keruxalt',
-            'username' => 'sasyc',
-            'password' => 'sasyc',
+            'database' => 'KERUX',
+            'username' => 'SASYC',
+            'password' => 'SASYC',
             'charset' => 'AL32UTF8',
             'prefix' => '',
         ),
