@@ -210,7 +210,7 @@ class ReportesController extends BaseController {
             $con = strtoupper($V->ValorEnLetras($valor[0], " BOLIVARES. Con "));
             return $con . strtoupper($V->ValorEnLetras($valor[1], " Centimos")) . " (Bs. " . tm($monto) . ")";
         } else {
-            return strtoupper($V->ValorEnLetras($valor[0], " Bs. ")) . " (BOLIVARES. " . tm($monto) . ")";
+            return strtoupper($V->ValorEnLetras($valor[0], " BOLIVARES. ")) . " (Bs. " . tm($monto) . ")";
         }
     }
 
