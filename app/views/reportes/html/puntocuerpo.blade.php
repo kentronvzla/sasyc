@@ -16,7 +16,7 @@
         identidad 
         <strong>{{($solicitud->getSolicitante()->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->getSolicitante()->ci}}&nbsp;</strong>, por la cantidad de 
         <strong>&nbsp;{{$montoASCII}}&nbsp;</strong> 
-        a favor del ciudadan@&nbsp;
+        a favor del ciudadano(a)&nbsp;
 
         <strong>
             {{strtoupper($solicitud->getBeneficiario()->nombre)}}&nbsp;
