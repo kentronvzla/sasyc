@@ -27,7 +27,7 @@
             @elseif(!$solicitud->getBeneficiario()->parroquia)
             <h4><span class="label label-danger">Debe indicar el Estado, Municipio y Parroquia del beneficiario</span></h4>                            
 
-            @elseif( (!$solicitud->getBeneficiario()->telefono_fijo) && (!$solicitud->getBeneficiario()->telefono_celular) && (!$solicitud->getBeneficiario()->telefono_otro))
+            @elseif((!$solicitud->getBeneficiario()->telefono_fijo) && (!$solicitud->getBeneficiario()->telefono_celular) && (!$solicitud->getBeneficiario()->telefono_otro))
             <h4><span class="label label-danger">Debe asignarle al menos un número de teléfono.</span></h4>
             @endif
 

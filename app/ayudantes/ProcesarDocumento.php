@@ -105,7 +105,7 @@ class ProcesarDocumento {
                         } else {
                             $pkg = $this->llamarPackage($doc_origen->iddoc, 'nuevo');
                             array_push($rsp_pkg, $pkg);
-                            $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
+                            $this->actualizarEstatusPresupuesto($data, $evento, $presupuesto);
                         }
                     }
                 } else {
@@ -127,7 +127,7 @@ class ProcesarDocumento {
                                 $pkg = $this->llamarPackage($doc_origen->iddoc, 'viejo');
                                 array_push($rsp_pkg, $pkg);
                             }
-                            $this->atualizarEstatusPresupuesto($data, $evento, $presupuesto);
+                            $this->actualizarEstatusPresupuesto($data, $evento, $presupuesto);
                         }
                     }
                 }
@@ -217,7 +217,7 @@ class ProcesarDocumento {
         return $valida_sts;
     }
 
-    public function atualizarEstatus($data, $autorizador_id = null) {
+    public function actualizarEstatus($data, $autorizador_id = null) {
         list($cont_aprobados, $cont_devueltos, $cont_procesados, $cont_total) = array(0, 0, 0, 0);
         $presupuestos_model = Presupuesto::where('solicitud_id', '=', $data['solicitud']['id'])->get();
         $cont_total = count($presupuestos_model);
