@@ -24,14 +24,10 @@
             @elseif(count($recaudos)<=0)
             <h4><span class="label label-danger">No se puede aprobar la solicitud, faltan recaudos por consignar</span></h4>
             
-            @elseif(!$solicitud->personaSolicitante->parroquia)
-            <h4><span class="label label-danger">Debe asignarle una Parroquia</span></h4>                            
-            @elseif(!$solicitud->personaSolicitante->parroquia->municipio)        
-            <h4><span class="label label-danger">Debe asignarle un Municipio.</span></h4>                    
-            @elseif(!$solicitud->personaSolicitante->parroquia->municipio->estado)            
-            <h4><span class="label label-danger">Debe asignarle un Estado</span></h4>
+            @elseif(!$solicitud->getBeneficiario()->parroquia)
+            <h4><span class="label label-danger">Debe indicar el Estado, Municipio y Parroquia del beneficiario</span></h4>                            
 
-            @elseif( (!$solicitud->personaSolicitante->telefono_fijo) && (!$solicitud->personaSolicitante->telefono_celular) && (!$solicitud->personaSolicitante->telefono_otro) )           
+            @elseif( (!$solicitud->getBeneficiario()->telefono_fijo) && (!$solicitud->getBeneficiario()->telefono_celular) && (!$solicitud->getBeneficiario()->telefono_otro))
             <h4><span class="label label-danger">Debe asignarle al menos un número de teléfono.</span></h4>
             @endif
 
