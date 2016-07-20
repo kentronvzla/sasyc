@@ -208,6 +208,10 @@ class ReportesController extends BaseController {
         $valor = explode(".", $monto);
         if (count($valor) > 1) {
             $con = strtoupper($V->ValorEnLetras($valor[0], " BOLIVARES. Con "));
+            
+            if(strlen($valor[1])<2){
+                $valor[1] = $valor[1] * 10;
+            }
             return $con . strtoupper($V->ValorEnLetras($valor[1], " Centimos")) . " (Bs. " . tm($monto) . ")";
         } else {
             return strtoupper($V->ValorEnLetras($valor[0], " BOLIVARES. ")) . " (Bs. " . tm($monto) . ")";
