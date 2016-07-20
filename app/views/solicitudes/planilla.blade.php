@@ -82,7 +82,7 @@
         </div>        
     </div>
 </div>
-<!--------------------------------------------------------------------------------------->
+
 <div class="col-xs-12 col-sm-4 col-md-4 hidden-xs">
     <div id="div-bitacora" class="panel panel-danger">
         <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelBitacora">
