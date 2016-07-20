@@ -1,6 +1,5 @@
 @extends('reportes.html.'.Input::get('formato_reporte','pdf'))
 @section('reporte')
-<br><br><br><br><br>
     <table width="100%" border="1" cellpadding="10" cellspacing="0">
         <tr>
             <td style="width: 550px; height: 5%; font-size: 18px;" valign="middle" align=center>
