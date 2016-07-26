@@ -30,8 +30,8 @@
                         {{Form::btInput($solicitud,'referente_id',6)}}
                     </div>
                     <div class="row">
-                        {{Form::btInput($solicitud,'created_at_desde',6)}}
-                        {{Form::btInput($solicitud,'created_at_hasta',6)}}
+                        {{Form::btInput($solicitud,'updated_at_desde',6)}}
+                        {{Form::btInput($solicitud,'updated_at_hasta',6)}}
                     </div>
                 </div>
             </div>

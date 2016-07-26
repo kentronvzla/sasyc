@@ -16,7 +16,7 @@ class SolicitarController extends BaseController {
         return View::make('solicitudes.planilla', $data);
     }
 
-    public function getIndex() {
+    public function getIndex() {        
         $data['solicitudes'] = Solicitud::eagerLoad()
             ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','cerrar','anulando','']))
             ->ordenar();
@@ -35,7 +35,7 @@ class SolicitarController extends BaseController {
         } else if(Input::has('solo_asignadas')){
             $data['solo_asignadas'] = true;
         }
-        $data['solicitudes'] = $data['solicitudes']->paginate(5);
+        $data['solicitudes'] = $data['solicitudes']->paginate(10);
         //se usa para el helper de busqueda
         $data['persona'] = new Persona();
         $data['solicitud'] = new Solicitud();

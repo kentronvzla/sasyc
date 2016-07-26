@@ -18,7 +18,7 @@ class SolicitudesController extends BaseController {
         return View::make('solicitudes.planilla', $data);
     }
 
-    public function getIndex() {        
+    public function getIndex() {           
         $data['solicitudes'] = Solicitud::eagerLoad()
                 ->aplicarFiltro(Input::except(['asignar', 'solo_asignadas', 'page', 'cerrar', 'anulando', '']))
                 ->ordenar();

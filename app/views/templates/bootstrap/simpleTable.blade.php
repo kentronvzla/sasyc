@@ -14,7 +14,7 @@
         @foreach($collection as $object)
             <tr>
                 @foreach($prettyFields as $key=>$col)
-                    <td class="{{$object->isDecimalField($key) ? 'decimal-format':''}}">
+                    <td class="{{$object->isDecimalField($key) ? 'number-format':''}}">
                             @if($object->isBooleanField($key))
                                 {{$object->getValueAt($key) == 't' || $object->getValueAt($key) == 'Si' ? 'SI':'NO'}}
                             @else
