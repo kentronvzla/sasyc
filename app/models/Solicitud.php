@@ -177,7 +177,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         'total_ingresos' => '',
     ];
     protected $dates = ['fecha_asignacion', 'fecha_aceptacion',
-        'fecha_aprobacion', 'fecha_cierre', 'created_at'];
+        'fecha_aprobacion', 'fecha_cierre', 'created_at','updated_at'];
     public static $tipo_procesamientos = [
         'P' => 'Punto de Cuenta',
         'M' => 'Memo',
@@ -222,8 +222,9 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'departamento_id' => 'Departamento',
             'num_solicitud' => 'Número de Solicitud',
             'created_at' => 'Fecha de registro',
-            'created_at_desde' => 'Fecha de registro desde',
-            'created_at_hasta' => 'Fecha de registro hasta',
+            'updated_at' => 'Fecha de actualización',
+            'updated_at_desde' => 'Fecha de actualización desde',
+            'updated_at_hasta' => 'Fecha de actualización hasta',
         ];
     }
 
