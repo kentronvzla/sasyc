@@ -129,7 +129,7 @@ class Bitacora extends BaseModel implements DefaultValuesInterface, SimpleTableI
     }
 
     public function getNotaforAttribute() {
-        return $this->nota . '<br><small>' . $this->created_at->format('d/m/Y h:i a') . '</small>';
+        return $this->nota . '<br><small>' . $this->fecha->format('d/m/Y') . '</small>';
     }
 
     public function getVencidaAttribute(){

@@ -333,8 +333,8 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
         return $this->hasMany('Presupuesto');
     }
 
-    public function bitacoras() {
-        return $this->hasMany('Bitacora');
+    public function bitacoras(){
+        return $this->hasMany('Bitacora')->orderBy('id','DESC');
     }
 
     public function recaudosSolicitud() {
