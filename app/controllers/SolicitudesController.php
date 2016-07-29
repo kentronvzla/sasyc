@@ -19,9 +19,21 @@ class SolicitudesController extends BaseController {
     }
 
     public function getIndex() {           
+        if (Input::has('anulando')){        
         $data['solicitudes'] = Solicitud::eagerLoad()
-                ->aplicarFiltro(Input::except(['asignar', 'solo_asignadas', 'page', 'cerrar', 'anulando', '']))
-                ->ordenar();
+            ->whereIn('estatus', array('ELA','ELD','EAA','ART','ACA','DEV'))
+            ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','cerrar','anulando','reasignar','']))
+        ->ordenar();        
+        }else if(Input::has('reasignar')){            
+        $data['solicitudes'] = Solicitud::eagerLoad()
+            ->whereIn('estatus', array('ELD','EAA','ACA','DEV'))
+            ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','cerrar','anulando','reasignar','']))
+        ->ordenar();        
+        }else{        
+        $data['solicitudes'] = Solicitud::eagerLoad()
+            ->aplicarFiltro(Input::except(['asignar', 'solo_asignadas', 'page', 'cerrar', 'anulando','reasignar', '']))
+            ->ordenar();    
+        }        
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
             $data['sts'] = Input::get('estatus');
@@ -34,10 +46,19 @@ class SolicitudesController extends BaseController {
             $data['ruta'] = '?estatus='.Input::get('estatus').'&asignar='.Input::get('asignar');
         } else if (Input::has('anulando')) {
             $data['anulando'] = true;
+            //$data['sts'] = Input::get('estatus');
+            $data['ruta'] = '?estatus[]=ELA&estatus[]=ELD&estatus[]=EAA&estatus[]=ART&estatus[]=ACA&estatus[]=DEV&anulando=true';
         } else if (Input::has('cerrar')) {
             $data['cerrar'] = true;
         } else if (Input::has('solo_asignadas')) {
             $data['solo_asignadas'] = true;
+        } else if(Input::has('reasignar')){
+            $data['reasignar'] = true;
+            $data['sts'] = Input::get('estatus');
+            $data['ruta'] = '?estatus[]=ELD&estatus[]=EAA&estatus[]=ACA&estatus[]=DEV&reasignar=true';
+                $usuario = Usuario::getLogged();
+                $data['solicitudes']->whereDepartamentoId($usuario->departamento_id);
+                $data['analistas'] = $usuario->getCompaneros();            
         }
         $data['solicitudes'] = $data['solicitudes']->paginate(30);
         //se usa para el helper de busqueda
