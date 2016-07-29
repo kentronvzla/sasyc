@@ -63,7 +63,7 @@
                     <li>{{HTML::link('solicitudes?estatus=ELD&asignar=usuario','Asignar Analista')}}</li>
                     @endif
                     @if(Usuario::puedeAcceder('GET.solicitudes.reasignaranalista'))
-                    <li>{{HTML::link('solicitudes?estatus=EAA&asignar=usuario','Reasignar Analista')}}</li>
+                    <li>{{HTML::link('solicitudes?estatus[]=ELD&estatus[]=EAA&estatus[]=ACA&estatus[]=DEV&reasignar=true','Reasignar Analista')}}</li>
                     @endif
                     <li class="divider"></li>
                     @if(Usuario::puedeAcceder('GET.memorandum.ver'))
@@ -81,7 +81,7 @@
                     <li>{{HTML::link('solicitudes?estatus=APR&cerrar=true','Cerrar solicitud')}}</li>
                     @endif
                     @if(Usuario::puedeAcceder('GET.solicitudes.anular'))
-                    <li>{{HTML::link('solicitudes?estatus[]=ELA&estatus[]=ELD&estatus[]=EAA&estatus[]=ART&estatus[]=ECA&estatus[]=DEV&anulando=true','Anular solicitud')}}</li>
+                    <li>{{HTML::link('solicitudes?estatus[]=ELA&estatus[]=ELD&estatus[]=EAA&estatus[]=ART&estatus[]=ACA&estatus[]=DEV&anulando=true','Anular solicitud')}}</li>
                     @endif
                 </ul>
             </li>

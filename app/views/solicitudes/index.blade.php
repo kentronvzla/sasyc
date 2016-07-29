@@ -9,9 +9,8 @@
                     </a>
                 </h4>
             </div>
-                   
-            <div id="PanelBusqueda" class="panel-collapse collapse">
-                @if(isset($campo))
+            <div id="PanelBusqueda" class="panel-collapse collapse">             
+                @if(isset($campo) or isset($anulando) or isset($reasignar))                
                     <div class="panel-body">
                         {{Form::busqueda(['url'=>'solicitudes','method'=>'GET'])}}
                         @include('solicitudes.busqueda')

@@ -607,7 +607,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     }
 
     public function anular($nota) {
-        if ($this->estatus == "ELA" || $this->estatus == "ART") {
+        if ($this->estatus == "ELA" || $this->estatus == "ART" || $this->estatus == "ELD" || $this->estatus == "EAA" || $this->estatus == "ACA" || $this->estatus == "DEV") {
             $this->estatus = "ANU";
             $this->save();
             Bitacora::registrar($nota, $this->id);
