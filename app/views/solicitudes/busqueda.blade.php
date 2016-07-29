@@ -115,6 +115,12 @@
                  {{ Form::hidden('asignar', $campo) }}                 
                  {{ Form::hidden('estatus', $sts) }}                 
             	@endif      
+                @if(isset($anulando))        
+                 {{ Form::hidden('anulando', $anulando) }}                                  
+                @endif
+                @if(isset($reasignar))        
+                 {{ Form::hidden('reasignar', $reasignar) }}
+                @endif
             </div>
         </div>
     </div>

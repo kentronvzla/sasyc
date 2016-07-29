@@ -258,7 +258,7 @@
                 </div>
             </div> 
         </div>
-        @if($solicitud->estatus == 'ACA')
+        @if($solicitud->estatus == 'ACA' || $solicitud->estatus == 'DEV')
         <div class="panel panel-danger">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordionlateral" href="#PanelPlanilla">
                 <h4 class="panel-title">
