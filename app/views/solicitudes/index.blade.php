@@ -71,7 +71,7 @@
 	                            <br>¿Atención Inmediata?: <b>{{$solicitud->ind_inmediata ? "Si":"No"}}</b>
 	                        @endif
 	                            <br>Fecha Registro: <b>{{$solicitud->created_at->format('d/m/Y H:i')}}</b>
-	                        @if(!isset($campo))
+	                        @if(!isset($campo)))
 	                            <br>Autorizado: <b>{{$solicitud->usuarioAutorizacion->nombre or "Sin Asignar"}}</b>
 	                            <br>Departamento: <b>{{$solicitud->departamento->nombre or "Sin Asignar"}}</b>
 	                            <br>Encargado: <b>{{$solicitud->usuarioAsignacion->nombre or "Sin Asignar"}}</b>
@@ -126,13 +126,13 @@
                             @if(isset($cerrar))
                                 {{HTML::button('solicitudes/cerrar/'.$solicitud->id, 'lock','Cerrar Solicitud', true)}}
                             @endif
-                            @if(isset($solo_asignadas) && $solicitud->puedeAceptarAsignacion())
+                            @if(isset($solo_asignadas) && !isset($reasignar) && $solicitud->puedeAceptarAsignacion())
                                 {{HTML::button('solicitudes/aceptarasignacion/'.$solicitud->id, 'check','Aceptar Asignación', true)}}
                             @endif
-                            @if(isset($solo_asignadas) && $solicitud->puedeDevolverAsignacion())
+                            @if(isset($solo_asignadas) && !isset($reasignar) && $solicitud->puedeDevolverAsignacion())
                                 {{HTML::button('solicitudes/devolverasignacion/'.$solicitud->id, 'undo','Devolver Asignación', true)}}
                             @endif
-                            @if(isset($solo_asignadas) && $solicitud->puedeSolicitarAprobacion())
+                            @if(isset($solo_asignadas) && !isset($reasignar) && $solicitud->puedeSolicitarAprobacion())
                                 {{HTML::button('solicitudes/solicitaraprobacion/'.$solicitud->id, 'certificate','Solicitar Aprobación', true)}}
                             @endif
                             {{HTML::button('solicitudes/historial/'.$solicitud->id, 'bitcoin','Bitacora', true)}}
