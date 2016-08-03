@@ -424,7 +424,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             $recSolicitud->save();
         });
 
-        Bitacora::registrar('Se registró la solicitud.', $model->id);
+        Bitacora::registrar('Solicitud registrada satisfactoriamente por:'. Sentry::getUser()->nombre, $model->id);
     }
 
     public function getTableFields() {

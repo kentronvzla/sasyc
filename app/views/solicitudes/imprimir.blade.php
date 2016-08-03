@@ -111,7 +111,7 @@
                 </td>
                 <td style="width: 220px;height: auto;">
                     <strong>Cedula: </strong>&nbsp;
-                    {{$beneficiario->ci or ""}}
+                    {{($beneficiario->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$beneficiario->ci or ""}}
                 </td>
                 <td style="width: 100px;height: auto;">
                     <strong>Sexo: </strong>&nbsp;
@@ -228,7 +228,7 @@
                 </td>
                 <td style="width: 220px;height: auto;">
                     <strong>Cedula: </strong>&nbsp;
-                    {{$solicitud->personaSolicitante->ci or ""}}
+                    {{($solicitud->personaSolicitante->tipoNacionalidad->id==1) ? "V" : "E"}}-{{$solicitud->personaSolicitante->ci or ""}}
                 </td>
                 <td style="width: 100px;height: auto;">
                     <strong>Sexo: </strong>&nbsp;
@@ -241,7 +241,7 @@
                 </td>
                 <td style="width: 200px;height: auto;">
                     <strong>Fecha de Nacimiento:</strong>&nbsp;
-                    {{$solicitud->personaSolicitante->fecha_nacimiento!=null ? $beneficiario->fecha_nacimiento->format('d/m/Y'):""}}
+                    {{$solicitud->personaSolicitante->fecha_nacimiento!=null ? $solicitud->personaSolicitante->fecha_nacimiento->format('d/m/Y'):""}}
                 </td>
                 <td style="width: 220px;height: auto;">
                     <strong>Edad:</strong>&nbsp;
@@ -249,7 +249,7 @@
                 </td>
                 <td style="width: 100px;height: auto;">
                     <strong>Trabaja?:</strong>&nbsp;
-                    {{$solicitud->personaBeneficiario->ind_trabaja ? "Si":"No"}}
+                    {{$solicitud->personaSolicitante->ind_trabaja ? "Si":"No"}}
                 </td>
             </tr>
             <tr>
@@ -267,7 +267,7 @@
                 </td>
                 <td style="width: 100px;height: auto;">
                     <strong>Asegurado?:</strong>&nbsp;
-                    {{$solicitud->personaBeneficiario->ind_asegurado ? "Si":"No"}}
+                    {{$solicitud->personaSolicitante->ind_asegurado ? "Si":"No"}}
                 </td>
             </tr>
             <tr>
@@ -343,8 +343,10 @@
         @endif
     </div>
     <div>
-		<p>
-           <strong>Procesada por: {{$solicitud->usuarioAsignacion->nombre}}</strong>
+	<p>
+            @if($solicitud->usuarioAsignacion!=null)
+            <strong>Procesada por: {{$solicitud->usuarioAsignacion->nombre}}</strong>
+            @endif
         </p>
     </div>
 </page>
