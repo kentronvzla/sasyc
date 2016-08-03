@@ -38,13 +38,15 @@
                     </p>
                 </td>
             </tr>
+            @if(isset($solicitud->usuarioAsignacion->nombre))            
             <tr>
                 <td colspan="3" style="text-align: justify;"> 
                     <p>
                        <strong>Redactado por: {{$solicitud->usuarioAsignacion->nombre}}</strong>
                     </p>
                 </td>
-            </tr>
+            </tr>            
+            @endif
         </table>
     </div>
 </div>    
