@@ -212,7 +212,7 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
             'usuario_asignacion_id' => 'Analista',
             'usuario_autorizacion_id' => 'Autorizado por',
             'fecha_asignacion' => 'Fecha de asignación',
-            'fecha_aceptacion' => 'Fecha de aceptación',
+            'fecha_aceptacion' => 'Fecha de procesamiento',
             'fecha_aprobacion' => 'Fecha de aprobación',
             'fecha_cierre' => 'Fecha cierre',
             'tipo_vivienda_id' => 'Tipo de vivienda',
@@ -620,10 +620,10 @@ class Solicitud extends BaseModel implements DefaultValuesInterface, SimpleTable
     public function aceptarAsignacion() {
         if ($this->puedeAceptarAsignacion()) {
             $this->estatus = "ACA";
-            $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
+            //  $this->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
             $this->save();
             Bitacora::registrar('El analista aceptó la solicitud', $this->id);
-//            $this->configurarPresupuesto($num_proc);
+            //  $this->configurarPresupuesto($num_proc);
             return !$this->hasErrors();
         }
         $this->addError('estatus', 'La solicitud ' . $this->id . ' no esta en el estatus correcto');
