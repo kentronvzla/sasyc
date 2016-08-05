@@ -34,9 +34,13 @@ trait EloquentExtensionTrait {
             $esfecha = false;
         }
         if($esfecha){
-            $operador = str_contains($campo,'_desde') ? '>=':'<=';
-            $campo = str_replace('_desde','',$campo);
-            $campo = str_replace('_hasta','',$campo);
+            if(str_contains($campo,'_desde') || str_contains($campo,'_hasta')){
+                $operador = str_contains($campo,'_desde') ? '>=':'<=';
+                $campo = str_replace('_desde','',$campo);
+                $campo = str_replace('_hasta','',$campo);
+            }else{
+                $operador = '=';
+            }
             $query->where($campo,$operador,$fecha);
         }
         else if(is_array($valor)){
