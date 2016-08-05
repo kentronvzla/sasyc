@@ -56,12 +56,12 @@
                                 <br>Cédula: <b>{{$solicitud->personaSolicitante->ci}}</b><br>
                                 <br><a href="#" data-toggle="tooltip" data-original-title="{{$solicitud->personaSolicitante->informacion_contacto}}">(Información de contacto)</a>
                             @endunless
-                            <br>Solicitud: <b>{{$solicitud->num_solicitud}}</b><br>
+                            <br>Solicitud: <b>{{$solicitud->num_solicitud}}</b>
                             @if(!isset($campo))
                             	<br>Referencia: <b>{{$solicitud->id}}</b><br>
-                            	<br>Referido por: <b>{{$solicitud->referente->nombre}}</b><br>
-                            	<br>Estatus: <b>{{$solicitud->estatus_display}}</b>
+                            	<br>Referido por: <b>{{$solicitud->referente->nombre}}</b>
                             @endif
+                            <br>Estatus: <b>{{$solicitud->estatus_display}}</b>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             {{$solicitud->descripcion}} / {{$solicitud->necesidad}}

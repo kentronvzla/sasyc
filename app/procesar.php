@@ -164,7 +164,14 @@ function actualizaEstatusSolicitud($dbh, $solicitud_id) {
         } elseif ($cont_procesados > 0) {
             $estatus = "PPA";
         }
-        $sql = "UPDATE solicitudes SET estatus ='" . $estatus . "' WHERE id ='" . $solicitud_id . "' RETURNING estatus;";
+        $sql = "UPDATE solicitudes SET estatus ='" . $estatus . "'";
+        
+        if($estatus=="APR"){
+            $sql = $sql . ", fecha_aprobacion = '" . date("Y-m-d") . "'";
+        }
+        
+        $sql = $sql . " WHERE id ='" . $solicitud_id . "' RETURNING estatus;";
+        
         $stmt = $dbh->query($sql);
         if ($stmt === false) {
             return false;

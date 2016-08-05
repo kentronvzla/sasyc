@@ -87,42 +87,29 @@
         <td ALIGN=CENTER style="width: 130px;height:auto;">
             {{$resultado->estatus_display}}
         </td>        
-        <td style="width: 130px;height:auto;">
-        </td>
-        <td ALIGN=right style="width: 130px;height:auto;" valign="middle" ALIGN=right>
+        <td ALIGN=right style="width: 130px;height:auto;" valign="middle"  colspan="2">
+            <table width="100%">
+                @foreach($resultado->presupuestos as $key=>$presupuesto)
+                <tr>
+                    <td style="width: 130px;height:auto;" ALIGN=left>
+                        {{$presupuesto->requerimiento->nombre}}
+                    </td>
+                    <td style="width: 170px;height:auto;" valign="middle" ALIGN=right>
+                        {{$presupuesto->montoapr_for}}
+                    </td>
+                </tr>
+                <!------------------------------------------->
+                {{--*/ $subtotal += $presupuesto->montoapr /*--}}
+                {{--*/ $totalref += $presupuesto->montoapr /*--}}
+                {{--*/ $totalgen += $presupuesto->montoapr /*--}}
+                <!------------------------------------------->
+
+                @endforeach 
+            </table>
         </td>
     </tr>
 
-    @foreach($resultado->presupuestos as $key=>$presupuesto)
-    <tr>
-        <td style="width: 20px;height:auto;" valign="middle" ALIGN=center>
-        </td>
-        <td style="width: 15px;height:auto;" valign="middle" ALIGN=center>
-        </td>        
-        <td style="width: 140px;height:auto;" >
-        </td>
-        <td ALIGN=CENTER style="width: 65px;height:auto;">
-        </td>
-        <td ALIGN=CENTER style="width: 70px;height:auto;">
-        </td>
-        <td style="width: 170px;height:auto;"> 
-        </td>
-        <td ALIGN=CENTER style="width: 130px;height:auto;">
-        </td>        
-        <td style="width: 130px;height:auto;">
-            {{$presupuesto->requerimiento->nombre}}
-        </td>
-        <td ALIGN=right style="width: 130px;height:auto;" valign="middle" ALIGN=right>
-            {{$presupuesto->montoapr_for}}
-        </td>
-    </tr>
-    <!------------------------------------------->
-    {{--*/ $subtotal += $presupuesto->montoapr /*--}}
-    {{--*/ $totalref += $presupuesto->montoapr /*--}}
-    {{--*/ $totalgen += $presupuesto->montoapr /*--}}
-    <!------------------------------------------->
 
-    @endforeach 
     <!-------------------------------------------> 
     {{--*/ $i++ /*--}}
     <!------------------------------------------->
