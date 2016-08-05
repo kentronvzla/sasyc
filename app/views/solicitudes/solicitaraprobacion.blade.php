@@ -29,6 +29,8 @@
 
             @elseif((!$solicitud->getBeneficiario()->telefono_fijo) && (!$solicitud->getBeneficiario()->telefono_celular) && (!$solicitud->getBeneficiario()->telefono_otro))
             <h4><span class="label label-danger">Debe asignarle al menos un número de teléfono.</span></h4>
+            @elseif(!$solicitud->getBeneficiario()->fecha_nacimiento)
+            <h4><span class="label label-danger">Debe asignar fecha de nacimiento.</span></h4>
             @endif
 
         </div>

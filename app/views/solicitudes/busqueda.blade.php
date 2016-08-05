@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div>
-            	@if(isset($campo))        
+            	@if(isset($campo) and !isset($reasignar))        
                  {{ Form::hidden('asignar', $campo) }}                 
                  {{ Form::hidden('estatus', $sts) }}                 
             	@endif      
@@ -120,6 +120,7 @@
                 @endif
                 @if(isset($reasignar))        
                  {{ Form::hidden('reasignar', $reasignar) }}
+                 {{ Form::hidden('campo', $campo) }}                 
                 @endif
             </div>
         </div>

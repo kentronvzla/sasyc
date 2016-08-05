@@ -38,8 +38,6 @@
             <th>
                 <strong>Monto</strong>
             </th>
-            <th class="texto-centrado-excel fondo-excel">
-            </th>
         </tr>
     </thead>
     <!------------------------------------------->
@@ -94,35 +92,38 @@
             </td>
             <td>
                 {{$resultado->estatus_display}}
-            </td>        
+            </td>                   
+             @if($resultado->presupuestos->count()==0)
+            <td>                
+            </td>
             <td>
+                0
             </td>
-            <td class="texto-derecha-excel">
-            </td>
-        </tr>
-
-        @foreach($resultado->presupuestos as $key=>$presupuesto)
-        <tr>
-            <td></td>
-            <td></td>        
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>        
+            @endif
+            @foreach($resultado->presupuestos as $key=>$presupuesto)
             <td>
                 {{$presupuesto->requerimiento->nombre}}
             </td>
             <td class="texto-derecha-excel">
                 {{$presupuesto->montoapr_for}}
             </td>
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <!------------------------------------------->
+            {{--*/ $subtotal += $presupuesto->montoapr /*--}}
+            {{--*/ $totalref += $presupuesto->montoapr /*--}}
+            {{--*/ $totalgen += $presupuesto->montoapr /*--}}
+            <!------------------------------------------->
+            @endforeach 
+
         </tr>
-        <!------------------------------------------->
-        {{--*/ $subtotal += $presupuesto->montoapr /*--}}
-        {{--*/ $totalref += $presupuesto->montoapr /*--}}
-        {{--*/ $totalgen += $presupuesto->montoapr /*--}}
-        <!------------------------------------------->
-        @endforeach 
         <!-------------------------------------------> 
         {{--*/ $i++ /*--}}
         <!------------------------------------------->

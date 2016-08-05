@@ -24,7 +24,7 @@ class SolicitudesController extends BaseController {
             ->whereIn('estatus', array('ELA','ELD','EAA','ART','ACA','DEV'))
             ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','cerrar','anulando','reasignar','']))
         ->ordenar();        
-        }else if(Input::has('reasignar')){            
+        }else if(Input::has('reasignar')){             
         $data['solicitudes'] = Solicitud::eagerLoad()
             ->whereIn('estatus', array('ELD','EAA','ACA','DEV'))
             ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','cerrar','anulando','reasignar','']))
@@ -53,6 +53,8 @@ class SolicitudesController extends BaseController {
         } else if (Input::has('solo_asignadas')) {
             $data['solo_asignadas'] = true;
         } else if(Input::has('reasignar')){
+            $data['solo_asignadas'] = true;
+            $data['campo'] = 'usuario';
             $data['reasignar'] = true;
             $data['sts'] = Input::get('estatus');
             $data['ruta'] = '?estatus[]=ELD&estatus[]=EAA&estatus[]=ACA&estatus[]=DEV&reasignar=true';
@@ -213,7 +215,9 @@ class SolicitudesController extends BaseController {
 
     public function getSolicitaraprobacion($id) {
         $data['solicitud'] = Solicitud::findOrFail($id);
-        $data['solicitud']->configurarPresupuesto("", false);
+        if($data['solicitud']->num_proc==null){
+            $data['solicitud']->configurarPresupuesto("", false);    
+        }        
         $data['informe'] = $data['solicitud']->informe_social;
         $data['manual'] = Configuracion::get('ind_secuencia_automatica') == "No";
         $data['recaudos'] = RecaudoSolicitud::whereSolicitudId($id)
@@ -237,7 +241,10 @@ class SolicitudesController extends BaseController {
                     $this->cancelarTransaccion();
                     return Response::json($mensaje, 400);
                 } else {
-                    $solicitud->configurarPresupuesto($num_proc);
+                    //dump($solicitud->num_proc); exit();
+                    if($solicitud->num_proc == null){
+                        $solicitud->configurarPresupuesto($num_proc);
+                    }                    
                     $proc_documento->actualizarEstatus($data, Input::get('usuario_autorizacion_id'));
                 }
             } else {
@@ -295,7 +302,9 @@ class SolicitudesController extends BaseController {
     }
 
     public function getHistorial($id, $store = false) {
-        $data['solicitud'] = Solicitud::findOrFail($id);
+        $data['solicitud'] = Solicitud::findOrFail($id);        
+        $data['bitacora'] = new Bitacora();
+        $data['bitacoras'] = $data['solicitud']->bitacoras;
         return View::make('solicitudes.historial', $data);
     }
 

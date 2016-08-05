@@ -21,6 +21,7 @@ class AceptarController extends BaseController {
             ->whereIn('estatus', array('ACA','DEV'))
             ->aplicarFiltro(Input::except(['asignar','solo_asignadas','page','cerrar','anulando','']))
             ->ordenar();
+            $data['solo_asignadas'] = true;
         if (Input::has('asignar')) {
             $data['campo'] = Input::get('asignar');
             $data['solicitud'] = new Solicitud();

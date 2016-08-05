@@ -1,6 +1,10 @@
 {{Form::open(['url'=>'solicitudes/asignar', 'class'=>'saveajax','data-callback'=>'asignado'])}}
 <div class="panel panel-danger">
+  @if(isset($reasignar))
+    <div class="panel-heading"><h4 class="panel-title">Reasignar solicitudes seleccionadas</h4></div>
+  @else
     <div class="panel-heading"><h4 class="panel-title">Asignar solicitudes seleccionadas</h4></div>
+  @endif
     <div class="panel-body">
         <div id='solicitudes-marcadas'>
 
