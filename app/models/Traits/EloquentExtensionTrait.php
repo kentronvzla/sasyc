@@ -11,7 +11,7 @@ namespace Traits;
 
 trait EloquentExtensionTrait {
 
-    public function parseFilter($campo, $valor, $query){
+    public function parseFilter($campo, $valor, $query){    
         //se verifica si hay que buscar en otras tablas
         if(str_contains($campo, '->')){
             $arrayOps = explode('->', $campo);
@@ -37,7 +37,10 @@ trait EloquentExtensionTrait {
             $operador = str_contains($campo,'_desde') ? '>=':'<=';
             $campo = str_replace('_desde','',$campo);
             $campo = str_replace('_hasta','',$campo);
-            $query->where($campo,$operador,$fecha);
+            $query->whereDate($campo,$operador,$fecha->toDateString());  
+//            $query->whereDay($campo, '=', $fecha->day);
+//            $query->whereMonth($campo, '=', $fecha->month);
+//            $query->whereYear($campo, '=', $fecha->year);
         }
         else if(is_array($valor)){
             $query->whereIn($campo, $valor);
