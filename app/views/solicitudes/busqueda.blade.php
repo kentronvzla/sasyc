@@ -30,6 +30,10 @@
                         {{Form::btInput($solicitud,'referente_id',6)}}
                     </div>
                     <div class="row">
+                        {{Form::btInput($solicitud,'fecha_aceptacion',6)}}
+                        {{Form::btInput($solicitud,'fecha_aprobacion',6)}}
+                    </div>                    
+                    <div class="row">
                         {{Form::btInput($solicitud,'updated_at_desde',6)}}
                         {{Form::btInput($solicitud,'updated_at_hasta',6)}}
                     </div>
@@ -111,7 +115,7 @@
                 </div>
             </div>
             <div>
-            	@if(isset($campo))        
+            	@if(isset($campo) and !isset($reasignar))        
                  {{ Form::hidden('asignar', $campo) }}                 
                  {{ Form::hidden('estatus', $sts) }}                 
             	@endif      
@@ -120,6 +124,7 @@
                 @endif
                 @if(isset($reasignar))        
                  {{ Form::hidden('reasignar', $reasignar) }}
+                 {{ Form::hidden('campo', $campo) }}                 
                 @endif
             </div>
         </div>

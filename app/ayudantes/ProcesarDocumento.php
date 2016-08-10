@@ -249,6 +249,8 @@ class ProcesarDocumento {
         } elseif ($cont_procesados > 0) {
             if (!empty($solicitud_model)) {
                 $solicitud_model->estatus = "PPA";
+                //Ahora esta fecha va a ser actualizada cuando sea procesado por sasyc
+                $solicitud_model->fecha_aceptacion = \Carbon\Carbon::now()->format('d/m/Y');
                 $solicitud_model->usuario_autorizacion_id = $autorizador_id;
                 $solicitud_model->beneficiario_json = json_encode($solicitud_model->personaBeneficiario->toArray());
                 if (is_object($solicitud_model->personaSolicitante)) {

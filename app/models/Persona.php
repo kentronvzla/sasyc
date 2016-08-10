@@ -130,7 +130,7 @@ class Persona extends BaseModel implements SimpleTableInterface, DecimalInterfac
         'sexo' => '',
         'estado_civil_id' => 'integer',
         'lugar_nacimiento' => '',
-        'fecha_nacimiento' => 'required',
+        'fecha_nacimiento' => '',
         'nivel_academico_id' => 'integer',
         'parroquia_id' => 'integer',
         'ciudad' => '',
