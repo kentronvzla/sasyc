@@ -5,7 +5,7 @@
         <title>@yield('titulo','Sasyc')</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Sistema de atención social y ciudadana">
-
+        <link type="text/plain" rel="author" href="{{url("")}}/humans.txt" />
         <!--CSS-->
         {{HTML::style('css/bootstrap-united.min.css')}}
         {{HTML::style('css/charisma-app.css')}}

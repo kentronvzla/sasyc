@@ -1,0 +1,39 @@
+/* TEAM */
+Owner and Copy: Kentron Sistemas de Información C.A
+Contact: info [at] kentron.com.ve
+Site: http://kentron.com.ve
+Twitter: @kentron
+From: Caracas, Venezuela 
+
+Web Developer: Nadin Yamaui
+Contact: nadinyamaui [at] outlook.com
+Site: https://github.com/arasmit2453
+From: Caracas, Venezuela    
+
+Web Developer: Richard Arrieta
+Contact: richarrieta [at] gmail.com
+Site: https://github.com/richarrieta
+From: Caracas, Venezuela 
+
+Web Developer: Reysmer Valle
+Contact: reysmerwvr [at]  gmail.com
+Site: https://github.com/reysmerwvr
+Twitter: @ValleReysmer
+From: Caracas, Venezuela 
+
+Web Developer: Alejandro Zuvic
+Contact: alejandrozuvic1 [at] gmail.com
+Site: https://github.com/azuvic
+From: Caracas, Venezuela
+
+Legal Terms: Kentron Sistemas de Información C.A
+Contact: info [at] kentron.com.ve
+Site: http://kentron.com.ve
+From: Caracas, Venezuela
+
+/* SITE */
+Last update: 2016/08/10
+Standards: HTML5, CSS3, PHP, JavaScript.
+Components: Boostrap, jQuery, Laravel.
+Doctype:HTML5
+IDE: NetBeans, Sublime Text, Notepad++.
